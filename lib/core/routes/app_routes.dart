@@ -1,4 +1,4 @@
-import 'package:fintech/features/home/ui/home_screen.dart';
+import 'package:fintech/features/home/presentation/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'base_routes.dart';
 
@@ -12,7 +12,7 @@ class AppRoutes {
         return BaseRoutes(page: HomeScreen());
 
       default:
-        return null;
+        return BaseRoutes(page: HomeScreen());
     }
   }
 }

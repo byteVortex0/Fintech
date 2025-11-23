@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import '../color_manager.dart';
 
 class ColorThemeExtension extends ThemeExtension<ColorThemeExtension> {
-  final Color? bgColor;
+  final Color? backgroundColor;
 
-  const ColorThemeExtension({required this.bgColor});
+  const ColorThemeExtension({required this.backgroundColor});
 
   @override
-  ThemeExtension<ColorThemeExtension> copyWith({Color? bgColor}) {
-    return ColorThemeExtension(bgColor: bgColor ?? this.bgColor);
+  ThemeExtension<ColorThemeExtension> copyWith({Color? backgroundColor}) {
+    return ColorThemeExtension(backgroundColor: backgroundColor ?? this.backgroundColor);
   }
 
   @override
@@ -20,14 +20,14 @@ class ColorThemeExtension extends ThemeExtension<ColorThemeExtension> {
     if (other is! ColorThemeExtension) {
       return this;
     }
-    return ColorThemeExtension(bgColor: Color.lerp(bgColor, other.bgColor, t));
+    return ColorThemeExtension(backgroundColor: Color.lerp(backgroundColor, other.backgroundColor, t));
   }
 
   static const ColorThemeExtension light = ColorThemeExtension(
-    bgColor: Colors.white,
+    backgroundColor: Colors.white,
   );
 
   static const ColorThemeExtension dark = ColorThemeExtension(
-    bgColor: DarkColorManager.bgColor,
+    backgroundColor: DarkColorManager.backgroundColor,
   );
 }

@@ -8,5 +8,5 @@ void main() async {
 
   setupInjection();
 
-  runApp(const FintechApp());
+  runApp(const FinTechApp());
 }
