@@ -19,7 +19,7 @@ class FinTechApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),
         onGenerateRoute: AppRoutes.onGenerateRoute,
-        initialRoute: AppRoutes.home,
+        initialRoute: AppRoutes.onboarding,
       ),
     );
   }
