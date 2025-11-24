@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fintech/core/routes/app_routes.dart';
 import '../widgets/curved_background.dart';
 import '../widgets/login_form.dart';
 import '../widgets/social_login_section.dart';
@@ -8,11 +9,11 @@ class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   void _navigateToFaceId(BuildContext context) {
-    Navigator.of(context).pushNamed('face_id_scanning');
+    Navigator.of(context).pushNamed(AppRoutes.faceIdScanning);
   }
 
   void _navigateToFingerprint(BuildContext context) {
-    Navigator.of(context).pushNamed('touch_id_scanning');
+    Navigator.of(context).pushNamed(AppRoutes.touchIdScanning);
   }
 
   void _handleLogin(BuildContext context) {
@@ -24,7 +25,7 @@ class LoginPage extends StatelessWidget {
   }
 
   void _navigateToRegister(BuildContext context) {
-    Navigator.of(context).pushNamed('register');
+    Navigator.of(context).pushNamed(AppRoutes.register);
   }
 
   @override

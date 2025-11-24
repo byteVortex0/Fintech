@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'login_input_field.dart';
+import 'package:fintech/shared/widgets/app_text_field.dart';
 
 class LoginForm extends StatefulWidget {
   final VoidCallback onLoginPressed;
@@ -39,13 +39,13 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        LoginInputField(
+        AppTextField(
           hintText: 'E-mail ID',
           controller: _emailController,
           prefixIcon: Icons.mail_outline,
         ),
         SizedBox(height: 16.h),
-        LoginInputField(
+        AppTextField(
           hintText: 'Password',
           controller: _passwordController,
           obscureText: true,
