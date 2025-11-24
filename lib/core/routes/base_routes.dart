@@ -4,8 +4,8 @@ class BaseRoutes extends PageRouteBuilder {
   final Widget page;
   BaseRoutes({required this.page})
     : super(
-        pageBuilder:
-            (context, animation, secondaryAnimation) => Stack(children: [page]),
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            Stack(children: [page]),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           const double begin = 0.0;
           const double end = 1.0;

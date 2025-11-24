@@ -8,12 +8,15 @@ A professional Flutter cryptocurrency trading application with real-time market 
 
 ### Implemented ✅
 - **Onboarding Flow** - Professional 4-slide carousel with smooth animations
+- **Login Screen** - Email/password authentication with social login (Face ID & Fingerprint)
+- **Face ID Scanning** - Full-screen scanning animation
+- **Face ID Verified** - Success screen after verification
 - **Responsive Design** - Works seamlessly on all screen sizes using `flutter_screenutil`
 - **Theme Support** - Light and Dark mode ready (implementation in progress)
 
 ### In Development 🚧
 - **Splash Screen** - App initialization and onboarding check
-- **Authentication** - Login and registration screens
+- **Register Screen** - User registration flow
 - **Home Screen** - Market overview with trending coins
 - **Market Screen** - Full coin list with search and pagination
 - **Coin Details** - Detailed price charts and information
@@ -75,8 +78,8 @@ This project follows **Clean Architecture** with a **Feature-First** approach:
 lib/
 ├── features/                 # Feature modules
 │   ├── onboarding/          # Onboarding flow ✅
+│   ├── login/               # Login & Face ID authentication ✅
 │   ├── splash/              # App initialization (planned)
-│   ├── auth/                # Authentication (planned)
 │   ├── home/                # Home screen (planned)
 │   ├── market/              # Market listing (planned)
 │   ├── coin_details/        # Coin details (planned)
@@ -190,8 +193,9 @@ Prompt used: [UI implementation / API integration / etc]
 - [x] Project structure setup
 - [x] Core utilities & services
 - [x] Onboarding feature
+- [x] Login & Face ID authentication
 - [ ] Splash screen
-- [ ] Authentication screens
+- [ ] Register screen
 
 ### Phase 2: State Management 🚧
 - [ ] BLoC integration
@@ -310,5 +314,6 @@ For questions or issues:
 
 ---
 
-**Last Updated**: November 23, 2025
+**Last Updated**: November 23, 2025 (Login Feature Complete)
 **Project Status**: In Active Development 🚀
+**Current Phase**: Login Feature ✅ → Next: Register Feature

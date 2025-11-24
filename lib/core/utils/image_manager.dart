@@ -4,6 +4,15 @@ class ImageManager {
   static const String getStart = 'assets/images/get_start.png';
   static const String cat = 'assets/images/cat.png';
 
+  // Login assets
+  static const String faceIdBg = 'assets/images/login/face_id_bg.png';
+  static const String faceId = 'assets/images/login/face_id.png';
+  static const String faceIdRight = 'assets/images/login/face_id_right.png';
+  static const String faceIdWithText =
+      'assets/images/login/face_id_with_text.png';
+  static const String finger = 'assets/images/login/finger.png';
+  static const String rightCheckmark = 'assets/images/login/Right.png';
+
   //svg
   static const String home = 'assets/images/svg/home.svg';
   static const String homeFilled = 'assets/images/svg/home_filled.svg';
