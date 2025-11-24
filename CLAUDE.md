@@ -21,9 +21,22 @@
       - Change 2
       Prompt used: [security/learning/planning]
 
-14. I will NOT execute git commands (push/commit/pull). 
+14. I will NOT execute git commands (push/commit/pull).
     You have full control over the git workflow and when to commit/push.
     I will only provide you with:
     - Updated code files
     - High-level summary of changes
     - Ready-to-use code that you can review before committing
+
+15. Feature Development Workflow (screens → documentation):
+    - Create a new branch for each feature (feature/{feature-name})
+    - I will send you screens one at a time
+    - After finishing each screen, I will ask for the next screen
+    - When you say "last screen", I will automatically:
+      - Update PROJECT_SUMMARY.md
+      - Update PROJECT_REQUIREMENTS.md
+      - Update README.md
+      - Update tasks/todo.md
+      - Create tasks/{FEATURE}_IMPLEMENTATION.md
+    - Then commit and push all files together
+    - You don't need to mention this - it's automatic

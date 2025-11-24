@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/routes/app_routes.dart';
+import 'core/navigation/navigation_service.dart';
 
 class FinTechApp extends StatelessWidget {
   const FinTechApp({super.key});
@@ -18,6 +19,7 @@ class FinTechApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),
+        navigatorKey: NavigationService.navigatorKey,
         onGenerateRoute: AppRoutes.onGenerateRoute,
         initialRoute: AppRoutes.onboarding,
       ),

@@ -47,7 +47,7 @@ class FaceIdScanningPage extends StatelessWidget {
 
   Widget _buildFaceIdCard(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).pushNamed('face_id_verified'),
+      onTap: () => Navigator.of(context).pushNamed('set_face_id_verified'),
       child: Container(
         padding: EdgeInsets.all(20.w),
         decoration: BoxDecoration(

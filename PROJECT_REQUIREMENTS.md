@@ -63,7 +63,7 @@ lib/
    - [x] Face ID Verified (success with checkmark card)
    - [x] Touch ID Scanning (fingerprint icon)
    - [x] Touch ID Verified (success with filled checkmark)
-   - [ ] Register/Signup
+   - [x] Register/Signup (Form + Face ID & Fingerprint setup)
 
 2. **Home** - Market overview, trending coins, top gainers
 
@@ -175,12 +175,25 @@ lib/
 - [x] Touch ID Scanning UI (fingerprint icon)
 - [x] Touch ID Verified UI (success screen with filled checkmark)
 - [x] Social login icons (Fingerprint & Face ID)
-- [ ] Register/Signup UI
+- [x] Register/Signup UI (Email, password, biometric setup)
+- [x] Set Face ID UI (Skip/Continue buttons)
+- [x] Set Fingerprint UI (Tap fingerprint, Skip button)
+- [x] Face ID Verified UI (Register flow completion)
+- [x] Fingerprint Verified UI (Register flow completion)
 - [ ] Implement biometric authentication logic (BLoC)
 - [ ] Setup secure token storage
 - [ ] Implement auto-lock mechanism
 - [ ] Screenshot prevention on sensitive screens
 - [ ] Root detection (optional)
+
+### Phase 2.5: Code Quality & Refactoring (COMPLETE)
+
+- [x] Replace all hardcoded route strings with AppRoutes constants
+- [x] Create shared AppTextField widget
+- [x] Create NavigationService for centralized navigation
+- [x] Add comprehensive code comments
+- [x] Verify 0 hardcoded routes in codebase
+- [x] Update app infrastructure files
 
 ### Phase 3: Core Features
 1. Home Screen (market overview)
