@@ -1,5 +1,6 @@
 import 'package:fintech/core/utils/image_manager.dart';
 import 'package:fintech/core/routes/app_routes.dart';
+import 'package:fintech/core/navigation/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../login/presentation/widgets/curved_background.dart';
@@ -18,12 +19,12 @@ class SetFaceIdPage extends StatelessWidget {
   /// Skips Face ID setup and returns to login
   /// Clears stack to prevent returning to register flow
   void _handleSkip(BuildContext context) {
-    Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.login, (route) => false);
+    NavigationService.navigateToAndRemoveUntil(AppRoutes.login);
   }
 
   /// Proceeds to Face ID scanning screen
   void _handleContinue(BuildContext context) {
-    Navigator.of(context).pushNamed(AppRoutes.faceIdScanning);
+    NavigationService.navigateTo(AppRoutes.faceIdScanning);
   }
 
   @override

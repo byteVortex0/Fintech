@@ -1,5 +1,6 @@
 import 'package:fintech/core/utils/image_manager.dart';
 import 'package:fintech/core/routes/app_routes.dart';
+import 'package:fintech/core/navigation/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,7 +18,7 @@ class SetFaceIdVerifiedPage extends StatelessWidget {
   /// Completes Face ID setup and returns to login
   /// Clears stack so user starts fresh from login
   void _handleContinue(BuildContext context) {
-    Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.login, (route) => false);
+    NavigationService.navigateToAndRemoveUntil(AppRoutes.login);
   }
 
   @override
@@ -162,7 +163,7 @@ class SetFaceIdVerifiedPage extends StatelessWidget {
       left: 16.w,
       child: SafeArea(
         child: GestureDetector(
-          onTap: () => Navigator.of(context).pop(),
+          onTap: NavigationService.goBack,
           child: Icon(Icons.arrow_back_ios, color: Colors.white, size: 24.sp),
         ),
       ),

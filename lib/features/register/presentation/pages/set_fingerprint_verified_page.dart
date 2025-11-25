@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fintech/core/routes/app_routes.dart';
+import 'package:fintech/core/navigation/navigation_service.dart';
 import '../../../login/presentation/widgets/curved_background.dart';
 
 /// SetFingerprintVerifiedPage - Fingerprint verification success confirmation screen
@@ -17,7 +18,7 @@ class SetFingerprintVerifiedPage extends StatelessWidget {
   /// Completes fingerprint setup and returns to login
   /// Clears stack so user starts fresh from login
   void _handleContinue(BuildContext context) {
-    Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.login, (route) => false);
+    NavigationService.navigateToAndRemoveUntil(AppRoutes.login);
   }
 
   @override
