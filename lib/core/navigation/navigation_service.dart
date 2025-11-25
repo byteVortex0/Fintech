@@ -44,5 +44,11 @@ class NavigationService {
       navigateTo(AppRoutes.faceIdVerified);
   static Future<dynamic> goToTouchIdVerified() =>
       navigateTo(AppRoutes.touchIdVerified);
+  static Future<dynamic> goToSetFaceId() => navigateTo(AppRoutes.setFaceId);
+  static Future<dynamic> goToSetFaceIdVerified() =>
+      navigateTo(AppRoutes.setFaceIdVerified);
+  static Future<dynamic> goToSetFingerprint() =>
+      navigateTo(AppRoutes.setFingerprint);
+  static Future<dynamic> goToSetFingerprintVerified() =>
+      navigateTo(AppRoutes.setFingerprintVerified);
 }
-

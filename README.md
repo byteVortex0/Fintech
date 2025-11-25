@@ -14,12 +14,19 @@ A professional Flutter cryptocurrency trading application with real-time market 
 - **Face ID Verified** - Success screen with checkmark card
 - **Touch ID Scanning** - Fingerprint icon with curved background
 - **Touch ID Verified** - Success screen with filled checkmark circle
+- **Register Screen** - User registration with 6 input fields
+- **Set Face ID** - Face ID setup during registration (Skip/Continue)
+- **Set Fingerprint** - Fingerprint setup during registration
+- **Face ID & Fingerprint Verified** - Success screens for registration flow
+- **Shared AppTextField** - Reusable text input across app
+- **NavigationService** - Centralized navigation management
+- **AppRoutes Constants** - No hardcoded route strings (0 found)
 - **Responsive Design** - Works seamlessly on all screen sizes using `flutter_screenutil`
 - **Theme Support** - Light and Dark mode ready (implementation in progress)
 
 ### In Development 🚧
+
 - **Splash Screen** - App initialization and onboarding check
-- **Register Screen** - User registration flow
 - **Home Screen** - Market overview with trending coins
 - **Market Screen** - Full coin list with search and pagination
 - **Coin Details** - Detailed price charts and information
@@ -333,4 +340,4 @@ For questions or issues:
 
 **Last Updated**: November 24, 2025
 **Project Status**: In Active Development
-**Current Phase**: Login Feature Complete → Next: Register Feature
+**Current Phase**: Register Feature Complete → Next: Home Screen
