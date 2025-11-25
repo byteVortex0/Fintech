@@ -18,6 +18,9 @@ class AppRoutes {
   static const String home = 'home';
   static const String login = 'login';
   static const String register = 'register';
+  static const String market = 'market';
+  static const String portfolio = 'portfolio';
+  static const String settings = 'settings';
   static const String setFingerprint = 'set_fingerprint';
   static const String setFingerprintVerified = 'set_fingerprint_verified';
   static const String setFaceId = 'set_face_id';
@@ -27,9 +30,9 @@ class AppRoutes {
   static const String touchIdScanning = 'touch_id_scanning';
   static const String touchIdVerified = 'touch_id_verified';
 
-  static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
-    // final args = settings.arguments;
-    switch (settings.name) {
+  static Route<dynamic>? onGenerateRoute(RouteSettings routeSettings) {
+    // final args = routeSettings.arguments;
+    switch (routeSettings.name) {
       case onboarding:
         return BaseRoutes(page: const OnboardingPage());
       case home:
@@ -54,6 +57,15 @@ class AppRoutes {
         return BaseRoutes(page: const TouchIdScanningPage());
       case touchIdVerified:
         return BaseRoutes(page: const TouchIdVerifiedPage());
+      case market:
+        // TODO: Implement market screen
+        return BaseRoutes(page: const OnboardingPage());
+      case portfolio:
+        // TODO: Implement portfolio screen
+        return BaseRoutes(page: const OnboardingPage());
+      case settings:
+        // TODO: Implement settings screen
+        return BaseRoutes(page: const OnboardingPage());
 
       default:
         return BaseRoutes(page: const OnboardingPage());

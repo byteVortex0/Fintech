@@ -12,23 +12,7 @@
 11. Explicitly handle error handling and edge cases for every feature
 12. Add a Code Review step: after implementation, ask Claude to review for redundancy, 
     performance issues, and simplification opportunities
-13. After each completed task:
-    - I will provide you with the changes made and updated files
-    - You are responsible for reviewing and pushing to git
-    - You will create commits with messages following this format:
-      feat: brief description
-      - Change 1
-      - Change 2
-      Prompt used: [security/learning/planning]
-
-14. I will NOT execute git commands (push/commit/pull).
-    You have full control over the git workflow and when to commit/push.
-    I will only provide you with:
-    - Updated code files
-    - High-level summary of changes
-    - Ready-to-use code that you can review before committing
-
-15. Feature Development Workflow (screens → documentation):
+13. Feature Development Workflow (screens → documentation):
     - Create a new branch for each feature (feature/{feature-name})
     - I will send you screens one at a time
     - After finishing each screen, I will ask for the next screen
@@ -41,7 +25,7 @@
     - Then commit and push all files together
     - You don't need to mention this - it's automatic
 
-16. Code Documentation & Comments:
+14. Code Documentation & Comments:
     - Add strategic documentation comments ONLY to critical sections
     - Focus on: navigation flows, state management, complex business logic, shared infrastructure
     - Explain PURPOSE and ARCHITECTURE, not implementation details
@@ -50,8 +34,24 @@
     - Avoid redundant comments on obvious code (e.g., "// Set name to value")
     - Goal: Make code readable and maintainable for team collaboration
 
-17. **CRITICAL ARCHITECTURAL RULES** (from PR review):
+15. **CRITICAL ARCHITECTURAL RULES** (from PR review):
     - ALL navigation in the entire app MUST go through NavigationService
     - NEVER use Navigator.of(context) directly
     - NEVER use hardcoded route strings - always use AppRoutes constants
     - Verify every PR to ensure navigation compliance
+
+16. After each completed task:
+    - I will provide you with the changes made and updated files
+    - You are responsible for reviewing and pushing to git
+    - You will create commits with messages following this format:
+      feat: brief description
+      - Change 1
+      - Change 2
+      Prompt used: [security/learning/planning]
+
+17. I will NOT execute git commands (push/commit/pull).
+    You have full control over the git workflow and when to commit/push.
+    I will only provide you with:
+    - Updated code files
+    - High-level summary of changes
+    - Ready-to-use code that you can review before committing
