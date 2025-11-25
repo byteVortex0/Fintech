@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/shared/widgets/app_text_field.dart';
+import 'login_input_field.dart';
 
 /// LoginForm - Stateful email/password input form widget
 ///
 /// Manages credential-based authentication form with:
-/// - Email and Password input fields using shared AppTextField
+/// - Email and Password input fields using LoginInputField widget
 /// - Remember me checkbox state management
 /// - Forgot password navigation callback
 /// - Form state lifecycle (controllers, cleanup)
@@ -58,7 +58,7 @@ class _LoginFormState extends State<LoginForm> {
     return Column(
       children: [
         /// Email input field with mail icon and standard validation
-        AppTextField(
+        LoginInputField(
           hintText: 'E-mail ID',
           controller: _emailController,
           prefixIcon: Icons.mail_outline,
@@ -66,7 +66,7 @@ class _LoginFormState extends State<LoginForm> {
         SizedBox(height: 16.h),
 
         /// Password input field with obscure text toggle and lock icon
-        AppTextField(
+        LoginInputField(
           hintText: 'Password',
           controller: _passwordController,
           obscureText: true,

@@ -29,23 +29,20 @@ class NavigationService {
   }
 
   static void goBack() {
-    return navigatorKey.currentState?.pop();
+    navigatorKey.currentState?.pop();
   }
 
   // Navigation helpers for common routes
-  static void goToLogin() => navigateTo(AppRoutes.login);
-  static void goToRegister() => navigateTo(AppRoutes.register);
-  static void goToHome() => navigateToAndRemoveUntil(AppRoutes.home);
-  static void goToFaceIdScanning() => navigateTo(AppRoutes.faceIdScanning);
-  static void goToTouchIdScanning() => navigateTo(AppRoutes.touchIdScanning);
-  static void goToFaceIdVerified() => navigateTo(AppRoutes.faceIdVerified);
-  static void goToTouchIdVerified() => navigateTo(AppRoutes.touchIdVerified);
-  static void goToSetFaceId() => navigateTo(AppRoutes.setFaceId);
-  static void goToSetFaceIdVerified() =>
-      navigateTo(AppRoutes.setFaceIdVerified);
-  static void goToSetFingerprint() => navigateTo(AppRoutes.setFingerprint);
-  static void goToSetFingerprintVerified() =>
-      navigateTo(AppRoutes.setFingerprintVerified);
-  static void goToLoginAndRemoveUntil() =>
-      navigateToAndRemoveUntil(AppRoutes.login);
+  static Future<dynamic> goToLogin() => navigateTo(AppRoutes.login);
+  static Future<dynamic> goToRegister() => navigateTo(AppRoutes.register);
+  static Future<dynamic> goToHome() => navigateToAndRemoveUntil(AppRoutes.home);
+  static Future<dynamic> goToFaceIdScanning() =>
+      navigateTo(AppRoutes.faceIdScanning);
+  static Future<dynamic> goToTouchIdScanning() =>
+      navigateTo(AppRoutes.touchIdScanning);
+  static Future<dynamic> goToFaceIdVerified() =>
+      navigateTo(AppRoutes.faceIdVerified);
+  static Future<dynamic> goToTouchIdVerified() =>
+      navigateTo(AppRoutes.touchIdVerified);
 }
+
