@@ -21,9 +21,15 @@
       - Change 2
       Prompt used: [security/learning/planning]
 
-14. I will NOT execute git commands (push/commit/pull). 
+14. I will NOT execute git commands (push/commit/pull).
     You have full control over the git workflow and when to commit/push.
     I will only provide you with:
     - Updated code files
     - High-level summary of changes
     - Ready-to-use code that you can review before committing
+
+15. **CRITICAL ARCHITECTURAL RULES** (from PR review):
+    - ALL navigation in the entire app MUST go through NavigationService
+    - NEVER use Navigator.of(context) directly
+    - NEVER use hardcoded route strings - always use AppRoutes constants
+    - Verify every PR to ensure navigation compliance
