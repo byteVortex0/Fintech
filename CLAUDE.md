@@ -40,3 +40,12 @@
       - Create tasks/{FEATURE}_IMPLEMENTATION.md
     - Then commit and push all files together
     - You don't need to mention this - it's automatic
+
+16. Code Documentation & Comments:
+    - Add strategic documentation comments ONLY to critical sections
+    - Focus on: navigation flows, state management, complex business logic, shared infrastructure
+    - Explain PURPOSE and ARCHITECTURE, not implementation details
+    - Use class-level docstrings for shared widgets and services explaining their role in the system
+    - Comments should help team members understand WHY code exists, not just WHAT it does
+    - Avoid redundant comments on obvious code (e.g., "// Set name to value")
+    - Goal: Make code readable and maintainable for team collaboration
