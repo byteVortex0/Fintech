@@ -2,6 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fintech/shared/widgets/app_text_field.dart';
 
+/// RegisterForm - Stateful signup form widget with 6 input fields
+///
+/// Manages multi-field registration form with:
+/// - First Name and Last Name input fields
+/// - Email and Password fields with visibility toggle
+/// - Confirm Password field for validation
+/// - Phone number field
+/// - All fields use shared AppTextField for consistency
+/// - Form state lifecycle (controllers, cleanup)
 class RegisterForm extends StatefulWidget {
   final Function() onRegisterPressed;
   final Function() onLoginPressed;
@@ -17,11 +26,29 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
+  /// Controls first name input field text
+  /// Must be disposed to prevent memory leaks
   late final TextEditingController _firstNameController;
+
+  /// Controls last name input field text
+  /// Must be disposed to prevent memory leaks
   late final TextEditingController _lastNameController;
+
+  /// Controls email input field text
+  /// Must be disposed to prevent memory leaks
   late final TextEditingController _emailController;
+
+  /// Controls password input field text
+  /// Must be disposed to prevent memory leaks
   late final TextEditingController _passwordController;
+
+  /// Controls confirm password input field text
+  /// Used to validate password match before submission
+  /// Must be disposed to prevent memory leaks
   late final TextEditingController _confirmPasswordController;
+
+  /// Controls phone number input field text
+  /// Must be disposed to prevent memory leaks
   late final TextEditingController _phoneController;
 
   @override

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+/// RegisterHeader - Reusable header widget for registration page
+///
+/// Displays title and descriptive text to introduce the signup flow.
+/// Used in RegisterPage as the topmost section.
 class RegisterHeader extends StatelessWidget {
   const RegisterHeader({super.key});
 

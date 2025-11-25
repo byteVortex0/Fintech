@@ -4,6 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../login/presentation/widgets/curved_background.dart';
 
+/// SetFaceIdPage - Face ID setup option screen for new users
+///
+/// Presented during registration flow to offer Face ID biometric setup.
+/// Responsibilities:
+/// - Display Face ID setup prompt with description text
+/// - Provide Skip button to bypass biometric setup
+/// - Provide Continue button to proceed to Face ID scanning
+/// - Both options route to appropriate next steps in registration flow
 class SetFaceIdPage extends StatelessWidget {
   const SetFaceIdPage({super.key});
 
