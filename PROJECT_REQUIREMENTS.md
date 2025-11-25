@@ -46,11 +46,39 @@ lib/
 - Events → Processing → States pattern
 
 ### 3. OOP + SOLID Principles
+
 - **S**: Single Responsibility
 - **O**: Open/Closed
 - **L**: Liskov Substitution
 - **I**: Interface Segregation
 - **D**: Dependency Inversion
+
+### 4. Navigation Architecture
+
+- **ALL navigation in the entire app MUST go through NavigationService**
+- Location: `lib/core/navigation/navigation_service.dart`
+- Centralized navigation using GlobalKey for NavigatorState
+- Context-free navigation for decoupled components
+- All route references MUST use AppRoutes constants (never hardcoded strings)
+
+#### Navigation Methods
+
+```dart
+NavigationService.navigateTo(AppRoutes.routeName)              // Push
+NavigationService.navigateToAndReplace(AppRoutes.routeName)    // Replace
+NavigationService.navigateToAndRemoveUntil(AppRoutes.routeName) // Clear stack
+NavigationService.goBack()                                      // Pop
+```
+
+#### FORBIDDEN ❌
+
+```dart
+Navigator.of(context).pushNamed(...)        // NEVER use this
+Navigator.of(context).pushReplacementNamed(...) // NEVER use this
+Navigator.of(context).pop()                 // NEVER use this
+context.push(...)                           // NEVER use this
+Navigator.push(...)                         // NEVER use this
+```
 
 ---
 
