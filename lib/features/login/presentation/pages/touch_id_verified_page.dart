@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fintech/core/routes/app_routes.dart';
+import 'package:fintech/core/navigation/navigation_service.dart';
 import '../widgets/curved_background.dart';
 
 class TouchIdVerifiedPage extends StatelessWidget {
   const TouchIdVerifiedPage({super.key});
 
   void _handleContinue(BuildContext context) {
-    Navigator.of(context).pushNamed('home');
+    NavigationService.navigateToAndRemoveUntil(AppRoutes.home);
   }
 
   @override
@@ -82,7 +84,7 @@ class TouchIdVerifiedPage extends StatelessWidget {
       left: 16.w,
       child: SafeArea(
         child: GestureDetector(
-          onTap: () => Navigator.of(context).pop(),
+          onTap: NavigationService.goBack,
           child: Icon(
             Icons.arrow_back_ios,
             color: const Color(0xFF1A2B4A),

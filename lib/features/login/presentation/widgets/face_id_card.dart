@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fintech/core/utils/image_manager.dart';
 
+/// FaceIdCard - Reusable card widget for Face ID biometric status display
+///
+/// Displays Face ID status with circular image, title, and subtitle text.
+/// Used in face_id_scanning_page and face_id_verified_page with different states:
+/// - isVerified=false: Shows scanning state with prompt text
+/// - isVerified=true: Shows verification complete with success icon
 class FaceIdCard extends StatelessWidget {
   final String title;
   final String subtitle;

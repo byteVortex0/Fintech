@@ -49,3 +49,9 @@
     - Comments should help team members understand WHY code exists, not just WHAT it does
     - Avoid redundant comments on obvious code (e.g., "// Set name to value")
     - Goal: Make code readable and maintainable for team collaboration
+
+17. **CRITICAL ARCHITECTURAL RULES** (from PR review):
+    - ALL navigation in the entire app MUST go through NavigationService
+    - NEVER use Navigator.of(context) directly
+    - NEVER use hardcoded route strings - always use AppRoutes constants
+    - Verify every PR to ensure navigation compliance
