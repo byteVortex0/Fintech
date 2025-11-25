@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+/// LoginHeader - Reusable header widget for biometric pages
+///
+/// Displays title and subtitle text with responsive styling.
+/// Used in biometric scanning pages (face_id_scanning, touch_id_scanning)
+/// to provide consistent header formatting across authentication flows.
 class LoginHeader extends StatelessWidget {
   final String title;
   final String subtitle;

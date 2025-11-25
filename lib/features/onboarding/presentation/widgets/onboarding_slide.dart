@@ -3,6 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../data/models/onboarding_item.dart';
 import 'package:fintech/core/utils/fonts/font_weight_helper.dart';
 
+/// OnboardingSlide - Individual slide widget for PageView carousel
+///
+/// Each slide displays an image and accompanying text content.
+/// Used in OnboardingPage's PageView.builder for carousel rendering.
+/// Designed to work responsively across different screen sizes.
 class OnboardingSlide extends StatelessWidget {
   final OnboardingItem item;
 
@@ -12,13 +17,17 @@ class OnboardingSlide extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      /// SafeArea prevents content overlap with system UI (notches, status bars)
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Image Section
+              /// Image Section: 60% of available space (flex: 3)
+              /// Using Flex ensures consistent image area across different screen heights
+              /// BoxFit.contain preserves aspect ratio without clipping
+              /// Max height 300.h prevents oversized images on larger devices
               Expanded(
                 flex: 3,
                 child: Center(
@@ -29,12 +38,16 @@ class OnboardingSlide extends StatelessWidget {
                   ),
                 ),
               ),
-              // Text Section
+              /// Text Section: 40% of available space (flex: 2)
+              /// Flex ratio 3:2 balances visual hierarchy between image and text
+              /// Responsive typography using flutter_screenutil (.sp for font sizes)
               Expanded(
                 flex: 2,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    /// Slide title with bold weight and larger size for prominence
+                    /// height: 1.3 provides tight line spacing for headers
                     Text(
                       item.title,
                       textAlign: TextAlign.center,
@@ -45,7 +58,10 @@ class OnboardingSlide extends StatelessWidget {
                         height: 1.3,
                       ),
                     ),
+                    /// Vertical spacing between title and description
                     SizedBox(height: 16.h),
+                    /// Slide subtitle with regular weight and muted color for supporting text
+                    /// height: 1.5 provides comfortable line spacing for body text
                     Text(
                       item.subtitle,
                       textAlign: TextAlign.center,
