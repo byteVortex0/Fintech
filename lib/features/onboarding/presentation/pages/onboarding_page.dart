@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fintech/core/routes/app_routes.dart';
+import 'package:fintech/core/navigation/navigation_service.dart';
 import '../../data/models/onboarding_item.dart';
 import '../widgets/onboarding_slide.dart';
 import '../widgets/onboarding_indicators.dart';
@@ -85,31 +87,31 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   /// Navigation flow: Skip button on slides 1-3
   /// Pattern: Save completion state → Check widget mounted → Navigate
-  /// Uses pushReplacementNamed to prevent back-navigation to onboarding
+  /// Uses NavigationService to prevent back-navigation to onboarding
   void _skipOnboarding() async {
     await _saveOnboardingComplete();
     if (mounted) {
-      Navigator.of(context).pushReplacementNamed('login');
+      NavigationService.navigateToAndReplace(AppRoutes.login);
     }
   }
 
   /// Navigation flow: Login button on final slide
   /// Pattern: Save completion state → Check widget mounted → Navigate to Login
-  /// Uses pushReplacementNamed to prevent back-navigation to onboarding
+  /// Uses NavigationService to prevent back-navigation to onboarding
   void _goToLogin() async {
     await _saveOnboardingComplete();
     if (mounted) {
-      Navigator.of(context).pushReplacementNamed('login');
+      NavigationService.navigateToAndReplace(AppRoutes.login);
     }
   }
 
   /// Navigation flow: Register button on final slide
   /// Pattern: Save completion state → Check widget mounted → Navigate to Register
-  /// Uses pushReplacementNamed to prevent back-navigation to onboarding
+  /// Uses NavigationService to prevent back-navigation to onboarding
   void _goToRegister() async {
     await _saveOnboardingComplete();
     if (mounted) {
-      Navigator.of(context).pushReplacementNamed('register');
+      NavigationService.navigateToAndReplace(AppRoutes.register);
     }
   }
 

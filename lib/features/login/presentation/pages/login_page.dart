@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fintech/core/routes/app_routes.dart';
+import 'package:fintech/core/navigation/navigation_service.dart';
 import '../widgets/curved_background.dart';
 import '../widgets/login_form.dart';
 import '../widgets/social_login_section.dart';
@@ -20,13 +21,13 @@ class LoginPage extends StatelessWidget {
   /// Navigation: Initiates Face ID biometric authentication flow
   /// Routes to face_id_scanning page where biometric capture occurs
   void _navigateToFaceId(BuildContext context) {
-    Navigator.of(context).pushNamed(AppRoutes.faceIdScanning);
+    NavigationService.navigateTo(AppRoutes.faceIdScanning);
   }
 
   /// Navigation: Initiates Touch ID biometric authentication flow
   /// Routes to touch_id_scanning page where biometric capture occurs
   void _navigateToFingerprint(BuildContext context) {
-    Navigator.of(context).pushNamed(AppRoutes.touchIdScanning);
+    NavigationService.navigateTo(AppRoutes.touchIdScanning);
   }
 
   /// Authentication: Handles email/password login
@@ -45,7 +46,7 @@ class LoginPage extends StatelessWidget {
   /// Navigation: Routes to user registration/signup flow
   /// Allows new users to create an account
   void _navigateToRegister(BuildContext context) {
-    Navigator.of(context).pushNamed(AppRoutes.register);
+    NavigationService.navigateTo(AppRoutes.register);
   }
 
   @override
