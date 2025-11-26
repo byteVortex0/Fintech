@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fintech/core/utils/svg_icon_manager.dart';
+import '../../data/models/coin_model.dart';
 import 'trending_coin_card.dart';
 
 /// Trending coins section widget
@@ -50,35 +51,43 @@ class TrendingCoinsSection extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             children: [
               TrendingCoinCard(
-                coinName: 'Bitcoin',
-                ticker: 'BTC',
-                price: '1,132,151',
-                change: '2.35%',
-                svgIconPath: SvgIconManager.bitcoinIcon,
+                coin: CoinModel(
+                  coinName: 'Bitcoin',
+                  ticker: 'BTC',
+                  price: '1,132,151',
+                  change: '2.35%',
+                  svgIconPath: SvgIconManager.bitcoinIcon,
+                ),
               ),
               SizedBox(width: 12.w),
               TrendingCoinCard(
-                coinName: 'Ethereum',
-                ticker: 'ETH',
-                price: '1,132,151',
-                change: '2.35%',
-                svgIconPath: SvgIconManager.ethereumIcon,
+                coin: CoinModel(
+                  coinName: 'Ethereum',
+                  ticker: 'ETH',
+                  price: '1,132,151',
+                  change: '2.35%',
+                  svgIconPath: SvgIconManager.ethereumIcon,
+                ),
               ),
               SizedBox(width: 12.w),
               TrendingCoinCard(
-                coinName: 'Bitcoin',
-                ticker: 'BTC',
-                price: '1,132,151',
-                change: '2.35%',
-                svgIconPath: SvgIconManager.bitcoinIcon,
+                coin: CoinModel(
+                  coinName: 'Bitcoin',
+                  ticker: 'BTC',
+                  price: '1,132,151',
+                  change: '2.35%',
+                  svgIconPath: SvgIconManager.bitcoinIcon,
+                ),
               ),
               SizedBox(width: 12.w),
               TrendingCoinCard(
-                coinName: 'Ethereum',
-                ticker: 'ETH',
-                price: '1,132,151',
-                change: '2.35%',
-                svgIconPath: SvgIconManager.ethereumIcon,
+                coin: CoinModel(
+                  coinName: 'Ethereum',
+                  ticker: 'ETH',
+                  price: '1,132,151',
+                  change: '2.35%',
+                  svgIconPath: SvgIconManager.ethereumIcon,
+                ),
               ),
             ],
           ),

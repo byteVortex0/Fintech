@@ -1,27 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart' as svg;
+import '../../data/models/coin_model.dart';
 
 /// Trending coin card widget
 /// Displays individual coin with icon, name, ticker, and price
 class TrendingCoinCard extends StatelessWidget {
-  final String coinName;
-  final String ticker;
-  final String price;
-  final String change;
-  final String? svgIconPath;
-  final IconData? icon;
-  final Color? iconColor;
+  final CoinModel coin;
 
   const TrendingCoinCard({
     super.key,
-    required this.coinName,
-    required this.ticker,
-    required this.price,
-    required this.change,
-    this.svgIconPath,
-    this.icon,
-    this.iconColor,
+    required this.coin,
   });
 
   @override
@@ -36,21 +25,21 @@ class TrendingCoinCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (svgIconPath != null)
+          if (coin.svgIconPath != null)
             svg.SvgPicture.asset(
-              svgIconPath!,
+              coin.svgIconPath!,
               width: 32.w,
               height: 32.h,
             )
-          else if (icon != null)
+          else if (coin.icon != null)
             Icon(
-              icon,
-              color: iconColor,
+              coin.icon,
+              color: coin.iconColor,
               size: 32.sp,
             ),
           SizedBox(height: 8.h),
           Text(
-            coinName,
+            coin.coinName,
             style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.w600,
@@ -58,7 +47,7 @@ class TrendingCoinCard extends StatelessWidget {
             ),
           ),
           Text(
-            ticker,
+            coin.ticker,
             style: TextStyle(
               fontSize: 12.sp,
               fontWeight: FontWeight.w400,
@@ -67,7 +56,7 @@ class TrendingCoinCard extends StatelessWidget {
           ),
           SizedBox(height: 8.h),
           Text(
-            price,
+            coin.price,
             style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.w700,
@@ -84,7 +73,7 @@ class TrendingCoinCard extends StatelessWidget {
               ),
               SizedBox(width: 2.w),
               Text(
-                change,
+                coin.change,
                 style: TextStyle(
                   fontSize: 11.sp,
                   fontWeight: FontWeight.w500,
