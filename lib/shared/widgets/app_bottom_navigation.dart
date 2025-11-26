@@ -49,8 +49,7 @@ class _AppBottomNavigationState extends State<AppBottomNavigation> {
     );
   }
 
-  /// Handles bottom navigation item taps
-  /// Updates local selected state to change color immediately
+  /// Updates local selected state with setState to change colors immediately on tap
   void _handleNavigation(int index) {
     setState(() {
       _selectedIndex = index;

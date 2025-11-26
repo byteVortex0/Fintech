@@ -30,10 +30,9 @@ class HomeScreen extends StatelessWidget {
             ),
             CurrentBalanceCard(),
             MarketOverviewGrid(),
-            /// Navigation flow: User taps "View all" → callback triggered → NavigationService routes to market
             TrendingCoinsSection(
               onViewAllPressed: () {
-                /// CRITICAL RULE #15: All navigation uses NavigationService + AppRoutes constants
+                /// Rule #15: All navigation MUST use NavigationService + AppRoutes constants
                 NavigationService.navigateTo(AppRoutes.market);
               },
             ),

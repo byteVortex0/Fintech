@@ -5,10 +5,8 @@ import 'trending_coin_card.dart';
 /// Trending coins section widget
 /// Displays "Trending Now" header with horizontal scrollable coins
 ///
-/// Architecture note: onViewAllPressed callback is used to navigate to market screen
-/// This enables parent component (HomeScreen) to control navigation via NavigationService
+/// Architecture: Uses callback pattern so parent (HomeScreen) controls navigation via NavigationService
 class TrendingCoinsSection extends StatelessWidget {
-  /// Callback triggered when "View all" is tapped - navigates to market screen
   final VoidCallback onViewAllPressed;
 
   const TrendingCoinsSection({super.key, required this.onViewAllPressed});
@@ -30,7 +28,6 @@ class TrendingCoinsSection extends StatelessWidget {
                   color: const Color(0xFF1A2B4A),
                 ),
               ),
-              /// Navigation: Tapping triggers parent's navigation callback to market screen
               GestureDetector(
                 onTap: onViewAllPressed,
                 child: Text(
