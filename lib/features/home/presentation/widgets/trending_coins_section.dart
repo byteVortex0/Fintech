@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fintech/core/utils/svg_icon_manager.dart';
 import 'trending_coin_card.dart';
 
 /// Trending coins section widget
@@ -53,8 +54,7 @@ class TrendingCoinsSection extends StatelessWidget {
                 ticker: 'BTC',
                 price: '1,132,151',
                 change: '2.35%',
-                icon: Icons.currency_bitcoin,
-                iconColor: Colors.orange,
+                svgIconPath: SvgIconManager.bitcoinIcon,
               ),
               SizedBox(width: 12.w),
               TrendingCoinCard(
@@ -62,8 +62,7 @@ class TrendingCoinsSection extends StatelessWidget {
                 ticker: 'ETH',
                 price: '1,132,151',
                 change: '2.35%',
-                icon: Icons.diamond_outlined,
-                iconColor: Colors.purple,
+                svgIconPath: SvgIconManager.ethereumIcon,
               ),
               SizedBox(width: 12.w),
               TrendingCoinCard(
@@ -71,8 +70,7 @@ class TrendingCoinsSection extends StatelessWidget {
                 ticker: 'BTC',
                 price: '1,132,151',
                 change: '2.35%',
-                icon: Icons.currency_bitcoin,
-                iconColor: Colors.orange,
+                svgIconPath: SvgIconManager.bitcoinIcon,
               ),
               SizedBox(width: 12.w),
               TrendingCoinCard(
@@ -80,8 +78,7 @@ class TrendingCoinsSection extends StatelessWidget {
                 ticker: 'ETH',
                 price: '1,132,151',
                 change: '2.35%',
-                icon: Icons.diamond_outlined,
-                iconColor: Colors.purple,
+                svgIconPath: SvgIconManager.ethereumIcon,
               ),
             ],
           ),

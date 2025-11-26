@@ -143,6 +143,22 @@ Cryptocurrency fintech app with:
 - [x] Strategic comments on critical sections
 - [x] Full NavigationService compliance
 
+**SVG Icon Integration**:
+
+- [x] Add flutter_svg: ^2.0.0 to pubspec.yaml
+- [x] Create SvgIconManager for centralized SVG paths
+- [x] Replace Material icons with custom SVGs in Trending Now section
+  - Bitcoin (BTC) icon → bitcoin_btc.svg
+  - Ethereum (ETH) icon → ethereum_eth.svg
+- [x] Replace Material icons with custom SVGs in Top Gainers section
+  - Ethereum icon → ethereum_eth.svg
+  - Binance Coin icon → Binance_coin_bnb.svg
+  - Litecoin icon → litecoin.svg
+- [x] Update TrendingCoinCard to support SVG icons (32×32)
+- [x] Update TopGainerItem to support SVG icons (28×28)
+- [x] Fixed file path mappings to match actual SVG filenames
+- [x] All SVG icons render properly without embedded image issues
+
 ---
 
 ## Current Architecture

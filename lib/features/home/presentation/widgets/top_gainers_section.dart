@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fintech/core/utils/svg_icon_manager.dart';
 import 'top_gainer_item.dart';
 
 /// Top gainers section widget
@@ -24,24 +25,21 @@ class TopGainersSection extends StatelessWidget {
           ),
         ),
         TopGainerItem(
-          icon: Icons.diamond_outlined,
-          iconColor: Colors.purple,
+          svgIconPath: SvgIconManager.topGainerEthereumIcon,
           coinName: 'Ethereum',
           ticker: 'ETH',
           price: '\$20.788',
           change: '+0.25%',
         ),
         TopGainerItem(
-          icon: Icons.currency_bitcoin,
-          iconColor: Colors.orange,
+          svgIconPath: SvgIconManager.topGainerBinanceIcon,
           coinName: 'Binance Coin',
           ticker: 'BNS',
           price: '\$20.788',
           change: '+1.15%',
         ),
         TopGainerItem(
-          icon: Icons.trending_up,
-          iconColor: Colors.grey,
+          svgIconPath: SvgIconManager.topGainerLiteCoinIcon,
           coinName: 'Litecoin',
           ticker: 'LTC',
           price: '\$20.788',

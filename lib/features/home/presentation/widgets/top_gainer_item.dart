@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart' as svg;
 
 /// Top gainer item widget
 /// Displays individual gainer row with icon, name, price, and change
@@ -8,8 +9,9 @@ class TopGainerItem extends StatelessWidget {
   final String ticker;
   final String price;
   final String change;
-  final IconData icon;
-  final Color iconColor;
+  final String? svgIconPath;
+  final IconData? icon;
+  final Color? iconColor;
 
   const TopGainerItem({
     super.key,
@@ -17,8 +19,9 @@ class TopGainerItem extends StatelessWidget {
     required this.ticker,
     required this.price,
     required this.change,
-    required this.icon,
-    required this.iconColor,
+    this.svgIconPath,
+    this.icon,
+    this.iconColor,
   });
 
   @override
@@ -27,11 +30,18 @@ class TopGainerItem extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       child: Row(
         children: [
-          Icon(
-            icon,
-            color: iconColor,
-            size: 28.sp,
-          ),
+          if (svgIconPath != null)
+            svg.SvgPicture.asset(
+              svgIconPath!,
+              width: 28.w,
+              height: 28.h,
+            )
+          else if (icon != null)
+            Icon(
+              icon,
+              color: iconColor,
+              size: 28.sp,
+            ),
           SizedBox(width: 12.w),
           Expanded(
             child: Column(

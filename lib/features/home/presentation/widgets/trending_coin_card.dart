@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart' as svg;
 
 /// Trending coin card widget
 /// Displays individual coin with icon, name, ticker, and price
@@ -8,8 +9,9 @@ class TrendingCoinCard extends StatelessWidget {
   final String ticker;
   final String price;
   final String change;
-  final IconData icon;
-  final Color iconColor;
+  final String? svgIconPath;
+  final IconData? icon;
+  final Color? iconColor;
 
   const TrendingCoinCard({
     super.key,
@@ -17,8 +19,9 @@ class TrendingCoinCard extends StatelessWidget {
     required this.ticker,
     required this.price,
     required this.change,
-    required this.icon,
-    required this.iconColor,
+    this.svgIconPath,
+    this.icon,
+    this.iconColor,
   });
 
   @override
@@ -33,11 +36,18 @@ class TrendingCoinCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            icon,
-            color: iconColor,
-            size: 32.sp,
-          ),
+          if (svgIconPath != null)
+            svg.SvgPicture.asset(
+              svgIconPath!,
+              width: 32.w,
+              height: 32.h,
+            )
+          else if (icon != null)
+            Icon(
+              icon,
+              color: iconColor,
+              size: 32.sp,
+            ),
           SizedBox(height: 8.h),
           Text(
             coinName,
