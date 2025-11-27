@@ -34,13 +34,24 @@
     - Avoid redundant comments on obvious code (e.g., "// Set name to value")
     - Goal: Make code readable and maintainable for team collaboration
 
-15. **CRITICAL ARCHITECTURAL RULES** (from PR review):
+15. **DOCUMENTATION UPDATE RULE** (CRITICAL - After Every Feature):
+    - After EVERY feature completion, you MUST update ALL documentation files:
+      - `README.md` - Update features list, tech stack, architecture, project status, and last updated date
+      - `PROJECT_SUMMARY.md` - Add comprehensive phase details and current architecture
+      - `PROJECT_REQUIREMENTS.md` - Update feature status and requirements
+      - `tasks/todo.md` - Add complete phase section with all tasks
+      - `tasks/{FEATURE}_IMPLEMENTATION.md` - Create detailed implementation documentation
+    - This is NOT optional - documentation must be updated before committing feature to git
+    - Documentation should be as detailed as code implementation itself
+    - Goal: Keep all docs in sync with codebase at all times
+
+16. **CRITICAL ARCHITECTURAL RULES** (from PR review):
     - ALL navigation in the entire app MUST go through NavigationService
     - NEVER use Navigator.of(context) directly
     - NEVER use hardcoded route strings - always use AppRoutes constants
     - Verify every PR to ensure navigation compliance
 
-16. After each completed task:
+17. After each completed task:
     - I will provide you with the changes made and updated files
     - You are responsible for reviewing and pushing to git
     - You will create commits with messages following this format:
@@ -49,7 +60,7 @@
       - Change 2
       Prompt used: [security/learning/planning]
 
-17. I will NOT execute git commands (push/commit/pull).
+18. I will NOT execute git commands (push/commit/pull).
     You have full control over the git workflow and when to commit/push.
     I will only provide you with:
     - Updated code files
