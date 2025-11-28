@@ -45,5 +45,7 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+    <key>NSFaceIDUsageDescription</key>
+    <string> We use Face ID or Touch ID to authenticate your access</string>
 </dict>
 </plist>

@@ -1,17 +1,85 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
 import '../../../login/presentation/widgets/curved_background.dart';
 
-/// Fingerprint setup screen during registration flow
-class SetFingerprintPage extends StatelessWidget {
+class SetFingerprintPage extends StatefulWidget {
   const SetFingerprintPage({super.key});
+
+  @override
+  State<SetFingerprintPage> createState() => _SetFingerprintPageState();
+}
+
+class _SetFingerprintPageState extends State<SetFingerprintPage>
+    with SingleTickerProviderStateMixin {
+  final LocalAuthentication auth = LocalAuthentication();
+  String errorMessage = '';
+
+  late AnimationController _pulseController;
+  late Animation<double> _pulseAnimation;
+
+  double shakeOffset = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _pulseController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    )..repeat(reverse: true);
+
+    _pulseAnimation = Tween<double>(begin: 0.9, end: 1.1).animate(
+      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _pulseController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _runShake() async {
+    for (int i = 0; i < 6; i++) {
+      setState(() => shakeOffset = (i.isEven ? -10 : 10));
+      await Future.delayed(const Duration(milliseconds: 40));
+    }
+    setState(() => shakeOffset = 0);
+  }
+
+  Future<void> _authenticateFingerprint(BuildContext context) async {
+    setState(() => errorMessage = '');
+
+    try {
+      final bool canCheck = await auth.canCheckBiometrics;
+      final bool supported = await auth.isDeviceSupported();
+
+      if (!canCheck || !supported) {
+        setState(() {
+          errorMessage = 'Biometric authentication not available.';
+        });
+        return;
+      }
+
+      final bool didAuthenticate = await auth.authenticate(
+        localizedReason: 'Place your finger on the sensor',
+      );
+
+      if (didAuthenticate && mounted) {
+        NavigationService.navigateTo(context, '/set_fingerprint_verified');
+      } else {
+        await _runShake();
+        setState(() => errorMessage = 'Authentication failed. Try again.');
+      }
+    } catch (e) {
+      setState(() => errorMessage = 'Error: ${e.toString()}');
+    }
+  }
 
   void _handleSkip(BuildContext context) =>
       NavigationService.navigateToAndRemoveUntil(context, '/login');
-
-  void _handleFingerprintSet(BuildContext context) =>
-      NavigationService.navigateTo(context, '/set_fingerprint_verified');
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +98,18 @@ class SetFingerprintPage extends StatelessWidget {
                     _buildHeader(),
                     SizedBox(height: 80.h),
                     _buildFingerprintSection(context),
+                    if (errorMessage.isNotEmpty) ...[
+                      SizedBox(height: 20.h),
+                      Text(
+                        errorMessage,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: Colors.red,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
                     SizedBox(height: 80.h),
                     _buildSkipButton(context),
                     SizedBox(height: 24.h),
@@ -75,11 +155,35 @@ class SetFingerprintPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         GestureDetector(
-          onTap: () => _handleFingerprintSet(context),
-          child: Icon(
-            Icons.fingerprint,
-            size: 180.sp,
-            color: const Color(0xFF6B7280),
+          onTap: () => _authenticateFingerprint(context),
+          child: AnimatedBuilder(
+            animation: _pulseController,
+            builder: (context, child) {
+              return Transform.translate(
+                offset: Offset(shakeOffset, 0),
+                child: Transform.scale(
+                  scale: _pulseAnimation.value,
+                  child: Container(
+                    padding: EdgeInsets.all(30.w),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.blue.withOpacity(0.3),
+                          blurRadius: 30,
+                          spreadRadius: 4,
+                        ),
+                      ],
+                    ),
+                    child: Icon(
+                      Icons.fingerprint,
+                      size: 120.sp,
+                      color: const Color(0xFF6B7280),
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
         ),
         SizedBox(height: 48.h),

@@ -10,7 +10,7 @@ class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
 
   void _handleRegister(BuildContext context) =>
-      NavigationService.navigateTo(context, '/set_face_id');
+      NavigationService.navigateTo(context, '/set_fingerprint');
 
   void _navigateToLogin(BuildContext context) =>
       NavigationService.navigateToAndRemoveUntil(context, '/login');
