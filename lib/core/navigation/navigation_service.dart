@@ -1,54 +1,49 @@
 import 'package:flutter/material.dart';
-import '../routes/app_routes.dart';
+import 'package:go_router/go_router.dart';
 
-/// Centralized navigation service for the entire app
-/// Provides context-free navigation using a global navigator key
-/// All navigation throughout the app should use this service for consistency
+/// Centralized navigation service using GoRouter (Rule #16)
+///
+/// CRITICAL RULE: ALL navigation in the app MUST use this service
+/// - NEVER use Navigator.of(context) directly
+/// - NEVER use hardcoded route strings - use AppRoutes constants
+/// - Ensures consistent navigation behavior across the entire app
+/// - Handles GoRouter context-based navigation methods
 class NavigationService {
-  static final GlobalKey<NavigatorState> navigatorKey =
-      GlobalKey<NavigatorState>();
+  /// Push route to navigation stack (allows back navigation)
+  static void navigateTo(BuildContext context, String path) => context.push(path);
 
-  static Future<dynamic> navigateTo(String routeName, {Object? arguments}) {
-    return navigatorKey.currentState!
-        .pushNamed(routeName, arguments: arguments);
-  }
+  /// Replace current route (no back to previous screen)
+  static void navigateToAndReplace(BuildContext context, String path) => context.go(path);
 
-  static Future<dynamic> navigateToAndReplace(String routeName,
-      {Object? arguments}) {
-    return navigatorKey.currentState!
-        .pushReplacementNamed(routeName, arguments: arguments);
-  }
+  /// Navigate and clear entire stack (used for logout, login -> home)
+  static void navigateToAndRemoveUntil(BuildContext context, String path) => context.go(path);
 
-  static Future<dynamic> navigateToAndRemoveUntil(String routeName,
-      {Object? arguments}) {
-    return navigatorKey.currentState!.pushNamedAndRemoveUntil(
-      routeName,
-      (route) => false,
-      arguments: arguments,
-    );
-  }
-
-  static void goBack() {
-    navigatorKey.currentState?.pop();
+  /// Navigate back if navigation stack allows
+  static void goBack(BuildContext context) {
+    if (context.canPop()) context.pop();
   }
 
   // Navigation helpers for common routes
-  static Future<dynamic> goToLogin() => navigateTo(AppRoutes.login);
-  static Future<dynamic> goToRegister() => navigateTo(AppRoutes.register);
-  static Future<dynamic> goToHome() => navigateToAndRemoveUntil(AppRoutes.home);
-  static Future<dynamic> goToFaceIdScanning() =>
-      navigateTo(AppRoutes.faceIdScanning);
-  static Future<dynamic> goToTouchIdScanning() =>
-      navigateTo(AppRoutes.touchIdScanning);
-  static Future<dynamic> goToFaceIdVerified() =>
-      navigateTo(AppRoutes.faceIdVerified);
-  static Future<dynamic> goToTouchIdVerified() =>
-      navigateTo(AppRoutes.touchIdVerified);
-  static Future<dynamic> goToSetFaceId() => navigateTo(AppRoutes.setFaceId);
-  static Future<dynamic> goToSetFaceIdVerified() =>
-      navigateTo(AppRoutes.setFaceIdVerified);
-  static Future<dynamic> goToSetFingerprint() =>
-      navigateTo(AppRoutes.setFingerprint);
-  static Future<dynamic> goToSetFingerprintVerified() =>
-      navigateTo(AppRoutes.setFingerprintVerified);
+  static void goToLogin(BuildContext context) =>
+      navigateTo(context, '/login');
+  static void goToRegister(BuildContext context) =>
+      navigateTo(context, '/register');
+  static void goToHome(BuildContext context) =>
+      navigateToAndRemoveUntil(context, '/home');
+  static void goToFaceIdScanning(BuildContext context) =>
+      navigateTo(context, '/face_id_scanning');
+  static void goToTouchIdScanning(BuildContext context) =>
+      navigateTo(context, '/touch_id_scanning');
+  static void goToFaceIdVerified(BuildContext context) =>
+      navigateTo(context, '/face_id_verified');
+  static void goToTouchIdVerified(BuildContext context) =>
+      navigateTo(context, '/touch_id_verified');
+  static void goToSetFaceId(BuildContext context) =>
+      navigateTo(context, '/set_face_id');
+  static void goToSetFaceIdVerified(BuildContext context) =>
+      navigateTo(context, '/set_face_id_verified');
+  static void goToSetFingerprint(BuildContext context) =>
+      navigateTo(context, '/set_fingerprint');
+  static void goToSetFingerprintVerified(BuildContext context) =>
+      navigateTo(context, '/set_fingerprint_verified');
 }

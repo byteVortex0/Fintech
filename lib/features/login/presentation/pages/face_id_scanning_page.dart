@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fintech/core/utils/image_manager.dart';
-import 'package:fintech/core/routes/app_routes.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
 
 class FaceIdScanningPage extends StatelessWidget {
@@ -49,7 +48,7 @@ class FaceIdScanningPage extends StatelessWidget {
 
   Widget _buildFaceIdCard(BuildContext context) {
     return GestureDetector(
-      onTap: () => NavigationService.navigateTo(AppRoutes.faceIdVerified),
+      onTap: () => NavigationService.navigateTo(context, '/face_id_verified'),
       child: Container(
         padding: EdgeInsets.all(20.w),
         decoration: BoxDecoration(
@@ -93,7 +92,7 @@ class FaceIdScanningPage extends StatelessWidget {
       left: 16.w,
       child: SafeArea(
         child: GestureDetector(
-          onTap: NavigationService.goBack,
+          onTap: () => NavigationService.goBack(context),
           child: Icon(Icons.arrow_back_ios, color: Colors.white, size: 24.sp),
         ),
       ),

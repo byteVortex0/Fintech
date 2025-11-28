@@ -1,31 +1,17 @@
 import 'package:fintech/core/utils/image_manager.dart';
-import 'package:fintech/core/routes/app_routes.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../login/presentation/widgets/curved_background.dart';
 
-/// SetFaceIdPage - Face ID setup option screen for new users
-///
-/// Presented during registration flow to offer Face ID biometric setup.
-/// Responsibilities:
-/// - Display Face ID setup prompt with description text
-/// - Provide Skip button to bypass biometric setup
-/// - Provide Continue button to proceed to Face ID scanning
-/// - Both options route to appropriate next steps in registration flow
 class SetFaceIdPage extends StatelessWidget {
   const SetFaceIdPage({super.key});
 
-  /// Skips Face ID setup and returns to login
-  /// Clears stack to prevent returning to register flow
-  void _handleSkip(BuildContext context) {
-    NavigationService.navigateToAndRemoveUntil(AppRoutes.login);
-  }
+  void _handleSkip(BuildContext context) =>
+      NavigationService.navigateToAndRemoveUntil(context, '/login');
 
-  /// Proceeds to Face ID scanning screen
-  void _handleContinue(BuildContext context) {
-    NavigationService.navigateTo(AppRoutes.faceIdScanning);
-  }
+  void _handleContinue(BuildContext context) =>
+      NavigationService.navigateTo(context, '/face_id_scanning');
 
   @override
   Widget build(BuildContext context) {

@@ -1,30 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/core/routes/app_routes.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
 import '../../../login/presentation/widgets/curved_background.dart';
 
-/// SetFingerprintPage - Fingerprint/Touch ID setup option screen for new users
-///
-/// Presented during registration flow after Face ID option.
-/// Responsibilities:
-/// - Display fingerprint setup prompt with description text
-/// - Provide tappable fingerprint icon to initiate biometric scanning
-/// - Provide Skip button to bypass fingerprint setup
-/// - Routes to appropriate next steps based on user choice
+/// Fingerprint setup screen during registration flow
 class SetFingerprintPage extends StatelessWidget {
   const SetFingerprintPage({super.key});
 
-  /// Skips fingerprint setup and returns to login
-  /// Clears stack to prevent returning to register flow
-  void _handleSkip(BuildContext context) {
-    NavigationService.navigateToAndRemoveUntil(AppRoutes.login);
-  }
+  void _handleSkip(BuildContext context) =>
+      NavigationService.navigateToAndRemoveUntil(context, '/login');
 
-  /// Proceeds to fingerprint verification after scanning
-  void _handleFingerprintSet(BuildContext context) {
-    NavigationService.navigateTo(AppRoutes.setFingerprintVerified);
-  }
+  void _handleFingerprintSet(BuildContext context) =>
+      NavigationService.navigateTo(context, '/set_fingerprint_verified');
 
   @override
   Widget build(BuildContext context) {

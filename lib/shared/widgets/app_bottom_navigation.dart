@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
-/// App bottom navigation bar widget
-/// Manages its own selected state - color changes when items are tapped
-class AppBottomNavigation extends StatefulWidget {
+/// Bottom navigation bar with GoRouter state awareness
+///
+/// Architecture:
+/// - StatelessWidget (no internal state management needed)
+/// - Uses GoRouterState.of(context) to automatically track current route
+/// - Syncs selected tab with current location
+/// - Calls context.go() to navigate when tabs are tapped
+/// - Persistent across /home, /market, /portfolio, /settings via ShellRoute
+class AppBottomNavigation extends StatelessWidget {
   const AppBottomNavigation({super.key});
 
   @override
-  State<AppBottomNavigation> createState() => _AppBottomNavigationState();
-}
-
-class _AppBottomNavigationState extends State<AppBottomNavigation> {
-  /// Tracks which navigation item is currently selected
-  int _selectedIndex = 0;
-
-  @override
   Widget build(BuildContext context) {
+    // Get current route location from GoRouter to determine selected tab
+    final location = GoRouterState.of(context).uri.path;
+    final selectedIndex = _getSelectedIndex(location);
+
     return BottomNavigationBar(
-      currentIndex: _selectedIndex,
+      currentIndex: selectedIndex,
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.white,
       selectedItemColor: const Color(0xFF1A2B4A),
@@ -45,28 +48,31 @@ class _AppBottomNavigationState extends State<AppBottomNavigation> {
           label: 'Settings',
         ),
       ],
-      onTap: (index) => _handleNavigation(index),
+      onTap: (index) => _handleNavigation(context, index),
     );
   }
 
-  /// Updates local selected state with setState to change colors immediately on tap
-  void _handleNavigation(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  int _getSelectedIndex(String location) {
+    if (location.startsWith('/home')) return 0;
+    if (location.startsWith('/market')) return 1;
+    if (location.startsWith('/portfolio')) return 2;
+    if (location.startsWith('/settings')) return 3;
+    return 0;
+  }
 
+  void _handleNavigation(BuildContext context, int index) {
     switch (index) {
       case 0:
-        // TODO: Navigate to home screen
+        context.go('/home');
         break;
       case 1:
-        // TODO: Navigate to market screen
+        context.go('/market');
         break;
       case 2:
-        // TODO: Navigate to portfolio screen
+        context.go('/portfolio');
         break;
       case 3:
-        // TODO: Navigate to settings screen
+        context.go('/settings');
         break;
     }
   }

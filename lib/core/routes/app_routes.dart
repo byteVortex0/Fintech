@@ -1,4 +1,4 @@
-import 'package:fintech/features/home/presentation/home_screen.dart';
+import 'package:fintech/features/main/presentation/pages/main_shell_screen.dart';
 import 'package:fintech/features/login/presentation/pages/login_page.dart';
 import 'package:fintech/features/login/presentation/pages/face_id_scanning_page.dart';
 import 'package:fintech/features/login/presentation/pages/face_id_verified_page.dart';
@@ -36,7 +36,10 @@ class AppRoutes {
       case onboarding:
         return BaseRoutes(page: const OnboardingPage());
       case home:
-        return BaseRoutes(page: HomeScreen());
+      case market:
+      case portfolio:
+      case settings:
+        return BaseRoutes(page: const MainShellScreen());
       case login:
         return BaseRoutes(page: const LoginPage());
       case register:
@@ -57,15 +60,6 @@ class AppRoutes {
         return BaseRoutes(page: const TouchIdScanningPage());
       case touchIdVerified:
         return BaseRoutes(page: const TouchIdVerifiedPage());
-      case market:
-        // TODO: Implement market screen
-        return BaseRoutes(page: const OnboardingPage());
-      case portfolio:
-        // TODO: Implement portfolio screen
-        return BaseRoutes(page: const OnboardingPage());
-      case settings:
-        // TODO: Implement settings screen
-        return BaseRoutes(page: const OnboardingPage());
 
       default:
         return BaseRoutes(page: const OnboardingPage());

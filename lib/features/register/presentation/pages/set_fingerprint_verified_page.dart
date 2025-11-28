@@ -1,25 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/core/routes/app_routes.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
 import '../../../login/presentation/widgets/curved_background.dart';
 
-/// SetFingerprintVerifiedPage - Fingerprint verification success confirmation screen
-///
-/// Presented after successful fingerprint scanning during registration flow.
-/// Responsibilities:
-/// - Display fingerprint verification success with checkmark icon
-/// - Show success message and confirmation text
-/// - Provide Continue button to complete registration and return to login
-/// - Use curved background design for visual consistency with other onboarding screens
+/// Fingerprint verification success confirmation
 class SetFingerprintVerifiedPage extends StatelessWidget {
   const SetFingerprintVerifiedPage({super.key});
 
-  /// Completes fingerprint setup and returns to login
-  /// Clears stack so user starts fresh from login
-  void _handleContinue(BuildContext context) {
-    NavigationService.navigateToAndRemoveUntil(AppRoutes.login);
-  }
+  void _handleContinue(BuildContext context) =>
+      NavigationService.navigateToAndRemoveUntil(context, '/login');
 
   @override
   Widget build(BuildContext context) {

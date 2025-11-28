@@ -1,53 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/core/routes/app_routes.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
 import '../widgets/curved_background.dart';
 import '../widgets/login_form.dart';
 import '../widgets/social_login_section.dart';
 
-/// LoginPage - Main login screen orchestrator
-///
-/// This page serves as the authentication entry point for existing users.
-/// Responsibilities:
-/// - Assembles login form with email/password input fields
-/// - Orchestrates biometric authentication options (Face ID, Touch ID)
-/// - Handles navigation to forgot password, registration, and biometric setup flows
-/// - Manages credential-based and biometric login methods
-/// - Provides visual hierarchy with curved background and responsive layout
+/// Main login screen - Authentication entry point for existing users
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
-  /// Navigation: Initiates Face ID biometric authentication flow
-  /// Routes to face_id_scanning page where biometric capture occurs
-  void _navigateToFaceId(BuildContext context) {
-    NavigationService.navigateTo(AppRoutes.faceIdScanning);
-  }
+  void _navigateToFaceId(BuildContext context) =>
+      NavigationService.navigateTo(context, '/face_id_scanning');
 
-  /// Navigation: Initiates Touch ID biometric authentication flow
-  /// Routes to touch_id_scanning page where biometric capture occurs
-  void _navigateToFingerprint(BuildContext context) {
-    NavigationService.navigateTo(AppRoutes.touchIdScanning);
-  }
+  void _navigateToFingerprint(BuildContext context) =>
+      NavigationService.navigateTo(context, '/touch_id_scanning');
 
-  /// Authentication: Handles email/password login
-  /// TODO: Implement login logic with BLoC pattern for state management
-  /// Should validate credentials, handle auth errors, and navigate to home on success
   void _handleLogin(BuildContext context) {
     // TODO: Implement login logic with BLoC
   }
 
-  /// Navigation: Routes to forgot password recovery screen
-  /// TODO: Navigate to forgot password page when implemented
   void _handleForgotPassword(BuildContext context) {
     // TODO: Navigate to forgot password page
   }
 
-  /// Navigation: Routes to user registration/signup flow
-  /// Allows new users to create an account
-  void _navigateToRegister(BuildContext context) {
-    NavigationService.navigateTo(AppRoutes.register);
-  }
+  void _navigateToRegister(BuildContext context) =>
+      NavigationService.navigateTo(context, '/register');
 
   @override
   Widget build(BuildContext context) {

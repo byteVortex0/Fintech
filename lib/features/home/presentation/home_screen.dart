@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
-import 'package:fintech/core/routes/app_routes.dart';
 import 'package:fintech/core/utils/color_manager.dart';
-import 'package:fintech/shared/widgets/app_bottom_navigation.dart';
 import 'widgets/home_header.dart';
 import 'widgets/current_balance_card.dart';
 import 'widgets/market_overview_grid.dart';
 import 'widgets/trending_coins_section.dart';
 import 'widgets/top_gainers_section.dart';
 
-/// Home screen - Main dashboard for cryptocurrency portfolio overview
-/// Displays balance, market overview, trending coins, and top gainers
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -31,10 +27,8 @@ class HomeScreen extends StatelessWidget {
             CurrentBalanceCard(),
             MarketOverviewGrid(),
             TrendingCoinsSection(
-              onViewAllPressed: () {
-                /// Rule #15: All navigation MUST use NavigationService + AppRoutes constants
-                NavigationService.navigateTo(AppRoutes.market);
-              },
+              onViewAllPressed: () =>
+                  NavigationService.navigateTo(context, '/market'),
             ),
             SizedBox(height: 12.h),
             TopGainersSection(),
@@ -42,7 +36,6 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: const AppBottomNavigation(),
     );
   }
 }

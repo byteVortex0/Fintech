@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fintech/core/utils/image_manager.dart';
-import 'package:fintech/core/routes/app_routes.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
 import '../widgets/curved_background.dart';
 
@@ -41,7 +40,7 @@ class TouchIdScanningPage extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: GestureDetector(
-        onTap: NavigationService.goBack,
+        onTap: () => NavigationService.goBack(context),
         child: Icon(
           Icons.arrow_back_ios,
           color: const Color(0xFF1A2B4A),
@@ -66,7 +65,7 @@ class TouchIdScanningPage extends StatelessWidget {
 
   Widget _buildFingerprintIcon(BuildContext context) {
     return GestureDetector(
-      onTap: () => NavigationService.navigateTo(AppRoutes.touchIdVerified),
+      onTap: () => NavigationService.navigateTo(context, '/touch_id_verified'),
       child: Image.asset(
         ImageManager.finger,
         width: 160.w,

@@ -1,25 +1,14 @@
 import 'package:fintech/core/utils/image_manager.dart';
-import 'package:fintech/core/routes/app_routes.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// SetFaceIdVerifiedPage - Face ID verification success confirmation screen
-///
-/// Presented after successful Face ID scanning during registration flow.
-/// Responsibilities:
-/// - Display Face ID verification success with checkmark icon
-/// - Show success message and confirmation text
-/// - Provide Continue button to complete registration and return to login
-/// - Use full-screen background image for visual confirmation
+/// Face ID verification success confirmation
 class SetFaceIdVerifiedPage extends StatelessWidget {
   const SetFaceIdVerifiedPage({super.key});
 
-  /// Completes Face ID setup and returns to login
-  /// Clears stack so user starts fresh from login
-  void _handleContinue(BuildContext context) {
-    NavigationService.navigateToAndRemoveUntil(AppRoutes.login);
-  }
+  void _handleContinue(BuildContext context) =>
+      NavigationService.navigateToAndRemoveUntil(context, '/login');
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +152,7 @@ class SetFaceIdVerifiedPage extends StatelessWidget {
       left: 16.w,
       child: SafeArea(
         child: GestureDetector(
-          onTap: NavigationService.goBack,
+          onTap: () => NavigationService.goBack(context),
           child: Icon(Icons.arrow_back_ios, color: Colors.white, size: 24.sp),
         ),
       ),
