@@ -8,10 +8,7 @@ import '../../data/models/coin_model.dart';
 class TrendingCoinCard extends StatelessWidget {
   final CoinModel coin;
 
-  const TrendingCoinCard({
-    super.key,
-    required this.coin,
-  });
+  const TrendingCoinCard({super.key, required this.coin});
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +23,9 @@ class TrendingCoinCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (coin.svgIconPath != null)
-            svg.SvgPicture.asset(
-              coin.svgIconPath!,
-              width: 32.w,
-              height: 32.h,
-            )
+            svg.SvgPicture.asset(coin.svgIconPath!, width: 32.w, height: 32.h)
           else if (coin.icon != null)
-            Icon(
-              coin.icon,
-              color: coin.iconColor,
-              size: 32.sp,
-            ),
+            Icon(coin.icon, color: coin.iconColor, size: 32.sp),
           SizedBox(height: 8.h),
           Text(
             coin.coinName,
@@ -66,11 +55,7 @@ class TrendingCoinCard extends StatelessWidget {
           SizedBox(height: 4.h),
           Row(
             children: [
-              Icon(
-                Icons.trending_up,
-                color: Colors.green,
-                size: 12.sp,
-              ),
+              Icon(Icons.trending_up, color: Colors.green, size: 12.sp),
               SizedBox(width: 2.w),
               Text(
                 coin.change,

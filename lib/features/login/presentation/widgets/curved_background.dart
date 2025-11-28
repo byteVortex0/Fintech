@@ -15,6 +15,7 @@ class CurvedBackground extends StatelessWidget {
     return Positioned(
       top: -80.h,
       right: -80.w,
+
       /// Large circle (300x300) sized to create visual impact
       /// Positioned outside screen bounds for elegant partial visibility
       child: Container(

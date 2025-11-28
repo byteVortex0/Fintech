@@ -72,11 +72,7 @@ class MarketOverviewGrid extends StatelessWidget {
           if (change.isNotEmpty)
             Row(
               children: [
-                Icon(
-                  Icons.trending_up,
-                  color: Colors.green,
-                  size: 12.sp,
-                ),
+                Icon(Icons.trending_up, color: Colors.green, size: 12.sp),
                 SizedBox(width: 2.w),
                 Text(
                   change,
