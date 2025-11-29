@@ -30,10 +30,7 @@ final goRouter = GoRouter(
       path: '/onboarding',
       builder: (context, state) => const OnboardingPage(),
     ),
-    GoRoute(
-      path: '/login',
-      builder: (context, state) => const LoginPage(),
-    ),
+    GoRoute(path: '/login', builder: (context, state) => const LoginPage()),
     GoRoute(
       path: '/register',
       builder: (context, state) => const RegisterPage(),
@@ -108,10 +105,7 @@ final goRouter = GoRouter(
         );
       },
       routes: [
-        GoRoute(
-          path: '/home',
-          builder: (context, state) => const HomeScreen(),
-        ),
+        GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
         GoRoute(
           path: '/market',
           builder: (context, state) => const MarketScreen(),

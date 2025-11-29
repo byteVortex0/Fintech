@@ -45,6 +45,7 @@ class OnboardingGetStarted extends StatelessWidget {
             ),
           ),
         ),
+
         /// Vertical spacing between primary and secondary actions
         SizedBox(height: 12.h),
 

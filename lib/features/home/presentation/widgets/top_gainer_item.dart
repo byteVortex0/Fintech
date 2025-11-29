@@ -8,10 +8,7 @@ import '../../data/models/coin_model.dart';
 class TopGainerItem extends StatelessWidget {
   final CoinModel coin;
 
-  const TopGainerItem({
-    super.key,
-    required this.coin,
-  });
+  const TopGainerItem({super.key, required this.coin});
 
   @override
   Widget build(BuildContext context) {
@@ -20,17 +17,9 @@ class TopGainerItem extends StatelessWidget {
       child: Row(
         children: [
           if (coin.svgIconPath != null)
-            svg.SvgPicture.asset(
-              coin.svgIconPath!,
-              width: 28.w,
-              height: 28.h,
-            )
+            svg.SvgPicture.asset(coin.svgIconPath!, width: 28.w, height: 28.h)
           else if (coin.icon != null)
-            Icon(
-              coin.icon,
-              color: coin.iconColor,
-              size: 28.sp,
-            ),
+            Icon(coin.icon, color: coin.iconColor, size: 28.sp),
           SizedBox(width: 12.w),
           Expanded(
             child: Column(
@@ -68,11 +57,7 @@ class TopGainerItem extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Icon(
-                    Icons.trending_up,
-                    color: Colors.green,
-                    size: 12.sp,
-                  ),
+                  Icon(Icons.trending_up, color: Colors.green, size: 12.sp),
                   SizedBox(width: 2.w),
                   Text(
                     coin.change,

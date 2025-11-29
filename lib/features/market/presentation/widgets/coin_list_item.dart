@@ -10,10 +10,7 @@ import '../../data/models/market_coin_model.dart';
 class CoinListItem extends StatelessWidget {
   final MarketCoinModel coin;
 
-  const CoinListItem({
-    super.key,
-    required this.coin,
-  });
+  const CoinListItem({super.key, required this.coin});
 
   Color _getChangeColor() {
     final changeValue = double.tryParse(coin.changePercent) ?? 0;
@@ -112,10 +109,7 @@ class CoinListItem extends StatelessWidget {
                 ),
                 SizedBox(height: 4.h),
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 8.w,
-                    vertical: 4.h,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                   decoration: BoxDecoration(
                     color: _getChangeColor().withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(6.r),
