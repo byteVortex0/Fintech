@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart' as svg;
+import 'package:fintech/core/navigation/navigation_service.dart';
+import 'package:fintech/core/routes/app_routes.dart';
 import '../../data/models/market_coin_model.dart';
 
 /// CoinListItem widget for market coin list
@@ -18,11 +20,21 @@ class CoinListItem extends StatelessWidget {
     return changeValue >= 0 ? const Color(0xFF10B981) : const Color(0xFFEF4444);
   }
 
+  void _navigateToCoinDetails(BuildContext context) {
+    final iconParam = coin.svgIconPath != null ? '&icon=${coin.svgIconPath}' : '';
+    NavigationService.navigateTo(
+      context,
+      '${AppRoutes.coinDetails}?name=${coin.name}$iconParam',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-      child: Container(
+      child: GestureDetector(
+        onTap: () => _navigateToCoinDetails(context),
+        child: Container(
         padding: EdgeInsets.all(12.w),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -122,6 +134,7 @@ class CoinListItem extends StatelessWidget {
               ],
             ),
           ],
+        ),
         ),
       ),
     );

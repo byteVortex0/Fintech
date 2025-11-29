@@ -40,8 +40,6 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/images/onboarding/
-    - assets/images/login/
     - assets/svg/
 
   # fonts:

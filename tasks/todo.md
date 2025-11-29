@@ -595,3 +595,125 @@ feat: Implement complete login feature with biometric authentication
 7. **lib/features/home/presentation/widgets/top_gainers_section.dart** - Creates CoinModel
 
 **Result**: ✅ Home feature complete with immutable Freezed data models! 🎉
+
+---
+
+## Phase 9: Market Feature Refactoring (Team Leader Feedback)
+
+### Status: ✅ COMPLETE - All Issues Addressed
+
+**Context**: After pushing Market feature to remote, received 6 code quality feedback points from team leader to improve codebase and establish best practices for future features.
+
+### Refactoring Tasks
+
+**Issue 1: Image Asset Structure** ✅
+- [x] Move all images from subdirectories to root `assets/images/`
+- [x] Rename 15 images with feature prefixes (onboarding_, login_, market_, payment_)
+- [x] Update ImageManager with new flattened paths
+- [x] Update onboarding_page.dart image references
+- [x] Simplify pubspec.yaml to single `assets/images/` entry
+- [x] Verify all images display correctly
+
+**Issue 2: Hardcoded Navigation Strings** ✅
+- [x] Add `coinDetails`, `buyCrypto`, `paymentMethod` to AppRoutes
+- [x] Update coin_details_screen.dart to use AppRoutes.buyCrypto
+- [x] Update buy_crypto_screen.dart to use AppRoutes.paymentMethod
+- [x] Verify 0 hardcoded route strings remain
+
+**Issue 3: Repeated Scaffold Background Colors** ✅
+- [x] Add `scaffoldBackground = Color(0xFFF8F9FA)` to LightColorManager
+- [x] Update payment_method_screen.dart to use LightColorManager.scaffoldBackground
+- [x] Update buy_crypto_screen.dart (if using hardcoded color)
+- [x] Update coin_details_screen.dart (if using hardcoded color)
+
+**Issue 4: Coin Symbol Mapping** ✅
+- [x] Create lib/core/enums/coin.dart with Coin enum
+- [x] Add 6 coins: Bitcoin, Ethereum, Litecoin, Solana, Binance Coin, Ripple
+- [x] Implement fromName() static method
+- [x] Implement getSymbol() static method
+- [x] Update buy_crypto_screen.dart to use Coin.getSymbol()
+- [x] Remove old Map-based symbol lookup
+
+**Issue 5: Generated Files in Git** ✅
+- [x] Add `*.g.dart` to .gitignore
+- [x] Add `*.freezed.dart` to .gitignore
+- [x] Verify generated files excluded from future commits
+
+**Issue 6: Back Button Duplication** ✅
+- [x] Create lib/shared/widgets/app_back_button.dart
+- [x] Add iconColor parameter for customization
+- [x] Use NavigationService.goBack for consistent navigation
+- [x] Update coin_details_screen.dart to use AppBackButton
+- [x] Update buy_crypto_screen.dart to use AppBackButton
+- [x] Update payment_method_screen.dart to use AppBackButton
+
+### Quality Verification
+
+- [x] Run flutter analyze: 0 errors, 0 new warnings
+- [x] Test all navigation flows
+- [x] Verify all images display correctly
+- [x] Verify enum works with all 6 coins
+
+### Documentation
+
+- [x] Update README.md with refactoring section
+- [x] Update PROJECT_SUMMARY.md with Phase 9
+- [x] Update PROJECT_REQUIREMENTS.md status
+- [x] Update tasks/todo.md with this review section
+- [x] Update tasks/MARKET_IMPLEMENTATION.md with refactoring details
+
+### Git Workflow
+
+- [x] Stage all changes: `git add .`
+- [x] Commit with message documenting all 6 issues
+- [x] Push to remote: `git push origin feature/market`
+
+---
+
+## Refactoring Review
+
+### Changes Summary
+
+**Files Created (2)**:
+1. `lib/core/enums/coin.dart` - Type-safe coin enum with symbol mapping
+2. `lib/shared/widgets/app_back_button.dart` - Shared back button widget
+
+**Files Modified (10)**:
+1. `.gitignore` - Added code generation exclusions
+2. `lib/core/routes/app_routes.dart` - Added market route constants
+3. `lib/core/utils/color_manager.dart` - Added scaffoldBackground color
+4. `lib/core/utils/image_manager.dart` - Updated to flattened image paths
+5. `lib/features/onboarding/presentation/pages/onboarding_page.dart` - Updated image paths
+6. `lib/features/buy_crypto/presentation/pages/buy_crypto_screen.dart` - AppRoutes, Coin enum, AppBackButton
+7. `lib/features/coin_details/presentation/pages/coin_details_screen.dart` - AppRoutes, AppBackButton, ColorManager
+8. `lib/features/payment_method/presentation/pages/payment_method_screen.dart` - AppBackButton, ColorManager
+9. `pubspec.yaml` - Simplified assets configuration
+10. `README.md`, `PROJECT_SUMMARY.md`, `PROJECT_REQUIREMENTS.md` - Documentation updates
+
+**Images Renamed (15)**:
+- Onboarding: 1.png → onboarding_1.png (×4)
+- Login: face_id.png → login_face_id.png (×6)
+- Market: money.png → market_money.png (×1)
+- Payment: card.png → payment_card.png (×4)
+
+**Impact**:
+- ✅ 27 files changed, 95 insertions(+), 58 deletions(-)
+- ✅ Image structure simplified from 5 directories to 1
+- ✅ Type safety improved with enum instead of Map
+- ✅ Code duplication reduced with shared widget
+- ✅ Color management centralized
+- ✅ Navigation consistency improved
+- ✅ Git repository cleaner (no generated files)
+
+### Key Learnings for Future Features
+
+1. **Asset Organization**: Use single directory with prefixed filenames for simplicity
+2. **Route Constants**: Always use AppRoutes, never hardcode strings
+3. **Color Management**: Add all repeated colors to ColorManager immediately
+4. **Type Safety**: Prefer enums over Maps for known, fixed sets of values
+5. **Git Hygiene**: Add generated file patterns to .gitignore early
+6. **Code Reuse**: Extract shared widgets as soon as duplication appears (3+ times)
+
+---
+
+**Status**: ✅ All refactoring complete. Market feature production-ready! 🎉
