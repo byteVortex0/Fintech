@@ -13,6 +13,15 @@ class ImageManager {
   static const String finger = 'assets/images/login/finger.png';
   static const String rightCheckmark = 'assets/images/login/Right.png';
 
+  // Market assets
+  static const String money = 'assets/images/market/money.png';
+
+  // Payment assets
+  static const String card = 'assets/images/payment/card.png';
+  static const String creditCard = 'assets/images/payment/master_card.png';
+  static const String visa = 'assets/images/payment/visa.png';
+  static const String applePay = 'assets/images/payment/apple_pay.png';
+
   //svg
   static const String home = 'assets/images/svg/home.svg';
   static const String homeFilled = 'assets/images/svg/home_filled.svg';

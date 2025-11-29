@@ -66,3 +66,10 @@
     - Updated code files
     - High-level summary of changes
     - Ready-to-use code that you can review before committing
+
+19. **TODO LIST APPROVAL RULE** (for new screen implementations):
+    - Always create a todo list and wait for approval before proceeding
+    - After receiving a new screen to implement, create the todo list first
+    - Present the todo list to the user and WAIT for explicit approval
+    - Only begin implementation after receiving approval
+    - This ensures alignment on the implementation plan before writing code
