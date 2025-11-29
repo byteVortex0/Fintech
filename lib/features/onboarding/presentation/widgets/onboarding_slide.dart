@@ -17,6 +17,7 @@ class OnboardingSlide extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+
       /// SafeArea prevents content overlap with system UI (notches, status bars)
       body: SafeArea(
         child: Padding(
@@ -38,6 +39,7 @@ class OnboardingSlide extends StatelessWidget {
                   ),
                 ),
               ),
+
               /// Text Section: 40% of available space (flex: 2)
               /// Flex ratio 3:2 balances visual hierarchy between image and text
               /// Responsive typography using flutter_screenutil (.sp for font sizes)
@@ -58,8 +60,10 @@ class OnboardingSlide extends StatelessWidget {
                         height: 1.3,
                       ),
                     ),
+
                     /// Vertical spacing between title and description
                     SizedBox(height: 16.h),
+
                     /// Slide subtitle with regular weight and muted color for supporting text
                     /// height: 1.5 provides comfortable line spacing for body text
                     Text(

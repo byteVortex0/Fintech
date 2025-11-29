@@ -112,6 +112,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               return OnboardingSlide(item: onboardingItems[index]);
             },
           ),
+
           /// Bottom Controls: Dynamic UI based on slide position
           /// Positioned over PageView to maintain persistent navigation options
           Positioned(

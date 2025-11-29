@@ -24,9 +24,11 @@ class SocialLoginSection extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: 24.h),
+
         /// Visual separator between credential login and biometric options
         _buildDividerRow(),
         SizedBox(height: 24.h),
+
         /// Interactive fingerprint and face ID authentication buttons
         _buildIconsRow(),
       ],
@@ -40,6 +42,7 @@ class SocialLoginSection extends StatelessWidget {
       children: [
         /// Left divider line
         Expanded(child: Divider(color: const Color(0xFFD1D5DB), thickness: 1)),
+
         /// Center text label
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -52,6 +55,7 @@ class SocialLoginSection extends StatelessWidget {
             ),
           ),
         ),
+
         /// Right divider line
         Expanded(child: Divider(color: const Color(0xFFD1D5DB), thickness: 1)),
       ],
@@ -76,6 +80,7 @@ class SocialLoginSection extends StatelessWidget {
             color: const Color(0xFF6B7280),
           ),
         ),
+
         /// Spacing between biometric options
         SizedBox(width: 60.w),
 
