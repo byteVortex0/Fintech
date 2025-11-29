@@ -377,3 +377,120 @@ Placeholder data will be replaced with:
 **Code Quality**: Production-ready
 **Design Match**: 100%
 **Status**: ✅ COMPLETE - Ready to merge to develop
+
+---
+
+## Phase 2: Code Quality Refactoring (Team Leader Feedback)
+
+### Overview
+
+After initial Market feature completion, received 6 constructive feedback points from team leader to improve code quality and establish best practices for future features.
+
+### Issues Addressed
+
+#### Issue 1: Image Asset Structure ✅
+- **Original**: Subdirectories (assets/images/market/, assets/images/payment/)
+- **Problem**: Required explicit subdirectory listings in pubspec.yaml
+- **Solution**: Flattened all images to root `assets/images/` with feature prefixes
+- **Changes**:
+  - 15 images renamed: onboarding_, login_, market_, payment_ prefixes
+  - ImageManager updated with new paths
+  - pubspec.yaml simplified to single `assets/images/` entry
+  - onboarding_page.dart updated
+- **Benefit**: Simpler asset configuration, easier maintenance
+
+#### Issue 2: Hardcoded Navigation Strings ✅
+- **Original**: Hard-coded strings like '/coin_details'
+- **Problem**: Typos, inconsistency, difficult refactoring
+- **Solution**: Added AppRoutes constants for all market routes
+- **Changes**:
+  - Added `coinDetails`, `buyCrypto`, `paymentMethod` to AppRoutes
+  - Updated all 3 market screens to use constants
+- **Benefit**: Type safety, autocomplete, refactoring support
+
+#### Issue 3: Repeated Scaffold Background Colors ✅
+- **Original**: `Color(0xFFF8F9FA)` repeated across screens
+- **Problem**: Magic numbers, inconsistency risk
+- **Solution**: Centralized in ColorManager
+- **Changes**:
+  - Added `scaffoldBackground` to LightColorManager
+  - Updated 3 screens to use constant
+- **Benefit**: Single source of truth, easy theme updates
+
+#### Issue 4: Coin Symbol Mapping ✅
+- **Original**: Map<String, String> for symbol lookup
+- **Problem**: No compile-time type safety, typo-prone
+- **Solution**: Created type-safe Coin enum
+- **Changes**:
+  - New file: `lib/core/enums/coin.dart`
+  - 6 coins: Bitcoin, Ethereum, Litecoin, Solana, Binance Coin, Ripple
+  - Methods: fromName(), getSymbol()
+  - Updated buy_crypto_screen.dart
+- **Benefit**: Compile-time safety, autocomplete, maintainability
+
+#### Issue 5: Generated Files in Git ✅
+- **Original**: *.freezed.dart and *.g.dart committed
+- **Problem**: Repository bloat, merge conflicts
+- **Solution**: Added to .gitignore
+- **Changes**:
+  - Added `*.g.dart` exclusion
+  - Added `*.freezed.dart` exclusion
+- **Benefit**: Cleaner git history, fewer conflicts
+
+#### Issue 6: Back Button Duplication ✅
+- **Original**: Back button code duplicated in 3 screens
+- **Problem**: DRY violation, inconsistent styling
+- **Solution**: Created shared AppBackButton widget
+- **Changes**:
+  - New file: `lib/shared/widgets/app_back_button.dart`
+  - Customizable icon color
+  - Uses NavigationService
+  - Updated 3 screens
+- **Benefit**: Code reuse, consistent UX, easier updates
+
+### Refactoring Statistics
+
+**Files Created**: 2
+- coin.dart (enum)
+- app_back_button.dart (shared widget)
+
+**Files Modified**: 10
+- .gitignore
+- app_routes.dart
+- color_manager.dart
+- image_manager.dart
+- onboarding_page.dart
+- 3 market feature screens
+- pubspec.yaml
+
+**Images Renamed**: 15 (100% similarity)
+
+**Git Changes**:
+- 27 files changed
+- 95 insertions(+)
+- 58 deletions(-)
+
+**Quality**:
+- Flutter analyze: 0 errors, 0 new warnings
+- All navigation flows tested
+- All images verified
+
+### Best Practices Established
+
+1. **Asset Management**: Single directory, prefixed filenames
+2. **Route Management**: Always use AppRoutes constants
+3. **Color Management**: Centralize all theme colors
+4. **Type Safety**: Use enums for fixed value sets
+5. **Git Hygiene**: Exclude generated files early
+6. **Code Reuse**: Extract widgets at 3+ duplications
+
+### Git History
+
+**Commit**: `3d33996`
+**Message**: "refactor: Address mentor feedback (issues 2-6) and flatten image structure"
+**Branch**: feature/market
+**Status**: Pushed to remote ✅
+
+---
+
+**Final Status**: Market feature implementation complete with all quality improvements applied. Production-ready and following team best practices.

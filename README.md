@@ -40,6 +40,13 @@ A professional Flutter cryptocurrency trading application with real-time market 
   - Coin Details - Detailed coin information with statistics and charts
   - Buy Crypto - Currency exchange interface
   - Payment Method - Payment selection and card display
+- **Market Refactoring** - Code quality improvements from team leader feedback:
+  - Flattened image asset structure (15 images reorganized)
+  - Replaced hardcoded routes with AppRoutes constants
+  - Centralized scaffold background colors in ColorManager
+  - Type-safe Coin enum for symbol mapping
+  - Added *.freezed.dart and *.g.dart to .gitignore
+  - Created shared AppBackButton widget
 - **Freezed Data Models** - CoinDetailsModel with immutable data classes
 - **GoRouter Migration** - Migrated from Navigator.onGenerateRoute to GoRouter architecture
 - **Simplified Image Display** - Direct asset display without over-engineering
@@ -376,6 +383,6 @@ For questions or issues:
 
 ---
 
-**Last Updated**: November 28, 2025
+**Last Updated**: November 29, 2025
 **Project Status**: In Active Development
-**Current Phase**: Phase 1 (UI Implementation) - Market Feature Complete → Next: Portfolio & Settings
+**Current Phase**: Phase 1 (UI Implementation) - Market Feature Complete & Refactored → Next: Portfolio & Settings
