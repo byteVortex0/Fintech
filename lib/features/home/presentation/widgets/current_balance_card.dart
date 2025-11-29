@@ -17,10 +17,7 @@ class CurrentBalanceCard extends StatelessWidget {
         padding: EdgeInsets.all(20.w),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              const Color(0xFF1A3A52),
-              const Color(0xFF0F2337),
-            ],
+            colors: [const Color(0xFF1A3A52), const Color(0xFF0F2337)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -59,21 +56,14 @@ class CurrentBalanceCard extends StatelessWidget {
                 ),
                 SizedBox(width: 12.w),
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 8.w,
-                    vertical: 4.h,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                   decoration: BoxDecoration(
                     color: Colors.green.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(6.r),
                   ),
                   child: Row(
                     children: [
-                      Icon(
-                        Icons.trending_up,
-                        color: Colors.green,
-                        size: 14.sp,
-                      ),
+                      Icon(Icons.trending_up, color: Colors.green, size: 14.sp),
                       SizedBox(width: 4.w),
                       Text(
                         '2.35%',

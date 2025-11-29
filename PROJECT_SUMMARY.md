@@ -1,8 +1,8 @@
 # Fintech App - Project Progress Summary
 
-**Last Updated**: November 27, 2025
-**Current Phase**: Phase 7 Complete - Home Screen Dashboard with Freezed Data Models
-**Status**: 🟢 Ready for Feature Branch → Develop Merge
+**Last Updated**: November 29, 2025
+**Current Phase**: Phase 9 Complete - Market Feature Refactoring & Code Quality Improvements
+**Status**: 🟢 Ready for Next Feature (Portfolio or Settings)
 
 ---
 
@@ -193,6 +193,199 @@ Cryptocurrency fintech app with:
 - ✅ **Pattern Matching**: Support for sealed classes in future updates
 - ✅ **Industry Standard**: Follows Dart/Flutter best practices
 
+### Phase 8: Market Feature Implementation
+
+**Complete Cryptocurrency Trading Flow**:
+
+- [x] Created feature/market branch from develop
+- [x] Migrated from Navigator.onGenerateRoute to GoRouter architecture
+- [x] Implemented 4 screens with full navigation flow:
+  - Market Screen - Coin listing with search and category filters
+  - Coin Details Screen - Detailed coin information with chart and statistics
+  - Buy Crypto Screen - Currency exchange interface
+  - Payment Method Screen - Payment selection and confirmation
+
+**Market Screen**:
+- [x] Cryptocurrency list with SVG icons
+- [x] Search functionality with MarketSearchBar widget
+- [x] Category filters (All, DeFi, NFT, Gaming, Metaverse)
+- [x] Tap coin to navigate to details
+- [x] MarketCoinModel with Freezed
+
+**Coin Details Screen**:
+- [x] Coin header with name and icon
+- [x] Price card with percentage change badge
+- [x] Chart section with time period buttons (1h, 1d, 1w, 1m, 1y)
+- [x] Statistics section (Current Price, Market Cap, Volume 24h, Available Supply, Max Supply)
+- [x] About section with coin description
+- [x] Action buttons (Sell and Buy)
+- [x] CoinDetailsModel with Freezed
+- [x] Navigation to Buy Crypto screen
+
+**Buy Crypto Screen**:
+- [x] "You Pay" currency input section
+- [x] "You Receive" currency input section
+- [x] Exchange rate indicator
+- [x] Exchange fee card with money.png icon (simplified)
+- [x] Continue button navigates to Payment Method
+
+**Payment Method Screen**:
+- [x] Credit Card section (expandable)
+- [x] Payment method selector (VISA, Mastercard, Apple Pay) - simplified image display
+- [x] Gradient card display using card.png asset
+- [x] Google Pay and Mobile Banking options
+- [x] "Send receipt to your email" toggle
+- [x] Buy button (navy blue #1E3A5F)
+- [x] Fixed Navigator.pop to use NavigationService.goBack
+
+**GoRouter Configuration**:
+- [x] Added /coin_details route with query parameters (name, icon)
+- [x] Added /buy_crypto route with query parameter (coinName)
+- [x] Added /payment_method route
+- [x] All market routes outside ShellRoute (no bottom navbar)
+- [x] Proper navigation flow: Market → Coin Details → Buy Crypto → Payment Method
+
+**Data Models with Freezed**:
+- [x] CoinDetailsModel with immutable fields
+- [x] MarketCoinModel with copyWith(), equality, toString()
+- [x] Auto-generated .freezed.dart files
+
+**Shared Components**:
+- [x] Created PrimaryButton widget for reusable button styling
+- [x] Used across payment method and future screens
+
+**Design Simplification** (per user feedback):
+- [x] Removed all over-engineered containers and sizing
+- [x] Direct `Image.asset()` calls for all images
+- [x] Simplified exchange_fee_card.dart - money.png direct display
+- [x] Simplified gradient_card_display.dart - card.png direct display
+- [x] Simplified credit_card_section.dart - payment method images direct display
+- [x] No custom gradients where images exist
+- [x] Images display at natural size
+
+**Code Quality**:
+- [x] Each widget in separate file (<100 lines)
+- [x] Clean architecture maintained
+- [x] Strategic comments on navigation flows only
+- [x] All navigation uses NavigationService (Rule #16 compliance)
+- [x] All routes use GoRouter
+- [x] Flutter analyze: 0 new errors, 0 new warnings (5 pre-existing)
+
+**ImageManager Updates**:
+- [x] Added payment assets: card.png, visa.png, creditCard (master_card.png), applePay.png
+- [x] Added market assets: money.png
+
+**Files Created**: 30 total
+- 2 data models (+ 2 generated .freezed.dart files)
+- 4 pages (market_screen, coin_details_screen, buy_crypto_screen, payment_method_screen)
+- 19 widgets
+- 1 shared widget (primary_button)
+- 3 routes in go_router_config.dart
+
+**Documentation**:
+- [x] Updated README.md with Market feature completion
+- [x] Created tasks/MARKET_IMPLEMENTATION.md with comprehensive details
+- [x] Updated PROJECT_SUMMARY.md with Phase 8
+- [x] Updated PROJECT_REQUIREMENTS.md status
+- [x] Added Rule 19 to CLAUDE.md (TODO LIST APPROVAL RULE)
+
+### Phase 9: Market Feature Refactoring & Code Quality Improvements
+
+**Team Leader Feedback Integration**:
+
+After completing the Market feature, received 6 code review comments from team leader. All issues addressed systematically following best practices for future features.
+
+**Issue 1: Image Asset Structure** ✅
+- **Problem**: Subdirectory listings in pubspec.yaml (assets/images/market/, assets/images/payment/)
+- **Solution**: Flattened all image assets to root `assets/images/` directory
+- **Changes**:
+  - Moved 15 images from subdirectories to root
+  - Renamed with feature prefixes (onboarding_, login_, market_, payment_)
+  - Updated ImageManager with new paths
+  - Simplified pubspec.yaml to single `assets/images/` entry
+- **Files Modified**: ImageManager.dart, pubspec.yaml, onboarding_page.dart
+- **Images Renamed**: onboarding (4), login (6), market (1), payment (4)
+
+**Issue 2: Hardcoded Navigation Strings** ✅
+- **Problem**: Hard-coded route strings like '/coin_details' instead of centralized constants
+- **Solution**: Created AppRoutes constants for all market routes
+- **Changes**:
+  - Added `coinDetails`, `buyCrypto`, `paymentMethod` to AppRoutes
+  - Updated all 3 market screens to use constants
+  - Verified 0 hardcoded route strings in feature
+- **Files Modified**: app_routes.dart, coin_details_screen.dart, buy_crypto_screen.dart
+
+**Issue 3: Repeated Scaffold Background Colors** ✅
+- **Problem**: Magic color values repeated across multiple screens
+- **Solution**: Added `scaffoldBackground` to LightColorManager
+- **Changes**:
+  - Added `Color(0xFFF8F9FA)` to ColorManager
+  - Replaced 3 instances of hardcoded background colors
+  - Centralized color management for consistency
+- **Files Modified**: color_manager.dart, payment_method_screen.dart, buy_crypto_screen.dart, coin_details_screen.dart
+
+**Issue 4: Coin Symbol Mapping** ✅
+- **Problem**: Using Map for coin symbol lookup (error-prone with string keys)
+- **Solution**: Created type-safe Coin enum
+- **Changes**:
+  - Created `lib/core/enums/coin.dart` with Coin enum
+  - Enum includes name and symbol for 6 coins
+  - Added `fromName()` and `getSymbol()` helper methods
+  - Updated buy_crypto_screen.dart to use enum
+- **Files Created**: coin.dart (new enum)
+- **Files Modified**: buy_crypto_screen.dart
+
+**Issue 5: Generated Files in Git** ✅
+- **Problem**: *.freezed.dart and *.g.dart files being committed to repository
+- **Solution**: Added code generation exclusions to .gitignore
+- **Changes**:
+  - Added `*.g.dart` to .gitignore
+  - Added `*.freezed.dart` to .gitignore
+  - Prevents generated code from being versioned
+- **Files Modified**: .gitignore
+
+**Issue 6: Back Button Duplication** ✅
+- **Problem**: Back button code duplicated across 3 screens
+- **Solution**: Created shared AppBackButton widget
+- **Changes**:
+  - Created `lib/shared/widgets/app_back_button.dart`
+  - Reusable widget with customizable icon color
+  - Uses NavigationService for consistent navigation
+  - Replaced duplicate code in 3 screens
+- **Files Created**: app_back_button.dart (new shared widget)
+- **Files Modified**: coin_details_screen.dart, buy_crypto_screen.dart, payment_method_screen.dart
+
+**Verification & Quality**:
+- [x] Flutter analyze: 0 errors, 0 new warnings (5 pre-existing)
+- [x] All 6 issues addressed completely
+- [x] Best practices documented for future features
+- [x] Code quality improved across feature
+- [x] Committed with comprehensive message
+- [x] Pushed to remote feature/market branch
+
+**Documentation Updates**:
+- [x] Updated README.md with refactoring details
+- [x] Updated PROJECT_SUMMARY.md with Phase 9
+- [x] Updated PROJECT_REQUIREMENTS.md
+- [x] Updated tasks/todo.md with refactoring review
+- [x] Updated tasks/MARKET_IMPLEMENTATION.md with refactoring section
+
+**Git History**:
+- Commit: `3d33996` - "refactor: Address mentor feedback (issues 2-6) and flatten image structure"
+- Changes: 27 files changed, 95 insertions(+), 58 deletions(-)
+- 15 images renamed (100% similarity detected)
+- 2 new files created (Coin enum, AppBackButton)
+- 10 files modified
+
+**Impact**:
+- ✅ Cleaner codebase structure
+- ✅ Better maintainability
+- ✅ Type safety with enum
+- ✅ Centralized color management
+- ✅ Reusable shared components
+- ✅ Consistent navigation patterns
+- ✅ Proper git hygiene
+
 ---
 
 ## Current Architecture
@@ -251,15 +444,57 @@ lib/
 │   │       └── models/
 │   │           ├── coin_model.dart
 │   │           └── coin_model.freezed.dart
-│   ├── market/
-│   ├── coin_details/
-│   ├── buy_sell/
+│   ├── market/ COMPLETE
+│   │   ├── presentation/
+│   │   │   ├── pages/
+│   │   │   │   └── market_screen.dart
+│   │   │   └── widgets/
+│   │   │       ├── coin_list_item.dart
+│   │   │       ├── market_search_bar.dart
+│   │   │       └── category_filter.dart
+│   │   └── data/
+│   │       └── models/
+│   │           ├── market_coin_model.dart
+│   │           └── market_coin_model.freezed.dart
+│   ├── coin_details/ COMPLETE
+│   │   ├── presentation/
+│   │   │   ├── pages/
+│   │   │   │   └── coin_details_screen.dart
+│   │   │   └── widgets/
+│   │   │       ├── coin_header_section.dart
+│   │   │       ├── price_card_widget.dart
+│   │   │       ├── chart_section_widget.dart
+│   │   │       ├── statistics_section.dart
+│   │   │       ├── about_section.dart
+│   │   │       └── action_buttons_section.dart
+│   │   └── data/
+│   │       └── models/
+│   │           ├── coin_details_model.dart
+│   │           └── coin_details_model.freezed.dart
+│   ├── buy_crypto/ COMPLETE
+│   │   └── presentation/
+│   │       ├── pages/
+│   │       │   └── buy_crypto_screen.dart
+│   │       └── widgets/
+│   │           ├── currency_input_section.dart
+│   │           ├── exchange_rate_indicator.dart
+│   │           └── exchange_fee_card.dart
+│   ├── payment_method/ COMPLETE
+│   │   └── presentation/
+│   │       ├── pages/
+│   │       │   └── payment_method_screen.dart
+│   │       └── widgets/
+│   │           ├── credit_card_section.dart
+│   │           ├── gradient_card_display.dart
+│   │           ├── payment_option_row.dart
+│   │           └── email_receipt_toggle.dart
 │   ├── portfolio/
 │   └── settings/
 ├── shared/
 │   └── widgets/
 │       ├── app_text_field.dart
-│       └── app_bottom_navigation.dart
+│       ├── app_bottom_navigation.dart
+│       └── primary_button.dart
 └── core/
     ├── di/
     ├── navigation/

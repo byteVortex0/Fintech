@@ -30,17 +30,26 @@ A professional Flutter cryptocurrency trading application with real-time market 
 ### In Development 🚧
 
 - **Splash Screen** - App initialization and onboarding check
-- **Market Screen** - Full coin list with search and pagination
-- **Coin Details** - Detailed price charts and information
 - **Portfolio** - User holdings and performance tracking
-- **Buy/Sell** - Trading interface and transaction history
 - **Settings** - User preferences and security options
 
 ### Recently Completed ✨
 
-- **Home Screen** - Market overview dashboard with balance card, market overview grid, trending coins section, and top gainers list
-- **CoinModel with Freezed** - Immutable data class with auto-generated copyWith(), equality, and toString()
-- **SVG Icon Integration** - Custom SVG icons for cryptocurrency coins throughout the app
+- **Market Feature** - Complete cryptocurrency trading flow with 4 screens:
+  - Market Screen - Coin list with navigation
+  - Coin Details - Detailed coin information with statistics and charts
+  - Buy Crypto - Currency exchange interface
+  - Payment Method - Payment selection and card display
+- **Market Refactoring** - Code quality improvements from team leader feedback:
+  - Flattened image asset structure (15 images reorganized)
+  - Replaced hardcoded routes with AppRoutes constants
+  - Centralized scaffold background colors in ColorManager
+  - Type-safe Coin enum for symbol mapping
+  - Added *.freezed.dart and *.g.dart to .gitignore
+  - Created shared AppBackButton widget
+- **Freezed Data Models** - CoinDetailsModel with immutable data classes
+- **GoRouter Migration** - Migrated from Navigator.onGenerateRoute to GoRouter architecture
+- **Simplified Image Display** - Direct asset display without over-engineering
 
 ### Planned 📋
 - **Biometric Authentication** - Fingerprint and Face ID support
@@ -374,6 +383,6 @@ For questions or issues:
 
 ---
 
-**Last Updated**: November 27, 2025
+**Last Updated**: November 29, 2025
 **Project Status**: In Active Development
-**Current Phase**: Phase 1 (UI Implementation) - Home Screen Complete with Freezed & SVG Icons → Next: Market Screen
+**Current Phase**: Phase 1 (UI Implementation) - Market Feature Complete & Refactored → Next: Portfolio & Settings

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart' as svg;
+import 'package:fintech/core/navigation/navigation_service.dart';
+import 'package:fintech/core/routes/app_routes.dart';
 import '../../data/models/market_coin_model.dart';
 
 /// CoinListItem widget for market coin list
@@ -8,21 +10,28 @@ import '../../data/models/market_coin_model.dart';
 class CoinListItem extends StatelessWidget {
   final MarketCoinModel coin;
 
-  const CoinListItem({
-    super.key,
-    required this.coin,
-  });
+  const CoinListItem({super.key, required this.coin});
 
   Color _getChangeColor() {
     final changeValue = double.tryParse(coin.changePercent) ?? 0;
     return changeValue >= 0 ? const Color(0xFF10B981) : const Color(0xFFEF4444);
   }
 
+  void _navigateToCoinDetails(BuildContext context) {
+    final iconParam = coin.svgIconPath != null ? '&icon=${coin.svgIconPath}' : '';
+    NavigationService.navigateTo(
+      context,
+      '${AppRoutes.coinDetails}?name=${coin.name}$iconParam',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-      child: Container(
+      child: GestureDetector(
+        onTap: () => _navigateToCoinDetails(context),
+        child: Container(
         padding: EdgeInsets.all(12.w),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -100,10 +109,7 @@ class CoinListItem extends StatelessWidget {
                 ),
                 SizedBox(height: 4.h),
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 8.w,
-                    vertical: 4.h,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                   decoration: BoxDecoration(
                     color: _getChangeColor().withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(6.r),
@@ -122,6 +128,7 @@ class CoinListItem extends StatelessWidget {
               ],
             ),
           ],
+        ),
         ),
       ),
     );

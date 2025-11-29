@@ -52,11 +52,7 @@ class _MarketSearchBarState extends State<MarketSearchBar> {
         ),
         child: Row(
           children: [
-            Icon(
-              Icons.search,
-              color: const Color(0xFF9CA3AF),
-              size: 20.sp,
-            ),
+            Icon(Icons.search, color: const Color(0xFF9CA3AF), size: 20.sp),
             SizedBox(width: 8.w),
             Expanded(
               child: TextField(

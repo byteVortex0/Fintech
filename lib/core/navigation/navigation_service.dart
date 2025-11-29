@@ -10,13 +10,16 @@ import 'package:go_router/go_router.dart';
 /// - Handles GoRouter context-based navigation methods
 class NavigationService {
   /// Push route to navigation stack (allows back navigation)
-  static void navigateTo(BuildContext context, String path) => context.push(path);
+  static void navigateTo(BuildContext context, String path) =>
+      context.push(path);
 
   /// Replace current route (no back to previous screen)
-  static void navigateToAndReplace(BuildContext context, String path) => context.go(path);
+  static void navigateToAndReplace(BuildContext context, String path) =>
+      context.go(path);
 
   /// Navigate and clear entire stack (used for logout, login -> home)
-  static void navigateToAndRemoveUntil(BuildContext context, String path) => context.go(path);
+  static void navigateToAndRemoveUntil(BuildContext context, String path) =>
+      context.go(path);
 
   /// Navigate back if navigation stack allows
   static void goBack(BuildContext context) {
@@ -24,8 +27,7 @@ class NavigationService {
   }
 
   // Navigation helpers for common routes
-  static void goToLogin(BuildContext context) =>
-      navigateTo(context, '/login');
+  static void goToLogin(BuildContext context) => navigateTo(context, '/login');
   static void goToRegister(BuildContext context) =>
       navigateTo(context, '/register');
   static void goToHome(BuildContext context) =>

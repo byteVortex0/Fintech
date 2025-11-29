@@ -17,6 +17,7 @@ class OnboardingNextButton extends StatelessWidget {
     /// Provides flexibility for adding ripple effects or haptic feedback if needed
     return GestureDetector(
       onTap: onPressed,
+
       /// Circular button container (60x60 responsive size)
       /// Dark navy color (#1A2B4A) for strong CTA visibility
       child: Container(
@@ -26,6 +27,7 @@ class OnboardingNextButton extends StatelessWidget {
           shape: BoxShape.circle,
           color: Color(0xFF1A2B4A),
         ),
+
         /// Center-aligned arrow icon for next page navigation
         child: Center(
           child: Icon(Icons.arrow_forward, color: Colors.white, size: 24.sp),
