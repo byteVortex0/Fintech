@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
+import 'package:fintech/core/routes/app_routes.dart';
+import 'package:fintech/core/utils/color_manager.dart';
+import 'package:fintech/core/enums/coin.dart';
+import 'package:fintech/shared/widgets/app_back_button.dart';
 import '../widgets/currency_input_section.dart';
 import '../widgets/exchange_rate_indicator.dart';
 import '../widgets/exchange_fee_card.dart';
@@ -28,27 +32,18 @@ class _BuyCryptoScreenState extends State<BuyCryptoScreen> {
   void initState() {
     super.initState();
     if (widget.coinName != null) {
-      receiveCurrency = _getCoinSymbol(widget.coinName!);
+      receiveCurrency = Coin.getSymbol(widget.coinName!);
     }
   }
 
-  String _getCoinSymbol(String coinName) {
-    final symbols = {
-      'Bitcoin': 'BTC',
-      'Ethereum': 'ETH',
-      'Litecoin': 'LTC',
-    };
-    return symbols[coinName] ?? 'BTC';
-  }
-
   void _handleContinue() {
-    NavigationService.navigateTo(context, '/payment_method');
+    NavigationService.navigateTo(context, AppRoutes.paymentMethod);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F8FE),
+      backgroundColor: LightColorManager.screenBackground,
       body: SafeArea(
         child: Column(
           children: [
@@ -117,14 +112,7 @@ class _BuyCryptoScreenState extends State<BuyCryptoScreen> {
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
       child: Row(
         children: [
-          GestureDetector(
-            onTap: () => NavigationService.goBack(context),
-            child: Icon(
-              Icons.arrow_back_ios,
-              size: 24.sp,
-              color: const Color(0xFF1A2B4A),
-            ),
-          ),
+          const AppBackButton(),
           const Spacer(),
           Text(
             'Buy Crypto',

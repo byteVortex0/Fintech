@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/core/navigation/navigation_service.dart';
+import 'package:fintech/core/utils/color_manager.dart';
 import 'package:fintech/shared/widgets/primary_button.dart';
+import 'package:fintech/shared/widgets/app_back_button.dart';
 import 'package:fintech/features/payment_method/presentation/widgets/credit_card_section.dart';
 import 'package:fintech/features/payment_method/presentation/widgets/payment_option_row.dart';
 import 'package:fintech/features/payment_method/presentation/widgets/email_receipt_toggle.dart';
@@ -20,14 +21,11 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FA),
+      backgroundColor: LightColorManager.scaffoldBackground,
       appBar: AppBar(
-        backgroundColor: const Color(0xFFF8F9FA),
+        backgroundColor: LightColorManager.scaffoldBackground,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF1A2B4A)),
-          onPressed: () => NavigationService.goBack(context),
-        ),
+        leading: const AppBackButton(),
         title: Text(
           'Payment Method',
           style: TextStyle(

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
+import 'package:fintech/core/routes/app_routes.dart';
+import 'package:fintech/core/utils/color_manager.dart';
 import 'package:fintech/core/utils/svg_icon_manager.dart';
+import 'package:fintech/shared/widgets/app_back_button.dart';
 import '../../data/models/coin_details_model.dart';
 import '../widgets/coin_header_section.dart';
 import '../widgets/price_card_widget.dart';
@@ -53,7 +56,7 @@ class _CoinDetailsScreenState extends State<CoinDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F8FE),
+      backgroundColor: LightColorManager.screenBackground,
       body: SafeArea(
         child: Column(
           children: [
@@ -106,7 +109,7 @@ class _CoinDetailsScreenState extends State<CoinDetailsScreen> {
                       onBuyPressed: () {
                         NavigationService.navigateTo(
                           context,
-                          '/buy_crypto?coinName=${coinDetails.name}',
+                          '${AppRoutes.buyCrypto}?coinName=${coinDetails.name}',
                         );
                       },
                     ),
@@ -126,14 +129,7 @@ class _CoinDetailsScreenState extends State<CoinDetailsScreen> {
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
       child: Row(
         children: [
-          GestureDetector(
-            onTap: () => NavigationService.goBack(context),
-            child: Icon(
-              Icons.arrow_back_ios,
-              size: 24.sp,
-              color: const Color(0xFF1A2B4A),
-            ),
-          ),
+          const AppBackButton(),
           const Spacer(),
           Text(
             'Coin Details',

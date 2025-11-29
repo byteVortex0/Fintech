@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart' as svg;
 import 'package:fintech/core/navigation/navigation_service.dart';
+import 'package:fintech/core/routes/app_routes.dart';
 import '../../data/models/market_coin_model.dart';
 
 /// CoinListItem widget for market coin list
@@ -23,7 +24,7 @@ class CoinListItem extends StatelessWidget {
     final iconParam = coin.svgIconPath != null ? '&icon=${coin.svgIconPath}' : '';
     NavigationService.navigateTo(
       context,
-      '/coin_details?name=${coin.name}$iconParam',
+      '${AppRoutes.coinDetails}?name=${coin.name}$iconParam',
     );
   }
 

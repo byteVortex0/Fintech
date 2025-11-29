@@ -30,6 +30,11 @@ class AppRoutes {
   static const String touchIdScanning = 'touch_id_scanning';
   static const String touchIdVerified = 'touch_id_verified';
 
+  // Market feature routes
+  static const String coinDetails = '/coin_details';
+  static const String buyCrypto = '/buy_crypto';
+  static const String paymentMethod = '/payment_method';
+
   static Route<dynamic>? onGenerateRoute(RouteSettings routeSettings) {
     // final args = routeSettings.arguments;
     switch (routeSettings.name) {
