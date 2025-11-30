@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class LightColorManager {
   static const Color cardColor = Color(0xFFF7F2FA);
   static const Color screenBackground = Color(0xFFF5F8FE);
+  static const Color scaffoldBackground = Color(0xFFF8F9FA);
+  static const Color borderColor = Color(0xFF5E5E5E);
 }
 
 class DarkColorManager {

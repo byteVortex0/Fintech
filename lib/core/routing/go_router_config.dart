@@ -13,6 +13,11 @@ import 'package:fintech/features/register/presentation/pages/set_fingerprint_pag
 import 'package:fintech/features/register/presentation/pages/set_fingerprint_verified_page.dart';
 import 'package:fintech/features/register/presentation/pages/set_face_id_page.dart';
 import 'package:fintech/features/register/presentation/pages/set_face_id_verified_page.dart';
+import 'package:fintech/features/coin_details/presentation/pages/coin_details_screen.dart';
+import 'package:fintech/features/buy_crypto/presentation/pages/buy_crypto_screen.dart';
+import 'package:fintech/features/payment_method/presentation/pages/payment_method_screen.dart';
+import 'package:fintech/features/portfolio/presentation/pages/portfolio_screen.dart';
+import 'package:fintech/features/settings/presentation/pages/settings_screen.dart';
 import 'package:fintech/shared/widgets/app_bottom_navigation.dart';
 
 /// GoRouter configuration with two route groups:
@@ -65,6 +70,34 @@ final goRouter = GoRouter(
       builder: (context, state) => const SetFaceIdVerifiedPage(),
     ),
 
+    // Coin details route (no navbar)
+    GoRoute(
+      path: '/coin_details',
+      builder: (context, state) {
+        final coinName = state.uri.queryParameters['name'] ?? 'Bitcoin';
+        final svgIconPath = state.uri.queryParameters['icon'];
+        return CoinDetailsScreen(
+          coinName: coinName,
+          svgIconPath: svgIconPath,
+        );
+      },
+    ),
+
+    // Buy crypto route (no navbar)
+    GoRoute(
+      path: '/buy_crypto',
+      builder: (context, state) {
+        final coinName = state.uri.queryParameters['coinName'];
+        return BuyCryptoScreen(coinName: coinName);
+      },
+    ),
+
+    // Payment method route (no navbar)
+    GoRoute(
+      path: '/payment_method',
+      builder: (context, state) => const PaymentMethodScreen(),
+    ),
+
     // Main app routes with persistent bottom navbar
     ShellRoute(
       builder: (context, state, child) {
@@ -81,15 +114,11 @@ final goRouter = GoRouter(
         ),
         GoRoute(
           path: '/portfolio',
-          builder: (context, state) => const Scaffold(
-            body: Center(child: Text('Portfolio - Coming Soon')),
-          ),
+          builder: (context, state) => const PortfolioScreen(),
         ),
         GoRoute(
           path: '/settings',
-          builder: (context, state) => const Scaffold(
-            body: Center(child: Text('Settings - Coming Soon')),
-          ),
+          builder: (context, state) => const SettingsScreen(),
         ),
       ],
     ),

@@ -102,15 +102,66 @@ Navigator.push(...)                         // NEVER use this
    - [x] NavigationService integration
    - [x] Responsive design
 
-3. **Market** - Coin list with pagination, search functionality
+3. **Market** - COMPLETE ✅
+   - [x] Market screen with coin listing
+   - [x] Search functionality with MarketSearchBar
+   - [x] Category filters (All, DeFi, NFT, Gaming, Metaverse)
+   - [x] Coin list with SVG icons
+   - [x] Tap to navigate to coin details
+   - [x] MarketCoinModel with Freezed
 
-4. **Coin Details** - Chart, detailed info, price history
+4. **Coin Details** - COMPLETE ✅
+   - [x] Coin header with name and icon
+   - [x] Price card with percentage change badge
+   - [x] Chart section with time period buttons (1h, 1d, 1w, 1m, 1y)
+   - [x] Statistics section (5 rows: Current Price, Market Cap, Volume 24h, Available Supply, Max Supply)
+   - [x] About section with coin description
+   - [x] Action buttons (Sell and Buy)
+   - [x] CoinDetailsModel with Freezed
+   - [x] Navigation to Buy Crypto screen
 
-5. **Buy/Sell Flow** - Trading interface
+5. **Buy Crypto** - COMPLETE ✅
+   - [x] Currency exchange interface
+   - [x] "You Pay" input section
+   - [x] "You Receive" input section
+   - [x] Exchange rate indicator
+   - [x] Exchange fee card with money.png icon
+   - [x] Continue button navigates to Payment Method
 
-6. **Portfolio** - Holdings, live prices, performance
+6. **Payment Method** - COMPLETE ✅
+   - [x] Credit Card section (expandable)
+   - [x] Payment method selector (VISA, Mastercard, Apple Pay)
+   - [x] Gradient card display using card.png
+   - [x] Google Pay and Mobile Banking options
+   - [x] "Send receipt to your email" toggle
+   - [x] Buy button (navy blue #1E3A5F)
+   - [x] NavigationService.goBack implementation
 
-7. **Settings** - Profile, preferences, security
+7. **Portfolio** - COMPLETE ✅
+   - [x] Portfolio screen with 6 functional sections
+   - [x] Total Value Card with blue gradient and today's performance
+   - [x] Time Period Selector (horizontal scrollable month chips)
+   - [x] Portfolio Donut Chart with Stack/Container/SweepGradient (no CustomPaint)
+   - [x] My Holdings section with 3 cryptocurrency cards (4-line data display)
+   - [x] Recent Transactions list with Buy/Sell indicators (circular arrows)
+   - [x] PortfolioModel, HoldingModel, TransactionModel with Freezed
+   - [x] Portfolio route in GoRouter ShellRoute
+   - [x] Responsive design with flutter_screenutil
+   - [x] Placeholder data for UI testing with complete crypto amounts and dollar values
+   - [x] Uses only basic Flutter widgets (Stack, Container, Row, Column, SweepGradient)
+
+8. **Settings** - COMPLETE ✅
+   - [x] Settings screen with profile section and preferences
+   - [x] Profile Section with large CircleAvatar (140px diameter) and user name
+   - [x] General Settings section (My Account, Billing/Payment, FAQ & Support)
+   - [x] App Settings section (Language, Dark Mode toggle)
+   - [x] UserProfileModel with Freezed (name, profileImagePath)
+   - [x] Reusable SettingsItem widget with conditional border rendering
+   - [x] Dark mode toggle with Switch (fixed deprecated activeColor)
+   - [x] Settings route in GoRouter ShellRoute
+   - [x] Responsive design with flutter_screenutil
+   - [x] Uses only basic Flutter widgets (Container, Row, Column, CircleAvatar, Switch)
+   - [x] Added borderColor to LightColorManager for centralized color management
 
 ---
 
@@ -233,9 +284,12 @@ Navigator.push(...)                         // NEVER use this
 ### Phase 3: Core Features ✅
 
 1. Home Screen (market overview) - COMPLETE
-2. Market Screen (coin list) - NEXT
-3. Coin Details Screen
-4. Portfolio Screen
+2. Market Screen (coin list) - COMPLETE
+3. Coin Details Screen - COMPLETE
+4. Buy Crypto Screen - COMPLETE
+5. Payment Method Screen - COMPLETE
+6. Portfolio Screen - NEXT
+7. Settings Screen - PLANNED
 
 ### Phase 4: Advanced Features
 1. Buy/Sell Flow
@@ -380,4 +434,4 @@ refactor: description
 
 ---
 
-**Current Status**: Login Feature UI Complete - Ready for Git Commit
+**Current Status**: Portfolio Feature Complete (All Design Adjustments Applied) - Ready for Git Commit & Settings Feature

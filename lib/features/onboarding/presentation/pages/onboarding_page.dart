@@ -23,22 +23,22 @@ class _OnboardingPageState extends State<OnboardingPage> {
     OnboardingItem(
       title: 'Welcome To Crypto X',
       subtitle: 'Your gateway to secure cryptocurrency trading',
-      image: 'assets/images/onboarding/1.png',
+      image: 'assets/images/onboarding_1.png',
     ),
     OnboardingItem(
       title: 'Transaction Security',
       subtitle: 'Bank-level encryption protects your assets',
-      image: 'assets/images/onboarding/2.png',
+      image: 'assets/images/onboarding_2.png',
     ),
     OnboardingItem(
       title: 'Fast And Reliable Market Updated',
       subtitle: 'Real-time data from global cryptocurrency markets',
-      image: 'assets/images/onboarding/3.png',
+      image: 'assets/images/onboarding_3.png',
     ),
     OnboardingItem(
       title: 'Get Started Now!',
       subtitle: 'Join thousands of traders worldwide',
-      image: 'assets/images/onboarding/4.png',
+      image: 'assets/images/onboarding_4.png',
     ),
   ];
 

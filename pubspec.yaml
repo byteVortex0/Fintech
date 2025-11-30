@@ -26,6 +26,7 @@ dependencies:
   go_router: ^14.0.0
   local_auth: ^3.0.0
   fluttertoast: ^9.0.0
+  flutter_native_splash: ^2.4.7
 
 dev_dependencies:
   flutter_test:
@@ -42,8 +43,6 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/images/onboarding/
-    - assets/images/login/
     - assets/svg/
 
   # fonts:
