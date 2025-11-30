@@ -150,7 +150,18 @@ Navigator.push(...)                         // NEVER use this
    - [x] Placeholder data for UI testing with complete crypto amounts and dollar values
    - [x] Uses only basic Flutter widgets (Stack, Container, Row, Column, SweepGradient)
 
-8. **Settings** - Profile, preferences, security
+8. **Settings** - COMPLETE ✅
+   - [x] Settings screen with profile section and preferences
+   - [x] Profile Section with large CircleAvatar (140px diameter) and user name
+   - [x] General Settings section (My Account, Billing/Payment, FAQ & Support)
+   - [x] App Settings section (Language, Dark Mode toggle)
+   - [x] UserProfileModel with Freezed (name, profileImagePath)
+   - [x] Reusable SettingsItem widget with conditional border rendering
+   - [x] Dark mode toggle with Switch (fixed deprecated activeColor)
+   - [x] Settings route in GoRouter ShellRoute
+   - [x] Responsive design with flutter_screenutil
+   - [x] Uses only basic Flutter widgets (Container, Row, Column, CircleAvatar, Switch)
+   - [x] Added borderColor to LightColorManager for centralized color management
 
 ---
 
