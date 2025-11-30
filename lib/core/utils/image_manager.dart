@@ -21,6 +21,9 @@ class ImageManager {
   static const String visa = 'assets/images/payment_visa.png';
   static const String applePay = 'assets/images/payment_apple_pay.png';
 
+  // Settings assets
+  static const String profilePlaceholder = 'assets/images/portfolio1.png';
+
   //svg
   static const String home = 'assets/images/svg/home.svg';
   static const String homeFilled = 'assets/images/svg/home_filled.svg';

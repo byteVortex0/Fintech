@@ -27,11 +27,12 @@ A professional Flutter cryptocurrency trading application with real-time market 
 - **Responsive Design** - Works seamlessly on all screen sizes using `flutter_screenutil`
 - **Theme Support** - Light and Dark mode ready (implementation in progress)
 - **Portfolio Screen** - Complete portfolio overview with holdings, distribution chart, and transactions
+- **Settings Screen** - User profile and app preferences with clean, simple UI
 
 ### In Development 🚧
 
 - **Splash Screen** - App initialization and onboarding check
-- **Settings** - User preferences and security options
+- **Theme System** - Dark/Light mode with Cubit state management
 
 ### Recently Completed ✨
 
@@ -55,6 +56,14 @@ A professional Flutter cryptocurrency trading application with real-time market 
   - Recent Transactions - Buy/Sell list with circular arrow indicators
   - 13 files created (3 Freezed models + 7 widgets + 1 page)
   - Uses only basic widgets (Stack, Container, Row, Column, SweepGradient)
+- **Settings Feature** - User preferences and profile management:
+  - Profile Section - Large circular avatar with user name display
+  - General Settings - My Account, Billing/Payment, FAQ & Support
+  - App Settings - Language selection and Dark Mode toggle
+  - Clean widget structure with reusable SettingsItem component
+  - 7 files created (1 Freezed model + 5 widgets + 1 page)
+  - Conditional border rendering for last items in sections
+  - Uses only basic widgets (Container, Row, Column, CircleAvatar, Switch)
 - **Freezed Data Models** - CoinDetailsModel, PortfolioModel, HoldingModel, TransactionModel with immutable data classes
 - **GoRouter Migration** - Migrated from Navigator.onGenerateRoute to GoRouter architecture
 - **Simplified Image Display** - Direct asset display without over-engineering
@@ -167,8 +176,19 @@ lib/
 │   │           ├── portfolio_model.dart (Freezed)
 │   │           ├── holding_model.dart (Freezed)
 │   │           └── transaction_model.dart (Freezed)
-│   ├── splash/              # App initialization (planned)
-│   └── settings/            # User settings (planned)
+│   ├── settings/            # User settings (Complete)
+│   │   ├── presentation/
+│   │   │   ├── pages/
+│   │   │   │   └── settings_screen.dart
+│   │   │   └── widgets/
+│   │   │       ├── profile_section.dart
+│   │   │       ├── settings_section_header.dart
+│   │   │       ├── settings_item.dart
+│   │   │       └── dark_mode_toggle.dart
+│   │   └── data/
+│   │       └── models/
+│   │           └── user_profile_model.dart (Freezed)
+│   └── splash/              # App initialization (planned)
 ├── core/                     # Core utilities & services
 │   ├── di/                  # Dependency injection
 │   ├── navigation/          # Navigation service
@@ -410,4 +430,4 @@ For questions or issues:
 
 **Last Updated**: November 30, 2025
 **Project Status**: In Active Development
-**Current Phase**: Phase 1 (UI Implementation) - Portfolio Feature Complete → Next: Settings
+**Current Phase**: Phase 1 (UI Implementation) - Settings Feature Complete → Next: Theme System (Dark/Light Mode)

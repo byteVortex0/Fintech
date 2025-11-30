@@ -17,6 +17,7 @@ import 'package:fintech/features/coin_details/presentation/pages/coin_details_sc
 import 'package:fintech/features/buy_crypto/presentation/pages/buy_crypto_screen.dart';
 import 'package:fintech/features/payment_method/presentation/pages/payment_method_screen.dart';
 import 'package:fintech/features/portfolio/presentation/pages/portfolio_screen.dart';
+import 'package:fintech/features/settings/presentation/pages/settings_screen.dart';
 import 'package:fintech/shared/widgets/app_bottom_navigation.dart';
 
 /// GoRouter configuration with two route groups:
@@ -117,9 +118,7 @@ final goRouter = GoRouter(
         ),
         GoRoute(
           path: '/settings',
-          builder: (context, state) => const Scaffold(
-            body: Center(child: Text('Settings - Coming Soon')),
-          ),
+          builder: (context, state) => const SettingsScreen(),
         ),
       ],
     ),
