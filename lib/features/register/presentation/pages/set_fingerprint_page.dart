@@ -1,7 +1,7 @@
+import 'package:fintech/core/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:fintech/core/navigation/navigation_service.dart';
 import '../../../login/presentation/widgets/curved_background.dart';
 
 class SetFingerprintPage extends StatefulWidget {
@@ -50,36 +50,49 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
   }
 
   Future<void> _authenticateFingerprint(BuildContext context) async {
-    setState(() => errorMessage = '');
+    String localError = '';
+    bool navigate = false;
 
     try {
       final bool canCheck = await auth.canCheckBiometrics;
       final bool supported = await auth.isDeviceSupported();
 
       if (!canCheck || !supported) {
-        setState(() {
-          errorMessage = 'Biometric authentication not available.';
-        });
-        return;
-      }
-
-      final bool didAuthenticate = await auth.authenticate(
-        localizedReason: 'Place your finger on the sensor',
-      );
-
-      if (didAuthenticate && mounted) {
-        NavigationService.navigateTo(context, '/set_fingerprint_verified');
+        localError = 'Biometric authentication not available.';
       } else {
-        await _runShake();
-        setState(() => errorMessage = 'Authentication failed. Try again.');
+        final bool didAuthenticate = await auth.authenticate(
+          localizedReason: 'Place your finger on the sensor',
+        );
+
+        if (didAuthenticate && mounted) {
+          navigate = true;
+        } else {
+          await _runShake();
+          localError = 'Authentication failed. Try again.';
+        }
       }
     } catch (e) {
-      setState(() => errorMessage = 'Error: ${e.toString()}');
+      localError = 'Error: ${e.toString()}';
+    }
+
+    if (mounted) {
+      if (navigate) {
+        Navigator.of(context).push(
+          AppRoutes.onGenerateRoute(
+            RouteSettings(name: AppRoutes.setFingerprintVerified),
+          )!,
+        );
+      } else {
+        setState(() => errorMessage = localError);
+      }
     }
   }
 
   void _handleSkip(BuildContext context) =>
-      NavigationService.navigateToAndRemoveUntil(context, '/login');
+      Navigator.of(context).pushAndRemoveUntil(
+        AppRoutes.onGenerateRoute(RouteSettings(name: AppRoutes.login))!,
+        (route) => false,
+      );
 
   @override
   Widget build(BuildContext context) {

@@ -1,3 +1,4 @@
+import 'package:fintech/core/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:local_auth/local_auth.dart';
@@ -43,43 +44,49 @@ class _TouchIdScanningPageState extends State<TouchIdScanningPage>
   }
 
   Future<void> _runShake() async {
-    for (int i = 0; i < 6; i++) {
-      setState(() => shakeOffset = (i.isEven ? -10 : 10));
+    final offsets = List.generate(6, (i) => (i.isEven ? -10.0 : 10.0)) + [0.0];
+    for (final offset in offsets) {
+      setState(() => shakeOffset = offset);
       await Future.delayed(const Duration(milliseconds: 40));
     }
-    setState(() => shakeOffset = 0);
   }
 
   Future<void> _authenticateUser() async {
-    setState(() => errorMessage = '');
+    String localError = '';
+    bool navigate = false;
 
     try {
       final bool canCheck = await auth.canCheckBiometrics;
       final bool supported = await auth.isDeviceSupported();
 
       if (!canCheck || !supported) {
-        setState(() {
-          errorMessage = 'Biometric authentication not available.';
-        });
-        return;
-      }
-
-      final bool didAuthenticate = await auth.authenticate(
-        localizedReason: 'Place your finger on the sensor',
-      );
-
-      if (didAuthenticate && mounted) {
-        NavigationService.navigateTo(context, '/touch_id_verified');
+        localError = 'Biometric authentication not available.';
       } else {
-        await _runShake();
-        setState(() {
-          errorMessage = 'Authentication failed. Try again.';
-        });
+        final bool didAuthenticate = await auth.authenticate(
+          localizedReason: 'Place your finger on the sensor',
+        );
+
+        if (didAuthenticate && mounted) {
+          navigate = true;
+        } else {
+          await _runShake();
+          localError = 'Authentication failed. Try again.';
+        }
       }
     } catch (e) {
-      setState(() {
-        errorMessage = 'Error: ${e.toString()}';
-      });
+      localError = 'Error: ${e.toString()}';
+    }
+
+    if (mounted) {
+      if (navigate) {
+        Navigator.of(context).push(
+          AppRoutes.onGenerateRoute(
+            RouteSettings(name: AppRoutes.touchIdVerified),
+          )!,
+        );
+      } else {
+        setState(() => errorMessage = localError);
+      }
     }
   }
 
