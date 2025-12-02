@@ -13,10 +13,12 @@ class EmailReceiptToggle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardTheme.color,
         borderRadius: BorderRadius.circular(16.r),
       ),
       child: Row(
@@ -25,12 +27,12 @@ class EmailReceiptToggle extends StatelessWidget {
             width: 48.w,
             height: 48.w,
             decoration: BoxDecoration(
-              color: const Color(0xFFF3F4F6),
+              color: isDark ? const Color(0xFF2A2A2A) : const Color(0xFFF3F4F6),
               borderRadius: BorderRadius.circular(12.r),
             ),
             child: Icon(
               Icons.email_outlined,
-              color: const Color(0xFF1A2B4A),
+              color: Theme.of(context).iconTheme.color,
               size: 24.sp,
             ),
           ),
@@ -41,14 +43,14 @@ class EmailReceiptToggle extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w600,
-                color: const Color(0xFF1E3A5F),
+                color: Theme.of(context).textTheme.bodyLarge?.color,
               ),
             ),
           ),
           Switch(
             value: value,
             onChanged: onChanged,
-            activeTrackColor: const Color(0xFFFF6B2C),
+            activeTrackColor: Theme.of(context).colorScheme.secondary,
           ),
         ],
       ),

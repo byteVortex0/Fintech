@@ -25,7 +25,7 @@ class CurrencyInputSection extends StatelessWidget {
           style: TextStyle(
             fontSize: 14.sp,
             fontWeight: FontWeight.w400,
-            color: const Color(0xFF9CA3AF),
+            color: Theme.of(context).textTheme.bodyMedium?.color,
           ),
         ),
         SizedBox(height: 8.h),
@@ -37,7 +37,7 @@ class CurrencyInputSection extends StatelessWidget {
               style: TextStyle(
                 fontSize: 32.sp,
                 fontWeight: FontWeight.w700,
-                color: const Color(0xFF1A2B4A),
+                color: Theme.of(context).textTheme.bodyLarge?.color,
               ),
             ),
             _buildCurrencyDropdown(),
@@ -48,36 +48,40 @@ class CurrencyInputSection extends StatelessWidget {
   }
 
   Widget _buildCurrencyDropdown() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF3F4F6),
-        borderRadius: BorderRadius.circular(12.r),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            Icons.attach_money,
-            size: 20.sp,
-            color: const Color(0xFF1A2B4A),
-          ),
-          SizedBox(width: 8.w),
-          Text(
-            currency,
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w600,
-              color: const Color(0xFF1A2B4A),
+    return Builder(
+      builder: (context) => Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+        decoration: BoxDecoration(
+          color: Theme.of(context).brightness == Brightness.dark
+              ? const Color(0xFF2A2A2A)
+              : const Color(0xFFF3F4F6),
+          borderRadius: BorderRadius.circular(12.r),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.attach_money,
+              size: 20.sp,
+              color: Theme.of(context).iconTheme.color,
             ),
-          ),
-          SizedBox(width: 8.w),
-          Icon(
-            Icons.keyboard_arrow_down,
-            size: 20.sp,
-            color: const Color(0xFF9CA3AF),
-          ),
-        ],
+            SizedBox(width: 8.w),
+            Text(
+              currency,
+              style: TextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w600,
+                color: Theme.of(context).textTheme.bodyLarge?.color,
+              ),
+            ),
+            SizedBox(width: 8.w),
+            Icon(
+              Icons.keyboard_arrow_down,
+              size: 20.sp,
+              color: Theme.of(context).iconTheme.color,
+            ),
+          ],
+        ),
       ),
     );
   }

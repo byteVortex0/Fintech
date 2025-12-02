@@ -41,7 +41,7 @@ class ActionButtonsSection extends StatelessWidget {
           child: ElevatedButton(
             onPressed: onBuyPressed,
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF1A2B4A),
+              backgroundColor: Theme.of(context).colorScheme.secondary,
               foregroundColor: Colors.white,
               elevation: 0,
               padding: EdgeInsets.symmetric(vertical: 16.h),

@@ -12,6 +12,10 @@ class CurvedBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final circleColor = Theme.of(context).brightness == Brightness.dark
+        ? const Color(0xFF2A2A2A)
+        : const Color(0xFFD6E4F0);
+
     return Positioned(
       top: -80.h,
       right: -80.w,
@@ -23,7 +27,7 @@ class CurvedBackground extends StatelessWidget {
         height: 300.w,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: const Color(0xFFD6E4F0),
+          color: circleColor,
         ),
       ),
     );

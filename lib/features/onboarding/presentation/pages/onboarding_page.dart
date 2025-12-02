@@ -97,7 +97,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     final isLastPage = _currentIndex == onboardingItems.length - 1;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           /// PageView manages horizontal scrolling through slides
@@ -132,7 +132,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           'Skip',
                           style: TextStyle(
                             fontSize: 16.sp,
-                            color: const Color(0xFF2E5BFF),
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                       ),

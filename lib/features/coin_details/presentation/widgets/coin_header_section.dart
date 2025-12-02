@@ -26,14 +26,16 @@ class CoinHeaderSection extends StatelessWidget {
           Container(
             width: 40.w,
             height: 40.w,
-            decoration: const BoxDecoration(
-              color: Color(0xFFE5E7EB),
+            decoration: BoxDecoration(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? const Color(0xFF2A2A2A)
+                  : const Color(0xFFE5E7EB),
               shape: BoxShape.circle,
             ),
             child: Icon(
               Icons.currency_bitcoin,
               size: 24.sp,
-              color: const Color(0xFF6B7280),
+              color: Theme.of(context).iconTheme.color,
             ),
           ),
         SizedBox(width: 12.w),
@@ -42,7 +44,7 @@ class CoinHeaderSection extends StatelessWidget {
           style: TextStyle(
             fontSize: 24.sp,
             fontWeight: FontWeight.w700,
-            color: const Color(0xFF1A2B4A),
+            color: Theme.of(context).textTheme.bodyLarge?.color,
           ),
         ),
       ],

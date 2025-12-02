@@ -123,24 +123,26 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 
   Widget _buildRegisterButton() {
-    return SizedBox(
-      width: double.infinity,
-      height: 56.h,
-      child: ElevatedButton(
-        onPressed: widget.onRegisterPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF1A2B4A),
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(28.r),
+    return Builder(
+      builder: (context) => SizedBox(
+        width: double.infinity,
+        height: 56.h,
+        child: ElevatedButton(
+          onPressed: widget.onRegisterPressed,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Theme.of(context).colorScheme.secondary,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(28.r),
+            ),
           ),
-        ),
-        child: Text(
-          'Register',
-          style: TextStyle(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
+          child: Text(
+            'Register',
+            style: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
           ),
         ),
       ),
@@ -148,25 +150,30 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 
   Widget _buildLoginRow() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          'Already have an account? ',
-          style: TextStyle(fontSize: 14.sp, color: const Color(0xFF6B7280)),
-        ),
-        GestureDetector(
-          onTap: widget.onLoginPressed,
-          child: Text(
-            'login',
+    return Builder(
+      builder: (context) => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Already have an account? ',
             style: TextStyle(
               fontSize: 14.sp,
-              color: const Color(0xFF1A5FFF),
-              fontWeight: FontWeight.w600,
+              color: Theme.of(context).textTheme.bodyMedium?.color,
             ),
           ),
-        ),
-      ],
+          GestureDetector(
+            onTap: widget.onLoginPressed,
+            child: Text(
+              'login',
+              style: TextStyle(
+                fontSize: 14.sp,
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

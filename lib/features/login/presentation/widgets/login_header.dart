@@ -22,7 +22,7 @@ class LoginHeader extends StatelessWidget {
           style: TextStyle(
             fontSize: 28.sp,
             fontWeight: FontWeight.w600,
-            color: const Color(0xFF1A2B4A),
+            color: Theme.of(context).textTheme.bodyLarge?.color,
           ),
         ),
         SizedBox(height: 8.h),
@@ -31,7 +31,7 @@ class LoginHeader extends StatelessWidget {
           style: TextStyle(
             fontSize: 14.sp,
             fontWeight: FontWeight.w400,
-            color: const Color(0xFF666D80),
+            color: Theme.of(context).textTheme.bodyMedium?.color,
           ),
         ),
       ],

@@ -20,7 +20,7 @@ class PaymentMethodButton extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 14.h),
         decoration: BoxDecoration(
-          color: const Color(0xFF1E3A5F),
+          color: Theme.of(context).colorScheme.secondary,
           borderRadius: BorderRadius.circular(12.r),
         ),
         child: Image.asset(

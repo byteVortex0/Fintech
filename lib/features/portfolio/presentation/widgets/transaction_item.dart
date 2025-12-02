@@ -18,9 +18,13 @@ class TransactionItem extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardTheme.color,
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: const Color(0xFFE0E0E0)),
+        border: Border.all(
+          color: Theme.of(context).brightness == Brightness.dark
+              ? const Color(0xFF3E3E3E)
+              : const Color(0xFFE0E0E0),
+        ),
       ),
       child: Row(
         children: [
@@ -48,7 +52,7 @@ class TransactionItem extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
-                    color: const Color(0xFF1A2B4A),
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
                   ),
                 ),
                 SizedBox(height: 4.h),
@@ -56,7 +60,7 @@ class TransactionItem extends StatelessWidget {
                   transaction.timeAgo,
                   style: TextStyle(
                     fontSize: 12.sp,
-                    color: const Color(0xFF9E9E9E),
+                    color: Theme.of(context).textTheme.bodyMedium?.color,
                   ),
                 ),
               ],
@@ -70,7 +74,7 @@ class TransactionItem extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
-                  color: const Color(0xFF1A2B4A),
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
                 ),
               ),
               SizedBox(height: 4.h),
@@ -78,7 +82,9 @@ class TransactionItem extends StatelessWidget {
                 transaction.dollarValue,
                 style: TextStyle(
                   fontSize: 12.sp,
-                  color: const Color(0xFF00C853),
+                  color: transaction.dollarValue.startsWith('+')
+                      ? const Color(0xFF00C853)
+                      : const Color(0xFFFF5252),
                 ),
               ),
             ],

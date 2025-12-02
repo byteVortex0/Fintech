@@ -21,7 +21,7 @@ class AboutSection extends StatelessWidget {
           style: TextStyle(
             fontSize: 20.sp,
             fontWeight: FontWeight.w700,
-            color: const Color(0xFF1A2B4A),
+            color: Theme.of(context).textTheme.bodyLarge?.color,
           ),
         ),
         SizedBox(height: 12.h),
@@ -30,7 +30,7 @@ class AboutSection extends StatelessWidget {
           style: TextStyle(
             fontSize: 14.sp,
             fontWeight: FontWeight.w400,
-            color: const Color(0xFF6B7280),
+            color: Theme.of(context).textTheme.bodyMedium?.color,
             height: 1.6,
           ),
         ),

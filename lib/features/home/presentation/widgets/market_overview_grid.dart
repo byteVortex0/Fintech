@@ -18,7 +18,7 @@ class MarketOverviewGrid extends StatelessWidget {
             style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1A2B4A),
+              color: Theme.of(context).textTheme.bodyLarge?.color,
             ),
           ),
           SizedBox(height: 12.h),
@@ -30,10 +30,10 @@ class MarketOverviewGrid extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             childAspectRatio: 1.2,
             children: [
-              _buildStatCard('Market Cap', '\$2.1T', '2.35%'),
-              _buildStatCard('24h Volume', '\$85.5B', '2.35%'),
-              _buildStatCard('BTC Dominance', '48.5%', '2.35%'),
-              _buildStatCard('Active Coins', '19,417', ''),
+              _buildStatCard(context, 'Market Cap', '\$2.1T', '2.35%'),
+              _buildStatCard(context, '24h Volume', '\$85.5B', '2.35%'),
+              _buildStatCard(context, 'BTC Dominance', '48.5%', '2.35%'),
+              _buildStatCard(context, 'Active Coins', '19,417', ''),
             ],
           ),
         ],
@@ -41,11 +41,11 @@ class MarketOverviewGrid extends StatelessWidget {
     );
   }
 
-  Widget _buildStatCard(String title, String value, String change) {
+  Widget _buildStatCard(BuildContext context, String title, String value, String change) {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardTheme.color,
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Column(
@@ -56,7 +56,7 @@ class MarketOverviewGrid extends StatelessWidget {
             style: TextStyle(
               fontSize: 12.sp,
               fontWeight: FontWeight.w500,
-              color: const Color(0xFF6B7280),
+              color: Theme.of(context).textTheme.bodyMedium?.color,
             ),
           ),
           SizedBox(height: 8.h),
@@ -65,7 +65,7 @@ class MarketOverviewGrid extends StatelessWidget {
             style: TextStyle(
               fontSize: 18.sp,
               fontWeight: FontWeight.w700,
-              color: const Color(0xFF1A2B4A),
+              color: Theme.of(context).textTheme.bodyLarge?.color,
             ),
           ),
           SizedBox(height: 4.h),

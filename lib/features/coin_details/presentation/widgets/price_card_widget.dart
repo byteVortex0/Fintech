@@ -20,7 +20,7 @@ class PriceCardWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardTheme.color,
         borderRadius: BorderRadius.circular(16.r),
       ),
       child: Row(
@@ -34,7 +34,7 @@ class PriceCardWidget extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 32.sp,
                   fontWeight: FontWeight.w700,
-                  color: const Color(0xFF1A2B4A),
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
                 ),
               ),
               SizedBox(height: 4.h),
@@ -43,7 +43,7 @@ class PriceCardWidget extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w500,
-                  color: const Color(0xFF9CA3AF),
+                  color: Theme.of(context).textTheme.bodyMedium?.color,
                 ),
               ),
             ],
@@ -51,7 +51,7 @@ class PriceCardWidget extends StatelessWidget {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
             decoration: BoxDecoration(
-              color: const Color(0xFF1A2B4A),
+              color: Theme.of(context).colorScheme.secondary,
               borderRadius: BorderRadius.circular(8.r),
             ),
             child: Row(

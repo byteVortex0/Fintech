@@ -21,8 +21,8 @@ class DarkModeToggle extends StatelessWidget {
           Container(
             width: 48.w,
             height: 48.h,
-            decoration: const BoxDecoration(
-              color: Color(0xFF1E3A5F),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.secondary,
               shape: BoxShape.circle,
             ),
             child: Icon(
@@ -38,7 +38,7 @@ class DarkModeToggle extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w500,
-                color: const Color(0xFF1E3A5F),
+                color: Theme.of(context).textTheme.bodyLarge?.color,
               ),
             ),
           ),

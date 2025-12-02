@@ -19,30 +19,38 @@ class OnboardingIndicators extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SmoothPageIndicator(
-      /// PageController with activeIndex keeps indicators synced with current slide
-      /// Read-only mode: indicator reflects actual slide position from OnboardingPage
-      controller: PageController(initialPage: activeIndex),
-      count: count,
+    return Builder(
+      builder: (context) {
+        final isDark = Theme.of(context).brightness == Brightness.dark;
 
-      /// WormEffect Configuration:
-      /// - Creates smooth, animated worm-like transition between dots
-      /// - Blue (#2E5BFF) accent for active dot to match app theme
-      /// - Light gray (#D0D0D0) for inactive dots for subtle visual hierarchy
-      /// - 8x8 dot size and 6px spacing maintains compact indicator bar
-      effect: const WormEffect(
-        dotHeight: 8,
-        dotWidth: 8,
-        spacing: 6,
-        activeDotColor: Color(0xFF2E5BFF),
-        dotColor: Color(0xFFD0D0D0),
-      ),
+        return SmoothPageIndicator(
+          /// PageController with activeIndex keeps indicators synced with current slide
+          /// Read-only mode: indicator reflects actual slide position from OnboardingPage
+          controller: PageController(initialPage: activeIndex),
+          count: count,
 
-      /// onDotClicked intentionally disabled (empty callback)
-      /// Reason: All pagination logic controlled by OnboardingPage's PageView
-      /// and Next button - direct dot tapping would bypass navigation flow
-      /// Future: Can be enabled if direct page jumping feature is needed
-      onDotClicked: (index) {},
+          /// WormEffect Configuration:
+          /// - Creates smooth, animated worm-like transition between dots
+          /// - Uses theme primary color for active dot to match app theme
+          /// - Theme-aware inactive color for subtle visual hierarchy
+          /// - 8x8 dot size and 6px spacing maintains compact indicator bar
+          effect: WormEffect(
+            dotHeight: 8,
+            dotWidth: 8,
+            spacing: 6,
+            activeDotColor: Theme.of(context).colorScheme.primary,
+            dotColor: isDark
+                ? const Color(0xFF666D80)
+                : const Color(0xFFD0D0D0),
+          ),
+
+          /// onDotClicked intentionally disabled (empty callback)
+          /// Reason: All pagination logic controlled by OnboardingPage's PageView
+          /// and Next button - direct dot tapping would bypass navigation flow
+          /// Future: Can be enabled if direct page jumping feature is needed
+          onDotClicked: (index) {},
+        );
+      },
     );
   }
 }

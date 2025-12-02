@@ -53,39 +53,48 @@ class SetFaceIdVerifiedPage extends StatelessWidget {
   }
 
   Widget _buildFaceIdCard() {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 28.h, horizontal: 48.w),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24.r),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _buildCheckIcon(),
-          SizedBox(height: 16.h),
-          Text(
-            'Face ID',
-            style: TextStyle(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w600,
-              color: const Color(0xFF1A2B4A),
+    return Builder(
+      builder: (context) => Container(
+        padding: EdgeInsets.symmetric(vertical: 28.h, horizontal: 48.w),
+        decoration: BoxDecoration(
+          color: Theme.of(context).cardTheme.color,
+          borderRadius: BorderRadius.circular(24.r),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildCheckIcon(context),
+            SizedBox(height: 16.h),
+            Text(
+              'Face ID',
+              style: TextStyle(
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w600,
+                color: Theme.of(context).textTheme.bodyLarge?.color,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildCheckIcon() {
+  Widget _buildCheckIcon(BuildContext context) {
     return Container(
       width: 70.w,
       height: 70.w,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(color: const Color(0xFF1A2B4A), width: 2.5),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.secondary,
+          width: 2.5,
+        ),
       ),
-      child: Icon(Icons.check, color: const Color(0xFF1A2B4A), size: 40.sp),
+      child: Icon(
+        Icons.check,
+        color: Theme.of(context).colorScheme.secondary,
+        size: 40.sp,
+      ),
     );
   }
 
@@ -127,7 +136,7 @@ class SetFaceIdVerifiedPage extends StatelessWidget {
         child: ElevatedButton(
           onPressed: () => _handleContinue(context),
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF1A2B4A),
+            backgroundColor: Theme.of(context).colorScheme.secondary,
             elevation: 0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(26.r),

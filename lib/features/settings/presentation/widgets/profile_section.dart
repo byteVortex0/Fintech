@@ -19,7 +19,7 @@ class ProfileSection extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 70.r,
-          backgroundColor: const Color(0xFF1A2B4A),
+          backgroundColor: Theme.of(context).colorScheme.secondary,
           child: Text(
             'A',
             style: TextStyle(
@@ -35,7 +35,7 @@ class ProfileSection extends StatelessWidget {
           style: TextStyle(
             fontSize: 22.sp,
             fontWeight: FontWeight.w600,
-            color: const Color(0xFF1E3A5F),
+            color: Theme.of(context).textTheme.bodyLarge?.color,
           ),
         ),
       ],

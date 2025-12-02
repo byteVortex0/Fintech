@@ -12,7 +12,7 @@ class TouchIdVerifiedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F9FC),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           const CurvedBackground(),
@@ -39,40 +39,44 @@ class TouchIdVerifiedPage extends StatelessWidget {
   }
 
   Widget _buildCheckIcon() {
-    return Container(
-      width: 140.w,
-      height: 140.w,
-      decoration: const BoxDecoration(
-        color: Color(0xFF1A2B4A),
-        shape: BoxShape.circle,
+    return Builder(
+      builder: (context) => Container(
+        width: 140.w,
+        height: 140.w,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.secondary,
+          shape: BoxShape.circle,
+        ),
+        child: Icon(Icons.check, color: Colors.white, size: 70.sp),
       ),
-      child: Icon(Icons.check, color: Colors.white, size: 70.sp),
     );
   }
 
   Widget _buildVerifiedText() {
-    return Column(
-      children: [
-        Text(
-          "You're verified",
-          style: TextStyle(
-            fontSize: 26.sp,
-            fontWeight: FontWeight.w700,
-            color: const Color(0xFF1A2B4A),
+    return Builder(
+      builder: (context) => Column(
+        children: [
+          Text(
+            "You're verified",
+            style: TextStyle(
+              fontSize: 26.sp,
+              fontWeight: FontWeight.w700,
+              color: Theme.of(context).textTheme.bodyLarge?.color,
+            ),
           ),
-        ),
-        SizedBox(height: 16.h),
-        Text(
-          "You have been verified your\ninformation completely. Let's make\ntransactions!",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 15.sp,
-            fontWeight: FontWeight.w400,
-            color: const Color(0xFF6B7280),
-            height: 1.5,
+          SizedBox(height: 16.h),
+          Text(
+            "You have been verified your\ninformation completely. Let's make\ntransactions!",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 15.sp,
+              fontWeight: FontWeight.w400,
+              color: Theme.of(context).textTheme.bodyMedium?.color,
+              height: 1.5,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -85,7 +89,7 @@ class TouchIdVerifiedPage extends StatelessWidget {
           onTap: () => NavigationService.goBack(context),
           child: Icon(
             Icons.arrow_back_ios,
-            color: const Color(0xFF1A2B4A),
+            color: Theme.of(context).iconTheme.color,
             size: 24.sp,
           ),
         ),
@@ -100,7 +104,7 @@ class TouchIdVerifiedPage extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () => _handleContinue(context),
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF1A2B4A),
+          backgroundColor: Theme.of(context).colorScheme.secondary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30.r),
           ),

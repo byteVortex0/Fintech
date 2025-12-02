@@ -13,7 +13,7 @@ class SetFingerprintVerifiedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F9FC),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           const CurvedBackground(),
@@ -24,9 +24,9 @@ class SetFingerprintVerifiedPage extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(height: 120.h),
-                    _buildCheckmark(),
+                    _buildCheckmark(context),
                     SizedBox(height: 40.h),
-                    _buildContent(),
+                    _buildContent(context),
                     SizedBox(height: 60.h),
                     _buildContinueButton(context),
                     SizedBox(height: 120.h),
@@ -40,13 +40,13 @@ class SetFingerprintVerifiedPage extends StatelessWidget {
     );
   }
 
-  Widget _buildCheckmark() {
+  Widget _buildCheckmark(BuildContext context) {
     return Center(
       child: Container(
         width: 140.w,
         height: 140.w,
-        decoration: const BoxDecoration(
-          color: Color(0xFF1A2B4A),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.secondary,
           shape: BoxShape.circle,
         ),
         child: Icon(Icons.check, color: Colors.white, size: 70.sp),
@@ -54,7 +54,7 @@ class SetFingerprintVerifiedPage extends StatelessWidget {
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(BuildContext context) {
     return Column(
       children: [
         Text(
@@ -63,7 +63,7 @@ class SetFingerprintVerifiedPage extends StatelessWidget {
           style: TextStyle(
             fontSize: 28.sp,
             fontWeight: FontWeight.w700,
-            color: const Color(0xFF1A2B4A),
+            color: Theme.of(context).textTheme.bodyLarge?.color,
           ),
         ),
         SizedBox(height: 16.h),
@@ -75,7 +75,7 @@ class SetFingerprintVerifiedPage extends StatelessWidget {
             style: TextStyle(
               fontSize: 15.sp,
               fontWeight: FontWeight.w500,
-              color: const Color(0xFF374151),
+              color: Theme.of(context).textTheme.bodyMedium?.color,
               height: 1.4,
             ),
           ),
@@ -92,7 +92,7 @@ class SetFingerprintVerifiedPage extends StatelessWidget {
         child: ElevatedButton(
           onPressed: () => _handleContinue(context),
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF1A2B4A),
+            backgroundColor: Theme.of(context).colorScheme.secondary,
             elevation: 0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(28.r),

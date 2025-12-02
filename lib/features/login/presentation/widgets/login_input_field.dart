@@ -30,21 +30,28 @@ class _LoginInputFieldState extends State<LoginInputField> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final borderColor = isDark ? const Color(0xFF3E3E3E) : const Color(0xFF3B5998);
+
     return TextField(
       controller: widget.controller,
       obscureText: _obscureText,
-      style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w400),
+      style: TextStyle(
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w400,
+        color: Theme.of(context).textTheme.bodyLarge?.color,
+      ),
       decoration: InputDecoration(
         hintText: widget.hintText,
         hintStyle: TextStyle(
           fontSize: 14.sp,
-          color: const Color(0xFF9CA3AF),
+          color: Theme.of(context).textTheme.bodyMedium?.color,
           fontWeight: FontWeight.w400,
         ),
         prefixIcon: widget.prefixIcon != null
             ? Icon(
                 widget.prefixIcon,
-                color: const Color(0xFF9CA3AF),
+                color: Theme.of(context).iconTheme.color,
                 size: 20.sp,
               )
             : null,
@@ -53,24 +60,27 @@ class _LoginInputFieldState extends State<LoginInputField> {
                 onTap: () => setState(() => _obscureText = !_obscureText),
                 child: Icon(
                   _obscureText ? Icons.visibility_off : Icons.visibility,
-                  color: const Color(0xFF9CA3AF),
+                  color: Theme.of(context).iconTheme.color,
                   size: 20.sp,
                 ),
               )
             : null,
         filled: true,
-        fillColor: Colors.white,
+        fillColor: Theme.of(context).cardTheme.color,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),
-          borderSide: BorderSide(color: const Color(0xFF3B5998), width: 1.5),
+          borderSide: BorderSide(color: borderColor, width: 1.5),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),
-          borderSide: BorderSide(color: const Color(0xFF3B5998), width: 1.5),
+          borderSide: BorderSide(color: borderColor, width: 1.5),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),
-          borderSide: BorderSide(color: const Color(0xFF1A2B4A), width: 2),
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.secondary,
+            width: 2,
+          ),
         ),
         contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
       ),

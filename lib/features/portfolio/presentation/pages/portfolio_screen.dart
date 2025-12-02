@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/core/utils/color_manager.dart';
 import 'package:fintech/core/utils/svg_icon_manager.dart';
 import 'package:fintech/features/portfolio/data/models/portfolio_model.dart';
 import 'package:fintech/features/portfolio/data/models/holding_model.dart';
@@ -86,16 +85,16 @@ class PortfolioScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: LightColorManager.scaffoldBackground,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: LightColorManager.scaffoldBackground,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         title: Text(
           'Portfolio',
           style: TextStyle(
             fontSize: 18.sp,
             fontWeight: FontWeight.w600,
-            color: const Color(0xFF1A2B4A),
+            color: Theme.of(context).textTheme.bodyLarge?.color,
           ),
         ),
         centerTitle: true,

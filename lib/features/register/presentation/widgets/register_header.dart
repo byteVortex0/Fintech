@@ -18,7 +18,7 @@ class RegisterHeader extends StatelessWidget {
           style: TextStyle(
             fontSize: 28.sp,
             fontWeight: FontWeight.w700,
-            color: const Color(0xFF1A2B4A),
+            color: Theme.of(context).textTheme.bodyLarge?.color,
           ),
         ),
         SizedBox(height: 8.h),
@@ -28,7 +28,7 @@ class RegisterHeader extends StatelessWidget {
           style: TextStyle(
             fontSize: 15.sp,
             fontWeight: FontWeight.w500,
-            color: const Color(0xFF374151),
+            color: Theme.of(context).textTheme.bodyMedium?.color,
             height: 1.4,
           ),
         ),

@@ -29,7 +29,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F9FC),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           const CurvedBackground(),
@@ -66,29 +66,31 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _buildHeader() {
-    return Column(
-      children: [
-        Text(
-          'Login To Your Account',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 26.sp,
-            fontWeight: FontWeight.w700,
-            color: const Color(0xFF1A2B4A),
+    return Builder(
+      builder: (context) => Column(
+        children: [
+          Text(
+            'Login To Your Account',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 26.sp,
+              fontWeight: FontWeight.w700,
+              color: Theme.of(context).textTheme.bodyLarge?.color,
+            ),
           ),
-        ),
-        SizedBox(height: 8.h),
-        Text(
-          "Welcome back you've\nbeen missed!",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 15.sp,
-            fontWeight: FontWeight.w500,
-            color: const Color(0xFF374151),
-            height: 1.4,
+          SizedBox(height: 8.h),
+          Text(
+            "Welcome back you've\nbeen missed!",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 15.sp,
+              fontWeight: FontWeight.w500,
+              color: Theme.of(context).textTheme.bodyMedium?.color,
+              height: 1.4,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -98,7 +100,10 @@ class LoginPage extends StatelessWidget {
       children: [
         Text(
           "Don't have an account? ",
-          style: TextStyle(fontSize: 14.sp, color: const Color(0xFF6B7280)),
+          style: TextStyle(
+            fontSize: 14.sp,
+            color: Theme.of(context).textTheme.bodyMedium?.color,
+          ),
         ),
         GestureDetector(
           onTap: () => _navigateToRegister(context),
@@ -106,7 +111,7 @@ class LoginPage extends StatelessWidget {
             'Sign Up',
             style: TextStyle(
               fontSize: 14.sp,
-              color: const Color(0xFF1A5FFF),
+              color: Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.w600,
             ),
           ),

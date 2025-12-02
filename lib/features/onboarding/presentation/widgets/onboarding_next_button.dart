@@ -19,13 +19,13 @@ class OnboardingNextButton extends StatelessWidget {
       onTap: onPressed,
 
       /// Circular button container (60x60 responsive size)
-      /// Dark navy color (#1A2B4A) for strong CTA visibility
+      /// Uses theme secondary color for strong CTA visibility
       child: Container(
         width: 60.w,
         height: 60.w,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Color(0xFF1A2B4A),
+          color: Theme.of(context).colorScheme.secondary,
         ),
 
         /// Center-aligned arrow icon for next page navigation

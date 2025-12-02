@@ -30,7 +30,7 @@ class TopGainerItem extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
-                    color: const Color(0xFF1A2B4A),
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
                   ),
                 ),
                 Text(
@@ -38,7 +38,7 @@ class TopGainerItem extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w400,
-                    color: const Color(0xFF9CA3AF),
+                    color: Theme.of(context).textTheme.bodyMedium?.color,
                   ),
                 ),
               ],
@@ -52,7 +52,7 @@ class TopGainerItem extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w700,
-                  color: const Color(0xFF1A2B4A),
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
                 ),
               ),
               Row(
