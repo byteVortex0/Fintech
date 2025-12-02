@@ -32,7 +32,7 @@ class ExchangeRateIndicator extends StatelessWidget {
           style: TextStyle(
             fontSize: 14.sp,
             fontWeight: FontWeight.w500,
-            color: const Color(0xFF9CA3AF),
+            color: Theme.of(context).textTheme.bodyMedium?.color,
           ),
         ),
       ],

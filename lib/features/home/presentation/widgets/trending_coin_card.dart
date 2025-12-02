@@ -16,7 +16,7 @@ class TrendingCoinCard extends StatelessWidget {
       width: 140.w,
       padding: EdgeInsets.all(14.w),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardTheme.color,
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Column(
@@ -32,7 +32,7 @@ class TrendingCoinCard extends StatelessWidget {
             style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1A2B4A),
+              color: Theme.of(context).textTheme.bodyLarge?.color,
             ),
           ),
           Text(
@@ -40,7 +40,7 @@ class TrendingCoinCard extends StatelessWidget {
             style: TextStyle(
               fontSize: 12.sp,
               fontWeight: FontWeight.w400,
-              color: const Color(0xFF9CA3AF),
+              color: Theme.of(context).textTheme.bodyMedium?.color,
             ),
           ),
           SizedBox(height: 8.h),
@@ -49,7 +49,7 @@ class TrendingCoinCard extends StatelessWidget {
             style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.w700,
-              color: const Color(0xFF1A2B4A),
+              color: Theme.of(context).textTheme.bodyLarge?.color,
             ),
           ),
           SizedBox(height: 4.h),

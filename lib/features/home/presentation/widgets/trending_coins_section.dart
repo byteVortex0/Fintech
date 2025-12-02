@@ -27,7 +27,7 @@ class TrendingCoinsSection extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
-                  color: const Color(0xFF1A2B4A),
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
                 ),
               ),
               GestureDetector(
@@ -37,7 +37,7 @@ class TrendingCoinsSection extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w500,
-                    color: const Color(0xFF1A5FFF),
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
               ),

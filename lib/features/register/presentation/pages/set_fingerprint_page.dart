@@ -97,7 +97,7 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F9FC),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           const CurvedBackground(),
@@ -108,7 +108,7 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
                 child: Column(
                   children: [
                     SizedBox(height: 80.h),
-                    _buildHeader(),
+                    _buildHeader(context),
                     SizedBox(height: 80.h),
                     _buildFingerprintSection(context),
                     if (errorMessage.isNotEmpty) ...[
@@ -136,7 +136,7 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(BuildContext context) {
     return Column(
       children: [
         Text(
@@ -145,7 +145,7 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
           style: TextStyle(
             fontSize: 28.sp,
             fontWeight: FontWeight.w700,
-            color: const Color(0xFF1A2B4A),
+            color: Theme.of(context).textTheme.bodyLarge?.color,
           ),
         ),
         SizedBox(height: 12.h),
@@ -155,7 +155,7 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
           style: TextStyle(
             fontSize: 15.sp,
             fontWeight: FontWeight.w500,
-            color: const Color(0xFF374151),
+            color: Theme.of(context).textTheme.bodyMedium?.color,
             height: 1.4,
           ),
         ),
@@ -197,6 +197,11 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
                 ),
               );
             },
+          onTap: () => _handleFingerprintSet(context),
+          child: Icon(
+            Icons.fingerprint,
+            size: 180.sp,
+            color: Theme.of(context).iconTheme.color,
           ),
         ),
         SizedBox(height: 48.h),
@@ -208,7 +213,7 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
             style: TextStyle(
               fontSize: 15.sp,
               fontWeight: FontWeight.w500,
-              color: const Color(0xFF1A2B4A),
+              color: Theme.of(context).textTheme.bodyLarge?.color,
               height: 1.4,
             ),
           ),
@@ -225,7 +230,10 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
         child: OutlinedButton(
           onPressed: () => _handleSkip(context),
           style: OutlinedButton.styleFrom(
-            side: const BorderSide(color: Color(0xFF1A2B4A), width: 2),
+            side: BorderSide(
+              color: Theme.of(context).colorScheme.secondary,
+              width: 2,
+            ),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(26.r),
             ),
@@ -235,7 +243,7 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
             style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1A2B4A),
+              color: Theme.of(context).colorScheme.secondary,
             ),
           ),
         ),

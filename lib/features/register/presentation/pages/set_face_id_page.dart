@@ -16,7 +16,7 @@ class SetFaceIdPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F9FC),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           const CurvedBackground(),
@@ -27,7 +27,7 @@ class SetFaceIdPage extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(height: 80.h),
-                    _buildHeader(),
+                    _buildHeader(context),
                     SizedBox(height: 80.h),
                     _buildFaceIdSection(context),
                     SizedBox(height: 80.h),
@@ -43,7 +43,7 @@ class SetFaceIdPage extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(BuildContext context) {
     return Column(
       children: [
         Text(
@@ -52,7 +52,7 @@ class SetFaceIdPage extends StatelessWidget {
           style: TextStyle(
             fontSize: 28.sp,
             fontWeight: FontWeight.w700,
-            color: const Color(0xFF1A2B4A),
+            color: Theme.of(context).textTheme.bodyLarge?.color,
           ),
         ),
         SizedBox(height: 12.h),
@@ -62,7 +62,7 @@ class SetFaceIdPage extends StatelessWidget {
           style: TextStyle(
             fontSize: 15.sp,
             fontWeight: FontWeight.w500,
-            color: const Color(0xFF374151),
+            color: Theme.of(context).textTheme.bodyMedium?.color,
             height: 1.4,
           ),
         ),
@@ -71,15 +71,19 @@ class SetFaceIdPage extends StatelessWidget {
   }
 
   Widget _buildFaceIdSection(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
           padding: EdgeInsets.all(32.w),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).cardTheme.color,
             borderRadius: BorderRadius.circular(16.r),
-            border: Border.all(color: const Color(0xFFE5E7EB), width: 1),
+            border: Border.all(
+              color: isDark ? const Color(0xFF3E3E3E) : const Color(0xFFE5E7EB),
+              width: 1,
+            ),
           ),
           child: Image.asset(ImageManager.faceIdWithText),
         ),
@@ -92,7 +96,7 @@ class SetFaceIdPage extends StatelessWidget {
             style: TextStyle(
               fontSize: 15.sp,
               fontWeight: FontWeight.w500,
-              color: const Color(0xFF1A2B4A),
+              color: Theme.of(context).textTheme.bodyLarge?.color,
               height: 1.4,
             ),
           ),
@@ -110,7 +114,10 @@ class SetFaceIdPage extends StatelessWidget {
             child: OutlinedButton(
               onPressed: () => _handleSkip(context),
               style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Color(0xFF1A2B4A), width: 2),
+                side: BorderSide(
+                  color: Theme.of(context).colorScheme.secondary,
+                  width: 2,
+                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(26.r),
                 ),
@@ -120,7 +127,7 @@ class SetFaceIdPage extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
-                  color: const Color(0xFF1A2B4A),
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
             ),
@@ -133,7 +140,7 @@ class SetFaceIdPage extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () => _handleContinue(context),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF1A2B4A),
+                backgroundColor: Theme.of(context).colorScheme.secondary,
                 elevation: 0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(26.r),

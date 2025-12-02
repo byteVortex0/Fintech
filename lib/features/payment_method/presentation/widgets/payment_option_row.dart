@@ -14,7 +14,7 @@ class PaymentOptionRow extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardTheme.color,
         borderRadius: BorderRadius.circular(16.r),
       ),
       child: Row(
@@ -25,12 +25,12 @@ class PaymentOptionRow extends StatelessWidget {
             style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1E3A5F),
+              color: Theme.of(context).textTheme.bodyLarge?.color,
             ),
           ),
           Icon(
             Icons.arrow_forward_ios,
-            color: const Color(0xFF9CA3AF),
+            color: Theme.of(context).textTheme.bodyMedium?.color,
             size: 16.sp,
           ),
         ],

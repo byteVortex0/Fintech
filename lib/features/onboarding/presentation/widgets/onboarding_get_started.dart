@@ -30,7 +30,7 @@ class OnboardingGetStarted extends StatelessWidget {
         ElevatedButton(
           onPressed: onLogin,
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF1A2B4A),
+            backgroundColor: Theme.of(context).colorScheme.secondary,
             minimumSize: Size(double.infinity, 56.h),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.r),
@@ -55,7 +55,10 @@ class OnboardingGetStarted extends StatelessWidget {
         OutlinedButton(
           onPressed: onRegister,
           style: OutlinedButton.styleFrom(
-            side: const BorderSide(color: Color(0xFF1A2B4A), width: 2),
+            side: BorderSide(
+              color: Theme.of(context).colorScheme.secondary,
+              width: 2,
+            ),
             minimumSize: Size(double.infinity, 56.h),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.r),
@@ -66,7 +69,7 @@ class OnboardingGetStarted extends StatelessWidget {
             style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeightHelper.semiBold,
-              color: const Color(0xFF1A2B4A),
+              color: Theme.of(context).colorScheme.secondary,
             ),
           ),
         ),

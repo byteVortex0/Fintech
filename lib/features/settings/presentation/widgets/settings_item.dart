@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/core/utils/color_manager.dart';
 
 /// Reusable settings item with icon, text, and chevron
 class SettingsItem extends StatelessWidget {
@@ -24,10 +23,12 @@ class SettingsItem extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 16.h),
         decoration: showBorder
-            ? const BoxDecoration(
+            ? BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: LightColorManager.borderColor,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? const Color(0xFF3E3E3E)
+                        : const Color(0xFFE5E7EB),
                     width: 1,
                   ),
                 ),
@@ -38,8 +39,8 @@ class SettingsItem extends StatelessWidget {
             Container(
               width: 48.w,
               height: 48.h,
-              decoration: const BoxDecoration(
-                color: Color(0xFF1E3A5F),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary,
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -55,13 +56,13 @@ class SettingsItem extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
-                  color: const Color(0xFF1E3A5F),
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
                 ),
               ),
             ),
             Icon(
               Icons.chevron_right,
-              color: const Color(0xFF9E9E9E),
+              color: Theme.of(context).iconTheme.color,
               size: 24.sp,
             ),
           ],

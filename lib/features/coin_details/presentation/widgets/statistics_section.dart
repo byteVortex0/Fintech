@@ -27,7 +27,7 @@ class StatisticsSection extends StatelessWidget {
           style: TextStyle(
             fontSize: 20.sp,
             fontWeight: FontWeight.w700,
-            color: const Color(0xFF1A2B4A),
+            color: Theme.of(context).textTheme.bodyLarge?.color,
           ),
         ),
         SizedBox(height: 16.h),
@@ -45,47 +45,53 @@ class StatisticsSection extends StatelessWidget {
   }
 
   Widget _buildStatRow(String label, String value) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 12.h),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.w500,
-                  color: const Color(0xFF1A2B4A),
+    return Builder(
+      builder: (context) => Padding(
+        padding: EdgeInsets.symmetric(vertical: 12.h),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
+                  ),
                 ),
-              ),
-              SizedBox(width: 8.w),
-              Icon(
-                Icons.info,
-                size: 16.sp,
-                color: const Color(0xFF2563EB),
-              ),
-            ],
-          ),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 15.sp,
-              fontWeight: FontWeight.w600,
-              color: const Color(0xFF1A2B4A),
+                SizedBox(width: 8.w),
+                Icon(
+                  Icons.info,
+                  size: 16.sp,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ],
             ),
-          ),
-        ],
+            Text(
+              value,
+              style: TextStyle(
+                fontSize: 15.sp,
+                fontWeight: FontWeight.w600,
+                color: Theme.of(context).textTheme.bodyLarge?.color,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildDivider() {
-    return Divider(
-      height: 1.h,
-      thickness: 1.h,
-      color: const Color(0xFFE5E7EB),
+    return Builder(
+      builder: (context) => Divider(
+        height: 1.h,
+        thickness: 1.h,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? const Color(0xFF3E3E3E)
+            : const Color(0xFFE5E7EB),
+      ),
     );
   }
 }

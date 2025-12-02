@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/core/utils/color_manager.dart';
 import 'package:fintech/shared/widgets/primary_button.dart';
 import 'package:fintech/shared/widgets/app_back_button.dart';
 import 'package:fintech/features/payment_method/presentation/widgets/credit_card_section.dart';
@@ -21,9 +20,9 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LightColorManager.scaffoldBackground,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: LightColorManager.scaffoldBackground,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         leading: const AppBackButton(),
         title: Text(
@@ -31,7 +30,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
           style: TextStyle(
             fontSize: 18.sp,
             fontWeight: FontWeight.w600,
-            color: const Color(0xFF1A2B4A),
+            color: Theme.of(context).textTheme.bodyLarge?.color,
           ),
         ),
         centerTitle: true,
@@ -70,7 +69,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
             Container(
               padding: EdgeInsets.all(24.w),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).cardTheme.color,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withValues(alpha: 0.05),
@@ -81,7 +80,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               ),
               child: PrimaryButton(
                 text: 'Buy',
-                backgroundColor: const Color(0xFF1E3A5F),
+                backgroundColor: Theme.of(context).colorScheme.secondary,
                 onPressed: () {
                   // TODO: Implement payment confirmation
                 },

@@ -18,7 +18,7 @@ class _CreditCardSectionState extends State<CreditCardSection> {
     return Container(
       padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardTheme.color,
         borderRadius: BorderRadius.circular(16.r),
       ),
       child: Column(
@@ -32,12 +32,12 @@ class _CreditCardSectionState extends State<CreditCardSection> {
                 style: TextStyle(
                   fontSize: 20.sp,
                   fontWeight: FontWeight.w600,
-                  color: const Color(0xFF1E3A5F),
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
                 ),
               ),
               Icon(
                 Icons.keyboard_arrow_up,
-                color: const Color(0xFF1E3A5F),
+                color: Theme.of(context).iconTheme.color,
                 size: 28.sp,
               ),
             ],

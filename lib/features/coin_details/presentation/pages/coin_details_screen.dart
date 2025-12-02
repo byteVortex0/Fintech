@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
 import 'package:fintech/core/routes/app_routes.dart';
-import 'package:fintech/core/utils/color_manager.dart';
 import 'package:fintech/core/utils/svg_icon_manager.dart';
 import 'package:fintech/shared/widgets/app_back_button.dart';
 import '../../data/models/coin_details_model.dart';
@@ -56,7 +55,7 @@ class _CoinDetailsScreenState extends State<CoinDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LightColorManager.screenBackground,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -136,7 +135,7 @@ class _CoinDetailsScreenState extends State<CoinDetailsScreen> {
             style: TextStyle(
               fontSize: 20.sp,
               fontWeight: FontWeight.w700,
-              color: const Color(0xFF1A2B4A),
+              color: Theme.of(context).textTheme.bodyLarge?.color,
             ),
           ),
           const Spacer(),

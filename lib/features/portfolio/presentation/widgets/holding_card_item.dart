@@ -17,7 +17,7 @@ class HoldingCardItem extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardTheme.color,
         borderRadius: BorderRadius.circular(12.r),
         boxShadow: [
           BoxShadow(
@@ -44,7 +44,7 @@ class HoldingCardItem extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
-                    color: const Color(0xFF1A2B4A),
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
                   ),
                 ),
                 SizedBox(height: 2.h),
@@ -52,7 +52,7 @@ class HoldingCardItem extends StatelessWidget {
                   holding.symbol,
                   style: TextStyle(
                     fontSize: 12.sp,
-                    color: const Color(0xFF9E9E9E),
+                    color: Theme.of(context).textTheme.bodyMedium?.color,
                   ),
                 ),
                 SizedBox(height: 8.h),
@@ -61,7 +61,7 @@ class HoldingCardItem extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w500,
-                    color: const Color(0xFF1A2B4A),
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
                   ),
                 ),
                 SizedBox(height: 2.h),
@@ -69,7 +69,7 @@ class HoldingCardItem extends StatelessWidget {
                   holding.dollarValue,
                   style: TextStyle(
                     fontSize: 12.sp,
-                    color: const Color(0xFFFF6B6B),
+                    color: Theme.of(context).textTheme.bodyMedium?.color,
                   ),
                 ),
               ],
@@ -83,7 +83,7 @@ class HoldingCardItem extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
-                  color: const Color(0xFF1A2B4A),
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
                 ),
               ),
               SizedBox(height: 8.h),

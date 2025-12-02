@@ -59,9 +59,9 @@ class PortfolioDonutChart extends StatelessWidget {
               Container(
                 height: 100.h,
                 width: 100.w,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white,
+                  color: Theme.of(context).cardTheme.color,
                 ),
                 child: Center(
                   child: Text(
@@ -69,7 +69,7 @@ class PortfolioDonutChart extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.bold,
-                      color: const Color(0xFF1A2B4A),
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
                     ),
                   ),
                 ),
@@ -102,7 +102,7 @@ class PortfolioDonutChart extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
-                        color: const Color(0xFF1A2B4A),
+                        color: Theme.of(context).textTheme.bodyLarge?.color,
                       ),
                     ),
                   ],

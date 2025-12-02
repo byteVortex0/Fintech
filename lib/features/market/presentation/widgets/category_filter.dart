@@ -43,13 +43,15 @@ class _CategoryFilterState extends State<CategoryFilter> {
                   ),
                   decoration: BoxDecoration(
                     color: isSelected
-                        ? const Color(0xFF1A2B4A)
+                        ? Theme.of(context).colorScheme.secondary
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(20.r),
                     border: Border.all(
                       color: isSelected
                           ? Colors.transparent
-                          : const Color(0xFFE5E7EB),
+                          : Theme.of(context).brightness == Brightness.dark
+                              ? const Color(0xFF3E3E3E)
+                              : const Color(0xFFE5E7EB),
                       width: 1,
                     ),
                   ),
@@ -60,7 +62,7 @@ class _CategoryFilterState extends State<CategoryFilter> {
                       fontWeight: FontWeight.w600,
                       color: isSelected
                           ? Colors.white
-                          : const Color(0xFF1A2B4A),
+                          : Theme.of(context).textTheme.bodyLarge?.color,
                     ),
                   ),
                 ),

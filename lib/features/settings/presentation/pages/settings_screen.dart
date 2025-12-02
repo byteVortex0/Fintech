@@ -1,36 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/core/utils/color_manager.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fintech/core/utils/image_manager.dart';
+import 'package:fintech/core/theme/theme_cubit.dart';
 import 'package:fintech/features/settings/presentation/widgets/profile_section.dart';
 import 'package:fintech/features/settings/presentation/widgets/settings_section_header.dart';
 import 'package:fintech/features/settings/presentation/widgets/settings_item.dart';
 import 'package:fintech/features/settings/presentation/widgets/dark_mode_toggle.dart';
 
 /// Settings screen with profile, general settings, and preferences
-class SettingsScreen extends StatefulWidget {
+class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
-
-  @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
-  bool isDarkMode = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LightColorManager.scaffoldBackground,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: LightColorManager.scaffoldBackground,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         title: Text(
           'Settings',
           style: TextStyle(
             fontSize: 18.sp,
             fontWeight: FontWeight.w600,
-            color: const Color(0xFF1E3A5F),
+            color: Theme.of(context).textTheme.bodyLarge?.color,
           ),
         ),
         centerTitle: false,
@@ -72,12 +66,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 title: 'Language',
                 onTap: () {},
               ),
-              DarkModeToggle(
-                isDarkMode: isDarkMode,
-                onChanged: (value) {
-                  setState(() {
-                    isDarkMode = value;
-                  });
+              BlocBuilder<ThemeCubit, bool>(
+                builder: (context, isDarkMode) {
+                  return DarkModeToggle(
+                    isDarkMode: isDarkMode,
+                    onChanged: (value) {
+                      context.read<ThemeCubit>().toggleTheme();
+                    },
+                  );
                 },
               ),
             ],

@@ -15,7 +15,7 @@ class AppBackButton extends StatelessWidget {
     return IconButton(
       icon: Icon(
         Icons.arrow_back,
-        color: iconColor ?? const Color(0xFF1A2B4A),
+        color: iconColor ?? Theme.of(context).iconTheme.color,
       ),
       onPressed: () => NavigationService.goBack(context),
     );

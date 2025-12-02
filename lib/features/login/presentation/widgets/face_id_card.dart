@@ -22,10 +22,13 @@ class FaceIdCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final iconBgColor = isDark ? const Color(0xFF2A2A2A) : const Color(0xFFF5F5F5);
+
     return Container(
       padding: EdgeInsets.symmetric(vertical: 40.h, horizontal: 24.w),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardTheme.color,
         borderRadius: BorderRadius.circular(20.r),
         boxShadow: [
           BoxShadow(
@@ -41,7 +44,7 @@ class FaceIdCard extends StatelessWidget {
             width: 120.w,
             height: 120.w,
             decoration: BoxDecoration(
-              color: const Color(0xFFF5F5F5),
+              color: iconBgColor,
               shape: BoxShape.circle,
             ),
             child: Image.asset(
@@ -57,7 +60,7 @@ class FaceIdCard extends StatelessWidget {
             style: TextStyle(
               fontSize: 18.sp,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1A2B4A),
+              color: Theme.of(context).textTheme.bodyLarge?.color,
             ),
           ),
           SizedBox(height: 8.h),
@@ -67,7 +70,7 @@ class FaceIdCard extends StatelessWidget {
             style: TextStyle(
               fontSize: 13.sp,
               fontWeight: FontWeight.w400,
-              color: const Color(0xFF666D80),
+              color: Theme.of(context).textTheme.bodyMedium?.color,
             ),
           ),
         ],

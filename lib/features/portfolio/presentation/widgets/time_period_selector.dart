@@ -33,19 +33,25 @@ class _TimePeriodSelectorState extends State<TimePeriodSelector> {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
               decoration: BoxDecoration(
-                color: isSelected ? const Color(0xFF0063F7) : Colors.white,
+                color: isSelected
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).cardTheme.color,
                 borderRadius: BorderRadius.circular(20.r),
                 border: Border.all(
                   color: isSelected
-                      ? const Color(0xFF0063F7)
-                      : const Color(0xFFE0E0E0),
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).brightness == Brightness.dark
+                          ? const Color(0xFF3E3E3E)
+                          : const Color(0xFFE0E0E0),
                 ),
               ),
               child: Center(
                 child: Text(
                   months[index],
                   style: TextStyle(
-                    color: isSelected ? Colors.white : const Color(0xFF757575),
+                    color: isSelected
+                        ? Colors.white
+                        : Theme.of(context).textTheme.bodyMedium?.color,
                     fontSize: 14.sp,
                     fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                   ),
