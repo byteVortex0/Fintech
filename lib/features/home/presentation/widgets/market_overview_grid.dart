@@ -41,7 +41,12 @@ class MarketOverviewGrid extends StatelessWidget {
     );
   }
 
-  Widget _buildStatCard(BuildContext context, String title, String value, String change) {
+  Widget _buildStatCard(
+    BuildContext context,
+    String title,
+    String value,
+    String change,
+  ) {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(

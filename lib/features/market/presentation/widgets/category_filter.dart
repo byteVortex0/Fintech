@@ -50,8 +50,8 @@ class _CategoryFilterState extends State<CategoryFilter> {
                       color: isSelected
                           ? Colors.transparent
                           : Theme.of(context).brightness == Brightness.dark
-                              ? const Color(0xFF3E3E3E)
-                              : const Color(0xFFE5E7EB),
+                          ? const Color(0xFF3E3E3E)
+                          : const Color(0xFFE5E7EB),
                       width: 1,
                     ),
                   ),

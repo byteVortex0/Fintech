@@ -43,11 +43,7 @@ class SettingsItem extends StatelessWidget {
                 color: Theme.of(context).colorScheme.secondary,
                 shape: BoxShape.circle,
               ),
-              child: Icon(
-                icon,
-                color: Colors.white,
-                size: 24.sp,
-              ),
+              child: Icon(icon, color: Colors.white, size: 24.sp),
             ),
             SizedBox(width: 16.w),
             Expanded(

@@ -8,7 +8,8 @@ class ImageManager {
   static const String faceIdBg = 'assets/images/login_face_id_bg.png';
   static const String faceId = 'assets/images/login_face_id.png';
   static const String faceIdRight = 'assets/images/login_face_id_right.png';
-  static const String faceIdWithText = 'assets/images/login_face_id_with_text.png';
+  static const String faceIdWithText =
+      'assets/images/login_face_id_with_text.png';
   static const String finger = 'assets/images/login_finger.png';
   static const String rightCheckmark = 'assets/images/login_right.png';
 

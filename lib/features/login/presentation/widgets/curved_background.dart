@@ -25,10 +25,7 @@ class CurvedBackground extends StatelessWidget {
       child: Container(
         width: 300.w,
         height: 300.w,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: circleColor,
-        ),
+        decoration: BoxDecoration(shape: BoxShape.circle, color: circleColor),
       ),
     );
   }

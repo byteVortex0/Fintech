@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "330785154476",
+    "project_id": "table-revervation",
+    "storage_bucket": "table-revervation.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:330785154476:android:5b0639ac52918cdc3ac609",
+        "android_client_info": {
+          "package_name": "com.byteVortex.fintech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "330785154476-717s92ovgb18ovo0chnol5r4kmnqfjt1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC50olI7QF-7gZXgTqP44xefhZ2sxhp2Zs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "330785154476-717s92ovgb18ovo0chnol5r4kmnqfjt1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "330785154476-4klt0vlhtauh80ia4b5b2vl315ied8gp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tableReveration"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

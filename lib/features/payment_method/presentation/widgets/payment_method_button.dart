@@ -23,11 +23,7 @@ class PaymentMethodButton extends StatelessWidget {
           color: Theme.of(context).colorScheme.secondary,
           borderRadius: BorderRadius.circular(12.r),
         ),
-        child: Image.asset(
-          iconPath,
-          height: 28.h,
-          fit: BoxFit.contain,
-        ),
+        child: Image.asset(iconPath, height: 28.h, fit: BoxFit.contain),
       ),
     );
   }
