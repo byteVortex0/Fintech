@@ -88,46 +88,56 @@ class _LoginFormState extends State<LoginForm> {
   /// Remember Me: Maintains checkbox state via setState for persistent login feature
   /// Forgot Password: Routes to password recovery flow when tapped
   Widget _buildRememberForgotRow() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        /// Left side: Remember me checkbox with label
-        /// Checkbox state triggers setState to update _rememberMe variable
-        Row(
-          children: [
-            SizedBox(
-              width: 24.w,
-              height: 24.w,
-              child: Checkbox(
-                value: _rememberMe,
-                onChanged: (value) =>
-                    setState(() => _rememberMe = value ?? false),
-                activeColor: const Color(0xFF1A2B4A),
-                side: BorderSide(color: const Color(0xFF9CA3AF), width: 1.5),
+    return Builder(
+      builder: (context) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          /// Left side: Remember me checkbox with label
+          /// Checkbox state triggers setState to update _rememberMe variable
+          Row(
+            children: [
+              SizedBox(
+                width: 24.w,
+                height: 24.w,
+                child: Checkbox(
+                  value: _rememberMe,
+                  onChanged: (value) =>
+                      setState(() => _rememberMe = value ?? false),
+                  activeColor: Theme.of(context).colorScheme.secondary,
+                  side: BorderSide(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? const Color(0xFF3E3E3E)
+                        : const Color(0xFF9CA3AF),
+                    width: 1.5,
+                  ),
+                ),
+              ),
+              SizedBox(width: 8.w),
+              Text(
+                'Remember me',
+                style: TextStyle(
+                  fontSize: 13.sp,
+                  color: Theme.of(context).textTheme.bodyMedium?.color,
+                ),
+              ),
+            ],
+          ),
+
+          /// Right side: Forgot password link
+          /// Tapping routes to password recovery page via callback
+          GestureDetector(
+            onTap: widget.onForgotPasswordPressed,
+            child: Text(
+              'Forget Password?',
+              style: TextStyle(
+                fontSize: 13.sp,
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.w500,
               ),
             ),
-            SizedBox(width: 8.w),
-            Text(
-              'Remember me',
-              style: TextStyle(fontSize: 13.sp, color: const Color(0xFF374151)),
-            ),
-          ],
-        ),
-
-        /// Right side: Forgot password link
-        /// Tapping routes to password recovery page via callback
-        GestureDetector(
-          onTap: widget.onForgotPasswordPressed,
-          child: Text(
-            'Forget Password?',
-            style: TextStyle(
-              fontSize: 13.sp,
-              color: const Color(0xFF1A5FFF),
-              fontWeight: FontWeight.w500,
-            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -136,24 +146,26 @@ class _LoginFormState extends State<LoginForm> {
   /// Rounded corners (30.r radius) match app design system
   /// No elevation for flat, modern appearance
   Widget _buildLoginButton() {
-    return SizedBox(
-      width: double.infinity,
-      height: 52.h,
-      child: ElevatedButton(
-        onPressed: widget.onLoginPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF1A2B4A),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.r),
+    return Builder(
+      builder: (context) => SizedBox(
+        width: double.infinity,
+        height: 52.h,
+        child: ElevatedButton(
+          onPressed: widget.onLoginPressed,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Theme.of(context).colorScheme.secondary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.r),
+            ),
+            elevation: 0,
           ),
-          elevation: 0,
-        ),
-        child: Text(
-          'Login',
-          style: TextStyle(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
+          child: Text(
+            'Login',
+            style: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
           ),
         ),
       ),

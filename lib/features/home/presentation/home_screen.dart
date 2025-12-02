@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
-import 'package:fintech/core/utils/color_manager.dart';
 import 'widgets/home_header.dart';
 import 'widgets/current_balance_card.dart';
 import 'widgets/market_overview_grid.dart';
@@ -14,7 +13,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LightColorManager.screenBackground,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: ListView(
           shrinkWrap: false,

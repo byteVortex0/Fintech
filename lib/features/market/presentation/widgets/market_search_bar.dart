@@ -39,7 +39,7 @@ class _MarketSearchBarState extends State<MarketSearchBar> {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).cardTheme.color,
           borderRadius: BorderRadius.circular(12.r),
           boxShadow: [
             BoxShadow(
@@ -54,7 +54,7 @@ class _MarketSearchBarState extends State<MarketSearchBar> {
           children: [
             Icon(
               Icons.search,
-              color: const Color(0xFF9CA3AF),
+              color: Theme.of(context).iconTheme.color,
               size: 20.sp,
             ),
             SizedBox(width: 8.w),
@@ -66,7 +66,7 @@ class _MarketSearchBarState extends State<MarketSearchBar> {
                   hintText: 'Search',
                   hintStyle: TextStyle(
                     fontSize: 14.sp,
-                    color: const Color(0xFF9CA3AF),
+                    color: Theme.of(context).textTheme.bodyMedium?.color,
                     fontWeight: FontWeight.w400,
                   ),
                   border: InputBorder.none,
@@ -75,7 +75,7 @@ class _MarketSearchBarState extends State<MarketSearchBar> {
                 ),
                 style: TextStyle(
                   fontSize: 14.sp,
-                  color: const Color(0xFF1A2B4A),
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -84,7 +84,7 @@ class _MarketSearchBarState extends State<MarketSearchBar> {
               onTap: widget.onFilterPressed,
               child: Icon(
                 Icons.tune,
-                color: const Color(0xFF1A2B4A),
+                color: Theme.of(context).iconTheme.color,
                 size: 20.sp,
               ),
             ),

@@ -10,7 +10,7 @@ class TouchIdScanningPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F9FC),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           const CurvedBackground(),
@@ -43,7 +43,7 @@ class TouchIdScanningPage extends StatelessWidget {
         onTap: () => NavigationService.goBack(context),
         child: Icon(
           Icons.arrow_back_ios,
-          color: const Color(0xFF1A2B4A),
+          color: Theme.of(context).iconTheme.color,
           size: 24.sp,
         ),
       ),
@@ -51,14 +51,16 @@ class TouchIdScanningPage extends StatelessWidget {
   }
 
   Widget _buildTitle() {
-    return Text(
-      'Touch ID sensor to verify yourself',
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: 26.sp,
-        fontWeight: FontWeight.w700,
-        color: const Color(0xFF1A2B4A),
-        height: 1.3,
+    return Builder(
+      builder: (context) => Text(
+        'Touch ID sensor to verify yourself',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 26.sp,
+          fontWeight: FontWeight.w700,
+          color: Theme.of(context).textTheme.bodyLarge?.color,
+          height: 1.3,
+        ),
       ),
     );
   }
@@ -70,20 +72,22 @@ class TouchIdScanningPage extends StatelessWidget {
         ImageManager.finger,
         width: 160.w,
         height: 160.w,
-        color: const Color(0xFF6B7280),
+        color: Theme.of(context).iconTheme.color,
       ),
     );
   }
 
   Widget _buildSubtitle() {
-    return Text(
-      'Please verify your identity using touch\nID and it will proceed automatically.',
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: 15.sp,
-        fontWeight: FontWeight.w500,
-        color: const Color(0xFF374151),
-        height: 1.5,
+    return Builder(
+      builder: (context) => Text(
+        'Please verify your identity using touch\nID and it will proceed automatically.',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 15.sp,
+          fontWeight: FontWeight.w500,
+          color: Theme.of(context).textTheme.bodyMedium?.color,
+          height: 1.5,
+        ),
       ),
     );
   }

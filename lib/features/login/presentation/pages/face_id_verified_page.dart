@@ -12,7 +12,7 @@ class FaceIdVerifiedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F9FC),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           const CurvedBackground(),
@@ -39,65 +39,78 @@ class FaceIdVerifiedPage extends StatelessWidget {
   }
 
   Widget _buildFaceIdCard() {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 28.h, horizontal: 48.w),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24.r),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _buildCheckIcon(),
-          SizedBox(height: 16.h),
-          Text(
-            'Face ID',
-            style: TextStyle(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w600,
-              color: const Color(0xFF1A2B4A),
+    return Builder(
+      builder: (context) => Container(
+        padding: EdgeInsets.symmetric(vertical: 28.h, horizontal: 48.w),
+        decoration: BoxDecoration(
+          color: Theme.of(context).cardTheme.color,
+          borderRadius: BorderRadius.circular(24.r),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildCheckIcon(),
+            SizedBox(height: 16.h),
+            Text(
+              'Face ID',
+              style: TextStyle(
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w600,
+                color: Theme.of(context).textTheme.bodyLarge?.color,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildCheckIcon() {
-    return Container(
-      width: 70.w,
-      height: 70.w,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(color: const Color(0xFF1A2B4A), width: 2.5),
+    return Builder(
+      builder: (context) => Container(
+        width: 70.w,
+        height: 70.w,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: Theme.of(context).colorScheme.secondary,
+            width: 2.5,
+          ),
+        ),
+        child: Icon(
+          Icons.check,
+          color: Theme.of(context).colorScheme.secondary,
+          size: 40.sp,
+        ),
       ),
-      child: Icon(Icons.check, color: const Color(0xFF1A2B4A), size: 40.sp),
     );
   }
 
   Widget _buildVerifiedText() {
-    return Column(
-      children: [
-        Text(
-          "You're verified",
-          style: TextStyle(
-            fontSize: 26.sp,
-            fontWeight: FontWeight.w700,
-            color: const Color(0xFF1A2B4A),
+    return Builder(
+      builder: (context) => Column(
+        children: [
+          Text(
+            "You're verified",
+            style: TextStyle(
+              fontSize: 26.sp,
+              fontWeight: FontWeight.w700,
+              color: Theme.of(context).textTheme.bodyLarge?.color,
+            ),
           ),
-        ),
-        SizedBox(height: 16.h),
-        Text(
-          "You have been verified your information\ncompletely. Let's make transactions!",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 15.sp,
-            fontWeight: FontWeight.w400,
-            color: const Color(0xFF6B7280),
-            height: 1.5,
+          SizedBox(height: 16.h),
+          Text(
+            "You have been verified your information\ncompletely. Let's make transactions!",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 15.sp,
+              fontWeight: FontWeight.w400,
+              color: Theme.of(context).textTheme.bodyMedium?.color,
+              height: 1.5,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -110,7 +123,7 @@ class FaceIdVerifiedPage extends StatelessWidget {
           onTap: () => NavigationService.goBack(context),
           child: Icon(
             Icons.arrow_back_ios,
-            color: const Color(0xFF1A2B4A),
+            color: Theme.of(context).iconTheme.color,
             size: 24.sp,
           ),
         ),
@@ -125,7 +138,7 @@ class FaceIdVerifiedPage extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () => _handleContinue(context),
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF1A2B4A),
+          backgroundColor: Theme.of(context).colorScheme.secondary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30.r),
           ),

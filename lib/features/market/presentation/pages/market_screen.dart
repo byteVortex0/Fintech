@@ -77,7 +77,7 @@ class _MarketScreenState extends State<MarketScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F8FE),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -90,7 +90,7 @@ class _MarketScreenState extends State<MarketScreen> {
                 style: TextStyle(
                   fontSize: 28.sp,
                   fontWeight: FontWeight.w700,
-                  color: const Color(0xFF1A2B4A),
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
                 ),
               ),
             ),
@@ -124,7 +124,7 @@ class _MarketScreenState extends State<MarketScreen> {
                         'No coins found',
                         style: TextStyle(
                           fontSize: 16.sp,
-                          color: const Color(0xFF9CA3AF),
+                          color: Theme.of(context).textTheme.bodyLarge?.color,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

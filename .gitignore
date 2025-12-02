@@ -1,4 +1,5 @@
 # Miscellaneous
+pubspec.lock
 *.class
 *.log
 *.pyc
@@ -43,3 +44,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Code generation
+*.g.dart
+*.freezed.dart

@@ -26,21 +26,47 @@ A professional Flutter cryptocurrency trading application with real-time market 
 - **AppRoutes Constants** - No hardcoded route strings (0 found)
 - **Responsive Design** - Works seamlessly on all screen sizes using `flutter_screenutil`
 - **Theme Support** - Light and Dark mode ready (implementation in progress)
+- **Portfolio Screen** - Complete portfolio overview with holdings, distribution chart, and transactions
+- **Settings Screen** - User profile and app preferences with clean, simple UI
 
 ### In Development 🚧
 
 - **Splash Screen** - App initialization and onboarding check
-- **Market Screen** - Full coin list with search and pagination
-- **Coin Details** - Detailed price charts and information
-- **Portfolio** - User holdings and performance tracking
-- **Buy/Sell** - Trading interface and transaction history
-- **Settings** - User preferences and security options
+- **Theme System** - Dark/Light mode with Cubit state management
 
 ### Recently Completed ✨
 
-- **Home Screen** - Market overview dashboard with balance card, market overview grid, trending coins section, and top gainers list
-- **CoinModel with Freezed** - Immutable data class with auto-generated copyWith(), equality, and toString()
-- **SVG Icon Integration** - Custom SVG icons for cryptocurrency coins throughout the app
+- **Market Feature** - Complete cryptocurrency trading flow with 4 screens:
+  - Market Screen - Coin list with navigation
+  - Coin Details - Detailed coin information with statistics and charts
+  - Buy Crypto - Currency exchange interface
+  - Payment Method - Payment selection and card display
+- **Market Refactoring** - Code quality improvements from team leader feedback:
+  - Flattened image asset structure (15 images reorganized)
+  - Replaced hardcoded routes with AppRoutes constants
+  - Centralized scaffold background colors in ColorManager
+  - Type-safe Coin enum for symbol mapping
+  - Added *.freezed.dart and *.g.dart to .gitignore
+  - Created shared AppBackButton widget
+- **Portfolio Feature** - Complete portfolio overview with 6 sections:
+  - Total Value Card - Blue gradient card with today's performance
+  - Time Period Selector - Horizontal scrollable month chips (Nov-Apl)
+  - Portfolio Donut Chart - Simple chart with Stack/Container/SweepGradient
+  - My Holdings - 3 cryptocurrency cards with 4-line data display
+  - Recent Transactions - Buy/Sell list with circular arrow indicators
+  - 13 files created (3 Freezed models + 7 widgets + 1 page)
+  - Uses only basic widgets (Stack, Container, Row, Column, SweepGradient)
+- **Settings Feature** - User preferences and profile management:
+  - Profile Section - Large circular avatar with user name display
+  - General Settings - My Account, Billing/Payment, FAQ & Support
+  - App Settings - Language selection and Dark Mode toggle
+  - Clean widget structure with reusable SettingsItem component
+  - 7 files created (1 Freezed model + 5 widgets + 1 page)
+  - Conditional border rendering for last items in sections
+  - Uses only basic widgets (Container, Row, Column, CircleAvatar, Switch)
+- **Freezed Data Models** - CoinDetailsModel, PortfolioModel, HoldingModel, TransactionModel with immutable data classes
+- **GoRouter Migration** - Migrated from Navigator.onGenerateRoute to GoRouter architecture
+- **Simplified Image Display** - Direct asset display without over-engineering
 
 ### Planned 📋
 - **Biometric Authentication** - Fingerprint and Face ID support
@@ -129,12 +155,40 @@ lib/
 │   │       └── models/
 │   │           ├── coin_model.dart
 │   │           └── coin_model.freezed.dart
-│   ├── splash/              # App initialization (planned)
-│   ├── market/              # Market listing (planned)
-│   ├── coin_details/        # Coin details (planned)
-│   ├── portfolio/           # Portfolio management (planned)
-│   ├── buy_sell/            # Trading interface (planned)
-│   └── settings/            # User settings (planned)
+│   ├── market/              # Market & trading flow (Complete)
+│   ├── coin_details/        # Coin details screen (Complete)
+│   ├── buy_crypto/          # Buy cryptocurrency (Complete)
+│   ├── payment_method/      # Payment selection (Complete)
+│   ├── portfolio/           # Portfolio management (Complete)
+│   │   ├── presentation/
+│   │   │   ├── pages/
+│   │   │   │   └── portfolio_screen.dart
+│   │   │   └── widgets/
+│   │   │       ├── total_value_card.dart
+│   │   │       ├── time_period_selector.dart
+│   │   │       ├── portfolio_donut_chart.dart
+│   │   │       ├── my_holdings_section.dart
+│   │   │       ├── holding_card_item.dart
+│   │   │       ├── recent_transactions_section.dart
+│   │   │       └── transaction_item.dart
+│   │   └── data/
+│   │       └── models/
+│   │           ├── portfolio_model.dart (Freezed)
+│   │           ├── holding_model.dart (Freezed)
+│   │           └── transaction_model.dart (Freezed)
+│   ├── settings/            # User settings (Complete)
+│   │   ├── presentation/
+│   │   │   ├── pages/
+│   │   │   │   └── settings_screen.dart
+│   │   │   └── widgets/
+│   │   │       ├── profile_section.dart
+│   │   │       ├── settings_section_header.dart
+│   │   │       ├── settings_item.dart
+│   │   │       └── dark_mode_toggle.dart
+│   │   └── data/
+│   │       └── models/
+│   │           └── user_profile_model.dart (Freezed)
+│   └── splash/              # App initialization (planned)
 ├── core/                     # Core utilities & services
 │   ├── di/                  # Dependency injection
 │   ├── navigation/          # Navigation service
@@ -374,6 +428,6 @@ For questions or issues:
 
 ---
 
-**Last Updated**: November 27, 2025
+**Last Updated**: November 30, 2025
 **Project Status**: In Active Development
-**Current Phase**: Phase 1 (UI Implementation) - Home Screen Complete with Freezed & SVG Icons → Next: Market Screen
+**Current Phase**: Phase 1 (UI Implementation) - Settings Feature Complete → Next: Theme System (Dark/Light Mode)

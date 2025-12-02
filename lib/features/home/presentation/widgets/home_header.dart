@@ -19,7 +19,7 @@ class HomeHeader extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 24.r,
-                backgroundColor: const Color(0xFF1A2B4A),
+                backgroundColor: Theme.of(context).colorScheme.secondary,
                 child: Text(
                   'A',
                   style: TextStyle(
@@ -38,7 +38,7 @@ class HomeHeader extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
-                      color: const Color(0xFF1A2B4A),
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
                     ),
                   ),
                   Text('👋', style: TextStyle(fontSize: 14.sp)),
@@ -51,12 +51,14 @@ class HomeHeader extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.all(8.w),
               decoration: BoxDecoration(
-                color: Colors.grey[200],
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? const Color(0xFF2A2A2A)
+                    : const Color(0xFFE5E7EB),
                 shape: BoxShape.circle,
               ),
               child: Icon(
                 Icons.notifications_none,
-                color: const Color(0xFF1A2B4A),
+                color: Theme.of(context).iconTheme.color,
                 size: 24.sp,
               ),
             ),
