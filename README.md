@@ -25,14 +25,14 @@ A professional Flutter cryptocurrency trading application with real-time market 
 - **NavigationService** - Centralized navigation management
 - **AppRoutes Constants** - No hardcoded route strings (0 found)
 - **Responsive Design** - Works seamlessly on all screen sizes using `flutter_screenutil`
-- **Theme Support** - Light and Dark mode ready (implementation in progress)
+- **Theme Support** - Light and Dark mode with Cubit state management (Phase 12) ✅
 - **Portfolio Screen** - Complete portfolio overview with holdings, distribution chart, and transactions
 - **Settings Screen** - User profile and app preferences with clean, simple UI
+- **Code Quality** - Redundant comments removed from all widgets per mentor feedback
 
 ### In Development 🚧
 
 - **Splash Screen** - App initialization and onboarding check
-- **Theme System** - Dark/Light mode with Cubit state management
 
 ### Recently Completed ✨
 
@@ -69,12 +69,12 @@ A professional Flutter cryptocurrency trading application with real-time market 
 - **Simplified Image Display** - Direct asset display without over-engineering
 
 ### Planned 📋
-- **Biometric Authentication** - Fingerprint and Face ID support
 - **Encrypted Storage** - Secure credential and transaction storage
 - **Security Features** - Auto-lock, root detection, screenshot prevention
 - **Firebase Integration** - Analytics and crash reporting
-- **BLoC State Management** - Reactive state management
+- **Advanced BLoC State Management** - Reactive state management for features
 - **Unit & Integration Tests** - Comprehensive test coverage
+- **Real API Integration** - Live CoinGecko API data
 
 ---
 
