@@ -25,7 +25,7 @@ import 'package:fintech/shared/widgets/app_bottom_navigation.dart';
 /// 2. Main routes: /home, /market, /portfolio, /settings (with persistent navbar via ShellRoute)
 /// All navigation must use NavigationService (Rule #16)
 final goRouter = GoRouter(
-  initialLocation: '/onboarding',
+  initialLocation: '/face_id_scanning',
   routes: [
     // Auth routes (no navbar)
     GoRoute(

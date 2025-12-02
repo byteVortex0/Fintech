@@ -1,10 +1,52 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fintech/core/utils/image_manager.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
+import 'package:local_auth/local_auth.dart';
 
-class FaceIdScanningPage extends StatelessWidget {
+class FaceIdScanningPage extends StatefulWidget {
   const FaceIdScanningPage({super.key});
+
+  @override
+  State<FaceIdScanningPage> createState() => _FaceIdScanningPageState();
+}
+
+class _FaceIdScanningPageState extends State<FaceIdScanningPage> {
+  final LocalAuthentication auth = LocalAuthentication();
+
+  Future<void> authenticate() async {
+    try {
+      bool isAvailable = await auth.canCheckBiometrics;
+      bool isDeviceSupported = await auth.isDeviceSupported();
+
+      if (!isAvailable || !isDeviceSupported) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Face ID not available on this device")),
+        );
+        return;
+      }
+
+      bool didAuthenticate = await auth.authenticate(
+        localizedReason: "Scan your face to continue",
+        biometricOnly: true,
+      );
+
+      if (didAuthenticate) {
+        NavigationService.navigateTo(context, '/face_id_verified');
+      }
+    } catch (e) {
+      log("Error: $e");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // يبدأ قراءة الوجه أول ما الصفحة تفتح
+    Future.delayed(const Duration(milliseconds: 200), authenticate);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +90,7 @@ class FaceIdScanningPage extends StatelessWidget {
 
   Widget _buildFaceIdCard(BuildContext context) {
     return GestureDetector(
-      onTap: () => NavigationService.navigateTo(context, '/face_id_verified'),
+      onTap: authenticate,
       child: Container(
         padding: EdgeInsets.all(20.w),
         decoration: BoxDecoration(
