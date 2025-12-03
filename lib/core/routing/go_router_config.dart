@@ -1,31 +1,35 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:fintech/core/di/injection.dart';
+import 'package:fintech/core/utils/constants.dart';
+import 'package:fintech/features/buy_crypto/presentation/pages/buy_crypto_screen.dart';
+import 'package:fintech/features/coin_details/presentation/pages/coin_details_screen.dart';
 import 'package:fintech/features/home/presentation/home_screen.dart';
-import 'package:fintech/features/market/presentation/pages/market_screen.dart';
-import 'package:fintech/features/onboarding/presentation/pages/onboarding_page.dart';
-import 'package:fintech/features/login/presentation/pages/login_page.dart';
 import 'package:fintech/features/login/presentation/pages/face_id_scanning_page.dart';
 import 'package:fintech/features/login/presentation/pages/face_id_verified_page.dart';
+import 'package:fintech/features/login/presentation/pages/login_page.dart';
 import 'package:fintech/features/login/presentation/pages/touch_id_scanning_page.dart';
 import 'package:fintech/features/login/presentation/pages/touch_id_verified_page.dart';
-import 'package:fintech/features/register/presentation/pages/register_page.dart';
-import 'package:fintech/features/register/presentation/pages/set_fingerprint_page.dart';
-import 'package:fintech/features/register/presentation/pages/set_fingerprint_verified_page.dart';
-import 'package:fintech/features/register/presentation/pages/set_face_id_page.dart';
-import 'package:fintech/features/register/presentation/pages/set_face_id_verified_page.dart';
-import 'package:fintech/features/coin_details/presentation/pages/coin_details_screen.dart';
-import 'package:fintech/features/buy_crypto/presentation/pages/buy_crypto_screen.dart';
+import 'package:fintech/features/market/presentation/pages/market_screen.dart';
+import 'package:fintech/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:fintech/features/payment_method/presentation/pages/payment_method_screen.dart';
 import 'package:fintech/features/portfolio/presentation/pages/portfolio_screen.dart';
+import 'package:fintech/features/register/logic/register_cubit.dart';
+import 'package:fintech/features/register/presentation/pages/register_page.dart';
+import 'package:fintech/features/register/presentation/pages/set_face_id_page.dart';
+import 'package:fintech/features/register/presentation/pages/set_face_id_verified_page.dart';
+import 'package:fintech/features/register/presentation/pages/set_fingerprint_page.dart';
+import 'package:fintech/features/register/presentation/pages/set_fingerprint_verified_page.dart';
 import 'package:fintech/features/settings/presentation/pages/settings_screen.dart';
 import 'package:fintech/shared/widgets/app_bottom_navigation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 /// GoRouter configuration with two route groups:
 /// 1. Auth routes: /onboarding, /login, /register, biometric flows (no navbar)
 /// 2. Main routes: /home, /market, /portfolio, /settings (with persistent navbar via ShellRoute)
 /// All navigation must use NavigationService (Rule #16)
 final goRouter = GoRouter(
-  initialLocation: '/onboarding',
+  initialLocation: isLoggedInUser ? '/home' : '/onboarding',
   routes: [
     // Auth routes (no navbar)
     GoRoute(
@@ -35,7 +39,10 @@ final goRouter = GoRouter(
     GoRoute(path: '/login', builder: (context, state) => const LoginPage()),
     GoRoute(
       path: '/register',
-      builder: (context, state) => const RegisterPage(),
+      builder: (context, state) => BlocProvider(
+        create: (context) => sl<RegisterCubit>(),
+        child: const RegisterPage(),
+      ),
     ),
     GoRoute(
       path: '/face_id_scanning',

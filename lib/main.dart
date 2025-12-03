@@ -1,3 +1,5 @@
+import 'package:fintech/core/utils/constants.dart';
+import 'package:fintech/core/utils/user_preferences.dart';
 import 'package:fintech/fintech_app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ void main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   setupInjection();
+  isLoggedInUser = await UserPreferences.checkIfLoggedInUser();
 
   runApp(const FinTechApp());
 }

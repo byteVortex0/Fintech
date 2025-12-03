@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class AppTextField extends StatefulWidget {
   final String hintText;
   final TextEditingController controller;
+  final String? Function(String?)? validator;
   final bool obscureText;
   final IconData? prefixIcon;
   final TextInputType keyboardType;
@@ -17,6 +18,7 @@ class AppTextField extends StatefulWidget {
   const AppTextField({
     super.key,
     required this.hintText,
+    this.validator,
     required this.controller,
     this.obscureText = false,
     this.prefixIcon,
@@ -41,9 +43,10 @@ class _AppTextFieldState extends State<AppTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: widget.controller,
       obscureText: _obscureText,
+      validator: widget.validator,
       keyboardType: widget.keyboardType,
       maxLines: widget.obscureText ? 1 : widget.maxLines,
       textInputAction: widget.textInputAction,
