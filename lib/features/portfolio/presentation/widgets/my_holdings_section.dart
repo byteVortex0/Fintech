@@ -7,10 +7,7 @@ import 'package:fintech/features/portfolio/presentation/widgets/holding_card_ite
 class MyHoldingsSection extends StatelessWidget {
   final List<HoldingModel> holdings;
 
-  const MyHoldingsSection({
-    super.key,
-    required this.holdings,
-  });
+  const MyHoldingsSection({super.key, required this.holdings});
 
   @override
   Widget build(BuildContext context) {

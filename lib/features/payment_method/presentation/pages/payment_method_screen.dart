@@ -46,13 +46,9 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                   children: [
                     const CreditCardSection(),
                     SizedBox(height: 16.h),
-                    const PaymentOptionRow(
-                      title: 'Google Pay',
-                    ),
+                    const PaymentOptionRow(title: 'Google Pay'),
                     SizedBox(height: 16.h),
-                    const PaymentOptionRow(
-                      title: 'Mobile Banking',
-                    ),
+                    const PaymentOptionRow(title: 'Mobile Banking'),
                     SizedBox(height: 24.h),
                     EmailReceiptToggle(
                       value: sendEmailReceipt,

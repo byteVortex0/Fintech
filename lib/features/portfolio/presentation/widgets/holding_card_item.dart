@@ -7,10 +7,7 @@ import 'package:fintech/features/portfolio/data/models/holding_model.dart';
 class HoldingCardItem extends StatelessWidget {
   final HoldingModel holding;
 
-  const HoldingCardItem({
-    super.key,
-    required this.holding,
-  });
+  const HoldingCardItem({super.key, required this.holding});
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +26,7 @@ class HoldingCardItem extends StatelessWidget {
       ),
       child: Row(
         children: [
-          SvgPicture.asset(
-            holding.svgIconPath,
-            width: 48.w,
-            height: 48.h,
-          ),
+          SvgPicture.asset(holding.svgIconPath, width: 48.w, height: 48.h),
           SizedBox(width: 12.w),
           Expanded(
             child: Column(

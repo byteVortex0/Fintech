@@ -25,11 +25,7 @@ class DarkModeToggle extends StatelessWidget {
               color: Theme.of(context).colorScheme.secondary,
               shape: BoxShape.circle,
             ),
-            child: Icon(
-              Icons.dark_mode,
-              color: Colors.white,
-              size: 24.sp,
-            ),
+            child: Icon(Icons.dark_mode, color: Colors.white, size: 24.sp),
           ),
           SizedBox(width: 16.w),
           Expanded(

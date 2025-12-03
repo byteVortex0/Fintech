@@ -29,10 +29,7 @@ class ActionButtonsSection extends StatelessWidget {
             ),
             child: Text(
               'Sell',
-              style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w600,
-              ),
+              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
             ),
           ),
         ),
@@ -51,10 +48,7 @@ class ActionButtonsSection extends StatelessWidget {
             ),
             child: Text(
               'Buy',
-              style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w600,
-              ),
+              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
             ),
           ),
         ),

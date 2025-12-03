@@ -5,10 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class SettingsSectionHeader extends StatelessWidget {
   final String title;
 
-  const SettingsSectionHeader({
-    super.key,
-    required this.title,
-  });
+  const SettingsSectionHeader({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
