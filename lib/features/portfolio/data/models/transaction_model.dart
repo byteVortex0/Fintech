@@ -4,7 +4,7 @@ part 'transaction_model.freezed.dart';
 
 /// Transaction model for recent buy/sell activities
 @freezed
-class TransactionModel with _$TransactionModel {
+abstract class TransactionModel with _$TransactionModel {
   const factory TransactionModel({
     required String type,
     required String coinName,

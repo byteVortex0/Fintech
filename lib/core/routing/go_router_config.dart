@@ -25,7 +25,7 @@ import 'package:fintech/shared/widgets/app_bottom_navigation.dart';
 /// 2. Main routes: /home, /market, /portfolio, /settings (with persistent navbar via ShellRoute)
 /// All navigation must use NavigationService (Rule #16)
 final goRouter = GoRouter(
-  initialLocation: '/onboarding',
+  initialLocation: '/home',
   routes: [
     // Auth routes (no navbar)
     GoRoute(
@@ -74,9 +74,8 @@ final goRouter = GoRouter(
     GoRoute(
       path: '/coin_details',
       builder: (context, state) {
-        final coinName = state.uri.queryParameters['name'] ?? 'Bitcoin';
-        final svgIconPath = state.uri.queryParameters['icon'];
-        return CoinDetailsScreen(coinName: coinName, svgIconPath: svgIconPath);
+        final id = state.uri.queryParameters['id'] ?? 'Bitcoin';
+        return CoinDetailsScreen(id: id);
       },
     ),
 
