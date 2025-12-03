@@ -1,4 +1,6 @@
 import 'package:fintech/core/service/firebase/firebase_service.dart';
+import 'package:fintech/features/login/data/repos/login_repo.dart';
+import 'package:fintech/features/login/logic/login_cubit.dart';
 import 'package:fintech/features/register/data/repos/register_repo.dart';
 import 'package:fintech/features/register/logic/register_cubit.dart';
 import 'package:get_it/get_it.dart';
@@ -26,6 +28,10 @@ void _initCore() {
     () => RegisterRepo(sl<FirebaseService>()),
   );
   sl.registerFactory<RegisterCubit>(() => RegisterCubit(sl<RegisterRepo>()));
+
+  // Login Feature
+  sl.registerLazySingleton<LoginRepo>(() => LoginRepo(sl<FirebaseService>()));
+  sl.registerFactory<LoginCubit>(() => LoginCubit(sl<LoginRepo>()));
 
   // sl.registerLazySingleton<ApiService>(() => ApiService(dio));
 }

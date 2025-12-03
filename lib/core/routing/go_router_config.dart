@@ -3,6 +3,7 @@ import 'package:fintech/core/utils/constants.dart';
 import 'package:fintech/features/buy_crypto/presentation/pages/buy_crypto_screen.dart';
 import 'package:fintech/features/coin_details/presentation/pages/coin_details_screen.dart';
 import 'package:fintech/features/home/presentation/home_screen.dart';
+import 'package:fintech/features/login/logic/login_cubit.dart';
 import 'package:fintech/features/login/presentation/pages/face_id_scanning_page.dart';
 import 'package:fintech/features/login/presentation/pages/face_id_verified_page.dart';
 import 'package:fintech/features/login/presentation/pages/login_page.dart';
@@ -36,7 +37,13 @@ final goRouter = GoRouter(
       path: '/onboarding',
       builder: (context, state) => const OnboardingPage(),
     ),
-    GoRoute(path: '/login', builder: (context, state) => const LoginPage()),
+    GoRoute(
+      path: '/login',
+      builder: (context, state) => BlocProvider(
+        create: (context) => sl<LoginCubit>(),
+        child: const LoginPage(),
+      ),
+    ),
     GoRoute(
       path: '/register',
       builder: (context, state) => BlocProvider(

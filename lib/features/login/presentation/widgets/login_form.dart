@@ -1,14 +1,11 @@
+import 'package:fintech/core/utils/app_regex.dart';
+import 'package:fintech/features/login/logic/login_cubit.dart';
+import 'package:fintech/features/register/logic/register_cubit.dart';
+import 'package:fintech/shared/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'login_input_field.dart';
 
-/// LoginForm - Stateful email/password input form widget
-///
-/// Manages credential-based authentication form with:
-/// - Email and Password input fields using LoginInputField widget
-/// - Remember me checkbox state management
-/// - Forgot password navigation callback
-/// - Form state lifecycle (controllers, cleanup)
 class LoginForm extends StatefulWidget {
   final VoidCallback onLoginPressed;
   final VoidCallback onForgotPasswordPressed;
@@ -24,63 +21,52 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  /// Controls email input field text
-  /// Must be disposed to prevent memory leaks
-  late TextEditingController _emailController;
-
-  /// Controls password input field text
-  /// Must be disposed to prevent memory leaks
-  late TextEditingController _passwordController;
-
-  /// Tracks "Remember me" checkbox state for persistent login
   bool _rememberMe = false;
-
-  /// Lifecycle initialization
-  /// Creates TextEditingController instances for form fields
-  @override
-  void initState() {
-    super.initState();
-    _emailController = TextEditingController();
-    _passwordController = TextEditingController();
-  }
-
-  /// Lifecycle cleanup
-  /// Disposes TextEditingController instances to prevent memory leaks
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        /// Email input field with mail icon and standard validation
-        LoginInputField(
-          hintText: 'E-mail ID',
-          controller: _emailController,
-          prefixIcon: Icons.mail_outline,
-        ),
-        SizedBox(height: 16.h),
+    return Form(
+      key: context.read<LoginCubit>().formKey,
+      child: Column(
+        children: [
+          AppTextField(
+            hintText: 'Email-ID',
+            keyboardType: TextInputType.emailAddress,
+            prefixIcon: Icons.mail_outline,
+            validator: (value) {
+              if (value == null ||
+                  value.isEmpty ||
+                  !AppRegex.isEmailValid(value)) {
+                return 'Please enter a valid email';
+              }
+              return null;
+            },
+            controller: context.read<LoginCubit>().emailController,
+          ),
+          SizedBox(height: 16.h),
+          AppTextField(
+            controller: context.read<LoginCubit>().passwordController,
+            hintText: 'Password',
+            keyboardType: TextInputType.visiblePassword,
+            obscureText: true,
+            prefixIcon: Icons.lock_outline,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter a valid password';
+              }
+              return null;
+            },
+          ),
+          SizedBox(height: 12.h),
 
-        /// Password input field with obscure text toggle and lock icon
-        LoginInputField(
-          hintText: 'Password',
-          controller: _passwordController,
-          obscureText: true,
-          prefixIcon: Icons.lock_outline,
-        ),
-        SizedBox(height: 12.h),
+          /// Remember me checkbox and Forgot password link row
+          _buildRememberForgotRow(),
+          SizedBox(height: 20.h),
 
-        /// Remember me checkbox and Forgot password link row
-        _buildRememberForgotRow(),
-        SizedBox(height: 20.h),
-
-        /// Primary action: Login button with dark navy background
-        _buildLoginButton(),
-      ],
+          /// Primary action: Login button with dark navy background
+          _buildLoginButton(),
+        ],
+      ),
     );
   }
 

@@ -1,6 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
+import 'package:fintech/core/routes/app_routes.dart';
+import 'package:fintech/features/login/logic/login_cubit.dart';
+import 'package:fintech/features/login/presentation/widgets/login_bloc_listener.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../widgets/curved_background.dart';
 import '../widgets/login_form.dart';
 import '../widgets/social_login_section.dart';
@@ -8,23 +13,6 @@ import '../widgets/social_login_section.dart';
 /// Main login screen - Authentication entry point for existing users
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
-
-  void _navigateToFaceId(BuildContext context) =>
-      NavigationService.navigateTo(context, '/face_id_scanning');
-
-  void _navigateToFingerprint(BuildContext context) =>
-      NavigationService.navigateTo(context, '/touch_id_scanning');
-
-  void _handleLogin(BuildContext context) {
-    // TODO: Implement login logic with BLoC
-  }
-
-  void _handleForgotPassword(BuildContext context) {
-    // TODO: Navigate to forgot password page
-  }
-
-  void _navigateToRegister(BuildContext context) =>
-      NavigationService.navigateTo(context, '/register');
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +31,7 @@ class LoginPage extends StatelessWidget {
                     _buildHeader(),
                     SizedBox(height: 48.h),
                     LoginForm(
-                      onLoginPressed: () => _handleLogin(context),
+                      onLoginPressed: () => _validateThenDoLogin(context),
                       onForgotPasswordPressed: () =>
                           _handleForgotPassword(context),
                     ),
@@ -89,6 +77,7 @@ class LoginPage extends StatelessWidget {
               height: 1.4,
             ),
           ),
+          const LoginBlocListener(),
         ],
       ),
     );
@@ -119,4 +108,23 @@ class LoginPage extends StatelessWidget {
       ],
     );
   }
+
+  void _navigateToFaceId(BuildContext context) =>
+      NavigationService.navigateTo(context, AppRoutes.faceIdScanning);
+
+  void _navigateToFingerprint(BuildContext context) =>
+      NavigationService.navigateTo(context, AppRoutes.touchIdScanning);
+
+  void _validateThenDoLogin(BuildContext context) {
+    if (context.read<LoginCubit>().formKey.currentState!.validate()) {
+      context.read<LoginCubit>().login();
+    }
+  }
+
+  void _handleForgotPassword(BuildContext context) {
+    // TODO: Navigate to forgot password page
+  }
+
+  void _navigateToRegister(BuildContext context) =>
+      NavigationService.navigateTo(context, AppRoutes.register);
 }
