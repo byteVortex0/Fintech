@@ -1,16 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fintech/core/utils/app_regex.dart';
+import 'package:fintech/features/register/logic/register_cubit.dart';
 import 'package:fintech/shared/widgets/app_text_field.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// RegisterForm - Stateful signup form widget with 6 input fields
-///
-/// Manages multi-field registration form with:
-/// - First Name and Last Name input fields
-/// - Email and Password fields with visibility toggle
-/// - Confirm Password field for validation
-/// - Phone number field
-/// - All fields use shared AppTextField for consistency
-/// - Form state lifecycle (controllers, cleanup)
 class RegisterForm extends StatefulWidget {
   final Function() onRegisterPressed;
   final Function() onLoginPressed;
@@ -26,99 +20,133 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
-  /// Controls first name input field text
-  /// Must be disposed to prevent memory leaks
-  late final TextEditingController _firstNameController;
+  bool hasLowercase = false;
+  bool hasUppercase = false;
+  bool hasSpecialCharacters = false;
+  bool hasNumber = false;
+  bool hasMinLength = false;
 
-  /// Controls last name input field text
-  /// Must be disposed to prevent memory leaks
-  late final TextEditingController _lastNameController;
-
-  /// Controls email input field text
-  /// Must be disposed to prevent memory leaks
-  late final TextEditingController _emailController;
-
-  /// Controls password input field text
-  /// Must be disposed to prevent memory leaks
-  late final TextEditingController _passwordController;
-
-  /// Controls confirm password input field text
-  /// Used to validate password match before submission
-  /// Must be disposed to prevent memory leaks
-  late final TextEditingController _confirmPasswordController;
-
-  /// Controls phone number input field text
-  /// Must be disposed to prevent memory leaks
-  late final TextEditingController _phoneController;
+  late TextEditingController passwordController;
 
   @override
   void initState() {
     super.initState();
-    _firstNameController = TextEditingController();
-    _lastNameController = TextEditingController();
-    _emailController = TextEditingController();
-    _passwordController = TextEditingController();
-    _confirmPasswordController = TextEditingController();
-    _phoneController = TextEditingController();
+    passwordController = context.read<RegisterCubit>().passwordController;
+    setupPasswordControllerListener();
   }
 
-  @override
-  void dispose() {
-    _firstNameController.dispose();
-    _lastNameController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
-    _phoneController.dispose();
-    super.dispose();
+  void setupPasswordControllerListener() {
+    passwordController.addListener(() {
+      setState(() {
+        hasLowercase = AppRegex.hasLowerCase(passwordController.text);
+        hasUppercase = AppRegex.hasUpperCase(passwordController.text);
+        hasSpecialCharacters = AppRegex.hasSpecialCharacter(
+          passwordController.text,
+        );
+        hasNumber = AppRegex.hasNumber(passwordController.text);
+        hasMinLength = AppRegex.hasMinLength(passwordController.text);
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        AppTextField(
-          hintText: 'First Name',
-          controller: _firstNameController,
-          prefixIcon: Icons.person_outline,
-        ),
-        SizedBox(height: 16.h),
-        AppTextField(
-          hintText: 'Last Name',
-          controller: _lastNameController,
-          prefixIcon: Icons.person_outline,
-        ),
-        SizedBox(height: 16.h),
-        AppTextField(
-          hintText: 'Email-ID',
-          controller: _emailController,
-          prefixIcon: Icons.mail_outline,
-        ),
-        SizedBox(height: 16.h),
-        AppTextField(
-          hintText: 'Password',
-          controller: _passwordController,
-          prefixIcon: Icons.lock_outline,
-          obscureText: true,
-        ),
-        SizedBox(height: 16.h),
-        AppTextField(
-          hintText: 'Confirm Password',
-          controller: _confirmPasswordController,
-          prefixIcon: Icons.lock_outline,
-          obscureText: true,
-        ),
-        SizedBox(height: 16.h),
-        AppTextField(
-          hintText: 'xxx xxx xxxx',
-          controller: _phoneController,
-          prefixIcon: Icons.phone_outlined,
-        ),
-        SizedBox(height: 24.h),
-        _buildRegisterButton(),
-        SizedBox(height: 16.h),
-        _buildLoginRow(),
-      ],
+    return Form(
+      key: context.read<RegisterCubit>().formKey,
+      child: Column(
+        children: [
+          AppTextField(
+            hintText: 'First Name',
+            prefixIcon: Icons.person_outline,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter a valid name';
+              }
+              return null;
+            },
+            keyboardType: TextInputType.name,
+            controller: context.read<RegisterCubit>().firstNameController,
+          ),
+          SizedBox(height: 16.h),
+          AppTextField(
+            hintText: 'Last Name',
+            prefixIcon: Icons.person_outline,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter a valid name';
+              }
+              return null;
+            },
+            keyboardType: TextInputType.name,
+            controller: context.read<RegisterCubit>().lastNameController,
+          ),
+          SizedBox(height: 16.h),
+          AppTextField(
+            hintText: 'Email-ID',
+            keyboardType: TextInputType.emailAddress,
+            prefixIcon: Icons.mail_outline,
+            validator: (value) {
+              if (value == null ||
+                  value.isEmpty ||
+                  !AppRegex.isEmailValid(value)) {
+                return 'Please enter a valid email';
+              }
+              return null;
+            },
+            controller: context.read<RegisterCubit>().emailController,
+          ),
+          SizedBox(height: 16.h),
+          AppTextField(
+            controller: context.read<RegisterCubit>().passwordController,
+            hintText: 'Password',
+            keyboardType: TextInputType.visiblePassword,
+            obscureText: true,
+            prefixIcon: Icons.lock_outline,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter a valid password';
+              }
+              return null;
+            },
+          ),
+          SizedBox(height: 16.h),
+          AppTextField(
+            controller: context.read<RegisterCubit>().confirmPasswordController,
+            hintText: 'Confirm Password',
+            keyboardType: TextInputType.visiblePassword,
+            prefixIcon: Icons.lock_outline,
+            obscureText: true,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter a valid password';
+              } else if (value != passwordController.text) {
+                return 'Passwords do not match';
+              }
+              return null;
+            },
+          ),
+          SizedBox(height: 16.h),
+          AppTextField(
+            hintText: 'xxx xxx xxxx',
+            keyboardType: TextInputType.phone,
+            prefixIcon: Icons.phone_outlined,
+            validator: (value) {
+              if (value == null ||
+                  value.isEmpty ||
+                  !AppRegex.isPhoneNumberValid(value)) {
+                return 'Please enter a valid phone number';
+              }
+              return null;
+            },
+            controller: context.read<RegisterCubit>().phoneController,
+          ),
+
+          SizedBox(height: 24.h),
+          _buildRegisterButton(),
+          SizedBox(height: 16.h),
+          _buildLoginRow(),
+        ],
+      ),
     );
   }
 

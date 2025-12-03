@@ -16,12 +16,12 @@ import 'base_routes.dart';
 class AppRoutes {
   static const String onboarding = 'onboarding';
   static const String home = 'home';
-  static const String login = 'login';
+  static const String login = '/login';
   static const String register = 'register';
   static const String market = 'market';
   static const String portfolio = 'portfolio';
   static const String settings = 'settings';
-  static const String setFingerprint = 'set_fingerprint';
+  static const String setFingerprint = '/set_fingerprint';
   static const String setFingerprintVerified = 'set_fingerprint_verified';
   static const String setFaceId = 'set_face_id';
   static const String setFaceIdVerified = 'set_face_id_verified';

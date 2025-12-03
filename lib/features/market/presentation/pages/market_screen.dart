@@ -31,7 +31,6 @@ class _MarketScreenState extends State<MarketScreen> {
           child: Column(
             children: [
               SizedBox(height: 16.h),
-              // Header
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Text(
@@ -44,7 +43,7 @@ class _MarketScreenState extends State<MarketScreen> {
                 ),
               ),
               SizedBox(height: 16.h),
-              // Search Bar
+
               MarketSearchBar(
                 onSearchChanged: (query) {
                   setState(() {
@@ -56,7 +55,7 @@ class _MarketScreenState extends State<MarketScreen> {
                 },
               ),
               SizedBox(height: 16.h),
-              // Category Filter
+
               CategoryFilter(
                 onCategorySelected: (category) {
                   setState(() {
@@ -65,7 +64,7 @@ class _MarketScreenState extends State<MarketScreen> {
                 },
               ),
               SizedBox(height: 12.h),
-              // Coin List
+
               BlocBuilder<GetAllCoinsMarketsCubit, GetAllCoinsMarketsState>(
                 builder: (context, state) {
                   return state.when(

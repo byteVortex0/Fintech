@@ -15,18 +15,3 @@ abstract class MarketCoinRequest with _$MarketCoinRequest {
   factory MarketCoinRequest.fromJson(Map<String, dynamic> json) =>
       _$MarketCoinRequestFromJson(json);
 }
-
-
-// @JsonKey(name: 'vs_currency')
-  // final String vsCurrency;
-  // final String order;
-  // @JsonKey(name: 'per_page')
-  // final int perPage;
-  // final int page;
-
-  // MarketCoinRequest({
-  //   required this.vsCurrency,
-  //   required this.order,
-  //   required this.perPage,
-  //   required this.page,
-  // });

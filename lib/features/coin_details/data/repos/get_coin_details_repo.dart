@@ -12,11 +12,11 @@ class GetCoinDetailsRepo {
 
   Future<ApiResult<CoinDetailsModel>> getCoinDetails(String id) async {
     try {
-      final remote = await apiService.getCoinDetails(id);
+      final coinDetailsResponse = await apiService.getCoinDetails(id);
 
-      final uiModel = CoinDetailsMapper.fromRemote(remote);
+      final coinDetails = CoinDetailsMapper.fromRemote(coinDetailsResponse);
 
-      return Success(uiModel);
+      return Success(coinDetails);
     } catch (e) {
       return Failure(ErrorModel(message: e.toString()));
     }
