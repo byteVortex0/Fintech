@@ -1,4 +1,5 @@
 import 'package:fintech/core/navigation/navigation_service.dart';
+import 'package:fintech/core/routes/app_routes.dart';
 import 'package:fintech/features/login/presentation/widgets/curved_background.dart';
 import 'package:fintech/features/register/logic/register_cubit.dart';
 import 'package:fintech/features/register/presentation/widgets/register_bloc_listener.dart';
@@ -14,7 +15,7 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           const CurvedBackground(),
@@ -50,5 +51,5 @@ class RegisterPage extends StatelessWidget {
   }
 
   void _navigateToLogin(BuildContext context) =>
-      NavigationService.navigateToAndRemoveUntil(context, '/login');
+      NavigationService.navigateToAndRemoveUntil(context, AppRoutes.login);
 }

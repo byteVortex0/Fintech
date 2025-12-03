@@ -1,5 +1,6 @@
 import 'package:fintech/core/extensions/context_extension.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
+import 'package:fintech/core/routes/app_routes.dart';
 import 'package:fintech/core/utils/color_manager.dart';
 import 'package:fintech/features/register/logic/register_cubit.dart';
 import 'package:fintech/features/register/logic/register_state.dart';
@@ -63,7 +64,7 @@ class RegisterBlocListener extends StatelessWidget {
               onPressed: () {
                 NavigationService.navigateToAndRemoveUntil(
                   context,
-                  '/set_fingerprint',
+                  AppRoutes.setFingerprint,
                 );
               },
               child: const Text('Continue'),

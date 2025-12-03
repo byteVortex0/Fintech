@@ -1,3 +1,4 @@
+import 'package:fintech/core/service/firebase/firebase_error_handler.dart';
 import 'package:fintech/core/service/firebase/firebase_result.dart';
 import 'package:fintech/core/service/firebase/firebase_service.dart';
 import 'package:fintech/features/register/data/models/create_user_request_body.dart';
@@ -16,19 +17,7 @@ class RegisterRepo {
       UserCredential credential = await _firebaseService.createUser(user);
       return FirebaseResult.success(credential);
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'email-already-in-use') {
-        return const FirebaseResult.failure(
-          'The account already exists for that email.',
-        );
-      } else if (e.code == 'weak-password') {
-        return const FirebaseResult.failure(
-          'The password provided is too weak.',
-        );
-      } else {
-        return FirebaseResult.failure(
-          e.message ?? 'Check your internet connection',
-        );
-      }
+      return FirebaseResult.failure(FirebaseErrorHandler.errorHandle(e.code));
     } catch (e) {
       return FirebaseResult.failure(e.toString());
     }

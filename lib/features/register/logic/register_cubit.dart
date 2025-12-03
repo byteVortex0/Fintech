@@ -1,6 +1,5 @@
-import 'package:fintech/core/service/shared_pref/pref_keys.dart';
-import 'package:fintech/core/service/shared_pref/shared_pref.dart';
 import 'package:fintech/core/utils/constants.dart';
+import 'package:fintech/core/utils/user_preferences.dart';
 import 'package:fintech/features/register/data/models/create_user_request_body.dart';
 import 'package:fintech/features/register/data/models/register_request_body.dart';
 import 'package:fintech/features/register/data/repos/register_repo.dart';
@@ -31,7 +30,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     );
     response.when(
       success: (user) async {
-        await saveUserUid(user.user!.uid);
+        await UserPreferences.saveUserUid(user.user!.uid);
         isLoggedInUser = true;
         storeUser(user);
       },
@@ -55,7 +54,6 @@ class RegisterCubit extends Cubit<RegisterState> {
     );
     response.when(
       success: (massage) async {
-        await saveUserUid(user.user!.uid);
         firstNameController.clear();
         lastNameController.clear();
         emailController.clear();
@@ -67,9 +65,5 @@ class RegisterCubit extends Cubit<RegisterState> {
         emit(RegisterState.error(error));
       },
     );
-  }
-
-  Future<void> saveUserUid(String uid) async {
-    await SharedPref.setValue(PrefKeys.uid, uid);
   }
 }
