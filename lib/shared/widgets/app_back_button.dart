@@ -5,10 +5,7 @@ import 'package:fintech/core/navigation/navigation_service.dart';
 class AppBackButton extends StatelessWidget {
   final Color? iconColor;
 
-  const AppBackButton({
-    super.key,
-    this.iconColor,
-  });
+  const AppBackButton({super.key, this.iconColor});
 
   @override
   Widget build(BuildContext context) {

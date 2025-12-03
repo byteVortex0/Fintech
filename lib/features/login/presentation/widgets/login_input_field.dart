@@ -31,7 +31,9 @@ class _LoginInputFieldState extends State<LoginInputField> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final borderColor = isDark ? const Color(0xFF3E3E3E) : const Color(0xFF3B5998);
+    final borderColor = isDark
+        ? const Color(0xFF3E3E3E)
+        : const Color(0xFF3B5998);
 
     return TextField(
       controller: widget.controller,

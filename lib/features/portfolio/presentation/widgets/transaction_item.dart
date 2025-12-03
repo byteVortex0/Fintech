@@ -6,10 +6,7 @@ import 'package:fintech/features/portfolio/data/models/transaction_model.dart';
 class TransactionItem extends StatelessWidget {
   final TransactionModel transaction;
 
-  const TransactionItem({
-    super.key,
-    required this.transaction,
-  });
+  const TransactionItem({super.key, required this.transaction});
 
   @override
   Widget build(BuildContext context) {

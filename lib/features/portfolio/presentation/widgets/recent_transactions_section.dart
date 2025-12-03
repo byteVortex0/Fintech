@@ -7,10 +7,7 @@ import 'package:fintech/features/portfolio/presentation/widgets/transaction_item
 class RecentTransactionsSection extends StatelessWidget {
   final List<TransactionModel> transactions;
 
-  const RecentTransactionsSection({
-    super.key,
-    required this.transactions,
-  });
+  const RecentTransactionsSection({super.key, required this.transactions});
 
   @override
   Widget build(BuildContext context) {

@@ -6,10 +6,7 @@ import 'package:fintech/features/portfolio/data/models/portfolio_model.dart';
 class TotalValueCard extends StatelessWidget {
   final PortfolioModel portfolio;
 
-  const TotalValueCard({
-    super.key,
-    required this.portfolio,
-  });
+  const TotalValueCard({super.key, required this.portfolio});
 
   @override
   Widget build(BuildContext context) {

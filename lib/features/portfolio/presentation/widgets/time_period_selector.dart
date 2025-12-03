@@ -41,8 +41,8 @@ class _TimePeriodSelectorState extends State<TimePeriodSelector> {
                   color: isSelected
                       ? Theme.of(context).colorScheme.primary
                       : Theme.of(context).brightness == Brightness.dark
-                          ? const Color(0xFF3E3E3E)
-                          : const Color(0xFFE0E0E0),
+                      ? const Color(0xFF3E3E3E)
+                      : const Color(0xFFE0E0E0),
                 ),
               ),
               child: Center(

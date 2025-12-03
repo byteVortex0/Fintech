@@ -12,10 +12,7 @@ import '../widgets/exchange_fee_card.dart';
 class BuyCryptoScreen extends StatefulWidget {
   final String? coinName;
 
-  const BuyCryptoScreen({
-    super.key,
-    this.coinName,
-  });
+  const BuyCryptoScreen({super.key, this.coinName});
 
   @override
   State<BuyCryptoScreen> createState() => _BuyCryptoScreenState();
@@ -141,11 +138,7 @@ class _BuyCryptoScreenState extends State<BuyCryptoScreen> {
             ),
           ),
           SizedBox(width: 12.w),
-          Icon(
-            Icons.swap_vert,
-            size: 24.sp,
-            color: const Color(0xFFFF6B2C),
-          ),
+          Icon(Icons.swap_vert, size: 24.sp, color: const Color(0xFFFF6B2C)),
           SizedBox(width: 12.w),
           Expanded(
             child: Divider(
