@@ -81,9 +81,8 @@ final goRouter = GoRouter(
     GoRoute(
       path: '/coin_details',
       builder: (context, state) {
-        final coinName = state.uri.queryParameters['name'] ?? 'Bitcoin';
-        final svgIconPath = state.uri.queryParameters['icon'];
-        return CoinDetailsScreen(coinName: coinName, svgIconPath: svgIconPath);
+        final id = state.uri.queryParameters['id'] ?? 'Bitcoin';
+        return CoinDetailsScreen(id: id);
       },
     ),
 

@@ -182,12 +182,13 @@ class _TouchIdScanningPageState extends State<TouchIdScanningPage>
             ),
           );
         },
-      onTap: () => NavigationService.navigateTo(context, '/touch_id_verified'),
-      child: Image.asset(
-        ImageManager.finger,
-        width: 160.w,
-        height: 160.w,
-        color: Theme.of(context).iconTheme.color,
+        //onTap: () => NavigationService.navigateTo(context, '/touch_id_verified'),
+        child: Image.asset(
+          ImageManager.finger,
+          width: 160.w,
+          height: 160.w,
+          color: Theme.of(context).iconTheme.color,
+        ),
       ),
     );
   }
@@ -206,14 +207,6 @@ class _TouchIdScanningPageState extends State<TouchIdScanningPage>
   }
 
   Widget _buildSubtitle() {
-    return Text(
-      'Please verify your identity using touch ID and it will proceed automatically.',
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: 15.sp,
-        fontWeight: FontWeight.w500,
-        color: const Color(0xFF374151),
-        height: 1.5,
     return Builder(
       builder: (context) => Text(
         'Please verify your identity using touch\nID and it will proceed automatically.',

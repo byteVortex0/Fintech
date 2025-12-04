@@ -197,14 +197,14 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
                 ),
               );
             },
-          onTap: () => _handleFingerprintSet(context),
+       //   onTap: () => _handleFingerprintSet(context),
           child: Icon(
             Icons.fingerprint,
             size: 180.sp,
             color: Theme.of(context).iconTheme.color,
           ),
         ),
-        SizedBox(height: 48.h),
+          ),  SizedBox(height: 48.h),
         SizedBox(
           width: double.infinity,
           child: Text(

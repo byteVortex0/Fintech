@@ -1,6 +1,7 @@
 /// SVG Icon Manager
 /// Centralized asset paths for all SVG icons used throughout the app
-class SvgIconManager {
+sealed class SvgIconManager {
+  SvgIconManager._();
   // Trending coins section icons (small size)
   static const String bitcoinIcon = 'assets/svg/bitcoin_btc.svg';
   static const String ethereumIcon = 'assets/svg/ethereum_eth.svg';

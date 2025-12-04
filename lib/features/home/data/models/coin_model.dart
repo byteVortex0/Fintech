@@ -8,7 +8,7 @@ part 'coin_model.freezed.dart';
 /// Centralizes coin-related data to avoid parameter duplication
 /// Freezed provides immutability, copyWith(), equality, and future-proof JSON serialization
 @freezed
-class CoinModel with _$CoinModel {
+abstract class CoinModel with _$CoinModel {
   const factory CoinModel({
     required String coinName,
     required String ticker,

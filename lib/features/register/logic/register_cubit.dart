@@ -1,3 +1,4 @@
+import 'package:fintech/core/service/firebase/firebase_result.dart';
 import 'package:fintech/core/utils/constants.dart';
 import 'package:fintech/core/utils/user_preferences.dart';
 import 'package:fintech/features/register/data/models/create_user_request_body.dart';

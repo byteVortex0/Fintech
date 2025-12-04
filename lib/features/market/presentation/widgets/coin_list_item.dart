@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart' as svg;
 import 'package:fintech/core/navigation/navigation_service.dart';
 import 'package:fintech/core/routes/app_routes.dart';
-import '../../data/models/market_coin_model.dart';
+import '../../data/models/market_coin_response.dart';
 
 /// CoinListItem widget for market coin list
 /// Displays coin with icon, name, rank, price, and change percentage
 class CoinListItem extends StatelessWidget {
-  final MarketCoinModel coin;
+  final MarketCoinResponse coin;
 
   const CoinListItem({super.key, required this.coin});
 
   Color _getChangeColor() {
-    final changeValue = double.tryParse(coin.changePercent) ?? 0;
+    final changeValue = coin.changePercent;
     return changeValue >= 0 ? const Color(0xFF10B981) : const Color(0xFFEF4444);
   }
 
   void _navigateToCoinDetails(BuildContext context) {
-    final iconParam = coin.svgIconPath != null
-        ? '&icon=${coin.svgIconPath}'
-        : '';
     NavigationService.navigateTo(
       context,
-      '${AppRoutes.coinDetails}?name=${coin.name}$iconParam',
+      '${AppRoutes.coinDetails}?id=${coin.id}',
     );
   }
 
@@ -59,18 +55,9 @@ class CoinListItem extends StatelessWidget {
                       : const Color(0xFFF3F4F6),
                   borderRadius: BorderRadius.circular(8.r),
                 ),
+                //TODO: refactor to handle network images
                 child: Center(
-                  child: coin.svgIconPath != null
-                      ? svg.SvgPicture.asset(
-                          coin.svgIconPath!,
-                          width: 28.w,
-                          height: 28.h,
-                        )
-                      : Icon(
-                          Icons.currency_bitcoin,
-                          size: 24.sp,
-                          color: Theme.of(context).iconTheme.color,
-                        ),
+                  child: Image.network(coin.image, width: 28.w, height: 28.h),
                 ),
               ),
               SizedBox(width: 12.w),
@@ -104,7 +91,7 @@ class CoinListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    coin.price,
+                    '\$${coin.price}',
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w700,
@@ -122,9 +109,7 @@ class CoinListItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(6.r),
                     ),
                     child: Text(
-                      coin.changePercent.startsWith('+')
-                          ? '↗ ${coin.changePercent}'
-                          : '↘ ${coin.changePercent}',
+                      '${coin.changePercent}%',
                       style: TextStyle(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w600,
