@@ -1,10 +1,15 @@
+import 'dart:developer';
+
+import 'package:fintech/core/di/injection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
 import 'package:fintech/core/routes/app_routes.dart';
 import 'package:fintech/core/utils/svg_icon_manager.dart';
 import 'package:fintech/shared/widgets/app_back_button.dart';
 import '../../data/models/coin_details_model.dart';
+import '../logic/cubit/get_coin_details_cubit.dart';
 import '../widgets/coin_header_section.dart';
 import '../widgets/price_card_widget.dart';
 import '../widgets/chart_section_widget.dart';
@@ -13,111 +18,112 @@ import '../widgets/about_section.dart';
 import '../widgets/action_buttons_section.dart';
 
 /// Coin Details Screen - Displays detailed cryptocurrency information
-class CoinDetailsScreen extends StatefulWidget {
-  final String coinName;
-  final String? svgIconPath;
+class CoinDetailsScreen extends StatelessWidget {
+  final String id;
 
-  const CoinDetailsScreen({
-    super.key,
-    required this.coinName,
-    this.svgIconPath,
-  });
-
-  @override
-  State<CoinDetailsScreen> createState() => _CoinDetailsScreenState();
-}
-
-class _CoinDetailsScreenState extends State<CoinDetailsScreen> {
-  String selectedTimePeriod = '1d';
-
-  late final CoinDetailsModel coinDetails;
-
-  @override
-  void initState() {
-    super.initState();
-    coinDetails = CoinDetailsModel(
-      name: widget.coinName,
-      price: '\$54,382.64',
-      pricePerUnit: '/ 1 BTC',
-      changePercent: '15.3%',
-      isPositive: true,
-      svgIconPath: widget.svgIconPath ?? SvgIconManager.bitcoinIcon,
-      currentPrice: '44,826,12 \$',
-      marketCap: '836,819 \$',
-      volume24h: '35,867 \$',
-      availableSupply: '18,784',
-      maxSupply: '21,000',
-      description:
-          'Bitcoin is a decentralized cryptocurrency originally described in a 2008 whitepaper by a person, or group of people, using the alias Satoshi Nakamoto. It was launched soon after, in January 2009.',
-    );
-  }
+  const CoinDetailsScreen({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: SafeArea(
-        child: Column(
-          children: [
-            _buildHeader(context),
-            Expanded(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 16.h),
-                    CoinHeaderSection(
-                      name: coinDetails.name,
-                      svgIconPath: coinDetails.svgIconPath,
-                    ),
-                    SizedBox(height: 16.h),
-                    PriceCardWidget(
-                      price: coinDetails.price,
-                      pricePerUnit: coinDetails.pricePerUnit,
-                      changePercent: coinDetails.changePercent,
-                      isPositive: coinDetails.isPositive,
-                    ),
-                    SizedBox(height: 20.h),
-                    ChartSectionWidget(
-                      selectedPeriod: selectedTimePeriod,
-                      onPeriodSelected: (period) {
-                        setState(() {
-                          selectedTimePeriod = period;
-                        });
-                      },
-                    ),
-                    SizedBox(height: 24.h),
-                    StatisticsSection(
-                      currentPrice: coinDetails.currentPrice,
-                      marketCap: coinDetails.marketCap,
-                      volume24h: coinDetails.volume24h,
-                      availableSupply: coinDetails.availableSupply,
-                      maxSupply: coinDetails.maxSupply,
-                    ),
-                    SizedBox(height: 24.h),
-                    AboutSection(
-                      coinName: coinDetails.name,
-                      description: coinDetails.description,
-                    ),
-                    SizedBox(height: 24.h),
-                    ActionButtonsSection(
-                      onSellPressed: () {
-                        // TODO: Navigate to sell screen
-                      },
-                      onBuyPressed: () {
-                        NavigationService.navigateTo(
-                          context,
-                          '${AppRoutes.buyCrypto}?coinName=${coinDetails.name}',
-                        );
-                      },
-                    ),
-                    SizedBox(height: 24.h),
-                  ],
-                ),
+    return BlocProvider(
+      create: (BuildContext context) =>
+          sl<GetCoinDetailsCubit>()..getCoinDetails(coinId: id),
+      child: Scaffold(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        body: SafeArea(
+          child: Column(
+            children: [
+              _buildHeader(context),
+              BlocBuilder<GetCoinDetailsCubit, GetCoinDetailsState>(
+                builder: (context, state) {
+                  return state.when(
+                    loading: () {
+                      return Expanded(
+                        child: const Center(child: CircularProgressIndicator()),
+                      );
+                    },
+                    error: (message) {
+                      return Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.symmetric(horizontal: 16.w),
+                          child: Text(
+                            'Error: $message',
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              color: Theme.of(
+                                context,
+                              ).textTheme.bodyLarge?.color,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    loaded: (coinDetailsData) {
+                      return Expanded(
+                        child: SingleChildScrollView(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 16.h),
+                              CoinHeaderSection(
+                                name: coinDetailsData.name,
+                                svgIconPath: coinDetailsData.svgIconPath,
+                              ),
+                              SizedBox(height: 16.h),
+                              PriceCardWidget(
+                                price: coinDetailsData.price,
+                                pricePerUnit: coinDetailsData.pricePerUnit,
+                                changePercent: coinDetailsData.changePercent,
+                                isPositive: coinDetailsData.isPositive,
+                              ),
+                              SizedBox(height: 20.h),
+                              ChartSectionWidget(
+                                selectedPeriod: '1D',
+                                onPeriodSelected: (period) {
+                                  // setState(() {
+                                  //   selectedTimePeriod = period;
+                                  // });
+                                },
+                              ),
+                              SizedBox(height: 24.h),
+                              StatisticsSection(
+                                currentPrice: coinDetailsData.currentPrice,
+                                marketCap: coinDetailsData.marketCap,
+                                volume24h: coinDetailsData.volume24h,
+                                availableSupply:
+                                    coinDetailsData.availableSupply,
+                                maxSupply: coinDetailsData.maxSupply,
+                              ),
+                              SizedBox(height: 24.h),
+                              AboutSection(
+                                coinName: coinDetailsData.name,
+                                description: coinDetailsData.description,
+                              ),
+                              SizedBox(height: 24.h),
+                              ActionButtonsSection(
+                                onSellPressed: () {
+                                  // TODO: Navigate to sell screen
+                                },
+                                onBuyPressed: () {
+                                  NavigationService.navigateTo(
+                                    context,
+                                    '${AppRoutes.buyCrypto}?coinName=${coinDetailsData.name}',
+                                  );
+                                },
+                              ),
+                              SizedBox(height: 24.h),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

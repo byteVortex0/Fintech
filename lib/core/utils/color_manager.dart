@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
-class LightColorManager {
+sealed class LightColorManager {
+  LightColorManager._();
   static const Color cardColor = Color(0xFFF7F2FA);
   static const Color screenBackground = Color(0xFFF5F8FE);
   static const Color scaffoldBackground = Color(0xFFF8F9FA);
   static const Color borderColor = Color(0xFF5E5E5E);
 }
 
-class DarkColorManager {
+sealed class DarkColorManager {
+  DarkColorManager._();
   static const Color cardColor = Color(0xFF1D1B20);
   static const Color screenBackground = Color(0xFF121212);
   static const Color scaffoldBackground = Color(0xFF181818);
