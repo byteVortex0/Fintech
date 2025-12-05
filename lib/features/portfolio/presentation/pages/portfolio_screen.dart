@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fintech/core/di/injection.dart';
 import 'package:fintech/core/utils/svg_icon_manager.dart';
-import 'package:fintech/features/portfolio/data/models/portfolio_model.dart';
-import 'package:fintech/features/portfolio/data/models/holding_model.dart';
 import 'package:fintech/features/portfolio/data/models/transaction_model.dart';
+import 'package:fintech/features/portfolio/presentation/cubit/portfolio_cubit.dart';
 import 'package:fintech/features/portfolio/presentation/widgets/total_value_card.dart';
 import 'package:fintech/features/portfolio/presentation/widgets/time_period_selector.dart';
 import 'package:fintech/features/portfolio/presentation/widgets/portfolio_donut_chart.dart';
@@ -11,60 +12,25 @@ import 'package:fintech/features/portfolio/presentation/widgets/my_holdings_sect
 import 'package:fintech/features/portfolio/presentation/widgets/recent_transactions_section.dart';
 
 /// Portfolio screen showing total value, holdings distribution, and transactions
+/// Uses BLoC pattern to manage portfolio data fetching from API
 class PortfolioScreen extends StatelessWidget {
   const PortfolioScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Placeholder data for portfolio overview
-    final portfolioData = const PortfolioModel(
-      totalValue: 143421.20,
-      todayChange: 305.20,
-      todayChangePercent: 2.5,
-      isPositiveChange: true,
+    return BlocProvider(
+      create: (context) => sl<PortfolioCubit>()..loadPortfolio(),
+      child: const _PortfolioScreenContent(),
     );
+  }
+}
 
-    // Placeholder data for holdings
-    final holdingsData = [
-      const HoldingModel(
-        coinName: 'Bitcoin',
-        symbol: 'BTC',
-        svgIconPath: SvgIconManager.bitcoinIcon,
-        amount: 54382.64,
-        percentage: 50,
-        change: 6.85,
-        isPositiveChange: true,
-        cryptoAmount: '0.05 BTC',
-        dollarValue: '\$2,262.53',
-        dollarChange: '+\$145.20',
-      ),
-      const HoldingModel(
-        coinName: 'Ethereum',
-        symbol: 'ETH',
-        svgIconPath: SvgIconManager.ethereumIcon,
-        amount: 4145.61,
-        percentage: 30,
-        change: 1.83,
-        isPositiveChange: true,
-        cryptoAmount: '1.5 ETH',
-        dollarValue: '\$3,150.75',
-        dollarChange: '+\$56.70',
-      ),
-      const HoldingModel(
-        coinName: 'Litecoin',
-        symbol: 'LTC',
-        svgIconPath: SvgIconManager.liteCoinIcon,
-        amount: 6420.50,
-        percentage: 20,
-        change: 5.07,
-        isPositiveChange: true,
-        cryptoAmount: '26.3 LTC',
-        dollarValue: '\$2,503.76',
-        dollarChange: '+\$120.80',
-      ),
-    ];
+class _PortfolioScreenContent extends StatelessWidget {
+  const _PortfolioScreenContent();
 
-    // Placeholder data for recent transactions
+  @override
+  Widget build(BuildContext context) {
+    // Mock transactions data (static, doesn't come from API yet)
     final transactionsData = [
       const TransactionModel(
         type: 'Buy',
@@ -100,25 +66,67 @@ class PortfolioScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(24.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TotalValueCard(portfolio: portfolioData),
-              SizedBox(height: 24.h),
-              const TimePeriodSelector(),
-              SizedBox(height: 24.h),
-              PortfolioDonutChart(
-                totalValue: portfolioData.totalValue,
-                holdings: holdingsData,
-              ),
-              SizedBox(height: 24.h),
-              MyHoldingsSection(holdings: holdingsData),
-              SizedBox(height: 24.h),
-              RecentTransactionsSection(transactions: transactionsData),
-            ],
-          ),
+        child: BlocBuilder<PortfolioCubit, PortfolioState>(
+          builder: (context, state) {
+            if (state is PortfolioLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is PortfolioError) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Error loading portfolio',
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xFFFF5252),
+                      ),
+                    ),
+                    SizedBox(height: 16.h),
+                    Text(
+                      state.message,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 12.sp),
+                    ),
+                    SizedBox(height: 24.h),
+                    ElevatedButton(
+                      onPressed: () {
+                        context.read<PortfolioCubit>().loadPortfolio();
+                      },
+                      child: const Text('Retry'),
+                    ),
+                  ],
+                ),
+              );
+            } else if (state is PortfolioLoaded) {
+              return RefreshIndicator(
+                onRefresh: () =>
+                    context.read<PortfolioCubit>().refreshPortfolio(),
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.all(24.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TotalValueCard(portfolio: state.portfolio),
+                      SizedBox(height: 24.h),
+                      const TimePeriodSelector(),
+                      SizedBox(height: 24.h),
+                      PortfolioDonutChart(
+                        totalValue: state.portfolio.totalValue,
+                        holdings: state.holdings,
+                      ),
+                      SizedBox(height: 24.h),
+                      MyHoldingsSection(holdings: state.holdings),
+                      SizedBox(height: 24.h),
+                      RecentTransactionsSection(transactions: transactionsData),
+                    ],
+                  ),
+                ),
+              );
+            }
+            return const SizedBox.shrink();
+          },
         ),
       ),
     );
