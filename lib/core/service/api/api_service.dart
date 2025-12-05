@@ -21,4 +21,14 @@ abstract class ApiService {
 
   @GET(ApiEndpoints.coinDetails)
   Future<CoinDetailsRemoteModel> getCoinDetails(@Path('id') String id);
+
+  /// Fetch cryptocurrency prices from CoinGecko
+  /// Returns raw response with coin price data
+  @GET(ApiEndpoints.holdingsPrices)
+  Future<dynamic> getHoldingsPrices({
+    @Query('ids') required String coinIds,
+    @Query('vs_currencies') String currency = 'usd',
+    @Query('include_24hr_change') bool include24h = true,
+    @Query('x-cg-demo-api-key') required String apiKey,
+  });
 }
