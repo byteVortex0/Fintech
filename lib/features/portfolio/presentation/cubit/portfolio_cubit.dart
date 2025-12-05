@@ -2,8 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fintech/features/portfolio/data/models/holding_model.dart';
 import 'package:fintech/features/portfolio/data/models/portfolio_model.dart';
 import 'package:fintech/features/portfolio/data/repository/portfolio_repository.dart';
-
-part 'portfolio_state.dart';
+import 'portfolio_state.dart';
 
 /// Cubit managing portfolio data and state
 /// Handles fetching, loading, and error states for portfolio data
@@ -17,11 +16,11 @@ class PortfolioCubit extends Cubit<PortfolioState> {
     'cardano': 26.3,
   };
 
-  PortfolioCubit(this.repository) : super(PortfolioInitial());
+  PortfolioCubit(this.repository) : super(const PortfolioState.initial());
 
   /// Load portfolio data from API
   Future<void> loadPortfolio() async {
-    emit(PortfolioLoading());
+    emit(const PortfolioState.loading());
 
     try {
       final result = await repository.fetchHoldingsPrices(
@@ -32,12 +31,12 @@ class PortfolioCubit extends Cubit<PortfolioState> {
       final portfolio = result['portfolio'] as PortfolioModel;
       final holdings = result['holdings'] as List<HoldingModel>;
 
-      emit(PortfolioLoaded(
+      emit(PortfolioState.loaded(
         portfolio: portfolio,
         holdings: holdings,
       ));
     } catch (e) {
-      emit(PortfolioError('Failed to load portfolio: $e'));
+      emit(PortfolioState.error('Failed to load portfolio: $e'));
     }
   }
 
@@ -52,12 +51,12 @@ class PortfolioCubit extends Cubit<PortfolioState> {
       final portfolio = result['portfolio'] as PortfolioModel;
       final holdings = result['holdings'] as List<HoldingModel>;
 
-      emit(PortfolioLoaded(
+      emit(PortfolioState.loaded(
         portfolio: portfolio,
         holdings: holdings,
       ));
     } catch (e) {
-      emit(PortfolioError('Failed to refresh portfolio: $e'));
+      emit(PortfolioState.error('Failed to refresh portfolio: $e'));
     }
   }
 }

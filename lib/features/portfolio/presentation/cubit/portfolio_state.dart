@@ -1,28 +1,25 @@
-part of 'portfolio_cubit.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:fintech/features/portfolio/data/models/holding_model.dart';
+import 'package:fintech/features/portfolio/data/models/portfolio_model.dart';
 
-/// Portfolio state base class
-abstract class PortfolioState {}
+part 'portfolio_state.freezed.dart';
 
-/// Initial state when cubit is created
-class PortfolioInitial extends PortfolioState {}
+/// Freezed-based portfolio state management
+/// Provides type-safe state pattern with when/maybeWhen support
+@freezed
+abstract class PortfolioState with _$PortfolioState {
+  /// Initial state when cubit is created
+  const factory PortfolioState.initial() = PortfolioInitial;
 
-/// Loading state when fetching portfolio data
-class PortfolioLoading extends PortfolioState {}
+  /// Loading state when fetching portfolio data
+  const factory PortfolioState.loading() = PortfolioLoading;
 
-/// Loaded state with portfolio data
-class PortfolioLoaded extends PortfolioState {
-  final PortfolioModel portfolio;
-  final List<HoldingModel> holdings;
+  /// Loaded state with portfolio data
+  const factory PortfolioState.loaded({
+    required PortfolioModel portfolio,
+    required List<HoldingModel> holdings,
+  }) = PortfolioLoaded;
 
-  PortfolioLoaded({
-    required this.portfolio,
-    required this.holdings,
-  });
-}
-
-/// Error state with error message
-class PortfolioError extends PortfolioState {
-  final String message;
-
-  PortfolioError(this.message);
+  /// Error state with error message
+  const factory PortfolioState.error(String message) = PortfolioError;
 }

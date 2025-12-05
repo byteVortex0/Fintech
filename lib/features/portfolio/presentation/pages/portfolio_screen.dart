@@ -5,6 +5,7 @@ import 'package:fintech/core/di/injection.dart';
 import 'package:fintech/core/utils/svg_icon_manager.dart';
 import 'package:fintech/features/portfolio/data/models/transaction_model.dart';
 import 'package:fintech/features/portfolio/presentation/cubit/portfolio_cubit.dart';
+import 'package:fintech/features/portfolio/presentation/cubit/portfolio_state.dart';
 import 'package:fintech/features/portfolio/presentation/widgets/total_value_card.dart';
 import 'package:fintech/features/portfolio/presentation/widgets/time_period_selector.dart';
 import 'package:fintech/features/portfolio/presentation/widgets/portfolio_donut_chart.dart';
@@ -68,10 +69,10 @@ class _PortfolioScreenContent extends StatelessWidget {
       body: SafeArea(
         child: BlocBuilder<PortfolioCubit, PortfolioState>(
           builder: (context, state) {
-            if (state is PortfolioLoading) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is PortfolioError) {
-              return Center(
+            return state.maybeWhen(
+              initial: () => const SizedBox.shrink(),
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (message) => Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -85,7 +86,7 @@ class _PortfolioScreenContent extends StatelessWidget {
                     ),
                     SizedBox(height: 16.h),
                     Text(
-                      state.message,
+                      message,
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 12.sp),
                     ),
@@ -98,9 +99,8 @@ class _PortfolioScreenContent extends StatelessWidget {
                     ),
                   ],
                 ),
-              );
-            } else if (state is PortfolioLoaded) {
-              return RefreshIndicator(
+              ),
+              loaded: (portfolio, holdings) => RefreshIndicator(
                 onRefresh: () =>
                     context.read<PortfolioCubit>().refreshPortfolio(),
                 child: SingleChildScrollView(
@@ -108,24 +108,24 @@ class _PortfolioScreenContent extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TotalValueCard(portfolio: state.portfolio),
+                      TotalValueCard(portfolio: portfolio),
                       SizedBox(height: 24.h),
                       const TimePeriodSelector(),
                       SizedBox(height: 24.h),
                       PortfolioDonutChart(
-                        totalValue: state.portfolio.totalValue,
-                        holdings: state.holdings,
+                        totalValue: portfolio.totalValue,
+                        holdings: holdings,
                       ),
                       SizedBox(height: 24.h),
-                      MyHoldingsSection(holdings: state.holdings),
+                      MyHoldingsSection(holdings: holdings),
                       SizedBox(height: 24.h),
                       RecentTransactionsSection(transactions: transactionsData),
                     ],
                   ),
                 ),
-              );
-            }
-            return const SizedBox.shrink();
+              ),
+              orElse: () => const SizedBox.shrink(),
+            );
           },
         ),
       ),

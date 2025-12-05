@@ -24,7 +24,7 @@ abstract class ApiService {
 
   /// Fetch cryptocurrency prices from CoinGecko
   /// Returns raw response with coin price data
-  @GET('simple/price')
+  @GET(ApiEndpoints.holdingsPrices)
   Future<dynamic> getHoldingsPrices({
     @Query('ids') required String coinIds,
     @Query('vs_currencies') String currency = 'usd',

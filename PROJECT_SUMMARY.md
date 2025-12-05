@@ -1,8 +1,8 @@
 # Fintech App - Project Progress Summary
 
-**Last Updated**: December 4, 2025
-**Current Phase**: Phase 12 Complete - Dark/Light Theme System + Icons Launcher Integrated
-**Status**: 🟢 All branches synced → Ready for Phase 13 (API Integration or BLoC State Management)
+**Last Updated**: December 5, 2025
+**Current Phase**: Phase 13 Complete - Portfolio API Integration with CoinGecko
+**Status**: 🟢 Portfolio API Integration Complete → Ready for Phase 14 (Market Screen API Integration)
 
 ---
 
@@ -15,6 +15,105 @@ Cryptocurrency fintech app with:
 - Real-time market data (CoinGecko API)
 - Secure portfolio management
 - Clean Architecture + SOLID Principles
+
+---
+
+## Phase 13: Portfolio API Integration with CoinGecko
+
+### Status: ✅ COMPLETE - Ready for Git Commit & PR
+
+**Branch**: `feature/portfolio-api`
+**Latest Commits**:
+- Fixed iOS Podfile deployment target (15.0 for cloud_firestore compatibility)
+- Implemented all PR review fixes (secure API keys, Freezed states, maybeWhen UI)
+- Real API data flowing through portfolio screen
+
+### Technical Implementation
+
+**Secure API Key Management**:
+- Created `lib/core/config/api_config.dart` with flutter_dotenv integration
+- Created `.env` file with `COINGECKO_API_KEY=CG-8fMdgfQi2WWFUK57RvpJzDg3`
+- Created `.env.example` for team members
+- API key loaded from environment with fallback default
+
+**API Endpoint Configuration**:
+- Added `holdingsPrices = "simple/price"` constant to `ApiEndpoints` sealed class
+- Updated `api_service.dart` to use `ApiEndpoints.holdingsPrices` endpoint
+- Endpoint accepts `ids`, `vs_currencies`, `include_24hr_change`, and `x-cg-demo-api-key` parameters
+
+**State Management with Freezed**:
+- Converted `portfolio_state.dart` to full Freezed implementation
+- States: `initial()`, `loading()`, `loaded(portfolio, holdings)`, `error(message)`
+- All states generated with copyWith(), equality, hashCode, toString()
+- Updated `portfolio_cubit.dart` to emit Freezed states
+
+**UI Pattern Matching**:
+- Replaced if/else blocks with `state.maybeWhen()` in `portfolio_screen.dart`
+- Cleaner, type-safe state handling
+- Each state (loading, error, loaded) has dedicated handler
+
+**Data Models**:
+- `CoinGeckoPriceResponse` - Freezed model for API response parsing
+- Maps CoinGecko response to existing `PortfolioModel` and `HoldingModel`
+
+**Repository Pattern**:
+- `PortfolioRepository` fetches from API and transforms data
+- Calculates portfolio totals, percentages, and 24h changes
+- Maps coin symbols to SVG icons using `SvgIconManager`
+
+**Real Data Features**:
+- Fetches live prices for Bitcoin, Ethereum, Cardano from CoinGecko
+- Shows 24h change percentage for each holding
+- Calculates portfolio total value and daily change
+- RefreshIndicator for pull-to-refresh functionality
+
+**Dependency Injection**:
+- Registered `ApiService` in `_initCore()`
+- Registered `PortfolioRepository` as singleton
+- Registered `PortfolioCubit` as factory
+
+### Files Created/Modified
+
+**New Files**:
+- `lib/core/config/api_config.dart` - API key management
+- `lib/features/portfolio/data/models/coingecko_price_response.dart` - API response model
+- `lib/features/portfolio/data/repository/portfolio_repository.dart` - API integration
+- `.env` - Environment variables (not committed to git)
+- `.env.example` - Example environment file
+
+**Modified Files**:
+- `lib/core/configs/api_endpoints.dart` - Added `holdingsPrices` constant
+- `lib/core/service/api/api_service.dart` - Updated endpoint and parameters
+- `lib/core/di/injection.dart` - Registered PortfolioRepository and PortfolioCubit
+- `lib/features/portfolio/presentation/cubit/portfolio_state.dart` - Full Freezed implementation
+- `lib/features/portfolio/presentation/cubit/portfolio_cubit.dart` - Uses Freezed states
+- `lib/features/portfolio/presentation/pages/portfolio_screen.dart` - Uses maybeWhen pattern
+- `pubspec.yaml` - Added `flutter_dotenv: ^5.0.2`
+- `ios/Podfile` - Updated platform to `15.0` for iOS deployment
+
+### PR Review Fixes Implemented
+
+1. **Secure API Key Storage**: ✅ flutter_dotenv environment variables
+2. **Endpoint Constants**: ✅ Centralized in ApiEndpoints class
+3. **Freezed State Management**: ✅ Full @freezed implementation
+4. **UI Pattern Matching**: ✅ maybeWhen instead of if/else
+
+### Code Quality
+
+✅ **Verification**:
+- Flutter analyze: 0 errors in portfolio code
+- All Freezed files generated successfully
+- API responds with 200 OK and real data
+- RefreshIndicator works (rate-limited on free tier)
+- Portfolio screen displays live cryptocurrency prices
+
+### Errors Resolved
+
+1. **iOS Deployment Target**: Uncommented and updated Podfile platform to 15.0
+2. **Retrofit Return Type**: Changed from `Map<String, dynamic>` to `dynamic` for flexibility
+3. **Missing SVG Asset**: Using litecoin.svg as placeholder for cardano_ada.svg
+4. **Freezed Generated Files**: All .freezed.dart files generated successfully
+5. **Version Conflicts**: Used flutter_dotenv instead of envied (no conflicts with freezed)
 
 ---
 

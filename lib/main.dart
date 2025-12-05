@@ -3,6 +3,7 @@ import 'package:fintech/core/utils/user_preferences.dart';
 import 'package:fintech/fintech_app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/di/injection.dart';
@@ -11,6 +12,15 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
+
+  // Load environment variables from .env file
+  try {
+    await dotenv.load(fileName: ".env");
+  } catch (e) {
+    // .env file not found - will use fallback values from ApiConfig
+    // ignore: avoid_print
+    print('Warning: .env file not found, using fallback API key');
+  }
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   setupInjection();
