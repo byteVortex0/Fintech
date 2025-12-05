@@ -1,5 +1,5 @@
 # Miscellaneous
-pubspec.lock
+
 *.class
 *.log
 *.pyc
@@ -48,3 +48,6 @@ app.*.map.json
 # Code generation
 *.g.dart
 *.freezed.dart
+
+# Lockfile
+pubspec.lock
