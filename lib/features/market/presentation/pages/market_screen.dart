@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:fintech/core/di/injection.dart';
+import 'package:fintech/features/market/data/mapper/coin_mapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -157,11 +158,7 @@ class _MarketScreenState extends State<MarketScreen> {
                                   if (index < coinsMarkets.length) {
                                     final coin = coinsMarkets[index];
                                     return CoinListItem(
-                                      id: coin.id,
-                                      name: coin.name,
-                                      image: coin.image,
-                                      rank: coin.rank,
-                                      price: coin.price,
+                                      coinUIModel: CoinMapper.fromCoin(coin),
                                       changePercent: coin.changePercent,
                                       onTap: () {
                                         NavigationService.navigateTo(
@@ -193,10 +190,9 @@ class _MarketScreenState extends State<MarketScreen> {
                             itemBuilder: (context, index) {
                               final result = searchResults[index];
                               return CoinListItem(
-                                id: result.id,
-                                name: result.name,
-                                symbol: result.symbol,
-                                image: result.thumb,
+                                coinUIModel: CoinMapper.fromSearchCoinResult(
+                                  result,
+                                ),
                                 onTap: () {
                                   NavigationService.navigateTo(
                                     context,
