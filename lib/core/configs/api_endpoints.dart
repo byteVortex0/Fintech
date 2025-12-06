@@ -4,4 +4,5 @@ sealed class ApiEndpoints {
   static const String coinsMarkets = "coins/markets";
   static const String coinDetails = "coins/{id}";
   static const String holdingsPrices = "simple/price";
+  static const String search = "search";
 }

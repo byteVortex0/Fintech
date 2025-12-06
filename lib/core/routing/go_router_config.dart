@@ -29,7 +29,7 @@ import 'package:go_router/go_router.dart';
 /// 2. Main routes: /home, /market, /portfolio, /settings (with persistent navbar via ShellRoute)
 /// All navigation must use NavigationService (Rule #16)
 final goRouter = GoRouter(
-  initialLocation: isLoggedInUser ? '/home' : '/onboarding',
+  initialLocation: isLoggedInUser ? '/home' : '/home',
   routes: [
     // Auth routes (no navbar)
     GoRoute(
