@@ -1,26 +1,17 @@
+import 'package:fintech/features/market/data/models/coin_ui_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// CoinListItem widget for market coin list
 /// Displays coin with icon, name, rank, price, and change percentage
 class CoinListItem extends StatelessWidget {
-  final String id;
-  final String name;
-  final String? symbol;
-  final String image;
-  final int? rank;
-  final double? price;
+  final CoinUIModel coinUIModel;
   final double? changePercent;
   final VoidCallback? onTap;
 
   const CoinListItem({
     super.key,
-    required this.id,
-    required this.name,
-    required this.image,
-    this.symbol,
-    this.rank,
-    this.price,
+    required this.coinUIModel,
     this.changePercent,
     this.onTap,
   });
@@ -66,7 +57,11 @@ class CoinListItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 child: Center(
-                  child: Image.network(image, width: 28.w, height: 28.h),
+                  child: Image.network(
+                    coinUIModel.image,
+                    width: 28.w,
+                    height: 28.h,
+                  ),
                 ),
               ),
               SizedBox(width: 12.w),
@@ -77,26 +72,26 @@ class CoinListItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      name,
+                      coinUIModel.name,
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w700,
                         color: Theme.of(context).textTheme.bodyLarge?.color,
                       ),
                     ),
-                    if (symbol != null)
+                    if (coinUIModel.symbol != null)
                       Text(
-                        symbol!.toUpperCase(),
+                        coinUIModel.symbol!.toUpperCase(),
                         style: TextStyle(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w400,
                           color: Theme.of(context).textTheme.bodyLarge?.color,
                         ),
                       ),
-                    if (rank != null) ...[
+                    if (coinUIModel.rank != null) ...[
                       SizedBox(height: 4.h),
                       Text(
-                        'Rank #$rank',
+                        'Rank #${coinUIModel.rank}',
                         style: TextStyle(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w400,
@@ -109,12 +104,12 @@ class CoinListItem extends StatelessWidget {
               ),
 
               // Price and Change (Optional)
-              if (price != null && changePercent != null)
+              if (coinUIModel.price != null && changePercent != null)
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      '\$${price!.toStringAsFixed(2)}',
+                      '\$${coinUIModel.price!.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w700,
