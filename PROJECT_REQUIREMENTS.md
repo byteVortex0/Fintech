@@ -82,7 +82,7 @@ Navigator.push(...)                         // NEVER use this
 
 ---
 
-## Screens to Implement (7 Total)
+## Screens to Implement (8 Total)
 
 1. **Onboarding & Authentication** - UI COMPLETE
    - [x] Onboarding (4-slide carousel)
@@ -149,6 +149,13 @@ Navigator.push(...)                         // NEVER use this
    - [x] Responsive design with flutter_screenutil
    - [x] Placeholder data for UI testing with complete crypto amounts and dollar values
    - [x] Uses only basic Flutter widgets (Stack, Container, Row, Column, SweepGradient)
+   - [x] **PHASE 13**: Real API data from CoinGecko
+   - [x] Freezed state management (initial, loading, loaded, error)
+   - [x] Pull-to-refresh functionality with RefreshIndicator
+   - [x] PortfolioCubit with BLoC pattern
+   - [x] maybeWhen pattern matching in UI
+   - [x] Secure API key management with flutter_dotenv
+   - [x] Centralized API endpoints in ApiEndpoints
 
 8. **Settings** - COMPLETE ✅
    - [x] Settings screen with profile section and preferences
@@ -449,4 +456,4 @@ refactor: description
 
 ---
 
-**Current Status**: Portfolio Feature Complete (All Design Adjustments Applied) - Ready for Git Commit & Settings Feature
+**Current Status**: Phase 13 Complete (Portfolio API Integration) - Ready for Git Commit & Phase 14 (Market Screen API)

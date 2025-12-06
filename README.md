@@ -2,7 +2,7 @@
 
 A professional Flutter cryptocurrency trading application with real-time market data, biometric authentication, secure portfolio management, and advanced trading features.
 
-**Status**: 🟢 Phase 12 Complete | **Last Updated**: December 4, 2025 | **All Branches Synced**
+**Status**: 🟢 Phase 13 Complete | **Last Updated**: December 5, 2025 | **Portfolio API Integration Done**
 
 ---
 
@@ -36,10 +36,20 @@ A professional Flutter cryptocurrency trading application with real-time market 
 ### In Development 🚧
 
 - **Splash Screen** - App initialization and onboarding check
-- **API Integration** - Connecting to CoinGecko for real market data (Phase 13 - Next)
+- **Market API Integration** - Connecting Market screen to CoinGecko API (Phase 14)
 
 ### Recently Completed ✨
 
+- **Portfolio API Integration** - CoinGecko API v3 with real cryptocurrency pricing (Phase 13) ✅:
+  - Secure API key management using flutter_dotenv environment variables
+  - Freezed state management (initial, loading, loaded, error states)
+  - PortfolioCubit with BLoC pattern for state management
+  - PortfolioRepository with API integration and data transformation
+  - RefreshIndicator for pull-to-refresh functionality
+  - Real-time pricing for Bitcoin, Ethereum, Cardano with 24h changes
+  - Centralized API endpoints in ApiEndpoints constants
+  - maybeWhen pattern matching in UI for clean state handling
+  - Secure environment variable configuration with .env/.env.example
 - **Market Feature** - Complete cryptocurrency trading flow with 4 screens:
   - Market Screen - Coin list with navigation
   - Coin Details - Detailed coin information with statistics and charts
@@ -74,10 +84,10 @@ A professional Flutter cryptocurrency trading application with real-time market 
 
 ### Planned 📋
 
-**Phase 13 (Next Priority)**:
+**Phase 14 (Next Priority)**:
 
-- **CoinGecko API Integration** - Real market data for all screens
-- **Feature BLoCs** - State management for Market, Portfolio, Buy features
+- **Market Screen API Integration** - Real market data for coin listing
+- **Home Screen BLoC** - State management for trending coins and market overview
 
 **Future Phases**:
 
@@ -103,6 +113,7 @@ A professional Flutter cryptocurrency trading application with real-time market 
 - **Retrofit** ^4.9.1 - Type-safe HTTP client
 - **Dio** ^5.9.0 - HTTP client engine
 - **Pretty Dio Logger** ^1.4.0 - Request/response logging
+- **flutter_dotenv** ^5.0.2 - Environment variable management
 
 ### Local Storage
 - **SharedPreferences** ^2.5.3 - Simple key-value storage
@@ -440,6 +451,6 @@ For questions or issues:
 
 ---
 
-**Last Updated**: November 30, 2025
+**Last Updated**: December 5, 2025
 **Project Status**: In Active Development
-**Current Phase**: Phase 1 (UI Implementation) - Settings Feature Complete → Next: Theme System (Dark/Light Mode)
+**Current Phase**: Phase 13 (Portfolio API Integration) Complete → Next: Market Screen API Integration
