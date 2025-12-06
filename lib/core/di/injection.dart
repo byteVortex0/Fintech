@@ -12,6 +12,9 @@ import '../service/api/dio_factory.dart';
 import '../service/local_storage/theme_storage_service.dart';
 import '../theme/theme_cubit.dart';
 
+import '../../features/home/data/repo/home_screen_repo.dart';
+import '../../features/home/presentation/logic/cubit/home_screen_cubit.dart';
+
 GetIt sl = GetIt.instance;
 
 void setupInjection() {
@@ -19,6 +22,7 @@ void setupInjection() {
   coinsMarket();
   coinsDetails();
   registerFeature();
+  homeScreen();
 }
 
 void _initCore() {
@@ -51,4 +55,11 @@ void registerFeature() {
   sl.registerFactory<RegisterCubit>(() => RegisterCubit(sl<RegisterRepo>()));
 
   // sl.registerLazySingleton<ApiService>(() => ApiService(dio));
+}
+
+
+void homeScreen() {
+  sl
+    ..registerLazySingleton(() => HomeScreenRepo(sl()))
+    ..registerFactory(() => HomeScreenCubit(sl()));
 }
