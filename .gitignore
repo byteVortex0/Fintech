@@ -1,5 +1,5 @@
 # Miscellaneous
-
+pubspec.lock
 *.class
 *.log
 *.pyc
@@ -48,6 +48,10 @@ app.*.map.json
 # Code generation
 *.g.dart
 *.freezed.dart
+*.freezed.dart
 
-# Lockfile
-pubspec.lock
+# Local environment variables
+.env
+
+# Learning guides (local reference only)
+tasks/PHASE_*_LEARNING_GUIDE.md
