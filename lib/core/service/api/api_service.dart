@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:fintech/features/market/data/models/market_coin_response.dart';
+import 'package:fintech/features/market/data/models/search_coin_response.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../../features/coin_details/data/models/coin_details_remote_model.dart';
@@ -31,4 +32,7 @@ abstract class ApiService {
     @Query('include_24hr_change') bool include24h = true,
     @Query('x-cg-demo-api-key') required String apiKey,
   });
+
+  @GET(ApiEndpoints.search)
+  Future<SearchCoinResponse> searchCoin(@Query('query') String query);
 }

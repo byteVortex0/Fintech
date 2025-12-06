@@ -1,34 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/core/navigation/navigation_service.dart';
-import 'package:fintech/core/routes/app_routes.dart';
-import '../../data/models/market_coin_response.dart';
 
 /// CoinListItem widget for market coin list
 /// Displays coin with icon, name, rank, price, and change percentage
 class CoinListItem extends StatelessWidget {
-  final MarketCoinResponse coin;
+  final String id;
+  final String name;
+  final String? symbol;
+  final String image;
+  final int? rank;
+  final double? price;
+  final double? changePercent;
+  final VoidCallback? onTap;
 
-  const CoinListItem({super.key, required this.coin});
+  const CoinListItem({
+    super.key,
+    required this.id,
+    required this.name,
+    required this.image,
+    this.symbol,
+    this.rank,
+    this.price,
+    this.changePercent,
+    this.onTap,
+  });
 
-  Color _getChangeColor() {
-    final changeValue = coin.changePercent;
-    return changeValue >= 0 ? const Color(0xFF10B981) : const Color(0xFFEF4444);
-  }
-
-  void _navigateToCoinDetails(BuildContext context) {
-    NavigationService.navigateTo(
-      context,
-      '${AppRoutes.coinDetails}?id=${coin.id}',
-    );
+  Color? _getChangeColor() {
+    if (changePercent == null) return null;
+    return changePercent! >= 0
+        ? const Color(0xFF10B981)
+        : const Color(0xFFEF4444);
   }
 
   @override
   Widget build(BuildContext context) {
+    final changeColor = _getChangeColor();
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       child: GestureDetector(
-        onTap: () => _navigateToCoinDetails(context),
+        onTap: onTap,
         child: Container(
           padding: EdgeInsets.all(12.w),
           decoration: BoxDecoration(
@@ -38,7 +49,6 @@ class CoinListItem extends StatelessWidget {
               BoxShadow(
                 color: Colors.black.withValues(alpha: 0.05),
                 blurRadius: 4.r,
-                spreadRadius: 0,
                 offset: const Offset(0, 1),
               ),
             ],
@@ -55,19 +65,56 @@ class CoinListItem extends StatelessWidget {
                       : const Color(0xFFF3F4F6),
                   borderRadius: BorderRadius.circular(8.r),
                 ),
-                //TODO: refactor to handle network images
                 child: Center(
-                  child: Image.network(coin.image, width: 28.w, height: 28.h),
+                  child: Image.network(image, width: 28.w, height: 28.h),
                 ),
               ),
               SizedBox(width: 12.w),
+
               // Coin Info
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      coin.name,
+                      name,
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w700,
+                        color: Theme.of(context).textTheme.bodyLarge?.color,
+                      ),
+                    ),
+                    if (symbol != null)
+                      Text(
+                        symbol!.toUpperCase(),
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Theme.of(context).textTheme.bodyLarge?.color,
+                        ),
+                      ),
+                    if (rank != null) ...[
+                      SizedBox(height: 4.h),
+                      Text(
+                        'Rank #$rank',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Theme.of(context).textTheme.bodyLarge?.color,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+
+              // Price and Change (Optional)
+              if (price != null && changePercent != null)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      '\$${price!.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w700,
@@ -75,50 +122,26 @@ class CoinListItem extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 4.h),
-                    Text(
-                      'Rank #${coin.rank}',
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Theme.of(context).textTheme.bodyLarge?.color,
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 8.w,
+                        vertical: 4.h,
+                      ),
+                      decoration: BoxDecoration(
+                        color: changeColor!.withValues(alpha: 0.15),
+                        borderRadius: BorderRadius.circular(6.r),
+                      ),
+                      child: Text(
+                        '${changePercent!.toStringAsFixed(2)}%',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w600,
+                          color: changeColor,
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ),
-              // Price and Change
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    '\$${coin.price}',
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w700,
-                      color: Theme.of(context).textTheme.bodyLarge?.color,
-                    ),
-                  ),
-                  SizedBox(height: 4.h),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8.w,
-                      vertical: 4.h,
-                    ),
-                    decoration: BoxDecoration(
-                      color: _getChangeColor().withValues(alpha: 0.15),
-                      borderRadius: BorderRadius.circular(6.r),
-                    ),
-                    child: Text(
-                      '${coin.changePercent}%',
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w600,
-                        color: _getChangeColor(),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
             ],
           ),
         ),
