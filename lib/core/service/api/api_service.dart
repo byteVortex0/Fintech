@@ -24,7 +24,7 @@ abstract class ApiService {
   Future<CoinDetailsRemoteModel> getCoinDetails(@Path('id') String id);
 
 
-//!home features
+//!home screen
 
     @GET(ApiEndpoints.global)
   Future<GlobalResponse> getGlobal();

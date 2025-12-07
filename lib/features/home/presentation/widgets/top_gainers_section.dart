@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/core/utils/svg_icon_manager.dart';
+import 'package:fintech/features/market/data/models/market_coin_response.dart';
 import '../../data/models/coin_model.dart';
 import 'top_gainer_item.dart';
 
-/// Top gainers section widget
-/// Displays list of top gaining coins
+
 class TopGainersSection extends StatelessWidget {
-  const TopGainersSection({super.key});
+  final List<MarketCoinResponse> topGainers;
+
+  const TopGainersSection({super.key, required this.topGainers});
 
   @override
   Widget build(BuildContext context) {
@@ -25,32 +26,24 @@ class TopGainersSection extends StatelessWidget {
             ),
           ),
         ),
-        TopGainerItem(
-          coin: CoinModel(
-            coinName: 'Ethereum',
-            ticker: 'ETH',
-            price: '\$20.788',
-            change: '+0.25%',
-            svgIconPath: SvgIconManager.topGainerEthereumIcon,
-          ),
-        ),
-        TopGainerItem(
-          coin: CoinModel(
-            coinName: 'Binance Coin',
-            ticker: 'BNS',
-            price: '\$20.788',
-            change: '+1.15%',
-            svgIconPath: SvgIconManager.topGainerBinanceIcon,
-          ),
-        ),
-        TopGainerItem(
-          coin: CoinModel(
-            coinName: 'Litecoin',
-            ticker: 'LTC',
-            price: '\$20.788',
-            change: '+1.15%',
-            svgIconPath: SvgIconManager.topGainerLiteCoinIcon,
-          ),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: topGainers.length > 3 ? 3 : topGainers.length,
+          itemBuilder: (context, index) {
+            final coin = topGainers[index];
+            return TopGainerItem(
+              coin: CoinModel(
+                coinName: coin.name,
+                ticker: coin.id.toUpperCase(),
+                price: '\$${coin.price.toStringAsFixed(2)}',
+                change: '${coin.changePercent >= 0 ? '+' : ''}${coin.changePercent.toStringAsFixed(2)}%',
+                svgIconPath: null,
+                icon: Icons.currency_bitcoin,
+                iconColor: Colors.orange,
+              ),
+            );
+          },
         ),
       ],
     );
