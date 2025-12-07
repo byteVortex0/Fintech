@@ -32,7 +32,6 @@ class HomeScreenRepo {
 
       return ApiResult.success(response);
     } catch (error) {
-
       return ApiResult.failure(ErrorModel(message: error.toString()));
     }
   }

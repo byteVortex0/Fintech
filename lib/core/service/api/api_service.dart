@@ -23,12 +23,11 @@ abstract class ApiService {
   @GET(ApiEndpoints.coinDetails)
   Future<CoinDetailsRemoteModel> getCoinDetails(@Path('id') String id);
 
+  //!home screen
 
-//!home screen
-
-    @GET(ApiEndpoints.global)
+  @GET(ApiEndpoints.global)
   Future<GlobalResponse> getGlobal();
 
- @GET(ApiEndpoints.searchTrending)
+  @GET(ApiEndpoints.searchTrending)
   Future<TrendingResponse> getSearchTrending();
 }

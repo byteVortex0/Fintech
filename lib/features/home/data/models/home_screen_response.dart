@@ -5,7 +5,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'home_screen_response.freezed.dart';
 
-
 @freezed
 abstract class HomeScreenResponse with _$HomeScreenResponse {
   const factory HomeScreenResponse({

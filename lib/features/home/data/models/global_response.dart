@@ -5,9 +5,7 @@ part 'global_response.g.dart';
 
 @freezed
 abstract class GlobalResponse with _$GlobalResponse {
-  const factory GlobalResponse({
-    required GlobalData data,
-  }) = _GlobalResponse;
+  const factory GlobalResponse({required GlobalData data}) = _GlobalResponse;
 
   factory GlobalResponse.fromJson(Map<String, dynamic> json) =>
       _$GlobalResponseFromJson(json);
@@ -16,10 +14,13 @@ abstract class GlobalResponse with _$GlobalResponse {
 @freezed
 abstract class GlobalData with _$GlobalData {
   const factory GlobalData({
-    @JsonKey(name: 'total_market_cap') required Map<String, double> totalMarketCap,
+    @JsonKey(name: 'total_market_cap')
+    required Map<String, double> totalMarketCap,
     @JsonKey(name: 'total_volume') required Map<String, double> totalVolume,
-    @JsonKey(name: 'market_cap_percentage') required Map<String, double> marketCapPercentage,
-    @JsonKey(name: 'active_cryptocurrencies') required int activeCryptocurrencies,
+    @JsonKey(name: 'market_cap_percentage')
+    required Map<String, double> marketCapPercentage,
+    @JsonKey(name: 'active_cryptocurrencies')
+    required int activeCryptocurrencies,
   }) = _GlobalData;
 
   factory GlobalData.fromJson(Map<String, dynamic> json) =>

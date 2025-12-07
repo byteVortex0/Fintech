@@ -57,7 +57,6 @@ void registerFeature() {
   // sl.registerLazySingleton<ApiService>(() => ApiService(dio));
 }
 
-
 void homeScreen() {
   sl
     ..registerLazySingleton(() => HomeScreenRepo(sl()))

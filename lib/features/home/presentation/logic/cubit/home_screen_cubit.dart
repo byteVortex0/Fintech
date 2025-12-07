@@ -8,8 +8,7 @@ part 'home_screen_state.dart';
 part 'home_screen_cubit.freezed.dart';
 
 class HomeScreenCubit extends Cubit<HomeScreenState> {
-  HomeScreenCubit(this.homeScreenRepo)
-      : super(const HomeScreenState.loading());
+  HomeScreenCubit(this.homeScreenRepo) : super(const HomeScreenState.loading());
 
   final HomeScreenRepo homeScreenRepo;
 

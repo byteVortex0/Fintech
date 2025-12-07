@@ -5,9 +5,8 @@ part 'trending_response.g.dart';
 
 @freezed
 abstract class TrendingResponse with _$TrendingResponse {
-  const factory TrendingResponse({
-    required List<TrendingCoin> coins,
-  }) = _TrendingResponse;
+  const factory TrendingResponse({required List<TrendingCoin> coins}) =
+      _TrendingResponse;
 
   factory TrendingResponse.fromJson(Map<String, dynamic> json) =>
       _$TrendingResponseFromJson(json);
@@ -15,9 +14,7 @@ abstract class TrendingResponse with _$TrendingResponse {
 
 @freezed
 abstract class TrendingCoin with _$TrendingCoin {
-  const factory TrendingCoin({
-    required TrendingCoinItem item,
-  }) = _TrendingCoin;
+  const factory TrendingCoin({required TrendingCoinItem item}) = _TrendingCoin;
 
   factory TrendingCoin.fromJson(Map<String, dynamic> json) =>
       _$TrendingCoinFromJson(json);

@@ -1,14 +1,10 @@
-import 'dart:developer';
-
 import 'package:fintech/core/di/injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
 import 'package:fintech/core/routes/app_routes.dart';
-import 'package:fintech/core/utils/svg_icon_manager.dart';
 import 'package:fintech/shared/widgets/app_back_button.dart';
-import '../../data/models/coin_details_model.dart';
 import '../logic/cubit/get_coin_details_cubit.dart';
 import '../widgets/coin_header_section.dart';
 import '../widgets/price_card_widget.dart';

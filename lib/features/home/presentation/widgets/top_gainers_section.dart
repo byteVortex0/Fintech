@@ -4,7 +4,6 @@ import 'package:fintech/features/market/data/models/market_coin_response.dart';
 import '../../data/models/coin_model.dart';
 import 'top_gainer_item.dart';
 
-
 class TopGainersSection extends StatelessWidget {
   final List<MarketCoinResponse> topGainers;
 
@@ -37,7 +36,8 @@ class TopGainersSection extends StatelessWidget {
                 coinName: coin.name,
                 ticker: coin.id.toUpperCase(),
                 price: '\$${coin.price.toStringAsFixed(2)}',
-                change: '${coin.changePercent >= 0 ? '+' : ''}${coin.changePercent.toStringAsFixed(2)}%',
+                change:
+                    '${coin.changePercent >= 0 ? '+' : ''}${coin.changePercent.toStringAsFixed(2)}%',
                 svgIconPath: null,
                 icon: Icons.currency_bitcoin,
                 iconColor: Colors.orange,
