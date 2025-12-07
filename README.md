@@ -3,6 +3,7 @@
 A professional Flutter cryptocurrency trading application with real-time market data, biometric authentication, secure portfolio management, and advanced trading features.
 
 **Status**: 🟢 Phase 14 Complete | **Last Updated**: December 7, 2025 | **Development & Production Flavours Done**
+**Status**: 🟢 Phase 15 Complete | **Last Updated**: December 7, 2025 | **Settings Logout Feature Done**
 
 ---
 
@@ -31,6 +32,7 @@ A professional Flutter cryptocurrency trading application with real-time market 
 - **App Icons & Launcher** - Custom app icons and launcher configuration (Phase 12) ✅
 - **Portfolio Screen** - Complete portfolio overview with holdings, distribution chart, and transactions
 - **Settings Screen** - User profile and app preferences with clean, simple UI
+- **Settings Logout** - Logout button with Firebase authentication and confirmation dialog (Phase 15) ✅
 - **Code Quality** - Redundant comments removed from all widgets per mentor feedback (62 lines cleaned)
 - **Development & Production Flavours** - Dual build variants for dev/prod environments with separate configurations (Phase 14) ✅
 
@@ -465,6 +467,6 @@ For questions or issues:
 
 ---
 
-**Last Updated**: December 5, 2025
+**Last Updated**: December 7, 2025
 **Project Status**: In Active Development
-**Current Phase**: Phase 13 (Portfolio API Integration) Complete → Next: Market Screen API Integration
+**Current Phase**: Phase 15 (Settings - Logout Feature) Complete → Next: Market Screen API Integration

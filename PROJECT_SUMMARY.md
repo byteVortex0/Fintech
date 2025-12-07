@@ -3,6 +3,8 @@
 **Last Updated**: December 7, 2025
 **Current Phase**: Phase 14 Complete - Development & Production Flavours
 **Status**: 🟢 Flavours Setup Complete → Ready for Phase 15 (Settings Screen Firebase Integration)
+**Current Phase**: Phase 15 Complete - Settings Logout Feature
+**Status**: 🟢 Settings Logout Implementation Complete → Ready for Phase 16 (Market Screen API Integration)
 
 ---
 
@@ -100,12 +102,89 @@ flutter run -t lib/main_prod.dart --flavor prod
 # Build APK
 flutter build apk --flavor prod -t lib/main_prod.dart
 ```
+## Phase 15: Settings - Logout Feature Implementation
+
+### Status: ✅ COMPLETE - Ready for Git Push & PR
+
+**Branch**: `feature/settings-logout`
+**Date**: December 7, 2025
+**Base**: feature/settings (with merged changes from develop)
+
+### Implementation Summary
+
+Added logout functionality to Settings screen with Firebase authentication, confirmation dialog, and secure navigation to login screen.
+
+### Technical Implementation
+
+**Logout Button**:
+- Logout icon button in Settings AppBar (top right)
+- Clean, intuitive design with tooltip
+- Uses NavigationService for consistent app-wide navigation
+
+**Confirmation Dialog**:
+- Shows "Logout" title
+- Asks "Are you sure you want to logout?"
+- Cancel button (dismisses dialog)
+- Logout button (red text, indicates destructive action)
+
+**Firebase Logout Flow**:
+- Calls `FirebaseAuth.instance.signOut()`
+- Uses try-catch for error handling
+- On success: navigates to login screen via `NavigationService.navigateToAndReplace()`
+- Clears navigation stack so user can't go back
+- On failure: Shows SnackBar with error message
+
+**Safety Features**:
+- `context.mounted` check for safe async navigation
+- Error handling with user-friendly SnackBar messages
+- Proper async/await pattern implementation
+
+### Firebase Dependencies Added
+- firebase_core: ^4.2.1
+- firebase_auth: ^6.1.2
+- cloud_firestore: ^6.1.0
+- flutter_dotenv: ^5.0.2
+
+### Files Modified
+
+**Updated Files**:
+1. `lib/features/settings/presentation/pages/settings_screen.dart`
+   - Added logout icon button in AppBar actions
+   - Implemented `_handleLogout()` method with confirmation dialog
+   - Integrated Firebase signout
+   - Added navigation to login after logout
+
+**Dependency Files**:
+- `pubspec.yaml` - Added Firebase dependencies
+- `pubspec.lock` - Updated dependencies
+- `macos/Flutter/GeneratedPluginRegistrant.swift` - Firebase plugin registration
+- `windows/flutter/generated_plugin_registrant.cc` - Firebase plugin registration
+
+### Code Quality
+
+✅ **Verification**:
+- Flutter analyze: 0 errors in Settings feature
+- All Firebase packages installed and registered
+- Proper error handling with try-catch
+- Safe context checks with context.mounted
+
+✅ **Architecture Compliance**:
+- Uses NavigationService (Rule #16)
+- Uses AppRoutes constants (no hardcoded strings)
+- Proper async/await pattern
+- Clean error handling
+
+### Testing Status
+
+- Code compiles successfully
+- Settings feature: 0 analyzer issues
+- Ready for testing on device/simulator
 
 ---
 
 ## Phase 13: Portfolio API Integration with CoinGecko
 
-### Status: ✅ COMPLETE - Ready for Git Commit & PR
+### Status: ✅ COMPLETE - Merged to develop
 
 **Branch**: `feature/portfolio-api`
 **Latest Commits**:
