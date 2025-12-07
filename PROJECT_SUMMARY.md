@@ -1,8 +1,8 @@
 # Fintech App - Project Progress Summary
 
-**Last Updated**: December 5, 2025
-**Current Phase**: Phase 13 Complete - Portfolio API Integration with CoinGecko
-**Status**: 🟢 Portfolio API Integration Complete → Ready for Phase 14 (Market Screen API Integration)
+**Last Updated**: December 7, 2025
+**Current Phase**: Phase 14 Complete - Development & Production Flavours
+**Status**: 🟢 Flavours Setup Complete → Ready for Phase 15 (Settings Screen Firebase Integration)
 
 ---
 
@@ -15,6 +15,91 @@ Cryptocurrency fintech app with:
 - Real-time market data (CoinGecko API)
 - Secure portfolio management
 - Clean Architecture + SOLID Principles
+
+---
+
+## Phase 14: Development & Production Flavours Setup
+
+### Status: ✅ COMPLETE - Tested on iOS & Android Simulators
+
+**Branch**: `feature/flavours`
+**Testing**: ✅ Both flavours working on iOS and Android simulators
+**Note**: Real device testing skipped due to time constraints but simulator validation complete
+
+### Technical Implementation
+
+**Dart Entry Points**:
+- Created `lib/main_dev.dart` - Development flavour entry point with extended logging
+- Created `lib/main_prod.dart` - Production flavour entry point with minimal logging
+- Both files initialize Flutter, dotenv, Firebase, and DI with proper error handling
+
+**Configuration Management**:
+- Created `lib/core/config/flavour_config.dart` - Centralized configuration class
+- Provides `isDev`, `isProd` getters for conditional logic
+- Manages app name, bundle ID, API base URL per flavour
+- Enables/disables debug logging and Dio logger based on flavour
+
+**Android Flavours**:
+- Configured `android/app/build.gradle.kts` with two product flavours
+- **dev**: `com.byteVortex.fintech.dev`, version `1.0-dev`
+- **prod**: `com.byteVortex.fintech`, version `1.0`
+- Separate APK builds with unique package names prevent conflicts
+
+**iOS Configuration**:
+- Created iOS Xcode schemes: `dev.xcscheme` and `prod.xcscheme`
+- Each scheme configured to use flavour-specific build configurations
+- Created build configuration files in `ios/Flutter/`:
+  - `Debug-dev.xcconfig`, `Release-dev.xcconfig`
+  - `Debug-prod.xcconfig`, `Release-prod.xcconfig`
+- Updated `ios/Podfile` to map all flavour configurations
+- Fixed Swift version conflicts (SWIFT_VERSION = 5.0) in post_install hook
+
+**Environment Variable Handling**:
+- Added two-layer error handling for .env file:
+  - Layer 1: Try-catch in main.dart around `dotenv.load()`
+  - Layer 2: Try-catch in ApiConfig.coinGeckoApiKey getter
+- Graceful fallback to hardcoded API key if .env missing
+- Prevents NotInitializedError and FileNotFoundError
+
+### Files Created/Modified
+
+**New Files**:
+- `lib/main_dev.dart` - Development entry point
+- `lib/main_prod.dart` - Production entry point
+- `lib/core/config/flavour_config.dart` - Flavour configuration class
+- `ios/Flutter/Debug-dev.xcconfig` - iOS dev debug config
+- `ios/Flutter/Release-dev.xcconfig` - iOS dev release config
+- `ios/Flutter/Debug-prod.xcconfig` - iOS prod debug config
+- `ios/Flutter/Release-prod.xcconfig` - iOS prod release config
+- `ios/Runner.xcodeproj/xcshareddata/xcschemes/dev.xcscheme` - Dev scheme
+- `ios/Runner.xcodeproj/xcshareddata/xcschemes/prod.xcscheme` - Prod scheme
+- `FLAVOURS.md` - Comprehensive flavours documentation
+
+**Modified Files**:
+- `android/app/build.gradle.kts` - Added productFlavors block
+- `ios/Podfile` - Added flavour configuration mappings and Swift version fix
+- `ios/Runner/Info.plist` - Fixed duplicate dict block
+- `lib/main.dart` - Added dotenv initialization with error handling
+
+### Testing Results
+
+✅ **iOS Simulator**: Both dev and prod flavours launch and run successfully
+✅ **Android Simulator**: Both flavours run correctly
+✅ **APK Build (Prod)**: Successfully builds production APK (55.7MB)
+⏳ **Real Device**: Not tested due to time constraints (Firebase configuration needed for dev variant)
+
+### Usage
+
+```bash
+# Run development flavour
+flutter run -t lib/main_dev.dart --flavor dev
+
+# Run production flavour
+flutter run -t lib/main_prod.dart --flavor prod
+
+# Build APK
+flutter build apk --flavor prod -t lib/main_prod.dart
+```
 
 ---
 

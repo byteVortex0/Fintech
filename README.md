@@ -2,7 +2,7 @@
 
 A professional Flutter cryptocurrency trading application with real-time market data, biometric authentication, secure portfolio management, and advanced trading features.
 
-**Status**: 🟢 Phase 13 Complete | **Last Updated**: December 5, 2025 | **Portfolio API Integration Done**
+**Status**: 🟢 Phase 14 Complete | **Last Updated**: December 7, 2025 | **Development & Production Flavours Done**
 
 ---
 
@@ -32,6 +32,7 @@ A professional Flutter cryptocurrency trading application with real-time market 
 - **Portfolio Screen** - Complete portfolio overview with holdings, distribution chart, and transactions
 - **Settings Screen** - User profile and app preferences with clean, simple UI
 - **Code Quality** - Redundant comments removed from all widgets per mentor feedback (62 lines cleaned)
+- **Development & Production Flavours** - Dual build variants for dev/prod environments with separate configurations (Phase 14) ✅
 
 ### In Development 🚧
 
@@ -40,6 +41,14 @@ A professional Flutter cryptocurrency trading application with real-time market 
 
 ### Recently Completed ✨
 
+- **Development & Production Flavours** - Dual build environments for separate dev/prod configurations (Phase 14) ✅:
+  - Separate entry points (`main_dev.dart`, `main_prod.dart`)
+  - Android product flavours with unique bundle IDs (com.byteVortex.fintech.dev / com.byteVortex.fintech)
+  - iOS Xcode schemes for dev and prod variants
+  - FlavourConfig class for centralized environment-specific settings
+  - Tested on iOS and Android simulators successfully
+  - Comprehensive FLAVOURS.md documentation
+  - Swift version conflict resolution in Podfile
 - **Portfolio API Integration** - CoinGecko API v3 with real cryptocurrency pricing (Phase 13) ✅:
   - Secure API key management using flutter_dotenv environment variables
   - Freezed state management (initial, loading, loaded, error states)
@@ -84,10 +93,15 @@ A professional Flutter cryptocurrency trading application with real-time market 
 
 ### Planned 📋
 
-**Phase 14 (Next Priority)**:
+**Phase 15 (Next Priority)**:
 
-- **Market Screen API Integration** - Real market data for coin listing
-- **Home Screen BLoC** - State management for trending coins and market overview
+- **Settings Screen Firebase Integration** - Store user preferences in Firebase Firestore
+- **Settings Profile Management** - Save/load user profile data
+
+**Phase 16**:
+
+- **Chart Feature with API Integration** - Real-time cryptocurrency price charts
+- **Market Data Visualization** - Interactive charts with CoinGecko API
 
 **Future Phases**:
 
