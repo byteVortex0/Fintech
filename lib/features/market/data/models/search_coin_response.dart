@@ -4,7 +4,7 @@ part 'search_coin_response.freezed.dart';
 part 'search_coin_response.g.dart';
 
 @freezed
-abstract class SearchCoinResponse with _$SearchCoinResponse {
+sealed class SearchCoinResponse with _$SearchCoinResponse {
   const factory SearchCoinResponse({required List<SearchCoin> coins}) =
       _SearchCoinResponse;
 
@@ -13,7 +13,7 @@ abstract class SearchCoinResponse with _$SearchCoinResponse {
 }
 
 @freezed
-abstract class SearchCoin with _$SearchCoin {
+sealed class SearchCoin with _$SearchCoin {
   const factory SearchCoin({
     required String id,
     required String name,

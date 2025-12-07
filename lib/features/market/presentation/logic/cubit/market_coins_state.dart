@@ -1,7 +1,7 @@
 part of 'market_coins_cubit.dart';
 
 @freezed
-class MarketCoinsState with _$MarketCoinsState {
+sealed class MarketCoinsState with _$MarketCoinsState {
   const factory MarketCoinsState.loading() = _Loading;
   const factory MarketCoinsState.loaded({
     required List<MarketCoinResponse> coinsMarkets,
