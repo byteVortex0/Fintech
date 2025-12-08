@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../data/models/market_coin_request.dart';
+
 import '../../../data/models/market_coin_response.dart';
 import '../../../data/models/search_coin_response.dart';
 import '../../../data/repo/market_coins_repo.dart';
