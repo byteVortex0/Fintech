@@ -1,8 +1,11 @@
 import 'package:fintech/core/di/injection.dart';
 import 'package:fintech/core/utils/constants.dart';
+import 'package:fintech/core/service/shared_pref/shared_pref.dart';
+import 'package:fintech/core/service/shared_pref/pref_keys.dart';
 import 'package:fintech/features/buy_crypto/presentation/pages/buy_crypto_screen.dart';
 import 'package:fintech/features/coin_details/presentation/pages/coin_details_screen.dart';
 import 'package:fintech/features/home/presentation/home_screen.dart';
+import 'package:fintech/features/login/presentation/pages/auto_login_splash_page.dart';
 import 'package:fintech/features/login/presentation/pages/face_id_scanning_page.dart';
 import 'package:fintech/features/login/presentation/pages/face_id_verified_page.dart';
 import 'package:fintech/features/login/presentation/pages/login_page.dart';
@@ -31,13 +34,20 @@ import 'package:go_router/go_router.dart';
 /// 2. Main routes: /home, /market, /portfolio, /settings (with persistent navbar via ShellRoute)
 /// All navigation must use NavigationService (Rule #16)
 GoRouter createGoRouter() {
-  final initialLocation = isLoggedInUser ? '/home' : '/onboarding';
+  // Always start with auto-login splash to check biometric eligibility
+  final initialLocation = '/auto_login_splash';
   if (kDebugMode) {
-    debugPrint('[GoRouter] Creating router with initialLocation: $initialLocation (isLoggedInUser: $isLoggedInUser)');
+    debugPrint('[GoRouter] Creating router with initialLocation: $initialLocation');
   }
   return GoRouter(
     initialLocation: initialLocation,
     routes: [
+    // Auto-login splash screen - determines initial navigation
+    GoRoute(
+      path: '/auto_login_splash',
+      builder: (context, state) => const AutoLoginSplashPage(),
+    ),
+
     // Auth routes (no navbar)
     GoRoute(
       path: '/onboarding',
@@ -112,8 +122,11 @@ GoRouter createGoRouter() {
     // Authentication guard: Redirects to login if user is not authenticated
     ShellRoute(
       builder: (context, state, child) {
-        // If user is not logged in, redirect to login screen
-        if (!isLoggedInUser) {
+        // Check if user is logged in dynamically (not cached)
+        // This allows biometric authentication to properly update login status
+        final uid = SharedPref.getValue(PrefKeys.uid);
+        final isUserLoggedIn = uid != null;
+        if (!isUserLoggedIn) {
           return const LoginPage();
         }
         return Scaffold(

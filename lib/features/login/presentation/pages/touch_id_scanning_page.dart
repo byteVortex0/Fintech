@@ -1,27 +1,55 @@
-import 'package:fintech/core/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:local_auth/local_auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fintech/core/di/injection.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
+import 'package:fintech/core/routes/app_routes.dart';
 import 'package:fintech/core/utils/image_manager.dart';
+import 'package:fintech/features/login/presentation/cubit/biometric_cubit.dart';
+import 'package:fintech/features/login/presentation/cubit/biometric_state.dart';
 import 'package:fintech/features/login/presentation/widgets/curved_background.dart';
 
-class TouchIdScanningPage extends StatefulWidget {
-  const TouchIdScanningPage({super.key});
+/// Wrapper for TouchID scanning page - provides BiometricCubit
+/// Receives email and password as route extras from LoginPage
+class TouchIdScanningPage extends StatelessWidget {
+  final String email;
+  final String password;
+
+  const TouchIdScanningPage({
+    super.key,
+    this.email = '',
+    this.password = '',
+  });
 
   @override
-  State<TouchIdScanningPage> createState() => _TouchIdScanningPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => sl<BiometricCubit>(),
+      child: _TouchIdScanningContent(email: email, password: password),
+    );
+  }
 }
 
-class _TouchIdScanningPageState extends State<TouchIdScanningPage>
-    with SingleTickerProviderStateMixin {
-  final LocalAuthentication auth = LocalAuthentication();
-  String errorMessage = '';
+/// Internal content widget for TouchID scanning
+class _TouchIdScanningContent extends StatefulWidget {
+  final String email;
+  final String password;
 
+  const _TouchIdScanningContent({
+    required this.email,
+    required this.password,
+  });
+
+  @override
+  State<_TouchIdScanningContent> createState() => _TouchIdScanningContentState();
+}
+
+class _TouchIdScanningContentState extends State<_TouchIdScanningContent>
+    with SingleTickerProviderStateMixin {
   late AnimationController _pulseController;
   late Animation<double> _pulseAnimation;
-
   double shakeOffset = 0;
+  bool _isAuthenticationSuccessful = false;
 
   @override
   void initState() {
@@ -35,6 +63,11 @@ class _TouchIdScanningPageState extends State<TouchIdScanningPage>
     _pulseAnimation = Tween<double>(begin: 0.9, end: 1.1).animate(
       CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
     );
+
+    // Auto-start biometric authentication when page loads
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _startBiometricAuthentication();
+    });
   }
 
   @override
@@ -51,72 +84,71 @@ class _TouchIdScanningPageState extends State<TouchIdScanningPage>
     }
   }
 
-  Future<void> _authenticateUser() async {
-    String localError = '';
-    bool navigate = false;
-
-    try {
-      final bool canCheck = await auth.canCheckBiometrics;
-      final bool supported = await auth.isDeviceSupported();
-
-      if (!canCheck || !supported) {
-        localError = 'Biometric authentication not available.';
-      } else {
-        final bool didAuthenticate = await auth.authenticate(
-          localizedReason: 'Place your finger on the sensor',
-        );
-
-        if (didAuthenticate && mounted) {
-          navigate = true;
-        } else {
-          await _runShake();
-          localError = 'Authentication failed. Try again.';
-        }
-      }
-    } catch (e) {
-      localError = 'Error: ${e.toString()}';
-    }
-
-    if (mounted) {
-      if (navigate) {
-        Navigator.of(context).push(
-          AppRoutes.onGenerateRoute(
-            RouteSettings(name: AppRoutes.touchIdVerified),
-          )!,
-        );
-      } else {
-        setState(() => errorMessage = localError);
-      }
-    }
+  void _startBiometricAuthentication() {
+    context.read<BiometricCubit>().authenticateWithBiometrics(
+      email: widget.email,
+      password: widget.password,
+      localizedReason: 'Place your finger on the sensor',
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Stack(
-        children: [
-          const CurvedBackground(),
-          SafeArea(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 22.w),
-              child: Column(
-                children: [
-                  _buildBackButton(context),
-                  SizedBox(height: 60.h),
-                  _buildTitle(),
-                  const Spacer(),
-                  _buildFingerprintIcon(),
-                  const SizedBox(height: 20),
-                  _buildErrorMessage(),
-                  const Spacer(),
-                  _buildSubtitle(),
-                  SizedBox(height: 80.h),
-                ],
+    return BlocListener<BiometricCubit, BiometricState>(
+      listener: (context, state) {
+        state.maybeWhen(
+          authenticated: (uid) {
+            // Mark authentication as successful to disable back button
+            _isAuthenticationSuccessful = true;
+            // Navigate to home on successful authentication
+            NavigationService.navigateToAndRemoveUntil(context, AppRoutes.home);
+          },
+          error: (message) async {
+            // Show error animation
+            await _runShake();
+          },
+          notSupported: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Biometric not supported on this device')),
+            );
+          },
+          orElse: () {},
+        );
+      },
+      child: Scaffold(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        body: Stack(
+          children: [
+            const CurvedBackground(),
+            SafeArea(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 22.w),
+                child: Column(
+                  children: [
+                    _buildBackButton(context),
+                    SizedBox(height: 60.h),
+                    _buildTitle(),
+                    const Spacer(),
+                    BlocBuilder<BiometricCubit, BiometricState>(
+                      builder: (context, state) {
+                        return _buildFingerprintIcon(state);
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    BlocBuilder<BiometricCubit, BiometricState>(
+                      builder: (context, state) {
+                        return _buildErrorOrLoadingWidget(state);
+                      },
+                    ),
+                    const Spacer(),
+                    _buildSubtitle(),
+                    SizedBox(height: 80.h),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -125,10 +157,13 @@ class _TouchIdScanningPageState extends State<TouchIdScanningPage>
     return Align(
       alignment: Alignment.centerLeft,
       child: GestureDetector(
-        onTap: () => NavigationService.goBack(context),
+        // Disable back button after successful authentication to prevent navigation crashes
+        onTap: _isAuthenticationSuccessful ? null : () => NavigationService.goBack(context),
         child: Icon(
           Icons.arrow_back_ios,
-          color: Theme.of(context).iconTheme.color,
+          color: _isAuthenticationSuccessful
+              ? Theme.of(context).iconTheme.color?.withOpacity(0.3)
+              : Theme.of(context).iconTheme.color,
           size: 24.sp,
         ),
       ),
@@ -150,9 +185,15 @@ class _TouchIdScanningPageState extends State<TouchIdScanningPage>
     );
   }
 
-  Widget _buildFingerprintIcon() {
+  Widget _buildFingerprintIcon(BiometricState state) {
     return GestureDetector(
-      onTap: _authenticateUser,
+      onTap: () {
+        // Allow retry on tap
+        state.maybeWhen(
+          error: (_) => _startBiometricAuthentication(),
+          orElse: () {},
+        );
+      },
       child: AnimatedBuilder(
         animation: _pulseController,
         builder: (context, child) {
@@ -182,7 +223,6 @@ class _TouchIdScanningPageState extends State<TouchIdScanningPage>
             ),
           );
         },
-        //onTap: () => NavigationService.navigateTo(context, '/touch_id_verified'),
         child: Image.asset(
           ImageManager.finger,
           width: 160.w,
@@ -193,16 +233,28 @@ class _TouchIdScanningPageState extends State<TouchIdScanningPage>
     );
   }
 
-  Widget _buildErrorMessage() {
-    if (errorMessage.isEmpty) return const SizedBox.shrink();
-    return Text(
-      errorMessage,
-      style: TextStyle(
-        fontSize: 14.sp,
-        color: Colors.red,
-        fontWeight: FontWeight.w500,
+  Widget _buildErrorOrLoadingWidget(BiometricState state) {
+    return state.maybeWhen(
+      loading: () => const CircularProgressIndicator(),
+      error: (message) => Column(
+        children: [
+          Text(
+            message,
+            style: TextStyle(
+              fontSize: 14.sp,
+              color: Colors.red,
+              fontWeight: FontWeight.w500,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 16.h),
+          ElevatedButton(
+            onPressed: _startBiometricAuthentication,
+            child: const Text('Retry'),
+          ),
+        ],
       ),
-      textAlign: TextAlign.center,
+      orElse: () => const SizedBox.shrink(),
     );
   }
 

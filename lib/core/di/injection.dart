@@ -4,7 +4,11 @@ import 'package:fintech/features/market/data/repo/market_coins_impl.dart';
 import 'package:fintech/features/register/data/repos/register_repo.dart';
 import 'package:fintech/features/register/logic/register_cubit.dart';
 import 'package:fintech/features/login/data/repository/login_repository.dart';
+import 'package:fintech/features/login/data/repository/biometric_repository.dart';
+import 'package:fintech/features/login/data/services/biometric_enrollment_service.dart';
 import 'package:fintech/features/login/presentation/cubit/login_cubit.dart';
+import 'package:fintech/features/login/presentation/cubit/biometric_cubit.dart';
+import 'package:fintech/features/login/presentation/cubit/auto_login_cubit.dart';
 import 'package:get_it/get_it.dart';
 import '../../features/coin_details/presentation/logic/cubit/get_coin_details_cubit.dart';
 import '../../features/market/data/repo/market_coins_repo.dart';
@@ -45,6 +49,24 @@ void _initCore() {
   // Login Cubit
   sl.registerFactory<LoginCubit>(
     () => LoginCubit(sl<LoginRepository>()),
+  );
+
+  // Biometric Repository
+  sl.registerLazySingleton<BiometricRepository>(() => BiometricRepository());
+
+  // Biometric Cubit
+  sl.registerFactory<BiometricCubit>(
+    () => BiometricCubit(sl<BiometricRepository>()),
+  );
+
+  // Biometric Enrollment Service
+  sl.registerLazySingleton<BiometricEnrollmentService>(
+    () => BiometricEnrollmentService(),
+  );
+
+  // Auto Login Cubit
+  sl.registerFactory<AutoLoginCubit>(
+    () => AutoLoginCubit(sl<BiometricEnrollmentService>()),
   );
 
   // Portfolio Repository
