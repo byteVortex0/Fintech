@@ -1,3 +1,163 @@
+# Phase 14: Development & Production Flavours - Task List
+
+## Status: ✅ COMPLETE - Tested on iOS & Android Simulators
+**Last Updated**: December 7, 2025
+**Branch**: feature/flavours
+**Next Phase**: Phase 15 (Settings Screen Firebase Integration)
+
+---
+
+## Phase 14 Tasks Summary
+
+### Dart Entry Points
+- [x] Create lib/main_dev.dart - Development flavour entry point
+- [x] Create lib/main_prod.dart - Production flavour entry point
+- [x] Add proper error handling for .env file loading
+- [x] Both files initialize Firebase, DI, and flutter_dotenv
+
+### Configuration Management
+- [x] Create lib/core/config/flavour_config.dart - Centralized configuration
+- [x] Provide isDev and isProd getters for conditional logic
+- [x] Define app name, bundle ID, API base URL per flavour
+- [x] Enable/disable debug logging based on flavour
+
+### Android Flavours
+- [x] Configure android/app/build.gradle.kts with productFlavors
+- [x] Dev flavour: com.byteVortex.fintech.dev, version 1.0-dev
+- [x] Prod flavour: com.byteVortex.fintech, version 1.0
+- [x] Build APK successfully for production
+
+### iOS Configuration
+- [x] Create iOS Xcode schemes: dev.xcscheme and prod.xcscheme
+- [x] Create build configuration files (.xcconfig) for each flavour
+- [x] Update ios/Podfile with flavour configuration mappings
+- [x] Fix Swift version conflicts (SWIFT_VERSION = 5.0)
+- [x] Fix iOS Podfile duplicate dict block
+
+### Environment Variable Handling
+- [x] Add two-layer error handling for .env file
+- [x] Layer 1: Try-catch in main.dart around dotenv.load()
+- [x] Layer 2: Try-catch in ApiConfig.coinGeckoApiKey getter
+- [x] Graceful fallback to hardcoded API key
+
+### Testing
+- [x] Test iOS simulator - dev flavour working
+- [x] Test iOS simulator - prod flavour working
+- [x] Test Android simulator - both flavours working
+- [x] Build production APK successfully (55.7MB)
+
+### Documentation
+- [x] Create FLAVOURS.md with comprehensive setup instructions
+- [x] Update README.md with Phase 14 details
+- [x] Update PROJECT_SUMMARY.md with Phase 14 section
+- [x] Update PROJECT_REQUIREMENTS.md marking complete
+- [x] Update tasks/todo.md with Phase 14 review (this file)
+
+### Files Created/Modified
+
+**New Files**:
+- [x] lib/main_dev.dart
+- [x] lib/main_prod.dart
+- [x] lib/core/config/flavour_config.dart
+- [x] ios/Flutter/Debug-dev.xcconfig
+- [x] ios/Flutter/Release-dev.xcconfig
+- [x] ios/Flutter/Debug-prod.xcconfig
+- [x] ios/Flutter/Release-prod.xcconfig
+- [x] ios/Runner.xcodeproj/xcshareddata/xcschemes/dev.xcscheme
+- [x] ios/Runner.xcodeproj/xcshareddata/xcschemes/prod.xcscheme
+- [x] FLAVOURS.md
+
+**Modified Files**:
+- [x] android/app/build.gradle.kts
+- [x] ios/Podfile
+- [x] ios/Runner/Info.plist
+- [x] lib/main.dart
+
+---
+
+## Review - Phase 14
+
+### Files Created: 10 Total
+
+**Entry Points (2 files)**:
+1. `lib/main_dev.dart` - Development flavour with extended logging
+2. `lib/main_prod.dart` - Production flavour with minimal logging
+
+**Configuration (1 file)**:
+1. `lib/core/config/flavour_config.dart` - Centralized environment settings
+
+**iOS Configuration (7 files)**:
+1. `ios/Flutter/Debug-dev.xcconfig`
+2. `ios/Flutter/Release-dev.xcconfig`
+3. `ios/Flutter/Debug-prod.xcconfig`
+4. `ios/Flutter/Release-prod.xcconfig`
+5. `ios/Runner.xcodeproj/xcshareddata/xcschemes/dev.xcscheme`
+6. `ios/Runner.xcodeproj/xcshareddata/xcschemes/prod.xcscheme`
+
+**Documentation (1 file)**:
+1. `FLAVOURS.md` - Comprehensive flavours setup guide
+
+### Files Modified: 4 Total
+
+1. `android/app/build.gradle.kts` - Added productFlavors configuration
+2. `ios/Podfile` - Added flavour mappings and Swift version fix
+3. `ios/Runner/Info.plist` - Fixed duplicate dict block
+4. `lib/main.dart` - Added dotenv initialization with error handling
+
+### Testing Results
+
+✅ **iOS Simulator**: Both dev and prod flavours launch successfully
+✅ **Android Simulator**: Both flavours run correctly
+✅ **APK Build (Prod)**: Successfully builds production APK (55.7MB)
+✅ **Configuration**: All environment-specific settings working
+
+### Code Quality Metrics
+
+✅ **Architecture Compliance**:
+- Two-layer error handling: YES
+- Centralized configuration: YES
+- Environment separation: YES
+- Clean architecture maintained: YES
+
+✅ **Quality**:
+- Flutter analyze: 0 errors in flavour code
+- All configurations properly mapped
+- Documentation complete
+- Responsive design maintained
+
+### Android Flavour Configuration
+
+**Development**:
+```kotlin
+applicationId = "com.byteVortex.fintech.dev"
+versionName = "1.0-dev"
+```
+
+**Production**:
+```kotlin
+applicationId = "com.byteVortex.fintech"
+versionName = "1.0"
+```
+
+### Usage Instructions
+
+```bash
+# Run development flavour
+flutter run -t lib/main_dev.dart --flavor dev
+
+# Run production flavour
+flutter run -t lib/main_prod.dart --flavor prod
+
+# Build APK
+flutter build apk --flavor prod -t lib/main_prod.dart
+```
+
+---
+
+**Status**: ✅ Phase 14 complete - All flavours working on simulators! Ready for git commit and push.
+
+---
+
 # Phase 13: Portfolio API Integration - Task List
 
 ## Status: ✅ COMPLETE - Ready for Git Commit & PR

@@ -6,8 +6,12 @@ ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
 project 'Runner', {
   'Debug' => :debug,
+  'Debug-dev' => :debug,
+  'Debug-prod' => :debug,
   'Profile' => :release,
   'Release' => :release,
+  'Release-dev' => :release,
+  'Release-prod' => :release,
 }
 
 def flutter_root
@@ -39,5 +43,9 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+    # Set consistent Swift version to avoid conflicts
+    target.build_configurations.each do |config|
+      config.build_settings['SWIFT_VERSION'] = '5.0'
+    end
   end
 end

@@ -1,8 +1,10 @@
 # Fintech App - Project Progress Summary
 
-**Last Updated**: December 5, 2025
-**Current Phase**: Phase 13 Complete - Portfolio API Integration with CoinGecko
-**Status**: 🟢 Portfolio API Integration Complete → Ready for Phase 14 (Market Screen API Integration)
+**Last Updated**: December 7, 2025
+**Current Phase**: Phase 14 Complete - Development & Production Flavours
+**Status**: 🟢 Flavours Setup Complete → Ready for Phase 15 (Settings Screen Firebase Integration)
+**Current Phase**: Phase 15 Complete - Settings Logout Feature
+**Status**: 🟢 Settings Logout Implementation Complete → Ready for Phase 16 (Market Screen API Integration)
 
 ---
 
@@ -18,9 +20,171 @@ Cryptocurrency fintech app with:
 
 ---
 
+## Phase 14: Development & Production Flavours Setup
+
+### Status: ✅ COMPLETE - Tested on iOS & Android Simulators
+
+**Branch**: `feature/flavours`
+**Testing**: ✅ Both flavours working on iOS and Android simulators
+**Note**: Real device testing skipped due to time constraints but simulator validation complete
+
+### Technical Implementation
+
+**Dart Entry Points**:
+- Created `lib/main_dev.dart` - Development flavour entry point with extended logging
+- Created `lib/main_prod.dart` - Production flavour entry point with minimal logging
+- Both files initialize Flutter, dotenv, Firebase, and DI with proper error handling
+
+**Configuration Management**:
+- Created `lib/core/config/flavour_config.dart` - Centralized configuration class
+- Provides `isDev`, `isProd` getters for conditional logic
+- Manages app name, bundle ID, API base URL per flavour
+- Enables/disables debug logging and Dio logger based on flavour
+
+**Android Flavours**:
+- Configured `android/app/build.gradle.kts` with two product flavours
+- **dev**: `com.byteVortex.fintech.dev`, version `1.0-dev`
+- **prod**: `com.byteVortex.fintech`, version `1.0`
+- Separate APK builds with unique package names prevent conflicts
+
+**iOS Configuration**:
+- Created iOS Xcode schemes: `dev.xcscheme` and `prod.xcscheme`
+- Each scheme configured to use flavour-specific build configurations
+- Created build configuration files in `ios/Flutter/`:
+  - `Debug-dev.xcconfig`, `Release-dev.xcconfig`
+  - `Debug-prod.xcconfig`, `Release-prod.xcconfig`
+- Updated `ios/Podfile` to map all flavour configurations
+- Fixed Swift version conflicts (SWIFT_VERSION = 5.0) in post_install hook
+
+**Environment Variable Handling**:
+- Added two-layer error handling for .env file:
+  - Layer 1: Try-catch in main.dart around `dotenv.load()`
+  - Layer 2: Try-catch in ApiConfig.coinGeckoApiKey getter
+- Graceful fallback to hardcoded API key if .env missing
+- Prevents NotInitializedError and FileNotFoundError
+
+### Files Created/Modified
+
+**New Files**:
+- `lib/main_dev.dart` - Development entry point
+- `lib/main_prod.dart` - Production entry point
+- `lib/core/config/flavour_config.dart` - Flavour configuration class
+- `ios/Flutter/Debug-dev.xcconfig` - iOS dev debug config
+- `ios/Flutter/Release-dev.xcconfig` - iOS dev release config
+- `ios/Flutter/Debug-prod.xcconfig` - iOS prod debug config
+- `ios/Flutter/Release-prod.xcconfig` - iOS prod release config
+- `ios/Runner.xcodeproj/xcshareddata/xcschemes/dev.xcscheme` - Dev scheme
+- `ios/Runner.xcodeproj/xcshareddata/xcschemes/prod.xcscheme` - Prod scheme
+- `FLAVOURS.md` - Comprehensive flavours documentation
+
+**Modified Files**:
+- `android/app/build.gradle.kts` - Added productFlavors block
+- `ios/Podfile` - Added flavour configuration mappings and Swift version fix
+- `ios/Runner/Info.plist` - Fixed duplicate dict block
+- `lib/main.dart` - Added dotenv initialization with error handling
+
+### Testing Results
+
+✅ **iOS Simulator**: Both dev and prod flavours launch and run successfully
+✅ **Android Simulator**: Both flavours run correctly
+✅ **APK Build (Prod)**: Successfully builds production APK (55.7MB)
+⏳ **Real Device**: Not tested due to time constraints (Firebase configuration needed for dev variant)
+
+### Usage
+
+```bash
+# Run development flavour
+flutter run -t lib/main_dev.dart --flavor dev
+
+# Run production flavour
+flutter run -t lib/main_prod.dart --flavor prod
+
+# Build APK
+flutter build apk --flavor prod -t lib/main_prod.dart
+```
+## Phase 15: Settings - Logout Feature Implementation
+
+### Status: ✅ COMPLETE - Ready for Git Push & PR
+
+**Branch**: `feature/settings-logout`
+**Date**: December 7, 2025
+**Base**: feature/settings (with merged changes from develop)
+
+### Implementation Summary
+
+Added logout functionality to Settings screen with Firebase authentication, confirmation dialog, and secure navigation to login screen.
+
+### Technical Implementation
+
+**Logout Button**:
+- Logout icon button in Settings AppBar (top right)
+- Clean, intuitive design with tooltip
+- Uses NavigationService for consistent app-wide navigation
+
+**Confirmation Dialog**:
+- Shows "Logout" title
+- Asks "Are you sure you want to logout?"
+- Cancel button (dismisses dialog)
+- Logout button (red text, indicates destructive action)
+
+**Firebase Logout Flow**:
+- Calls `FirebaseAuth.instance.signOut()`
+- Uses try-catch for error handling
+- On success: navigates to login screen via `NavigationService.navigateToAndReplace()`
+- Clears navigation stack so user can't go back
+- On failure: Shows SnackBar with error message
+
+**Safety Features**:
+- `context.mounted` check for safe async navigation
+- Error handling with user-friendly SnackBar messages
+- Proper async/await pattern implementation
+
+### Firebase Dependencies Added
+- firebase_core: ^4.2.1
+- firebase_auth: ^6.1.2
+- cloud_firestore: ^6.1.0
+- flutter_dotenv: ^5.0.2
+
+### Files Modified
+
+**Updated Files**:
+1. `lib/features/settings/presentation/pages/settings_screen.dart`
+   - Added logout icon button in AppBar actions
+   - Implemented `_handleLogout()` method with confirmation dialog
+   - Integrated Firebase signout
+   - Added navigation to login after logout
+
+**Dependency Files**:
+- `pubspec.yaml` - Added Firebase dependencies
+- `pubspec.lock` - Updated dependencies
+- `macos/Flutter/GeneratedPluginRegistrant.swift` - Firebase plugin registration
+- `windows/flutter/generated_plugin_registrant.cc` - Firebase plugin registration
+
+### Code Quality
+
+✅ **Verification**:
+- Flutter analyze: 0 errors in Settings feature
+- All Firebase packages installed and registered
+- Proper error handling with try-catch
+- Safe context checks with context.mounted
+
+✅ **Architecture Compliance**:
+- Uses NavigationService (Rule #16)
+- Uses AppRoutes constants (no hardcoded strings)
+- Proper async/await pattern
+- Clean error handling
+
+### Testing Status
+
+- Code compiles successfully
+- Settings feature: 0 analyzer issues
+- Ready for testing on device/simulator
+
+---
+
 ## Phase 13: Portfolio API Integration with CoinGecko
 
-### Status: ✅ COMPLETE - Ready for Git Commit & PR
+### Status: ✅ COMPLETE - Merged to develop
 
 **Branch**: `feature/portfolio-api`
 **Latest Commits**:
