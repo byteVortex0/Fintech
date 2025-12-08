@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fintech/core/utils/constants.dart';
+import 'package:fintech/core/service/shared_pref/pref_keys.dart';
+import 'package:fintech/core/service/shared_pref/shared_pref.dart';
 import 'package:fintech/features/settings/presentation/cubit/settings_state.dart';
 import 'package:fintech/features/settings/data/repository/settings_repository.dart';
 
@@ -43,6 +45,9 @@ class SettingsCubit extends Cubit<SettingsState> {
 
       // Update app state
       isLoggedInUser = false;
+
+      // Clear user UID from SharedPreferences
+      await SharedPref.removeValue(PrefKeys.uid);
 
       // Emit success state
       emit(const SettingsState.logoutSuccess());

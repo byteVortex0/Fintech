@@ -29,9 +29,13 @@ import 'package:go_router/go_router.dart';
 /// 1. Auth routes: /onboarding, /login, /register, biometric flows (no navbar)
 /// 2. Main routes: /home, /market, /portfolio, /settings (with persistent navbar via ShellRoute)
 /// All navigation must use NavigationService (Rule #16)
-final goRouter = GoRouter(
-  initialLocation: isLoggedInUser ? '/home' : '/onboarding',
-  routes: [
+GoRouter createGoRouter() {
+  final initialLocation = isLoggedInUser ? '/home' : '/onboarding';
+  // ignore: avoid_print
+  print('[GoRouter] Creating router with initialLocation: $initialLocation (isLoggedInUser: $isLoggedInUser)');
+  return GoRouter(
+    initialLocation: initialLocation,
+    routes: [
     // Auth routes (no navbar)
     GoRoute(
       path: '/onboarding',
@@ -135,4 +139,5 @@ final goRouter = GoRouter(
       ],
     ),
   ],
-);
+  );
+}

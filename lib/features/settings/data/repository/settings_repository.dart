@@ -28,18 +28,25 @@ class SettingsRepository {
 
       if (!userDoc.exists) {
         // Return default profile if document doesn't exist
+        final displayName = currentUser.displayName ?? 'User';
+        final nameParts = displayName.split(' ');
         return UserProfileModel(
-          name: currentUser.displayName ?? 'User',
+          firstName: nameParts.isNotEmpty ? nameParts[0] : 'User',
+          lastName: nameParts.length > 1 ? nameParts.sublist(1).join(' ') : '',
           profileImagePath: currentUser.photoURL ?? '',
           email: currentUser.email ?? '',
         );
       }
 
       // Map Firestore document to UserProfileModel
+      final data = userDoc.data();
+      final displayName = data?['firstName'] ?? currentUser.displayName ?? 'User';
+      final lastName = data?['lastName'] ?? '';
       return UserProfileModel(
-        name: userDoc['name'] ?? currentUser.displayName ?? 'User',
-        profileImagePath: userDoc['profileImagePath'] ?? '',
-        email: userDoc['email'] ?? currentUser.email ?? '',
+        firstName: displayName,
+        lastName: lastName,
+        profileImagePath: data?['profileImagePath'] ?? currentUser.photoURL ?? '',
+        email: data?['email'] ?? currentUser.email ?? '',
       );
     } catch (e) {
       throw Exception('Failed to fetch user profile: $e');
