@@ -28,6 +28,21 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    // Define product flavours (dev and prod)
+    flavorDimensions += "default"
+    productFlavors {
+        create("dev") {
+            dimension = "default"
+            applicationId = "com.byteVortex.fintech.dev"
+            versionName = "1.0-dev"
+        }
+        create("prod") {
+            dimension = "default"
+            applicationId = "com.byteVortex.fintech"
+            versionName = "1.0"
+        }
+    }
 }
 
 
