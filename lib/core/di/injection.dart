@@ -13,6 +13,7 @@ import '../service/api/api_service.dart';
 import '../service/api/dio_factory.dart';
 import '../service/local_storage/theme_storage_service.dart';
 import '../theme/theme_cubit.dart';
+import 'package:fintech/features/home/presentation/cubit/home_cubit.dart';
 import 'package:fintech/features/portfolio/data/repository/portfolio_repository.dart';
 import 'package:fintech/features/portfolio/presentation/cubit/portfolio_cubit.dart';
 import 'package:fintech/features/settings/data/repository/settings_repository.dart';
@@ -64,6 +65,11 @@ void _initCore() {
   // Settings Cubit
   sl.registerFactory<SettingsCubit>(
     () => SettingsCubit(sl<SettingsRepository>()),
+  );
+
+  // Home Cubit
+  sl.registerFactory<HomeCubit>(
+    () => HomeCubit(sl<SettingsRepository>()),
   );
 }
 

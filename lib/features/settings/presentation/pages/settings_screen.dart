@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fintech/core/utils/image_manager.dart';
 import 'package:fintech/core/routes/app_routes.dart';
 import 'package:fintech/core/theme/theme_cubit.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
@@ -142,11 +141,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       children: [
                         Center(
                           child: ProfileSection(
-                            firstName: userProfile.firstName,
-                            lastName: userProfile.lastName,
-                            imagePath: userProfile.profileImagePath.isNotEmpty
-                                ? userProfile.profileImagePath
-                                : ImageManager.profilePlaceholder,
+                            userProfile: userProfile,
                           ),
                         ),
                         SizedBox(height: 16.h),

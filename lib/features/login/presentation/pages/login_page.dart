@@ -37,7 +37,7 @@ class LoginPage extends StatelessWidget {
           state.maybeWhen(
             authenticated: (_) {
               // Navigate to home on successful login
-              NavigationService.navigateToAndRemoveUntil(context, '/${AppRoutes.home}');
+              NavigationService.navigateToAndRemoveUntil(context, AppRoutes.home);
             },
             error: (message) {
               // Show error message
