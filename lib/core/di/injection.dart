@@ -13,6 +13,8 @@ import '../service/local_storage/theme_storage_service.dart';
 import '../theme/theme_cubit.dart';
 import 'package:fintech/features/portfolio/data/repository/portfolio_repository.dart';
 import 'package:fintech/features/portfolio/presentation/cubit/portfolio_cubit.dart';
+import 'package:fintech/features/settings/data/repository/settings_repository.dart';
+import 'package:fintech/features/settings/presentation/cubit/settings_cubit.dart';
 
 GetIt sl = GetIt.instance;
 
@@ -42,6 +44,16 @@ void _initCore() {
   // Portfolio Cubit
   sl.registerFactory<PortfolioCubit>(
     () => PortfolioCubit(sl<PortfolioRepository>()),
+  );
+
+  // Settings Repository
+  sl.registerLazySingleton<SettingsRepository>(
+    () => SettingsRepository(),
+  );
+
+  // Settings Cubit
+  sl.registerFactory<SettingsCubit>(
+    () => SettingsCubit(sl<SettingsRepository>()),
   );
 }
 
