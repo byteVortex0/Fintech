@@ -3,6 +3,8 @@ import 'package:fintech/core/service/firebase/firebase_service.dart';
 import 'package:fintech/features/market/data/repo/market_coins_impl.dart';
 import 'package:fintech/features/register/data/repos/register_repo.dart';
 import 'package:fintech/features/register/logic/register_cubit.dart';
+import 'package:fintech/features/login/data/repository/login_repository.dart';
+import 'package:fintech/features/login/presentation/cubit/login_cubit.dart';
 import 'package:get_it/get_it.dart';
 import '../../features/coin_details/presentation/logic/cubit/get_coin_details_cubit.dart';
 import '../../features/market/data/repo/market_coins_repo.dart';
@@ -11,6 +13,7 @@ import '../service/api/api_service.dart';
 import '../service/api/dio_factory.dart';
 import '../service/local_storage/theme_storage_service.dart';
 import '../theme/theme_cubit.dart';
+import 'package:fintech/features/home/presentation/cubit/home_cubit.dart';
 import 'package:fintech/features/portfolio/data/repository/portfolio_repository.dart';
 import 'package:fintech/features/portfolio/presentation/cubit/portfolio_cubit.dart';
 import 'package:fintech/features/settings/data/repository/settings_repository.dart';
@@ -36,6 +39,14 @@ void _initCore() {
   // API Service
   sl.registerLazySingleton<ApiService>(() => ApiService(dio));
 
+  // Login Repository
+  sl.registerLazySingleton<LoginRepository>(() => LoginRepository());
+
+  // Login Cubit
+  sl.registerFactory<LoginCubit>(
+    () => LoginCubit(sl<LoginRepository>()),
+  );
+
   // Portfolio Repository
   sl.registerLazySingleton<PortfolioRepository>(
     () => PortfolioRepository(sl<ApiService>()),
@@ -54,6 +65,11 @@ void _initCore() {
   // Settings Cubit
   sl.registerFactory<SettingsCubit>(
     () => SettingsCubit(sl<SettingsRepository>()),
+  );
+
+  // Home Cubit
+  sl.registerFactory<HomeCubit>(
+    () => HomeCubit(sl<SettingsRepository>()),
   );
 }
 

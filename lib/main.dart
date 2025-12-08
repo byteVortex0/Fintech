@@ -25,6 +25,7 @@ void main() async {
   }
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   setupInjection();
   isLoggedInUser = await UserPreferences.checkIfLoggedInUser();
 

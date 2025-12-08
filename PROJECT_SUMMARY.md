@@ -1296,3 +1296,141 @@ Comprehensive documentation added to:
 - ✅ Auth guard protects routes
 - ✅ Logout flow complete
 
+---
+
+## Phase 18: Complete Login with Firebase Authentication and Persistent Sessions
+
+### Status: ✅ COMPLETE - Commit `ea1a9ef` Pushed to `feature/login_with_firebase`
+
+**Date**: December 8, 2025
+**Branch**: `feature/login_with_firebase`
+**Critical Issue**: SharedPreferences not initialized before login state check
+
+### Root Problem Identified & Fixed
+
+**Issue**: App showed onboarding screen on restart despite user being logged in
+
+**Root Cause**: SharedPreferences wasn't being initialized before checking if UID was saved. The flow was:
+1. Firebase initializes ✅
+2. Try to check if UID saved → SharedPreferences not initialized = null ❌
+3. App assumes user not logged in, shows onboarding ❌
+
+**Solution**: Initialize SharedPreferences FIRST in flavor entry points
+
+### Core Features Implemented
+
+**Authentication System**:
+- LoginRepository with Firebase email/password sign-in
+- LoginCubit with BLoC pattern (initial, loading, authenticated, error states)
+- LoginForm with email/password validation
+- Freezed states for immutable state management
+
+**Login Persistence** (Main Fix):
+- UserPreferences utility class
+- Save user UID on successful login
+- Restore login state from SharedPreferences on app startup
+- Clear UID on logout
+- Proper initialization order: SharedPreferences → DI → Login Check → GoRouter
+
+**User Profile Consistency**:
+- UserProfileModel with firstName, lastName fields
+- SettingsRepository for smart name splitting
+- HomeScreen uses SettingsRepository (not just Firebase Auth)
+- Identical name display across Home and Settings screens
+
+**Navigation & Routing**:
+- Convert GoRouter from static global to createGoRouter() function
+- Router evaluates isLoggedInUser at creation time (not module load time)
+- Dynamic initial location: /home if logged in, /onboarding if not
+- NavigationService for all navigation (Rule #16 compliance)
+
+### Files Modified
+
+**Critical (Login Persistence)**:
+- `lib/main_dev.dart` - Add `await UserPreferences.init()`
+- `lib/main_prod.dart` - Add `await UserPreferences.init()`
+- `lib/main.dart` - (Reference only, flavors are used)
+
+**Login Feature**:
+- `lib/features/login/data/repository/login_repository.dart` - NEW
+- `lib/features/login/presentation/cubit/login_cubit.dart` - NEW
+- `lib/features/login/presentation/cubit/login_state.dart` - NEW
+
+**Supporting Files**:
+- `lib/core/utils/user_preferences.dart` - Add init(), saveUserUid(), checkIfLoggedInUser() + logging
+- `lib/core/routing/go_router_config.dart` - Convert to createGoRouter() function
+- `lib/features/home/presentation/home_screen.dart` - Use SettingsRepository for names
+- `lib/features/settings/presentation/pages/settings_screen.dart` - Fix logout route path (AppRoutes.login not '/${AppRoutes.login}')
+- `lib/fintech_app.dart` - Call createGoRouter() instead of static router
+
+**Bug Fixes**:
+- Fixed logout navigation error: Changed from `'/${AppRoutes.login}'` to `AppRoutes.login`
+- Fixed GoRouter not evaluating login state: Made router creation dynamic
+- Fixed name display inconsistency: HomeScreen now uses same SettingsRepository
+
+### Initialization Order (Fixed)
+
+**Before** (Broken):
+```dart
+Firebase.initializeApp()  ✅
+setupInjection()         ✅
+isLoggedInUser = checkIfLoggedInUser()  ❌ SharedPref not initialized
+GoRouter static variable created        ❌ isLoggedInUser still being evaluated
+```
+
+**After** (Fixed):
+```dart
+Firebase.initializeApp()  ✅
+UserPreferences.init()    ✅ SharedPreferences now ready
+setupInjection()         ✅
+isLoggedInUser = checkIfLoggedInUser()  ✅ UID properly restored
+GoRouter created via createGoRouter()   ✅ Correct initial location
+```
+
+### Code Quality
+
+✅ **Analysis**: 0 errors, all files compile
+✅ **Verification**: Both flavor entry points have same initialization
+✅ **Logging**: Comprehensive debug logging for troubleshooting
+✅ **Error Handling**: Try-catch blocks with graceful fallbacks
+✅ **Navigation**: All uses NavigationService (Rule #16)
+✅ **Architecture**: Clean separation of concerns
+
+### Testing Checklist
+
+✅ Login with email/password
+✅ User UID saved to SharedPreferences
+✅ Restart app → shows home screen (login persisted)
+✅ App displays user name correctly
+✅ Logout from settings
+✅ Restart app after logout → shows onboarding
+✅ Logout navigation uses correct route
+
+### Key Learnings
+
+1. **Initialization Order Matters**: SharedPreferences must be initialized before checking saved state
+2. **Flavor Entry Points**: Both main_dev.dart and main_prod.dart must match in critical initialization
+3. **Static vs Dynamic**: GoRouter can't evaluate isLoggedInUser at module load time, must be function
+4. **State Consistency**: HomeScreen and Settings need to use same data source for profile info
+5. **Route Constants**: AppRoutes.login already includes '/', so don't add extra '/'
+
+### Files Summary
+- New files: 3 (LoginRepository, LoginCubit, LoginState)
+- Modified files: 7
+- Total commit: 19 files changed, 340 insertions(+), 66 deletions(-)
+
+### Commit Message
+
+```
+feat: Phase 18 - Complete Login with Firebase Authentication and Persistent Sessions
+
+- Fixed SharedPreferences initialization in flavor entry points (main_dev.dart, main_prod.dart)
+- Converted GoRouter from static to dynamic createGoRouter() function
+- LoginRepository with Firebase email/password authentication
+- LoginCubit with BLoC state management (Freezed)
+- Fixed logout navigation error: use AppRoutes.login directly
+- HomeScreen uses SettingsRepository for consistent name display
+- User UID persists across app restarts in SharedPreferences
+- Added comprehensive logging for debugging
+```
+

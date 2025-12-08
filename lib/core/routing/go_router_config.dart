@@ -21,6 +21,7 @@ import 'package:fintech/features/register/presentation/pages/set_fingerprint_ver
 import 'package:fintech/features/settings/presentation/pages/settings_screen.dart';
 import 'package:fintech/features/settings/presentation/cubit/settings_cubit.dart';
 import 'package:fintech/shared/widgets/app_bottom_navigation.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -29,9 +30,14 @@ import 'package:go_router/go_router.dart';
 /// 1. Auth routes: /onboarding, /login, /register, biometric flows (no navbar)
 /// 2. Main routes: /home, /market, /portfolio, /settings (with persistent navbar via ShellRoute)
 /// All navigation must use NavigationService (Rule #16)
-final goRouter = GoRouter(
-  initialLocation: isLoggedInUser ? '/home' : '/onboarding',
-  routes: [
+GoRouter createGoRouter() {
+  final initialLocation = isLoggedInUser ? '/home' : '/onboarding';
+  if (kDebugMode) {
+    debugPrint('[GoRouter] Creating router with initialLocation: $initialLocation (isLoggedInUser: $isLoggedInUser)');
+  }
+  return GoRouter(
+    initialLocation: initialLocation,
+    routes: [
     // Auth routes (no navbar)
     GoRoute(
       path: '/onboarding',
@@ -135,4 +141,5 @@ final goRouter = GoRouter(
       ],
     ),
   ],
-);
+  );
+}

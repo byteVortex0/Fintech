@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fintech/features/settings/data/models/user_profile_model.dart';
 
-/// Profile section with circular image and user name
+/// Profile section with circular avatar and user name display
 class ProfileSection extends StatelessWidget {
-  final String name;
-  final String imagePath;
+  final UserProfileModel userProfile;
 
   const ProfileSection({
     super.key,
-    required this.name,
-    required this.imagePath,
+    required this.userProfile,
   });
 
   @override
   Widget build(BuildContext context) {
+    final firstInitial = userProfile.firstName.isNotEmpty
+        ? userProfile.firstName[0].toUpperCase()
+        : 'U';
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -21,7 +24,7 @@ class ProfileSection extends StatelessWidget {
           radius: 70.r,
           backgroundColor: Theme.of(context).colorScheme.secondary,
           child: Text(
-            'A',
+            firstInitial,
             style: TextStyle(
               fontSize: 40.sp,
               fontWeight: FontWeight.w600,
@@ -30,13 +33,29 @@ class ProfileSection extends StatelessWidget {
           ),
         ),
         SizedBox(height: 20.h),
-        Text(
-          name,
-          style: TextStyle(
-            fontSize: 22.sp,
-            fontWeight: FontWeight.w600,
-            color: Theme.of(context).textTheme.bodyLarge?.color,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              userProfile.firstName,
+              style: TextStyle(
+                fontSize: 22.sp,
+                fontWeight: FontWeight.w600,
+                color: Theme.of(context).textTheme.bodyLarge?.color,
+              ),
+            ),
+            if (userProfile.lastName.isNotEmpty) ...[
+              SizedBox(width: 8.w),
+              Text(
+                userProfile.lastName,
+                style: TextStyle(
+                  fontSize: 22.sp,
+                  fontWeight: FontWeight.w600,
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
+                ),
+              ),
+            ],
+          ],
         ),
       ],
     );

@@ -10,7 +10,7 @@ import 'login_input_field.dart';
 /// - Forgot password navigation callback
 /// - Form state lifecycle (controllers, cleanup)
 class LoginForm extends StatefulWidget {
-  final VoidCallback onLoginPressed;
+  final Function(String email, String password) onLoginPressed;
   final VoidCallback onForgotPasswordPressed;
 
   const LoginForm({
@@ -123,7 +123,10 @@ class _LoginFormState extends State<LoginForm> {
         width: double.infinity,
         height: 52.h,
         child: ElevatedButton(
-          onPressed: widget.onLoginPressed,
+          onPressed: () => widget.onLoginPressed(
+            _emailController.text,
+            _passwordController.text,
+          ),
           style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.secondary,
             shape: RoundedRectangleBorder(

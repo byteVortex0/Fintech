@@ -5,8 +5,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 /// Displays user greeting and notification bell icon
 class HomeHeader extends StatelessWidget {
   final VoidCallback onNotificationPressed;
+  final String firstName;
+  final String lastName;
 
-  const HomeHeader({super.key, required this.onNotificationPressed});
+  const HomeHeader({
+    super.key,
+    required this.onNotificationPressed,
+    required this.firstName,
+    required this.lastName,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +28,7 @@ class HomeHeader extends StatelessWidget {
                 radius: 24.r,
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 child: Text(
-                  'A',
+                  firstName.isNotEmpty ? firstName[0].toUpperCase() : 'U',
                   style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w600,
@@ -34,13 +41,22 @@ class HomeHeader extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Hi, Abdulrahman',
+                    'Hi, $firstName',
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
                       color: Theme.of(context).textTheme.bodyLarge?.color,
                     ),
                   ),
+                  if (lastName.isNotEmpty)
+                    Text(
+                      lastName,
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600,
+                        color: Theme.of(context).textTheme.bodyLarge?.color,
+                      ),
+                    ),
                   Text('👋', style: TextStyle(fontSize: 14.sp)),
                 ],
               ),

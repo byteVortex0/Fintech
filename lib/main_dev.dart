@@ -27,8 +27,14 @@ void main() async {
   }
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Initialize SharedPreferences before checking login state
+  await UserPreferences.init();
+
   setupInjection();
   isLoggedInUser = await UserPreferences.checkIfLoggedInUser();
+  // ignore: avoid_print
+  print('[main_dev] isLoggedInUser: $isLoggedInUser');
 
   Bloc.observer = AppBlocObserver();
 

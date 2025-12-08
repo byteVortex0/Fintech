@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fintech/core/utils/image_manager.dart';
 import 'package:fintech/core/routes/app_routes.dart';
 import 'package:fintech/core/theme/theme_cubit.dart';
+import 'package:fintech/core/navigation/navigation_service.dart';
 import 'package:fintech/features/settings/presentation/widgets/profile_section.dart';
 import 'package:fintech/features/settings/presentation/widgets/settings_section_header.dart';
 import 'package:fintech/features/settings/presentation/widgets/settings_item.dart';
@@ -114,10 +114,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           state.maybeWhen(
             logoutSuccess: () {
               // Navigate to login on successful logout
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                AppRoutes.login,
-                (route) => false,
-              );
+              NavigationService.navigateToAndRemoveUntil(context, AppRoutes.login);
             },
             logoutError: (message) {
               // Show error message on logout failure
@@ -144,10 +141,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       children: [
                         Center(
                           child: ProfileSection(
-                            name: userProfile.name,
-                            imagePath: userProfile.profileImagePath.isNotEmpty
-                                ? userProfile.profileImagePath
-                                : ImageManager.profilePlaceholder,
+                            userProfile: userProfile,
                           ),
                         ),
                         SizedBox(height: 16.h),

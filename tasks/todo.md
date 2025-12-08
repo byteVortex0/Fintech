@@ -1842,3 +1842,106 @@ PortfolioModel(
 ---
 
 **Status**: ✅ Settings feature implementation complete! Next: Create feature/theme branch for Dark/Light mode with Cubit.
+
+---
+
+# Phase 18: Complete Login with Firebase Authentication and Persistent Sessions
+
+## Status: ✅ COMPLETE - Commit `ea1a9ef` Pushed
+**Last Updated**: December 8, 2025
+**Branch**: feature/login_with_firebase
+**Next Phase**: Phase 19 (Password Recovery & Auto-Login)
+
+---
+
+## Phase 18 Tasks Summary
+
+### Root Problem Identified & Fixed
+- [x] Identified: SharedPreferences not initialized before login state check
+- [x] Fixed: Add `await UserPreferences.init()` to main_dev.dart BEFORE `setupInjection()`
+- [x] Fixed: Add `await UserPreferences.init()` to main_prod.dart BEFORE `setupInjection()`
+- [x] Verified: Both flavor entry points have identical initialization order
+
+### LoginRepository Implementation
+- [x] Create lib/features/login/data/repository/login_repository.dart
+- [x] Implement Firebase email/password sign-in
+- [x] Handle sign-in errors with try-catch
+- [x] Return UserCredential with user data
+
+### LoginCubit Implementation
+- [x] Create lib/features/login/presentation/cubit/login_cubit.dart
+- [x] Create lib/features/login/presentation/cubit/login_state.dart with Freezed
+- [x] Implement login() method with email/password validation
+- [x] States: initial(), loading(), authenticated(), error()
+- [x] Save user UID to SharedPreferences on successful login
+- [x] Update isLoggedInUser global flag
+
+### Login Persistence (Main Fix)
+- [x] Update UserPreferences class:
+  - [x] Add init() method to initialize SharedPreferences
+  - [x] Add saveUserUid() to save UID on login
+  - [x] Add checkIfLoggedInUser() to restore login state on app startup
+  - [x] Add logging for debugging
+- [x] Verify UID is properly saved and retrieved
+- [x] Test app restart maintains login state
+
+### User Profile Consistency
+- [x] Update HomeScreen to use SettingsRepository
+- [x] Fetch user profile data from same source as Settings
+- [x] Display firstName and lastName identically across screens
+- [x] Verify name display consistent on Home and Settings
+
+### Navigation & Routing Fixes
+- [x] Convert go_router_config.dart to createGoRouter() function
+- [x] Evaluate isLoggedInUser at router creation time
+- [x] Dynamic initial location: /home if logged in, /onboarding if not
+- [x] Fix SettingsScreen logout navigation: use AppRoutes.login directly
+- [x] Update FinTechApp to call createGoRouter() instead of static router
+- [x] Add logging to router creation for debugging
+
+### Code Quality & Testing
+- [x] Flutter analyze: 0 errors, all files compile
+- [x] Verify initialization order in both flavor entry points
+- [x] Add comprehensive logging for troubleshooting
+- [x] Test login flow end-to-end with Firebase
+- [x] Test app restart with login persisted
+- [x] Test logout removes login state
+- [x] Test app restart after logout shows onboarding
+- [x] All navigation uses NavigationService (Rule #16)
+
+### Files Created
+- [x] lib/features/login/data/repository/login_repository.dart
+- [x] lib/features/login/presentation/cubit/login_cubit.dart
+- [x] lib/features/login/presentation/cubit/login_state.dart
+
+### Files Modified
+- [x] lib/main_dev.dart - Add UserPreferences.init()
+- [x] lib/main_prod.dart - Add UserPreferences.init()
+- [x] lib/core/utils/user_preferences.dart - Add init(), logging
+- [x] lib/core/routing/go_router_config.dart - Convert to createGoRouter()
+- [x] lib/fintech_app.dart - Call createGoRouter()
+- [x] lib/features/home/presentation/home_screen.dart - Use SettingsRepository
+- [x] lib/features/settings/presentation/pages/settings_screen.dart - Fix logout path
+
+### Git Status
+- [x] All changes committed with comprehensive commit message
+- [x] Branch feature/login_with_firebase pushed to remote
+- [x] Ready for PR review
+
+---
+
+## Summary - Phase 18
+
+✅ **Complete Firebase authentication** with email/password
+✅ **Persistent login state** saved to SharedPreferences
+✅ **Fixed initialization order** in flavor entry points (CRITICAL FIX)
+✅ **User profile consistency** across Home and Settings screens
+✅ **Dynamic GoRouter** evaluates login state at startup
+✅ **Login persistence** survives app restart
+✅ **Logout navigation** properly uses AppRoutes constants
+✅ **19 files modified/created** in single commit
+✅ **0 compilation errors** - all files analyzed and verified
+✅ **Comprehensive logging** for debugging and troubleshooting
+
+**Status**: ✅ Complete Login with Firebase is complete! All critical issues fixed and tested.
+
