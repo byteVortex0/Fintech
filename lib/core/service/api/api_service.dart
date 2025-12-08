@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:fintech/features/coin_details/data/models/coins_chart_respose.dart';
 import 'package:fintech/features/market/data/models/market_coin_response.dart';
 import 'package:fintech/features/market/data/models/search_coin_response.dart';
 import 'package:retrofit/retrofit.dart';
@@ -35,4 +36,11 @@ abstract class ApiService {
 
   @GET(ApiEndpoints.search)
   Future<SearchCoinResponse> searchCoin(@Query('query') String query);
+
+  @GET(ApiEndpoints.chart)
+  Future<CoinsChartResponse> chartCoin(
+    @Path('id') String id,
+    @Query('vs_currency') String vsCurrency,
+    @Query('days') String days,
+  );
 }
