@@ -1,10 +1,9 @@
 # Fintech App - Project Progress Summary
 
-**Last Updated**: December 7, 2025
-**Current Phase**: Phase 14 Complete - Development & Production Flavours
-**Status**: 🟢 Flavours Setup Complete → Ready for Phase 15 (Settings Screen Firebase Integration)
-**Current Phase**: Phase 15 Complete - Settings Logout Feature
-**Status**: 🟢 Settings Logout Implementation Complete → Ready for Phase 16 (Market Screen API Integration)
+**Last Updated**: December 8, 2025
+**Current Phase**: Phase 16 Complete - Settings Firebase Integration
+**Status**: 🟢 Settings Firebase Complete → Firestore User Data Fetching, BLoC Pattern, Auth Guard
+**Previous Phases**: Phase 15 (Settings Logout) ✅ | Phase 14 (Dev/Prod Flavours) ✅
 
 ---
 
@@ -1221,3 +1220,79 @@ Comprehensive documentation added to:
 2. Test on emulator/device
 3. Create git commit
 4. We'll start next feature!
+
+---
+
+## Phase 16: Settings Firebase Integration with BLoC
+
+### Status: ✅ COMPLETE
+
+**Branch**: `feature/settings-firebase`
+**Merged**: With feature/login_with_firebase, flavours, and settings-logout
+
+### What Was Implemented
+
+**Firebase Data Fetching**:
+- Created `SettingsRepository` to fetch user profiles from Firestore
+- Retrieves from `users` collection using current user UID
+- Graceful fallback to Firebase Auth user data if Firestore document missing
+
+**BLoC State Management**:
+- Created `SettingsState` with Freezed (@freezed)
+  - States: initial(), loading(), loaded(userProfile), error(message)
+- Created `SettingsCubit` extends Cubit<SettingsState>
+  - Methods: fetchUserProfile(), refreshUserProfile()
+
+**UI Implementation**:
+- Converted SettingsScreen to StatefulWidget with initState hook
+- Integrated BlocBuilder with state.maybeWhen() pattern matching
+- Loading state: CircularProgressIndicator
+- Error state: Error icon + message + Retry button
+- Loaded state: User data displayed with RefreshIndicator
+- Pull-to-refresh functionality for data refresh
+
+**Display Real User Data**:
+- Show user name from Firebase
+- Show user email from Firestore/Firebase Auth
+- Show profile image with fallback to placeholder
+- Update UserProfileModel with email field
+
+**Authentication & Navigation**:
+- Added authentication guard on ShellRoute
+- Redirects unauthenticated users to LoginPage
+- Logout button signs out from Firebase
+- Updates isLoggedInUser = false on logout
+- Seamless redirect to login after logout
+
+**Dependency Injection**:
+- Registered SettingsRepository as lazy singleton
+- Registered SettingsCubit as factory
+- Provided SettingsCubit via BlocProvider in GoRouter
+
+### Files Created
+- `lib/features/settings/data/repository/settings_repository.dart`
+- `lib/features/settings/presentation/cubit/settings_state.dart`
+- `lib/features/settings/presentation/cubit/settings_cubit.dart`
+
+### Files Modified
+- `lib/features/settings/data/models/user_profile_model.dart` (added email field)
+- `lib/features/settings/presentation/pages/settings_screen.dart` (complete BLoC integration)
+- `lib/core/di/injection.dart` (registered dependencies)
+- `lib/core/routing/go_router_config.dart` (auth guard + BlocProvider)
+
+### Code Quality
+- ✅ Settings feature: 0 analyzer errors
+- ✅ Full codebase: 0 analyzer errors (only pre-existing info/warnings)
+- ✅ Proper error handling with try-catch blocks
+- ✅ context.mounted checks for safety
+- ✅ Clean BLoC pattern implementation
+- ✅ Repository pattern for data access
+
+### Testing Completed
+- ✅ Loading state displays correctly
+- ✅ Error state shows when user not authenticated
+- ✅ Retry button works
+- ✅ Pull-to-refresh functionality working
+- ✅ Auth guard protects routes
+- ✅ Logout flow complete
+

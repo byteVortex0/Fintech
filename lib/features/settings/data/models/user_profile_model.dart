@@ -7,5 +7,6 @@ abstract class UserProfileModel with _$UserProfileModel {
   const factory UserProfileModel({
     required String name,
     required String profileImagePath,
+    required String email,
   }) = _UserProfileModel;
 }

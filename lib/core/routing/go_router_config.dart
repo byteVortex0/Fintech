@@ -19,6 +19,7 @@ import 'package:fintech/features/register/presentation/pages/set_face_id_verifie
 import 'package:fintech/features/register/presentation/pages/set_fingerprint_page.dart';
 import 'package:fintech/features/register/presentation/pages/set_fingerprint_verified_page.dart';
 import 'package:fintech/features/settings/presentation/pages/settings_screen.dart';
+import 'package:fintech/features/settings/presentation/cubit/settings_cubit.dart';
 import 'package:fintech/shared/widgets/app_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -102,8 +103,13 @@ final goRouter = GoRouter(
     ),
 
     // Main app routes with persistent bottom navbar
+    // Authentication guard: Redirects to login if user is not authenticated
     ShellRoute(
       builder: (context, state, child) {
+        // If user is not logged in, redirect to login screen
+        if (!isLoggedInUser) {
+          return const LoginPage();
+        }
         return Scaffold(
           body: child,
           bottomNavigationBar: AppBottomNavigation(),
@@ -121,7 +127,10 @@ final goRouter = GoRouter(
         ),
         GoRoute(
           path: '/settings',
-          builder: (context, state) => const SettingsScreen(),
+          builder: (context, state) => BlocProvider(
+            create: (context) => sl<SettingsCubit>(),
+            child: const SettingsScreen(),
+          ),
         ),
       ],
     ),
