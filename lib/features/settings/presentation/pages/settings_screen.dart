@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fintech/core/utils/image_manager.dart';
-import 'package:fintech/core/utils/constants.dart';
-import 'package:fintech/core/theme/theme_cubit.dart';
 import 'package:fintech/core/routes/app_routes.dart';
-import 'package:fintech/core/navigation/navigation_service.dart';
+import 'package:fintech/core/theme/theme_cubit.dart';
 import 'package:fintech/features/settings/presentation/widgets/profile_section.dart';
 import 'package:fintech/features/settings/presentation/widgets/settings_section_header.dart';
 import 'package:fintech/features/settings/presentation/widgets/settings_item.dart';
@@ -31,9 +28,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
     context.read<SettingsCubit>().fetchUserProfile();
   }
 
-  /// Handle logout - sign out from Firebase and navigate to login
-  Future<void> _handleLogout(BuildContext context) async {
-    // Show confirmation dialog
+  /// Show logout confirmation dialog
+  /// UI layer only handles presentation - logout logic moved to Cubit
+  void _showLogoutDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
@@ -45,27 +42,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: const Text('Cancel'),
           ),
           TextButton(
-            onPressed: () async {
+            onPressed: () {
               Navigator.pop(dialogContext);
-              try {
-                // Sign out from Firebase
-                await FirebaseAuth.instance.signOut();
-
-                // Update login status
-                isLoggedInUser = false;
-
-                // Navigate to login screen and clear navigation stack
-                if (context.mounted) {
-                  NavigationService.navigateToAndReplace(context, AppRoutes.login);
-                }
-              } catch (e) {
-                // Handle logout error
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Logout failed: $e')),
-                  );
-                }
-              }
+              // Trigger logout logic in Cubit
+              context.read<SettingsCubit>().logout();
             },
             child: const Text(
               'Logout',
@@ -124,86 +104,107 @@ class _SettingsScreenState extends State<SettingsScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
-            onPressed: () => _handleLogout(context),
+            onPressed: () => _showLogoutDialog(context),
             tooltip: 'Logout',
           ),
         ],
       ),
-      body: BlocBuilder<SettingsCubit, SettingsState>(
-        builder: (context, state) {
-          return state.maybeWhen(
-            initial: () => _buildLoadingState(),
-            loading: () => _buildLoadingState(),
-            loaded: (userProfile) => RefreshIndicator(
-              onRefresh: () => context.read<SettingsCubit>().refreshUserProfile(),
-              child: SafeArea(
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.all(24.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Center(
-                        child: ProfileSection(
-                          name: userProfile.name,
-                          imagePath: userProfile.profileImagePath.isNotEmpty
-                              ? userProfile.profileImagePath
-                              : ImageManager.profilePlaceholder,
-                        ),
-                      ),
-                      SizedBox(height: 16.h),
-                      Center(
-                        child: Text(
-                          userProfile.email,
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            color: Colors.grey,
+      body: BlocListener<SettingsCubit, SettingsState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            logoutSuccess: () {
+              // Navigate to login on successful logout
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                AppRoutes.login,
+                (route) => false,
+              );
+            },
+            logoutError: (message) {
+              // Show error message on logout failure
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Logout failed: $message')),
+              );
+            },
+            orElse: () {},
+          );
+        },
+        child: BlocBuilder<SettingsCubit, SettingsState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+              initial: () => _buildLoadingState(),
+              loading: () => _buildLoadingState(),
+              logoutLoading: () => _buildLoadingState(),
+              loaded: (userProfile) => RefreshIndicator(
+                onRefresh: () => context.read<SettingsCubit>().refreshUserProfile(),
+                child: SafeArea(
+                  child: SingleChildScrollView(
+                    padding: EdgeInsets.all(24.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: ProfileSection(
+                            name: userProfile.name,
+                            imagePath: userProfile.profileImagePath.isNotEmpty
+                                ? userProfile.profileImagePath
+                                : ImageManager.profilePlaceholder,
                           ),
                         ),
-                      ),
-                      SizedBox(height: 32.h),
-                      const SettingsSectionHeader(title: 'General'),
-                      SettingsItem(
-                        icon: Icons.person,
-                        title: 'My Account',
-                        onTap: () {},
-                      ),
-                      SettingsItem(
-                        icon: Icons.account_balance_wallet,
-                        title: 'Billing/Payment',
-                        onTap: () {},
-                      ),
-                      SettingsItem(
-                        icon: Icons.help_outline,
-                        title: 'FAQ & Support',
-                        onTap: () {},
-                        showBorder: false,
-                      ),
-                      SizedBox(height: 32.h),
-                      const SettingsSectionHeader(title: 'Settings'),
-                      SettingsItem(
-                        icon: Icons.language,
-                        title: 'Language',
-                        onTap: () {},
-                      ),
-                      BlocBuilder<ThemeCubit, bool>(
-                        builder: (context, isDarkMode) {
-                          return DarkModeToggle(
-                            isDarkMode: isDarkMode,
-                            onChanged: (value) {
-                              context.read<ThemeCubit>().toggleTheme();
-                            },
-                          );
-                        },
-                      ),
-                    ],
+                        SizedBox(height: 16.h),
+                        Center(
+                          child: Text(
+                            userProfile.email,
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 32.h),
+                        const SettingsSectionHeader(title: 'General'),
+                        SettingsItem(
+                          icon: Icons.person,
+                          title: 'My Account',
+                          onTap: () {},
+                        ),
+                        SettingsItem(
+                          icon: Icons.account_balance_wallet,
+                          title: 'Billing/Payment',
+                          onTap: () {},
+                        ),
+                        SettingsItem(
+                          icon: Icons.help_outline,
+                          title: 'FAQ & Support',
+                          onTap: () {},
+                          showBorder: false,
+                        ),
+                        SizedBox(height: 32.h),
+                        const SettingsSectionHeader(title: 'Settings'),
+                        SettingsItem(
+                          icon: Icons.language,
+                          title: 'Language',
+                          onTap: () {},
+                        ),
+                        BlocBuilder<ThemeCubit, bool>(
+                          builder: (context, isDarkMode) {
+                            return DarkModeToggle(
+                              isDarkMode: isDarkMode,
+                              onChanged: (value) {
+                                context.read<ThemeCubit>().toggleTheme();
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            error: (message) => _buildErrorState(message),
-            orElse: () => _buildLoadingState(),
-          );
-        },
+              error: (message) => _buildErrorState(message),
+              orElse: () => _buildLoadingState(),
+            );
+          },
+        ),
       ),
     );
   }
