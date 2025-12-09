@@ -9,26 +9,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout code
       - uses: actions/checkout@v4
-
-      # Setup Flutter
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.28.0'
+          channel: 'stable'
           cache: true
+          cache-key: "flutter-${{ runner.os }}-${{ hashFiles('**/pubspec.lock') }}"
+          cache-path: "${{ runner.tool_cache }}/flutter"
 
-      # Install dependencies
-      - name: Install Flutter dependencies
-        run: |
-          flutter clean
-          flutter pub get
+      - name: Fetch dependencies
+        run: flutter pub get
 
-      # Build APK
+      - name: Generate necessary code
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
       - name: Build APK
         run: flutter build apk --release --split-per-abi
 
-      # Upload to Firebase App Distribution
       - name: Upload to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
@@ -41,7 +38,6 @@ jobs:
             Author: ${{ github.actor }}
           groups: testers
 
-      # Create summary
       - name: Build Summary
         run: |
           echo "✅ APK built successfully!"

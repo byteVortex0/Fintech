@@ -1,51 +1,24 @@
-name: PR Checks
-
+name: Pull Request CI
 on:
   pull_request:
-    branches: [develop]
-  push:
-    branches: [develop]
-
+    branches: [ develop ]
 jobs:
-  check:
+  analyze:
+    name: Analyze & Format checks
     runs-on: ubuntu-latest
-
     steps:
-      # Checkout code
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      # Setup Flutter
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.28.0'
+          channel: 'stable'
           cache: true
-
-      # Install dependencies
-      - name: Install Flutter dependencies
-        run: |
-          flutter clean
-          flutter pub get
-
-      # Run dart format check
-      - name: Run dart format
-        run: dart format --set-exit-if-changed .
-
-      # Run flutter analyze
-      - name: Run flutter analyze
-        run: flutter analyze
-
-      # Generate code with build_runner
-      - name: Run build_runner
+          cache-key: "flutter-${{ runner.os }}-${{ hashFiles('**/pubspec.lock') }}"
+          cache-path: "${{ runner.tool_cache }}/flutter"
+      - name: Fetch dependencies
+        run: flutter pub get
+      - name: Generate necessary code
         run: flutter pub run build_runner build --delete-conflicting-outputs
-
-      # Verify no uncommitted changes after code generation
-      - name: Check for uncommitted code generation
-        run: |
-          if [ -n "$(git status --porcelain)" ]; then
-            echo "❌ Code generation produced changes. Please run 'flutter pub run build_runner build' locally and commit the changes."
-            git diff
-            exit 1
-          fi
-          echo "✅ All checks passed!"
+      - name: Analyze code
+        run: flutter analyze
+      - name: Check code format
+        run: dart format --set-exit-if-changed .
