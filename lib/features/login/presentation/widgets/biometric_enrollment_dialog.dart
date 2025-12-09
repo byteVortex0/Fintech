@@ -15,15 +15,10 @@ class BiometricEnrollmentDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.r),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
       title: Text(
         'Enable Biometric Login',
-        style: TextStyle(
-          fontSize: 18.sp,
-          fontWeight: FontWeight.w700,
-        ),
+        style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700),
       ),
       content: Text(
         'Use Face ID or fingerprint for faster and more secure login?',
@@ -49,10 +44,7 @@ class BiometricEnrollmentDialog extends StatelessWidget {
           onPressed: onEnroll,
           child: Text(
             'Enable',
-            style: TextStyle(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w600,
-            ),
+            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
           ),
         ),
       ],

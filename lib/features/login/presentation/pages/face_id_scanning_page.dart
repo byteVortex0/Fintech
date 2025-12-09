@@ -16,11 +16,7 @@ class FaceIdScanningPage extends StatelessWidget {
   final String email;
   final String password;
 
-  const FaceIdScanningPage({
-    super.key,
-    this.email = '',
-    this.password = '',
-  });
+  const FaceIdScanningPage({super.key, this.email = '', this.password = ''});
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +32,7 @@ class _FaceIdScanningContent extends StatefulWidget {
   final String email;
   final String password;
 
-  const _FaceIdScanningContent({
-    required this.email,
-    required this.password,
-  });
+  const _FaceIdScanningContent({required this.email, required this.password});
 
   @override
   State<_FaceIdScanningContent> createState() => _FaceIdScanningContentState();
@@ -84,12 +77,16 @@ class _FaceIdScanningContentState extends State<_FaceIdScanningContent> {
     return BlocListener<BiometricCubit, BiometricState>(
       listener: (context, state) {
         if (kDebugMode) {
-          debugPrint('[FaceIdScanningPage] BlocListener triggered - state: $state');
+          debugPrint(
+            '[FaceIdScanningPage] BlocListener triggered - state: $state',
+          );
         }
         state.maybeWhen(
           authenticated: (uid) {
             if (kDebugMode) {
-              debugPrint('[FaceIdScanningPage] authenticated state received - uid: $uid');
+              debugPrint(
+                '[FaceIdScanningPage] authenticated state received - uid: $uid',
+              );
               debugPrint('[FaceIdScanningPage] Navigating to home...');
             }
             // Mark authentication as successful to disable back button
@@ -99,7 +96,9 @@ class _FaceIdScanningContentState extends State<_FaceIdScanningContent> {
           },
           error: (message) {
             if (kDebugMode) {
-              debugPrint('[FaceIdScanningPage] error state received - message: $message');
+              debugPrint(
+                '[FaceIdScanningPage] error state received - message: $message',
+              );
             }
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('Authentication failed: $message')),
@@ -110,12 +109,16 @@ class _FaceIdScanningContentState extends State<_FaceIdScanningContent> {
               debugPrint('[FaceIdScanningPage] notSupported state received');
             }
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Face ID not supported on this device')),
+              const SnackBar(
+                content: Text('Face ID not supported on this device'),
+              ),
             );
           },
           orElse: () {
             if (kDebugMode) {
-              debugPrint('[FaceIdScanningPage] Other state received (likely loading or initial)');
+              debugPrint(
+                '[FaceIdScanningPage] Other state received (likely loading or initial)',
+              );
             }
           },
         );
@@ -187,10 +190,7 @@ class _FaceIdScanningContentState extends State<_FaceIdScanningContent> {
               height: 158.w,
             ),
             SizedBox(height: 8.h),
-            if (state.maybeWhen(
-              loading: () => true,
-              orElse: () => false,
-            ))
+            if (state.maybeWhen(loading: () => true, orElse: () => false))
               Padding(
                 padding: EdgeInsets.only(top: 16.h),
                 child: const CircularProgressIndicator(
@@ -226,7 +226,9 @@ class _FaceIdScanningContentState extends State<_FaceIdScanningContent> {
       child: SafeArea(
         child: GestureDetector(
           // Disable back button after successful authentication to prevent navigation crashes
-          onTap: _isAuthenticationSuccessful ? null : () => NavigationService.goBack(context),
+          onTap: _isAuthenticationSuccessful
+              ? null
+              : () => NavigationService.goBack(context),
           child: Icon(
             Icons.arrow_back_ios,
             color: _isAuthenticationSuccessful ? Colors.white30 : Colors.white,

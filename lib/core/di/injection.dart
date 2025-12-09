@@ -49,9 +49,7 @@ void _initCore() {
   sl.registerLazySingleton<LoginRepository>(() => LoginRepository());
 
   // Login Cubit
-  sl.registerFactory<LoginCubit>(
-    () => LoginCubit(sl<LoginRepository>()),
-  );
+  sl.registerFactory<LoginCubit>(() => LoginCubit(sl<LoginRepository>()));
 
   // Biometric Repository
   sl.registerLazySingleton<BiometricRepository>(() => BiometricRepository());
@@ -90,9 +88,7 @@ void _initCore() {
   );
 
   // Home Cubit
-  sl.registerFactory<HomeCubit>(
-    () => HomeCubit(sl<SettingsRepository>()),
-  );
+  sl.registerFactory<HomeCubit>(() => HomeCubit(sl<SettingsRepository>()));
 }
 
 void marketCoins() {

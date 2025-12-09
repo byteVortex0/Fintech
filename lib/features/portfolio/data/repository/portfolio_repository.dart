@@ -60,12 +60,14 @@ class PortfolioRepository {
 
       // Calculate percentages now that total is known
       final holdingsWithPercentage = holdings
-          .map((holding) => holding.copyWith(
-                percentage: totalValue > 0
-                    ? ((double.parse(holding.dollarValue) / totalValue) * 100)
+          .map(
+            (holding) => holding.copyWith(
+              percentage: totalValue > 0
+                  ? ((double.parse(holding.dollarValue) / totalValue) * 100)
                         .toInt()
-                    : 0,
-              ))
+                  : 0,
+            ),
+          )
           .toList();
 
       // Create portfolio summary
@@ -74,10 +76,7 @@ class PortfolioRepository {
         holdingsWithPercentage,
       );
 
-      return {
-        'portfolio': portfolio,
-        'holdings': holdingsWithPercentage,
-      };
+      return {'portfolio': portfolio, 'holdings': holdingsWithPercentage};
     } catch (e) {
       throw Exception('Failed to fetch holdings prices: $e');
     }
@@ -118,11 +117,7 @@ class PortfolioRepository {
 
   /// Get coin symbol from coin ID
   String _getCoinSymbol(String coinId) {
-    const symbols = {
-      'bitcoin': 'BTC',
-      'ethereum': 'ETH',
-      'cardano': 'ADA',
-    };
+    const symbols = {'bitcoin': 'BTC', 'ethereum': 'ETH', 'cardano': 'ADA'};
     return symbols[coinId] ?? coinId.toUpperCase();
   }
 

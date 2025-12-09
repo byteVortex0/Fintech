@@ -17,7 +17,9 @@ class BiometricRepository {
       return canCheckBiometrics && isDeviceSupported;
     } catch (e) {
       if (kDebugMode) {
-        debugPrint('[BiometricRepository] Error checking biometric support: $e');
+        debugPrint(
+          '[BiometricRepository] Error checking biometric support: $e',
+        );
       }
       return false;
     }
@@ -29,7 +31,9 @@ class BiometricRepository {
       return await _localAuth.getAvailableBiometrics();
     } catch (e) {
       if (kDebugMode) {
-        debugPrint('[BiometricRepository] Error getting available biometrics: $e');
+        debugPrint(
+          '[BiometricRepository] Error getting available biometrics: $e',
+        );
       }
       return [];
     }
@@ -46,7 +50,9 @@ class BiometricRepository {
   }) async {
     try {
       if (kDebugMode) {
-        debugPrint('[BiometricRepository] Starting biometric authentication for: $email');
+        debugPrint(
+          '[BiometricRepository] Starting biometric authentication for: $email',
+        );
       }
 
       // Authenticate with local biometrics
@@ -70,7 +76,9 @@ class BiometricRepository {
         final User? currentUser = _firebaseAuth.currentUser;
         if (currentUser != null) {
           if (kDebugMode) {
-            debugPrint('[BiometricRepository] Using cached Firebase session for user: ${currentUser.email}');
+            debugPrint(
+              '[BiometricRepository] Using cached Firebase session for user: ${currentUser.email}',
+            );
           }
           // Ensure UID is saved
           await UserPreferences.saveUserUid(currentUser.uid);
@@ -82,13 +90,13 @@ class BiometricRepository {
 
       // Sign in to Firebase with stored credentials (manual login flow)
       if (kDebugMode) {
-        debugPrint('[BiometricRepository] Signing into Firebase with email/password');
+        debugPrint(
+          '[BiometricRepository] Signing into Firebase with email/password',
+        );
       }
 
-      final UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      final UserCredential userCredential = await _firebaseAuth
+          .signInWithEmailAndPassword(email: email, password: password);
 
       final User? user = userCredential.user;
 

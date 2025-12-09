@@ -17,19 +17,15 @@ class FlavourConfig {
   static String get appName => isDev ? 'FinTech Dev' : 'FinTech';
 
   /// Bundle ID based on flavour
-  static String get bundleId => isDev
-    ? 'com.fintech.dev'
-    : 'com.fintech';
+  static String get bundleId => isDev ? 'com.fintech.dev' : 'com.fintech';
 
   /// Firebase project ID based on flavour
-  static String get firebaseProjectId => isDev
-    ? 'fintech-dev-project'
-    : 'fintech-prod-project';
+  static String get firebaseProjectId =>
+      isDev ? 'fintech-dev-project' : 'fintech-prod-project';
 
   /// API base URL based on flavour
-  static String get apiBaseUrl => isDev
-    ? 'https://api-dev.example.com/v1'
-    : 'https://api.example.com/v1';
+  static String get apiBaseUrl =>
+      isDev ? 'https://api-dev.example.com/v1' : 'https://api.example.com/v1';
 
   /// Enable debug logs based on flavour
   static bool get enableDebugLogs => isDev;
@@ -51,5 +47,5 @@ class FlavourConfig {
 
   /// Get environment description
   static String getEnvironmentDescription() =>
-    'Running in ${getDisplayName()} mode ($appName)';
+      'Running in ${getDisplayName()} mode ($appName)';
 }

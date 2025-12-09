@@ -22,7 +22,9 @@ class UserPreferences {
     final uid = SharedPref.getValue(PrefKeys.uid);
     final isLoggedIn = uid != null;
     if (kDebugMode) {
-      debugPrint('[UserPreferences] checkIfLoggedInUser - UID value: $uid, isLoggedIn: $isLoggedIn');
+      debugPrint(
+        '[UserPreferences] checkIfLoggedInUser - UID value: $uid, isLoggedIn: $isLoggedIn',
+      );
     }
     return isLoggedIn;
   }
@@ -53,7 +55,9 @@ class UserPreferences {
 
   static Future<void> saveBiometricEmail(String email) async {
     if (kDebugMode) {
-      debugPrint('[UserPreferences] saveBiometricEmail START - key: ${PrefKeys.biometricEmail}, value: $email');
+      debugPrint(
+        '[UserPreferences] saveBiometricEmail START - key: ${PrefKeys.biometricEmail}, value: $email',
+      );
     }
     await SharedPref.setValue(PrefKeys.biometricEmail, email);
     if (kDebugMode) {
@@ -63,18 +67,24 @@ class UserPreferences {
 
   static Future<String?> getBiometricEmail() async {
     if (kDebugMode) {
-      debugPrint('[UserPreferences] getBiometricEmail START - key: ${PrefKeys.biometricEmail}');
+      debugPrint(
+        '[UserPreferences] getBiometricEmail START - key: ${PrefKeys.biometricEmail}',
+      );
     }
     final email = SharedPref.getValue(PrefKeys.biometricEmail);
     if (kDebugMode) {
-      debugPrint('[UserPreferences] getBiometricEmail RESULT - value: $email, type: ${email.runtimeType}');
+      debugPrint(
+        '[UserPreferences] getBiometricEmail RESULT - value: $email, type: ${email.runtimeType}',
+      );
     }
     return email as String?;
   }
 
   static Future<void> saveBiometricPassword(String password) async {
     if (kDebugMode) {
-      debugPrint('[UserPreferences] saveBiometricPassword START - key: ${PrefKeys.biometricPassword}, isEmpty: ${password.isEmpty}');
+      debugPrint(
+        '[UserPreferences] saveBiometricPassword START - key: ${PrefKeys.biometricPassword}, isEmpty: ${password.isEmpty}',
+      );
     }
     await SharedPref.setValue(PrefKeys.biometricPassword, password);
     if (kDebugMode) {
@@ -84,11 +94,15 @@ class UserPreferences {
 
   static Future<String?> getBiometricPassword() async {
     if (kDebugMode) {
-      debugPrint('[UserPreferences] getBiometricPassword START - key: ${PrefKeys.biometricPassword}');
+      debugPrint(
+        '[UserPreferences] getBiometricPassword START - key: ${PrefKeys.biometricPassword}',
+      );
     }
     final password = SharedPref.getValue(PrefKeys.biometricPassword);
     if (kDebugMode) {
-      debugPrint('[UserPreferences] getBiometricPassword RESULT - value: ${password != null ? 'EXISTS' : 'NULL'}, type: ${password.runtimeType}');
+      debugPrint(
+        '[UserPreferences] getBiometricPassword RESULT - value: ${password != null ? 'EXISTS' : 'NULL'}, type: ${password.runtimeType}',
+      );
     }
     return password as String?;
   }
@@ -97,10 +111,15 @@ class UserPreferences {
   static Future<bool> hasBiometricCredentials() async {
     final email = await getBiometricEmail();
     final password = await getBiometricPassword();
-    final hasCredentials = email != null && email.isNotEmpty &&
-                          password != null && password.isNotEmpty;
+    final hasCredentials =
+        email != null &&
+        email.isNotEmpty &&
+        password != null &&
+        password.isNotEmpty;
     if (kDebugMode) {
-      debugPrint('[UserPreferences] hasBiometricCredentials: $hasCredentials (email: ${email?.isNotEmpty ?? false}, password: ${password?.isNotEmpty ?? false})');
+      debugPrint(
+        '[UserPreferences] hasBiometricCredentials: $hasCredentials (email: ${email?.isNotEmpty ?? false}, password: ${password?.isNotEmpty ?? false})',
+      );
     }
     return hasCredentials;
   }

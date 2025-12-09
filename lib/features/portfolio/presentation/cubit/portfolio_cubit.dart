@@ -31,10 +31,7 @@ class PortfolioCubit extends Cubit<PortfolioState> {
       final portfolio = result['portfolio'] as PortfolioModel;
       final holdings = result['holdings'] as List<HoldingModel>;
 
-      emit(PortfolioState.loaded(
-        portfolio: portfolio,
-        holdings: holdings,
-      ));
+      emit(PortfolioState.loaded(portfolio: portfolio, holdings: holdings));
     } catch (e) {
       emit(PortfolioState.error('Failed to load portfolio: $e'));
     }
@@ -51,10 +48,7 @@ class PortfolioCubit extends Cubit<PortfolioState> {
       final portfolio = result['portfolio'] as PortfolioModel;
       final holdings = result['holdings'] as List<HoldingModel>;
 
-      emit(PortfolioState.loaded(
-        portfolio: portfolio,
-        holdings: holdings,
-      ));
+      emit(PortfolioState.loaded(portfolio: portfolio, holdings: holdings));
     } catch (e) {
       emit(PortfolioState.error('Failed to refresh portfolio: $e'));
     }

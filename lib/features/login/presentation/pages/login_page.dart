@@ -43,7 +43,9 @@ class _LoginPageState extends State<LoginPage> {
     var password = await UserPreferences.getBiometricPassword() ?? '';
 
     if (kDebugMode) {
-      debugPrint('[LoginPage] _navigateToFaceId - Loaded credentials - email: $email, password: ${password.isNotEmpty}');
+      debugPrint(
+        '[LoginPage] _navigateToFaceId - Loaded credentials - email: $email, password: ${password.isNotEmpty}',
+      );
     }
 
     // If no stored credentials, try form fields
@@ -52,18 +54,24 @@ class _LoginPageState extends State<LoginPage> {
       email = formState?.currentEmail ?? '';
       password = formState?.currentPassword ?? '';
       if (kDebugMode) {
-        debugPrint('[LoginPage] _navigateToFaceId - Using form credentials - email: $email, password: ${password.isNotEmpty}');
+        debugPrint(
+          '[LoginPage] _navigateToFaceId - Using form credentials - email: $email, password: ${password.isNotEmpty}',
+        );
       }
     }
 
     if (email.isEmpty) {
       if (kDebugMode) {
-        debugPrint('[LoginPage] _navigateToFaceId - NO CREDENTIALS FOUND - showing error');
+        debugPrint(
+          '[LoginPage] _navigateToFaceId - NO CREDENTIALS FOUND - showing error',
+        );
       }
       if (mounted) {
         scaffoldMessenger.showSnackBar(
           const SnackBar(
-            content: Text('📱 No stored credentials found.\n\nSteps to enable:\n1. Login with email & password\n2. Tap "Enable" (not Skip)\n3. Logout\n4. Try Face ID again'),
+            content: Text(
+              '📱 No stored credentials found.\n\nSteps to enable:\n1. Login with email & password\n2. Tap "Enable" (not Skip)\n3. Logout\n4. Try Face ID again',
+            ),
             duration: Duration(seconds: 5),
           ),
         );
@@ -72,15 +80,15 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     if (kDebugMode) {
-      debugPrint('[LoginPage] _navigateToFaceId - Navigating to FaceIdScanningPage');
+      debugPrint(
+        '[LoginPage] _navigateToFaceId - Navigating to FaceIdScanningPage',
+      );
     }
     if (mounted) {
       navigator.push(
         MaterialPageRoute(
-          builder: (context) => FaceIdScanningPage(
-            email: email,
-            password: password,
-          ),
+          builder: (context) =>
+              FaceIdScanningPage(email: email, password: password),
         ),
       );
     }
@@ -99,7 +107,9 @@ class _LoginPageState extends State<LoginPage> {
     var password = await UserPreferences.getBiometricPassword() ?? '';
 
     if (kDebugMode) {
-      debugPrint('[LoginPage] _navigateToFingerprint - Loaded credentials - email: $email, password: ${password.isNotEmpty}');
+      debugPrint(
+        '[LoginPage] _navigateToFingerprint - Loaded credentials - email: $email, password: ${password.isNotEmpty}',
+      );
     }
 
     // If no stored credentials, try form fields
@@ -108,32 +118,40 @@ class _LoginPageState extends State<LoginPage> {
       email = formState?.currentEmail ?? '';
       password = formState?.currentPassword ?? '';
       if (kDebugMode) {
-        debugPrint('[LoginPage] _navigateToFingerprint - Using form credentials - email: $email, password: ${password.isNotEmpty}');
+        debugPrint(
+          '[LoginPage] _navigateToFingerprint - Using form credentials - email: $email, password: ${password.isNotEmpty}',
+        );
       }
     }
 
     if (email.isEmpty) {
       if (kDebugMode) {
-        debugPrint('[LoginPage] _navigateToFingerprint - NO CREDENTIALS FOUND - showing error');
+        debugPrint(
+          '[LoginPage] _navigateToFingerprint - NO CREDENTIALS FOUND - showing error',
+        );
       }
       if (mounted) {
         scaffoldMessenger.showSnackBar(
-          const SnackBar(content: Text('📱 No stored credentials found.\n\nSteps to enable:\n1. Login with email & password\n2. Tap "Enable" (not Skip)\n3. Logout\n4. Try Face ID again')),
+          const SnackBar(
+            content: Text(
+              '📱 No stored credentials found.\n\nSteps to enable:\n1. Login with email & password\n2. Tap "Enable" (not Skip)\n3. Logout\n4. Try Face ID again',
+            ),
+          ),
         );
       }
       return;
     }
 
     if (kDebugMode) {
-      debugPrint('[LoginPage] _navigateToFingerprint - Navigating to TouchIdScanningPage');
+      debugPrint(
+        '[LoginPage] _navigateToFingerprint - Navigating to TouchIdScanningPage',
+      );
     }
     if (mounted) {
       navigator.push(
         MaterialPageRoute(
-          builder: (context) => TouchIdScanningPage(
-            email: email,
-            password: password,
-          ),
+          builder: (context) =>
+              TouchIdScanningPage(email: email, password: password),
         ),
       );
     }
@@ -146,9 +164,15 @@ class _LoginPageState extends State<LoginPage> {
   void _navigateToRegister(BuildContext context) =>
       NavigationService.navigateTo(context, AppRoutes.register);
 
-  void _showBiometricEnrollmentDialog(BuildContext context, String email, String password) {
+  void _showBiometricEnrollmentDialog(
+    BuildContext context,
+    String email,
+    String password,
+  ) {
     if (kDebugMode) {
-      debugPrint('[LoginPage] _showBiometricEnrollmentDialog called - email: $email, password: ${password.isNotEmpty}');
+      debugPrint(
+        '[LoginPage] _showBiometricEnrollmentDialog called - email: $email, password: ${password.isNotEmpty}',
+      );
     }
     final navigatorContext = context;
     showDialog(
@@ -157,12 +181,17 @@ class _LoginPageState extends State<LoginPage> {
       builder: (dialogContext) => BiometricEnrollmentDialog(
         onEnroll: () async {
           if (kDebugMode) {
-            debugPrint('[LoginPage] BiometricEnrollmentDialog onEnroll called - email: $email, password: ${password.isNotEmpty}');
+            debugPrint(
+              '[LoginPage] BiometricEnrollmentDialog onEnroll called - email: $email, password: ${password.isNotEmpty}',
+            );
           }
           if (!mounted) return;
           Navigator.pop(dialogContext);
           final enrollmentService = BiometricEnrollmentService();
-          await enrollmentService.enrollBiometric(email: email, password: password);
+          await enrollmentService.enrollBiometric(
+            email: email,
+            password: password,
+          );
           if (mounted) {
             // ignore: use_build_context_synchronously
             ScaffoldMessenger.of(navigatorContext).showSnackBar(
@@ -173,7 +202,10 @@ class _LoginPageState extends State<LoginPage> {
           }
           if (mounted) {
             // ignore: use_build_context_synchronously
-            NavigationService.navigateToAndRemoveUntil(navigatorContext, AppRoutes.home);
+            NavigationService.navigateToAndRemoveUntil(
+              navigatorContext,
+              AppRoutes.home,
+            );
           }
         },
         onSkip: () {
@@ -183,7 +215,10 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.pop(dialogContext);
           if (mounted) {
             // ignore: use_build_context_synchronously
-            NavigationService.navigateToAndRemoveUntil(navigatorContext, AppRoutes.home);
+            NavigationService.navigateToAndRemoveUntil(
+              navigatorContext,
+              AppRoutes.home,
+            );
           }
         },
       ),
@@ -199,16 +234,22 @@ class _LoginPageState extends State<LoginPage> {
           state.maybeWhen(
             authenticated: (_) {
               if (kDebugMode) {
-                debugPrint('[LoginPage] authenticated state - using stored credentials - email: $_lastLoginEmail, password: ${_lastLoginPassword.isNotEmpty}');
+                debugPrint(
+                  '[LoginPage] authenticated state - using stored credentials - email: $_lastLoginEmail, password: ${_lastLoginPassword.isNotEmpty}',
+                );
               }
               // Show biometric enrollment dialog after successful login
-              _showBiometricEnrollmentDialog(context, _lastLoginEmail, _lastLoginPassword);
+              _showBiometricEnrollmentDialog(
+                context,
+                _lastLoginEmail,
+                _lastLoginPassword,
+              );
             },
             error: (message) {
               // Show error message
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(message)),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(message)));
             },
             orElse: () {},
           );
@@ -236,7 +277,9 @@ class _LoginPageState extends State<LoginPage> {
                                 _lastLoginEmail = email;
                                 _lastLoginPassword = password;
                                 if (kDebugMode) {
-                                  debugPrint('[LoginPage] onLoginPressed - storing credentials - email: $email, password: ${password.isNotEmpty}');
+                                  debugPrint(
+                                    '[LoginPage] onLoginPressed - storing credentials - email: $email, password: ${password.isNotEmpty}',
+                                  );
                                 }
                                 context.read<LoginCubit>().login(
                                   email: email,

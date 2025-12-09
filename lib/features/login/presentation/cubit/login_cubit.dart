@@ -13,10 +13,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   /// Authenticate user with email and password
   /// Emits loading → authenticated/error states
-  Future<void> login({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> login({required String email, required String password}) async {
     try {
       emit(const LoginState.loading());
 

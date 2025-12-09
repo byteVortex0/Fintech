@@ -10,7 +10,7 @@ class AutoLoginCubit extends Cubit<AutoLoginState> {
   final BiometricEnrollmentService _enrollmentService;
 
   AutoLoginCubit(this._enrollmentService)
-      : super(const AutoLoginState.checking());
+    : super(const AutoLoginState.checking());
 
   /// Check if user should be auto-logged in on app startup
   Future<void> checkAutoLogin() async {
@@ -25,19 +25,24 @@ class AutoLoginCubit extends Cubit<AutoLoginState> {
 
       if (!isLoggedIn) {
         if (kDebugMode) {
-          debugPrint('[AutoLoginCubit] No previous login found, showing login page');
+          debugPrint(
+            '[AutoLoginCubit] No previous login found, showing login page',
+          );
         }
         emit(const AutoLoginState.loginRequired());
         return;
       }
 
       // Check if user has biometric enrollment
-      final hasBiometricEnrollment = await _enrollmentService.isBiometricEnrolled();
+      final hasBiometricEnrollment = await _enrollmentService
+          .isBiometricEnrolled();
       if (isClosed) return;
 
       if (!hasBiometricEnrollment) {
         if (kDebugMode) {
-          debugPrint('[AutoLoginCubit] User logged in but no biometric enrollment, going to home');
+          debugPrint(
+            '[AutoLoginCubit] User logged in but no biometric enrollment, going to home',
+          );
         }
         // User is logged in but hasn't enrolled for biometric
         emit(const AutoLoginState.alreadyLoggedIn());
@@ -45,7 +50,9 @@ class AutoLoginCubit extends Cubit<AutoLoginState> {
       }
 
       if (kDebugMode) {
-        debugPrint('[AutoLoginCubit] User has biometric enrollment, requiring biometric auth');
+        debugPrint(
+          '[AutoLoginCubit] User has biometric enrollment, requiring biometric auth',
+        );
       }
 
       // User is logged in and has biometric enrollment

@@ -8,7 +8,9 @@ class BiometricEnrollmentService {
   Future<void> enrollBiometric({String? email, String? password}) async {
     try {
       if (kDebugMode) {
-        debugPrint('[BiometricEnrollmentService] Starting enrollment - email: $email, password: ${password?.isNotEmpty ?? false}');
+        debugPrint(
+          '[BiometricEnrollmentService] Starting enrollment - email: $email, password: ${password?.isNotEmpty ?? false}',
+        );
       }
 
       await UserPreferences.setBiometricEnrolled(true);
@@ -23,27 +25,37 @@ class BiometricEnrollmentService {
         }
       } else {
         if (kDebugMode) {
-          debugPrint('[BiometricEnrollmentService] WARNING: Email is null or empty');
+          debugPrint(
+            '[BiometricEnrollmentService] WARNING: Email is null or empty',
+          );
         }
       }
 
       if (password != null && password.isNotEmpty) {
         await UserPreferences.saveBiometricPassword(password);
         if (kDebugMode) {
-          debugPrint('[BiometricEnrollmentService] Password saved successfully');
+          debugPrint(
+            '[BiometricEnrollmentService] Password saved successfully',
+          );
         }
       } else {
         if (kDebugMode) {
-          debugPrint('[BiometricEnrollmentService] WARNING: Password is null or empty');
+          debugPrint(
+            '[BiometricEnrollmentService] WARNING: Password is null or empty',
+          );
         }
       }
 
       if (kDebugMode) {
-        debugPrint('[BiometricEnrollmentService] User enrolled for biometric login');
+        debugPrint(
+          '[BiometricEnrollmentService] User enrolled for biometric login',
+        );
       }
     } catch (e) {
       if (kDebugMode) {
-        debugPrint('[BiometricEnrollmentService] Error enrolling biometric: $e');
+        debugPrint(
+          '[BiometricEnrollmentService] Error enrolling biometric: $e',
+        );
       }
       rethrow;
     }
@@ -54,12 +66,16 @@ class BiometricEnrollmentService {
     try {
       final enrolled = await UserPreferences.isBiometricEnrolled();
       if (kDebugMode) {
-        debugPrint('[BiometricEnrollmentService] Biometric enrolled status: $enrolled');
+        debugPrint(
+          '[BiometricEnrollmentService] Biometric enrolled status: $enrolled',
+        );
       }
       return enrolled;
     } catch (e) {
       if (kDebugMode) {
-        debugPrint('[BiometricEnrollmentService] Error checking enrollment: $e');
+        debugPrint(
+          '[BiometricEnrollmentService] Error checking enrollment: $e',
+        );
       }
       return false;
     }
@@ -70,11 +86,15 @@ class BiometricEnrollmentService {
     try {
       await UserPreferences.clearBiometricEnrollment();
       if (kDebugMode) {
-        debugPrint('[BiometricEnrollmentService] User unenrolled from biometric login');
+        debugPrint(
+          '[BiometricEnrollmentService] User unenrolled from biometric login',
+        );
       }
     } catch (e) {
       if (kDebugMode) {
-        debugPrint('[BiometricEnrollmentService] Error unenrolling biometric: $e');
+        debugPrint(
+          '[BiometricEnrollmentService] Error unenrolling biometric: $e',
+        );
       }
       rethrow;
     }

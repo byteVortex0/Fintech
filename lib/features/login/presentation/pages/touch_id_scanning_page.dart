@@ -15,11 +15,7 @@ class TouchIdScanningPage extends StatelessWidget {
   final String email;
   final String password;
 
-  const TouchIdScanningPage({
-    super.key,
-    this.email = '',
-    this.password = '',
-  });
+  const TouchIdScanningPage({super.key, this.email = '', this.password = ''});
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +31,11 @@ class _TouchIdScanningContent extends StatefulWidget {
   final String email;
   final String password;
 
-  const _TouchIdScanningContent({
-    required this.email,
-    required this.password,
-  });
+  const _TouchIdScanningContent({required this.email, required this.password});
 
   @override
-  State<_TouchIdScanningContent> createState() => _TouchIdScanningContentState();
+  State<_TouchIdScanningContent> createState() =>
+      _TouchIdScanningContentState();
 }
 
 class _TouchIdScanningContentState extends State<_TouchIdScanningContent>
@@ -109,7 +103,9 @@ class _TouchIdScanningContentState extends State<_TouchIdScanningContent>
           },
           notSupported: () {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Biometric not supported on this device')),
+              const SnackBar(
+                content: Text('Biometric not supported on this device'),
+              ),
             );
           },
           orElse: () {},
@@ -158,7 +154,9 @@ class _TouchIdScanningContentState extends State<_TouchIdScanningContent>
       alignment: Alignment.centerLeft,
       child: GestureDetector(
         // Disable back button after successful authentication to prevent navigation crashes
-        onTap: _isAuthenticationSuccessful ? null : () => NavigationService.goBack(context),
+        onTap: _isAuthenticationSuccessful
+            ? null
+            : () => NavigationService.goBack(context),
         child: Icon(
           Icons.arrow_back_ios,
           color: _isAuthenticationSuccessful

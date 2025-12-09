@@ -54,7 +54,9 @@ class BiometricCubit extends Cubit<BiometricState> {
 
       if (user != null && !isClosed) {
         if (kDebugMode) {
-          debugPrint('[BiometricCubit] Authentication successful for user: ${user.email}');
+          debugPrint(
+            '[BiometricCubit] Authentication successful for user: ${user.email}',
+          );
         }
         emit(BiometricState.authenticated(user.uid));
       } else if (!isClosed) {

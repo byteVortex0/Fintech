@@ -38,122 +38,127 @@ GoRouter createGoRouter() {
   // Always start with auto-login splash to check biometric eligibility
   final initialLocation = '/auto_login_splash';
   if (kDebugMode) {
-    debugPrint('[GoRouter] Creating router with initialLocation: $initialLocation');
+    debugPrint(
+      '[GoRouter] Creating router with initialLocation: $initialLocation',
+    );
   }
   return GoRouter(
     initialLocation: initialLocation,
     routes: [
-    // Auto-login splash screen - determines initial navigation
-    GoRoute(
-      path: '/auto_login_splash',
-      builder: (context, state) => const AutoLoginSplashPage(),
-    ),
-
-    // Auth routes (no navbar)
-    GoRoute(
-      path: '/onboarding',
-      builder: (context, state) => const OnboardingPage(),
-    ),
-    GoRoute(path: '/login', builder: (context, state) => const LoginPage()),
-    GoRoute(
-      path: '/register',
-      builder: (context, state) => BlocProvider(
-        create: (context) => sl<RegisterCubit>(),
-        child: const RegisterPage(),
+      // Auto-login splash screen - determines initial navigation
+      GoRoute(
+        path: '/auto_login_splash',
+        builder: (context, state) => const AutoLoginSplashPage(),
       ),
-    ),
-    GoRoute(
-      path: '/face_id_scanning',
-      builder: (context, state) => const FaceIdScanningPage(),
-    ),
-    GoRoute(
-      path: '/face_id_verified',
-      builder: (context, state) => const FaceIdVerifiedPage(),
-    ),
-    GoRoute(
-      path: '/touch_id_scanning',
-      builder: (context, state) => const TouchIdScanningPage(),
-    ),
-    GoRoute(
-      path: '/touch_id_verified',
-      builder: (context, state) => const TouchIdVerifiedPage(),
-    ),
-    GoRoute(
-      path: '/set_fingerprint',
-      builder: (context, state) => const SetFingerprintPage(),
-    ),
-    GoRoute(
-      path: '/set_fingerprint_verified',
-      builder: (context, state) => const SetFingerprintVerifiedPage(),
-    ),
-    GoRoute(
-      path: '/set_face_id',
-      builder: (context, state) => const SetFaceIdPage(),
-    ),
-    GoRoute(
-      path: '/set_face_id_verified',
-      builder: (context, state) => const SetFaceIdVerifiedPage(),
-    ),
 
-    // Coin details route (no navbar)
-    GoRoute(
-      path: '/coin_details',
-      builder: (context, state) {
-        final id = state.uri.queryParameters['id'] ?? 'Bitcoin';
-        return CoinDetailsScreen(id: id);
-      },
-    ),
-
-    // Buy crypto route (no navbar)
-    GoRoute(
-      path: '/buy_crypto',
-      builder: (context, state) {
-        final coinName = state.uri.queryParameters['coinName'];
-        return BuyCryptoScreen(coinName: coinName);
-      },
-    ),
-
-    // Payment method route (no navbar)
-    GoRoute(
-      path: '/payment_method',
-      builder: (context, state) => const PaymentMethodScreen(),
-    ),
-
-    // Main app routes with persistent bottom navbar
-    // Authentication guard: Redirects to login if user is not authenticated
-    ShellRoute(
-      builder: (context, state, child) {
-        // Check if user is logged in dynamically (not cached)
-        // This allows biometric authentication to properly update login status
-        final uid = SharedPref.getValue(PrefKeys.uid);
-        final isUserLoggedIn = uid != null;
-        if (!isUserLoggedIn) {
-          return const LoginPage();
-        }
-        return Scaffold(
-          body: child,
-          bottomNavigationBar: AppBottomNavigation(),
-        );
-      },
-      routes: [
-        GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
-        GoRoute(
-          path: '/market',
-          builder: (context, state) => const MarketScreen(),
+      // Auth routes (no navbar)
+      GoRoute(
+        path: '/onboarding',
+        builder: (context, state) => const OnboardingPage(),
+      ),
+      GoRoute(path: '/login', builder: (context, state) => const LoginPage()),
+      GoRoute(
+        path: '/register',
+        builder: (context, state) => BlocProvider(
+          create: (context) => sl<RegisterCubit>(),
+          child: const RegisterPage(),
         ),
-        GoRoute(
-          path: '/portfolio',
-          builder: (context, state) => const PortfolioScreen(),
-        ),
-        GoRoute(
-          path: '/settings',
-          builder: (context, state) => BlocProvider(
-            create: (context) => sl<SettingsCubit>(),
-            child: const SettingsScreen(),
+      ),
+      GoRoute(
+        path: '/face_id_scanning',
+        builder: (context, state) => const FaceIdScanningPage(),
+      ),
+      GoRoute(
+        path: '/face_id_verified',
+        builder: (context, state) => const FaceIdVerifiedPage(),
+      ),
+      GoRoute(
+        path: '/touch_id_scanning',
+        builder: (context, state) => const TouchIdScanningPage(),
+      ),
+      GoRoute(
+        path: '/touch_id_verified',
+        builder: (context, state) => const TouchIdVerifiedPage(),
+      ),
+      GoRoute(
+        path: '/set_fingerprint',
+        builder: (context, state) => const SetFingerprintPage(),
+      ),
+      GoRoute(
+        path: '/set_fingerprint_verified',
+        builder: (context, state) => const SetFingerprintVerifiedPage(),
+      ),
+      GoRoute(
+        path: '/set_face_id',
+        builder: (context, state) => const SetFaceIdPage(),
+      ),
+      GoRoute(
+        path: '/set_face_id_verified',
+        builder: (context, state) => const SetFaceIdVerifiedPage(),
+      ),
+
+      // Coin details route (no navbar)
+      GoRoute(
+        path: '/coin_details',
+        builder: (context, state) {
+          final id = state.uri.queryParameters['id'] ?? 'Bitcoin';
+          return CoinDetailsScreen(id: id);
+        },
+      ),
+
+      // Buy crypto route (no navbar)
+      GoRoute(
+        path: '/buy_crypto',
+        builder: (context, state) {
+          final coinName = state.uri.queryParameters['coinName'];
+          return BuyCryptoScreen(coinName: coinName);
+        },
+      ),
+
+      // Payment method route (no navbar)
+      GoRoute(
+        path: '/payment_method',
+        builder: (context, state) => const PaymentMethodScreen(),
+      ),
+
+      // Main app routes with persistent bottom navbar
+      // Authentication guard: Redirects to login if user is not authenticated
+      ShellRoute(
+        builder: (context, state, child) {
+          // Check if user is logged in dynamically (not cached)
+          // This allows biometric authentication to properly update login status
+          final uid = SharedPref.getValue(PrefKeys.uid);
+          final isUserLoggedIn = uid != null;
+          if (!isUserLoggedIn) {
+            return const LoginPage();
+          }
+          return Scaffold(
+            body: child,
+            bottomNavigationBar: AppBottomNavigation(),
+          );
+        },
+        routes: [
+          GoRoute(
+            path: '/home',
+            builder: (context, state) => const HomeScreen(),
           ),
-        ),
-      ],
-    ),
-  ],
+          GoRoute(
+            path: '/market',
+            builder: (context, state) => const MarketScreen(),
+          ),
+          GoRoute(
+            path: '/portfolio',
+            builder: (context, state) => const PortfolioScreen(),
+          ),
+          GoRoute(
+            path: '/settings',
+            builder: (context, state) => BlocProvider(
+              create: (context) => sl<SettingsCubit>(),
+              child: const SettingsScreen(),
+            ),
+          ),
+        ],
+      ),
+    ],
   );
 }
