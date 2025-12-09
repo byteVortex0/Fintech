@@ -35,9 +35,9 @@ class TopGainersSection extends StatelessWidget {
               coin: CoinModel(
                 coinName: coin.name,
                 ticker: coin.id.toUpperCase(),
-                price: '\$${coin.price.toStringAsFixed(2)}',
+                price: '\$${(coin.price ?? 0.0).toStringAsFixed(2)}',
                 change:
-                    '${coin.changePercent >= 0 ? '+' : ''}${coin.changePercent.toStringAsFixed(2)}%',
+                    '${(coin.changePercent ?? 0.0) >= 0 ? '+' : ''}${(coin.changePercent ?? 0.0).toStringAsFixed(2)}%',
                 svgIconPath: null,
                 icon: Icons.currency_bitcoin,
                 iconColor: Colors.orange,

@@ -2,7 +2,8 @@
 
 A professional Flutter cryptocurrency trading application with real-time market data, biometric authentication, secure portfolio management, and advanced trading features.
 
-**Status**: 🟢 Phase 12 Complete | **Last Updated**: December 4, 2025 | **All Branches Synced**
+**Status**: 🟢 Phase 18 Complete | **Last Updated**: December 8, 2025 | **Complete Login with Firebase & Persistent Sessions**
+**Previous**: Phase 17 (Home Screen) ✅ | Phase 16 (Settings Firebase) ✅ | Phase 15 (Settings Logout) ✅
 
 ---
 
@@ -31,15 +32,57 @@ A professional Flutter cryptocurrency trading application with real-time market 
 - **App Icons & Launcher** - Custom app icons and launcher configuration (Phase 12) ✅
 - **Portfolio Screen** - Complete portfolio overview with holdings, distribution chart, and transactions
 - **Settings Screen** - User profile and app preferences with clean, simple UI
+- **Settings Logout** - Logout button with Firebase authentication and confirmation dialog (Phase 15) ✅
+- **Complete Login with Firebase** - Full authentication system with persistent sessions (Phase 18) ✅:
+  - Firebase email/password sign-in with validation
+  - LoginRepository and LoginCubit with BLoC pattern
+  - LoginForm with email/password validation
+  - Persistent login state using SharedPreferences
+  - User UID saved on login, restored on app restart
+  - Login state cleared on logout
+  - Navigation to home on login, onboarding on logout
+  - Dynamic GoRouter for proper startup evaluation
+  - UID persistence fixes for all flavor entry points
+- **User Profile Consistency** - Identical name display across all screens (Phase 18) ✅:
+  - FirstName/LastName separation in UserProfileModel
+  - SettingsRepository for smart name splitting
+  - HomeScreen uses SettingsRepository for data consistency
+  - ProfileSection and HomeHeader display names uniformly
+- **Settings Firebase Integration** - Real user data from Firestore with BLoC state management (Phase 16) ✅:
+  - Fetch user profile data from Firebase Firestore
+  - Display real user information (name, email, profile image)
+  - BLoC pattern with SettingsCubit and Freezed states
+  - Loading/error states with user-friendly feedback
+  - Pull-to-refresh functionality
+  - Authentication guard on all protected routes
 - **Code Quality** - Redundant comments removed from all widgets per mentor feedback (62 lines cleaned)
+- **Development & Production Flavours** - Dual build variants for dev/prod environments with separate configurations (Phase 14) ✅
 
 ### In Development 🚧
 
 - **Splash Screen** - App initialization and onboarding check
-- **API Integration** - Connecting to CoinGecko for real market data (Phase 13 - Next)
+- **Market API Integration** - Connecting Market screen to CoinGecko API (Phase 14)
 
 ### Recently Completed ✨
 
+- **Development & Production Flavours** - Dual build environments for separate dev/prod configurations (Phase 14) ✅:
+  - Separate entry points (`main_dev.dart`, `main_prod.dart`)
+  - Android product flavours with unique bundle IDs (com.byteVortex.fintech.dev / com.byteVortex.fintech)
+  - iOS Xcode schemes for dev and prod variants
+  - FlavourConfig class for centralized environment-specific settings
+  - Tested on iOS and Android simulators successfully
+  - Comprehensive FLAVOURS.md documentation
+  - Swift version conflict resolution in Podfile
+- **Portfolio API Integration** - CoinGecko API v3 with real cryptocurrency pricing (Phase 13) ✅:
+  - Secure API key management using flutter_dotenv environment variables
+  - Freezed state management (initial, loading, loaded, error states)
+  - PortfolioCubit with BLoC pattern for state management
+  - PortfolioRepository with API integration and data transformation
+  - RefreshIndicator for pull-to-refresh functionality
+  - Real-time pricing for Bitcoin, Ethereum, Cardano with 24h changes
+  - Centralized API endpoints in ApiEndpoints constants
+  - maybeWhen pattern matching in UI for clean state handling
+  - Secure environment variable configuration with .env/.env.example
 - **Market Feature** - Complete cryptocurrency trading flow with 4 screens:
   - Market Screen - Coin list with navigation
   - Coin Details - Detailed coin information with statistics and charts
@@ -74,10 +117,16 @@ A professional Flutter cryptocurrency trading application with real-time market 
 
 ### Planned 📋
 
-**Phase 13 (Next Priority)**:
+**Phase 19 (Next Priority)**:
 
-- **CoinGecko API Integration** - Real market data for all screens
-- **Feature BLoCs** - State management for Market, Portfolio, Buy features
+- **Auto-Login on App Launch** - Maintain session state for seamless user experience
+- **Password Recovery** - Forgot password flow with email verification
+- **Enhanced Security** - Biometric login integration with existing Face/Touch ID screens
+
+**Phase 20**:
+
+- **User Profile Editing** - Allow users to update name, email, profile picture
+- **Account Settings** - Privacy preferences, notification settings, security options
 
 **Future Phases**:
 
@@ -103,6 +152,7 @@ A professional Flutter cryptocurrency trading application with real-time market 
 - **Retrofit** ^4.9.1 - Type-safe HTTP client
 - **Dio** ^5.9.0 - HTTP client engine
 - **Pretty Dio Logger** ^1.4.0 - Request/response logging
+- **flutter_dotenv** ^5.0.2 - Environment variable management
 
 ### Local Storage
 - **SharedPreferences** ^2.5.3 - Simple key-value storage
@@ -440,6 +490,6 @@ For questions or issues:
 
 ---
 
-**Last Updated**: November 30, 2025
+**Last Updated**: December 8, 2025
 **Project Status**: In Active Development
-**Current Phase**: Phase 1 (UI Implementation) - Settings Feature Complete → Next: Theme System (Dark/Light Mode)
+**Current Phase**: Phase 18 (Complete Login with Firebase) Complete → Next: Phase 19 (Password Recovery & Auto-Login)

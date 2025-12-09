@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'core/routing/go_router_config.dart';
+import 'core/routing/go_router_config.dart' show createGoRouter;
 import 'core/theme/theme_cubit.dart';
 import 'core/utils/themes/light_theme.dart';
 import 'core/utils/themes/dark_theme.dart';
@@ -29,7 +29,7 @@ class FinTechApp extends StatelessWidget {
               theme: lightTheme,
               darkTheme: darkTheme,
               themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
-              routerConfig: goRouter,
+              routerConfig: createGoRouter(),
             );
           },
         ),

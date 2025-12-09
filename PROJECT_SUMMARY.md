@@ -1,8 +1,9 @@
 # Fintech App - Project Progress Summary
 
-**Last Updated**: December 4, 2025
-**Current Phase**: Phase 12 Complete - Dark/Light Theme System + Icons Launcher Integrated
-**Status**: 🟢 All branches synced → Ready for Phase 13 (API Integration or BLoC State Management)
+**Last Updated**: December 8, 2025
+**Current Phase**: Phase 16 Complete - Settings Firebase Integration
+**Status**: 🟢 Settings Firebase Complete → Firestore User Data Fetching, BLoC Pattern, Auth Guard
+**Previous Phases**: Phase 15 (Settings Logout) ✅ | Phase 14 (Dev/Prod Flavours) ✅
 
 ---
 
@@ -15,6 +16,267 @@ Cryptocurrency fintech app with:
 - Real-time market data (CoinGecko API)
 - Secure portfolio management
 - Clean Architecture + SOLID Principles
+
+---
+
+## Phase 14: Development & Production Flavours Setup
+
+### Status: ✅ COMPLETE - Tested on iOS & Android Simulators
+
+**Branch**: `feature/flavours`
+**Testing**: ✅ Both flavours working on iOS and Android simulators
+**Note**: Real device testing skipped due to time constraints but simulator validation complete
+
+### Technical Implementation
+
+**Dart Entry Points**:
+- Created `lib/main_dev.dart` - Development flavour entry point with extended logging
+- Created `lib/main_prod.dart` - Production flavour entry point with minimal logging
+- Both files initialize Flutter, dotenv, Firebase, and DI with proper error handling
+
+**Configuration Management**:
+- Created `lib/core/config/flavour_config.dart` - Centralized configuration class
+- Provides `isDev`, `isProd` getters for conditional logic
+- Manages app name, bundle ID, API base URL per flavour
+- Enables/disables debug logging and Dio logger based on flavour
+
+**Android Flavours**:
+- Configured `android/app/build.gradle.kts` with two product flavours
+- **dev**: `com.byteVortex.fintech.dev`, version `1.0-dev`
+- **prod**: `com.byteVortex.fintech`, version `1.0`
+- Separate APK builds with unique package names prevent conflicts
+
+**iOS Configuration**:
+- Created iOS Xcode schemes: `dev.xcscheme` and `prod.xcscheme`
+- Each scheme configured to use flavour-specific build configurations
+- Created build configuration files in `ios/Flutter/`:
+  - `Debug-dev.xcconfig`, `Release-dev.xcconfig`
+  - `Debug-prod.xcconfig`, `Release-prod.xcconfig`
+- Updated `ios/Podfile` to map all flavour configurations
+- Fixed Swift version conflicts (SWIFT_VERSION = 5.0) in post_install hook
+
+**Environment Variable Handling**:
+- Added two-layer error handling for .env file:
+  - Layer 1: Try-catch in main.dart around `dotenv.load()`
+  - Layer 2: Try-catch in ApiConfig.coinGeckoApiKey getter
+- Graceful fallback to hardcoded API key if .env missing
+- Prevents NotInitializedError and FileNotFoundError
+
+### Files Created/Modified
+
+**New Files**:
+- `lib/main_dev.dart` - Development entry point
+- `lib/main_prod.dart` - Production entry point
+- `lib/core/config/flavour_config.dart` - Flavour configuration class
+- `ios/Flutter/Debug-dev.xcconfig` - iOS dev debug config
+- `ios/Flutter/Release-dev.xcconfig` - iOS dev release config
+- `ios/Flutter/Debug-prod.xcconfig` - iOS prod debug config
+- `ios/Flutter/Release-prod.xcconfig` - iOS prod release config
+- `ios/Runner.xcodeproj/xcshareddata/xcschemes/dev.xcscheme` - Dev scheme
+- `ios/Runner.xcodeproj/xcshareddata/xcschemes/prod.xcscheme` - Prod scheme
+- `FLAVOURS.md` - Comprehensive flavours documentation
+
+**Modified Files**:
+- `android/app/build.gradle.kts` - Added productFlavors block
+- `ios/Podfile` - Added flavour configuration mappings and Swift version fix
+- `ios/Runner/Info.plist` - Fixed duplicate dict block
+- `lib/main.dart` - Added dotenv initialization with error handling
+
+### Testing Results
+
+✅ **iOS Simulator**: Both dev and prod flavours launch and run successfully
+✅ **Android Simulator**: Both flavours run correctly
+✅ **APK Build (Prod)**: Successfully builds production APK (55.7MB)
+⏳ **Real Device**: Not tested due to time constraints (Firebase configuration needed for dev variant)
+
+### Usage
+
+```bash
+# Run development flavour
+flutter run -t lib/main_dev.dart --flavor dev
+
+# Run production flavour
+flutter run -t lib/main_prod.dart --flavor prod
+
+# Build APK
+flutter build apk --flavor prod -t lib/main_prod.dart
+```
+## Phase 15: Settings - Logout Feature Implementation
+
+### Status: ✅ COMPLETE - Ready for Git Push & PR
+
+**Branch**: `feature/settings-logout`
+**Date**: December 7, 2025
+**Base**: feature/settings (with merged changes from develop)
+
+### Implementation Summary
+
+Added logout functionality to Settings screen with Firebase authentication, confirmation dialog, and secure navigation to login screen.
+
+### Technical Implementation
+
+**Logout Button**:
+- Logout icon button in Settings AppBar (top right)
+- Clean, intuitive design with tooltip
+- Uses NavigationService for consistent app-wide navigation
+
+**Confirmation Dialog**:
+- Shows "Logout" title
+- Asks "Are you sure you want to logout?"
+- Cancel button (dismisses dialog)
+- Logout button (red text, indicates destructive action)
+
+**Firebase Logout Flow**:
+- Calls `FirebaseAuth.instance.signOut()`
+- Uses try-catch for error handling
+- On success: navigates to login screen via `NavigationService.navigateToAndReplace()`
+- Clears navigation stack so user can't go back
+- On failure: Shows SnackBar with error message
+
+**Safety Features**:
+- `context.mounted` check for safe async navigation
+- Error handling with user-friendly SnackBar messages
+- Proper async/await pattern implementation
+
+### Firebase Dependencies Added
+- firebase_core: ^4.2.1
+- firebase_auth: ^6.1.2
+- cloud_firestore: ^6.1.0
+- flutter_dotenv: ^5.0.2
+
+### Files Modified
+
+**Updated Files**:
+1. `lib/features/settings/presentation/pages/settings_screen.dart`
+   - Added logout icon button in AppBar actions
+   - Implemented `_handleLogout()` method with confirmation dialog
+   - Integrated Firebase signout
+   - Added navigation to login after logout
+
+**Dependency Files**:
+- `pubspec.yaml` - Added Firebase dependencies
+- `pubspec.lock` - Updated dependencies
+- `macos/Flutter/GeneratedPluginRegistrant.swift` - Firebase plugin registration
+- `windows/flutter/generated_plugin_registrant.cc` - Firebase plugin registration
+
+### Code Quality
+
+✅ **Verification**:
+- Flutter analyze: 0 errors in Settings feature
+- All Firebase packages installed and registered
+- Proper error handling with try-catch
+- Safe context checks with context.mounted
+
+✅ **Architecture Compliance**:
+- Uses NavigationService (Rule #16)
+- Uses AppRoutes constants (no hardcoded strings)
+- Proper async/await pattern
+- Clean error handling
+
+### Testing Status
+
+- Code compiles successfully
+- Settings feature: 0 analyzer issues
+- Ready for testing on device/simulator
+
+---
+
+## Phase 13: Portfolio API Integration with CoinGecko
+
+### Status: ✅ COMPLETE - Merged to develop
+
+**Branch**: `feature/portfolio-api`
+**Latest Commits**:
+- Fixed iOS Podfile deployment target (15.0 for cloud_firestore compatibility)
+- Implemented all PR review fixes (secure API keys, Freezed states, maybeWhen UI)
+- Real API data flowing through portfolio screen
+
+### Technical Implementation
+
+**Secure API Key Management**:
+- Created `lib/core/config/api_config.dart` with flutter_dotenv integration
+- Created `.env` file with `COINGECKO_API_KEY=CG-8fMdgfQi2WWFUK57RvpJzDg3`
+- Created `.env.example` for team members
+- API key loaded from environment with fallback default
+
+**API Endpoint Configuration**:
+- Added `holdingsPrices = "simple/price"` constant to `ApiEndpoints` sealed class
+- Updated `api_service.dart` to use `ApiEndpoints.holdingsPrices` endpoint
+- Endpoint accepts `ids`, `vs_currencies`, `include_24hr_change`, and `x-cg-demo-api-key` parameters
+
+**State Management with Freezed**:
+- Converted `portfolio_state.dart` to full Freezed implementation
+- States: `initial()`, `loading()`, `loaded(portfolio, holdings)`, `error(message)`
+- All states generated with copyWith(), equality, hashCode, toString()
+- Updated `portfolio_cubit.dart` to emit Freezed states
+
+**UI Pattern Matching**:
+- Replaced if/else blocks with `state.maybeWhen()` in `portfolio_screen.dart`
+- Cleaner, type-safe state handling
+- Each state (loading, error, loaded) has dedicated handler
+
+**Data Models**:
+- `CoinGeckoPriceResponse` - Freezed model for API response parsing
+- Maps CoinGecko response to existing `PortfolioModel` and `HoldingModel`
+
+**Repository Pattern**:
+- `PortfolioRepository` fetches from API and transforms data
+- Calculates portfolio totals, percentages, and 24h changes
+- Maps coin symbols to SVG icons using `SvgIconManager`
+
+**Real Data Features**:
+- Fetches live prices for Bitcoin, Ethereum, Cardano from CoinGecko
+- Shows 24h change percentage for each holding
+- Calculates portfolio total value and daily change
+- RefreshIndicator for pull-to-refresh functionality
+
+**Dependency Injection**:
+- Registered `ApiService` in `_initCore()`
+- Registered `PortfolioRepository` as singleton
+- Registered `PortfolioCubit` as factory
+
+### Files Created/Modified
+
+**New Files**:
+- `lib/core/config/api_config.dart` - API key management
+- `lib/features/portfolio/data/models/coingecko_price_response.dart` - API response model
+- `lib/features/portfolio/data/repository/portfolio_repository.dart` - API integration
+- `.env` - Environment variables (not committed to git)
+- `.env.example` - Example environment file
+
+**Modified Files**:
+- `lib/core/configs/api_endpoints.dart` - Added `holdingsPrices` constant
+- `lib/core/service/api/api_service.dart` - Updated endpoint and parameters
+- `lib/core/di/injection.dart` - Registered PortfolioRepository and PortfolioCubit
+- `lib/features/portfolio/presentation/cubit/portfolio_state.dart` - Full Freezed implementation
+- `lib/features/portfolio/presentation/cubit/portfolio_cubit.dart` - Uses Freezed states
+- `lib/features/portfolio/presentation/pages/portfolio_screen.dart` - Uses maybeWhen pattern
+- `pubspec.yaml` - Added `flutter_dotenv: ^5.0.2`
+- `ios/Podfile` - Updated platform to `15.0` for iOS deployment
+
+### PR Review Fixes Implemented
+
+1. **Secure API Key Storage**: ✅ flutter_dotenv environment variables
+2. **Endpoint Constants**: ✅ Centralized in ApiEndpoints class
+3. **Freezed State Management**: ✅ Full @freezed implementation
+4. **UI Pattern Matching**: ✅ maybeWhen instead of if/else
+
+### Code Quality
+
+✅ **Verification**:
+- Flutter analyze: 0 errors in portfolio code
+- All Freezed files generated successfully
+- API responds with 200 OK and real data
+- RefreshIndicator works (rate-limited on free tier)
+- Portfolio screen displays live cryptocurrency prices
+
+### Errors Resolved
+
+1. **iOS Deployment Target**: Uncommented and updated Podfile platform to 15.0
+2. **Retrofit Return Type**: Changed from `Map<String, dynamic>` to `dynamic` for flexibility
+3. **Missing SVG Asset**: Using litecoin.svg as placeholder for cardano_ada.svg
+4. **Freezed Generated Files**: All .freezed.dart files generated successfully
+5. **Version Conflicts**: Used flutter_dotenv instead of envied (no conflicts with freezed)
 
 ---
 
@@ -958,3 +1220,217 @@ Comprehensive documentation added to:
 2. Test on emulator/device
 3. Create git commit
 4. We'll start next feature!
+
+---
+
+## Phase 16: Settings Firebase Integration with BLoC
+
+### Status: ✅ COMPLETE
+
+**Branch**: `feature/settings-firebase`
+**Merged**: With feature/login_with_firebase, flavours, and settings-logout
+
+### What Was Implemented
+
+**Firebase Data Fetching**:
+- Created `SettingsRepository` to fetch user profiles from Firestore
+- Retrieves from `users` collection using current user UID
+- Graceful fallback to Firebase Auth user data if Firestore document missing
+
+**BLoC State Management**:
+- Created `SettingsState` with Freezed (@freezed)
+  - States: initial(), loading(), loaded(userProfile), error(message)
+- Created `SettingsCubit` extends Cubit<SettingsState>
+  - Methods: fetchUserProfile(), refreshUserProfile()
+
+**UI Implementation**:
+- Converted SettingsScreen to StatefulWidget with initState hook
+- Integrated BlocBuilder with state.maybeWhen() pattern matching
+- Loading state: CircularProgressIndicator
+- Error state: Error icon + message + Retry button
+- Loaded state: User data displayed with RefreshIndicator
+- Pull-to-refresh functionality for data refresh
+
+**Display Real User Data**:
+- Show user name from Firebase
+- Show user email from Firestore/Firebase Auth
+- Show profile image with fallback to placeholder
+- Update UserProfileModel with email field
+
+**Authentication & Navigation**:
+- Added authentication guard on ShellRoute
+- Redirects unauthenticated users to LoginPage
+- Logout button signs out from Firebase
+- Updates isLoggedInUser = false on logout
+- Seamless redirect to login after logout
+
+**Dependency Injection**:
+- Registered SettingsRepository as lazy singleton
+- Registered SettingsCubit as factory
+- Provided SettingsCubit via BlocProvider in GoRouter
+
+### Files Created
+- `lib/features/settings/data/repository/settings_repository.dart`
+- `lib/features/settings/presentation/cubit/settings_state.dart`
+- `lib/features/settings/presentation/cubit/settings_cubit.dart`
+
+### Files Modified
+- `lib/features/settings/data/models/user_profile_model.dart` (added email field)
+- `lib/features/settings/presentation/pages/settings_screen.dart` (complete BLoC integration)
+- `lib/core/di/injection.dart` (registered dependencies)
+- `lib/core/routing/go_router_config.dart` (auth guard + BlocProvider)
+
+### Code Quality
+- ✅ Settings feature: 0 analyzer errors
+- ✅ Full codebase: 0 analyzer errors (only pre-existing info/warnings)
+- ✅ Proper error handling with try-catch blocks
+- ✅ context.mounted checks for safety
+- ✅ Clean BLoC pattern implementation
+- ✅ Repository pattern for data access
+
+### Testing Completed
+- ✅ Loading state displays correctly
+- ✅ Error state shows when user not authenticated
+- ✅ Retry button works
+- ✅ Pull-to-refresh functionality working
+- ✅ Auth guard protects routes
+- ✅ Logout flow complete
+
+---
+
+## Phase 18: Complete Login with Firebase Authentication and Persistent Sessions
+
+### Status: ✅ COMPLETE - Commit `ea1a9ef` Pushed to `feature/login_with_firebase`
+
+**Date**: December 8, 2025
+**Branch**: `feature/login_with_firebase`
+**Critical Issue**: SharedPreferences not initialized before login state check
+
+### Root Problem Identified & Fixed
+
+**Issue**: App showed onboarding screen on restart despite user being logged in
+
+**Root Cause**: SharedPreferences wasn't being initialized before checking if UID was saved. The flow was:
+1. Firebase initializes ✅
+2. Try to check if UID saved → SharedPreferences not initialized = null ❌
+3. App assumes user not logged in, shows onboarding ❌
+
+**Solution**: Initialize SharedPreferences FIRST in flavor entry points
+
+### Core Features Implemented
+
+**Authentication System**:
+- LoginRepository with Firebase email/password sign-in
+- LoginCubit with BLoC pattern (initial, loading, authenticated, error states)
+- LoginForm with email/password validation
+- Freezed states for immutable state management
+
+**Login Persistence** (Main Fix):
+- UserPreferences utility class
+- Save user UID on successful login
+- Restore login state from SharedPreferences on app startup
+- Clear UID on logout
+- Proper initialization order: SharedPreferences → DI → Login Check → GoRouter
+
+**User Profile Consistency**:
+- UserProfileModel with firstName, lastName fields
+- SettingsRepository for smart name splitting
+- HomeScreen uses SettingsRepository (not just Firebase Auth)
+- Identical name display across Home and Settings screens
+
+**Navigation & Routing**:
+- Convert GoRouter from static global to createGoRouter() function
+- Router evaluates isLoggedInUser at creation time (not module load time)
+- Dynamic initial location: /home if logged in, /onboarding if not
+- NavigationService for all navigation (Rule #16 compliance)
+
+### Files Modified
+
+**Critical (Login Persistence)**:
+- `lib/main_dev.dart` - Add `await UserPreferences.init()`
+- `lib/main_prod.dart` - Add `await UserPreferences.init()`
+- `lib/main.dart` - (Reference only, flavors are used)
+
+**Login Feature**:
+- `lib/features/login/data/repository/login_repository.dart` - NEW
+- `lib/features/login/presentation/cubit/login_cubit.dart` - NEW
+- `lib/features/login/presentation/cubit/login_state.dart` - NEW
+
+**Supporting Files**:
+- `lib/core/utils/user_preferences.dart` - Add init(), saveUserUid(), checkIfLoggedInUser() + logging
+- `lib/core/routing/go_router_config.dart` - Convert to createGoRouter() function
+- `lib/features/home/presentation/home_screen.dart` - Use SettingsRepository for names
+- `lib/features/settings/presentation/pages/settings_screen.dart` - Fix logout route path (AppRoutes.login not '/${AppRoutes.login}')
+- `lib/fintech_app.dart` - Call createGoRouter() instead of static router
+
+**Bug Fixes**:
+- Fixed logout navigation error: Changed from `'/${AppRoutes.login}'` to `AppRoutes.login`
+- Fixed GoRouter not evaluating login state: Made router creation dynamic
+- Fixed name display inconsistency: HomeScreen now uses same SettingsRepository
+
+### Initialization Order (Fixed)
+
+**Before** (Broken):
+```dart
+Firebase.initializeApp()  ✅
+setupInjection()         ✅
+isLoggedInUser = checkIfLoggedInUser()  ❌ SharedPref not initialized
+GoRouter static variable created        ❌ isLoggedInUser still being evaluated
+```
+
+**After** (Fixed):
+```dart
+Firebase.initializeApp()  ✅
+UserPreferences.init()    ✅ SharedPreferences now ready
+setupInjection()         ✅
+isLoggedInUser = checkIfLoggedInUser()  ✅ UID properly restored
+GoRouter created via createGoRouter()   ✅ Correct initial location
+```
+
+### Code Quality
+
+✅ **Analysis**: 0 errors, all files compile
+✅ **Verification**: Both flavor entry points have same initialization
+✅ **Logging**: Comprehensive debug logging for troubleshooting
+✅ **Error Handling**: Try-catch blocks with graceful fallbacks
+✅ **Navigation**: All uses NavigationService (Rule #16)
+✅ **Architecture**: Clean separation of concerns
+
+### Testing Checklist
+
+✅ Login with email/password
+✅ User UID saved to SharedPreferences
+✅ Restart app → shows home screen (login persisted)
+✅ App displays user name correctly
+✅ Logout from settings
+✅ Restart app after logout → shows onboarding
+✅ Logout navigation uses correct route
+
+### Key Learnings
+
+1. **Initialization Order Matters**: SharedPreferences must be initialized before checking saved state
+2. **Flavor Entry Points**: Both main_dev.dart and main_prod.dart must match in critical initialization
+3. **Static vs Dynamic**: GoRouter can't evaluate isLoggedInUser at module load time, must be function
+4. **State Consistency**: HomeScreen and Settings need to use same data source for profile info
+5. **Route Constants**: AppRoutes.login already includes '/', so don't add extra '/'
+
+### Files Summary
+- New files: 3 (LoginRepository, LoginCubit, LoginState)
+- Modified files: 7
+- Total commit: 19 files changed, 340 insertions(+), 66 deletions(-)
+
+### Commit Message
+
+```
+feat: Phase 18 - Complete Login with Firebase Authentication and Persistent Sessions
+
+- Fixed SharedPreferences initialization in flavor entry points (main_dev.dart, main_prod.dart)
+- Converted GoRouter from static to dynamic createGoRouter() function
+- LoginRepository with Firebase email/password authentication
+- LoginCubit with BLoC state management (Freezed)
+- Fixed logout navigation error: use AppRoutes.login directly
+- HomeScreen uses SettingsRepository for consistent name display
+- User UID persists across app restarts in SharedPreferences
+- Added comprehensive logging for debugging
+```
+

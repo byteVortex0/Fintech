@@ -3,12 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
 import '../../../login/presentation/widgets/curved_background.dart';
 
-/// Fingerprint verification success confirmation
 class SetFingerprintVerifiedPage extends StatelessWidget {
   const SetFingerprintVerifiedPage({super.key});
 
   void _handleContinue(BuildContext context) =>
-      NavigationService.navigateToAndRemoveUntil(context, '/login');
+      NavigationService.navigateToAndRemoveUntil(context, '/set_face_id');
 
   @override
   Widget build(BuildContext context) {

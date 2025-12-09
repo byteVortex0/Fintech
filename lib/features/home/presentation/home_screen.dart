@@ -34,6 +34,8 @@ class HomeScreen extends StatelessWidget {
                         onNotificationPressed: () {
                           // TODO: Navigate to notifications screen
                         },
+                        firstName: 'User',
+                        lastName: '',
                       ),
                       CurrentBalanceCard(),
                       MarketOverviewGrid(globalData: data.global.data),

@@ -3,7 +3,8 @@ sealed class ApiEndpoints {
   static const String baseUrl = "https://api.coingecko.com/api/v3/";
   static const String coinsMarkets = "coins/markets";
   static const String coinDetails = "coins/{id}";
-
   static const String global = "global";
   static const String searchTrending = "search/trending";
+  static const String holdingsPrices = "simple/price";
+  static const String search = "search";
 }
