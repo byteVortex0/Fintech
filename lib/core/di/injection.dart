@@ -1,12 +1,18 @@
-import 'package:fintech/features/coin_details/data/repos/get_coin_details_repo.dart';
+import 'package:fintech/features/coin_details/data/repos/coin_details_repo.dart';
+import 'package:fintech/features/coin_details/data/repos/coin_details_repo_impl.dart';
 import 'package:fintech/core/service/firebase/firebase_service.dart';
 import 'package:fintech/features/market/data/repo/market_coins_impl.dart';
 import 'package:fintech/features/register/data/repos/register_repo.dart';
 import 'package:fintech/features/register/logic/register_cubit.dart';
 import 'package:fintech/features/login/data/repository/login_repository.dart';
+import 'package:fintech/features/login/data/repository/biometric_repository.dart';
+import 'package:fintech/features/login/data/services/biometric_enrollment_service.dart';
 import 'package:fintech/features/login/presentation/cubit/login_cubit.dart';
+import 'package:fintech/features/login/presentation/cubit/biometric_cubit.dart';
+import 'package:fintech/features/login/presentation/cubit/auto_login_cubit.dart';
 import 'package:get_it/get_it.dart';
-import '../../features/coin_details/presentation/logic/cubit/get_coin_details_cubit.dart';
+import '../../features/coin_details/presentation/logic/chart_cubit/chart_cubit.dart';
+import '../../features/coin_details/presentation/logic/coin_details_cubit/coin_details_cubit.dart';
 import '../../features/market/data/repo/market_coins_repo.dart';
 import '../../features/market/presentation/logic/cubit/market_coins_cubit.dart';
 import '../service/api/api_service.dart';
@@ -47,8 +53,24 @@ void _initCore() {
   sl.registerLazySingleton<LoginRepository>(() => LoginRepository());
 
   // Login Cubit
-  sl.registerFactory<LoginCubit>(
-    () => LoginCubit(sl<LoginRepository>()),
+  sl.registerFactory<LoginCubit>(() => LoginCubit(sl<LoginRepository>()));
+
+  // Biometric Repository
+  sl.registerLazySingleton<BiometricRepository>(() => BiometricRepository());
+
+  // Biometric Cubit
+  sl.registerFactory<BiometricCubit>(
+    () => BiometricCubit(sl<BiometricRepository>()),
+  );
+
+  // Biometric Enrollment Service
+  sl.registerLazySingleton<BiometricEnrollmentService>(
+    () => BiometricEnrollmentService(),
+  );
+
+  // Auto Login Cubit
+  sl.registerFactory<AutoLoginCubit>(
+    () => AutoLoginCubit(sl<BiometricEnrollmentService>()),
   );
 
   // Portfolio Repository
@@ -62,9 +84,7 @@ void _initCore() {
   );
 
   // Settings Repository
-  sl.registerLazySingleton<SettingsRepository>(
-    () => SettingsRepository(),
-  );
+  sl.registerLazySingleton<SettingsRepository>(() => SettingsRepository());
 
   // Settings Cubit
   sl.registerFactory<SettingsCubit>(
@@ -72,9 +92,7 @@ void _initCore() {
   );
 
   // Home Cubit
-  sl.registerFactory<HomeCubit>(
-    () => HomeCubit(sl<SettingsRepository>()),
-  );
+  sl.registerFactory<HomeCubit>(() => HomeCubit(sl<SettingsRepository>()));
 }
 
 void marketCoins() {
@@ -85,8 +103,9 @@ void marketCoins() {
 
 void coinsDetails() {
   sl
-    ..registerLazySingleton<GetCoinDetailsRepo>(() => GetCoinDetailsRepo(sl()))
-    ..registerFactory<GetCoinDetailsCubit>(() => GetCoinDetailsCubit(sl()));
+    ..registerLazySingleton<CoinDetailsRepo>(() => CoinDetailsRepoImpl(sl()))
+    ..registerFactory<CoinDetailsCubit>(() => CoinDetailsCubit(sl()))
+    ..registerFactory<ChartCubit>(() => ChartCubit(coinDetailsRepo: sl()));
 }
 
 void registerFeature() {

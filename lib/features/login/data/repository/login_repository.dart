@@ -38,8 +38,7 @@ class LoginRepository {
       'wrong-password' => 'Incorrect password. Please try again.',
       'invalid-email' => 'Please enter a valid email address.',
       'user-disabled' => 'This account has been disabled.',
-      'too-many-requests' =>
-        'Too many login attempts. Please try again later.',
+      'too-many-requests' => 'Too many login attempts. Please try again later.',
       'network-request-failed' =>
         'Network error. Please check your connection.',
       _ => 'Login failed: ${e.message ?? e.code}',

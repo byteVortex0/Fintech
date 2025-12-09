@@ -1,0 +1,55 @@
+name: Build & Deploy to Firebase Distribution
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    # Requires GitHub Secrets: FIREBASE_SERVICE_ACCOUNT_KEY, FIREBASE_APP_ID
+    # Configure in: Settings → Secrets and variables → Actions
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+          cache-key: "flutter-${{ runner.os }}-${{ hashFiles('**/pubspec.lock') }}"
+          cache-path: "${{ runner.tool_cache }}/flutter"
+
+      - name: Fetch dependencies
+        run: flutter pub get
+
+      - name: Generate necessary code
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+      - name: Build APK
+        run: flutter build apk --release --split-per-abi
+
+      - name: Upload to Firebase App Distribution
+        continue-on-error: true
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }} # yamllint disable-line rule:truthy
+          appId: ${{ secrets.FIREBASE_APP_ID }} # yamllint disable-line rule:truthy
+          file: build/app/outputs/apk/release/app-arm64-v8a-release.apk
+          releaseNotes: |
+            New build from develop branch
+            Commit: ${{ github.sha }}
+            Author: ${{ github.actor }}
+          groups: testers
+
+      - name: Build Summary
+        if: always()
+        run: |
+          echo "✅ APK built successfully!"
+          echo "📦 APK: build/app/outputs/apk/release/app-arm64-v8a-release.apk"
+          echo "📤 Firebase Distribution deployment ready"
+          echo "👥 Configure GitHub Secrets to enable automatic uploads"
+          echo ""
+          echo "Setup Guide:"
+          echo "1. Go to: GitHub Repo → Settings → Secrets and variables → Actions"
+          echo "2. Add: FIREBASE_SERVICE_ACCOUNT_KEY (JSON credentials)"
+          echo "3. Add: FIREBASE_APP_ID (from Firebase Console)"

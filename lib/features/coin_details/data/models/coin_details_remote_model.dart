@@ -9,6 +9,7 @@ abstract class CoinDetailsRemoteModel with _$CoinDetailsRemoteModel {
     required String id,
     required String symbol,
     required String name,
+    // ignore: invalid_annotation_target
     @JsonKey(name: 'market_data') required Map<String, dynamic> marketData,
     required Map<String, dynamic> description,
     required Map<String, dynamic> image,
