@@ -6,6 +6,7 @@ sealed class LightColorManager {
   static const Color screenBackground = Color(0xFFF5F8FE);
   static const Color scaffoldBackground = Color(0xFFF8F9FA);
   static const Color borderColor = Color(0xFF5E5E5E);
+  static const Color chartsColor = Color(0xFF1E1F4B);
 }
 
 sealed class DarkColorManager {

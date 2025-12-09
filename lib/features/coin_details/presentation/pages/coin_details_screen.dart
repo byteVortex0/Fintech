@@ -6,10 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
 import 'package:fintech/core/routes/app_routes.dart';
-import 'package:fintech/core/utils/svg_icon_manager.dart';
 import 'package:fintech/shared/widgets/app_back_button.dart';
-import '../../data/models/coin_details_model.dart';
-import '../logic/cubit/get_coin_details_cubit.dart';
+import '../logic/chart_cubit/chart_cubit.dart';
+import '../logic/coin_details_cubit/coin_details_cubit.dart';
 import '../widgets/coin_header_section.dart';
 import '../widgets/price_card_widget.dart';
 import '../widgets/chart_section_widget.dart';
@@ -25,16 +24,23 @@ class CoinDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) =>
-          sl<GetCoinDetailsCubit>()..getCoinDetails(coinId: id),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => sl<ChartCubit>()..fetchChart(coinId: id),
+        ),
+        BlocProvider(
+          create: (context) =>
+              sl<CoinDetailsCubit>()..getCoinDetails(coinId: id),
+        ),
+      ],
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: SafeArea(
           child: Column(
             children: [
               _buildHeader(context),
-              BlocBuilder<GetCoinDetailsCubit, GetCoinDetailsState>(
+              BlocBuilder<CoinDetailsCubit, CoinDetailsState>(
                 builder: (context, state) {
                   return state.when(
                     loading: () {
@@ -59,7 +65,7 @@ class CoinDetailsScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    loaded: (coinDetailsData) {
+                    loaded: (coinDetailsData, chartPrices) {
                       return Expanded(
                         child: SingleChildScrollView(
                           padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -79,14 +85,7 @@ class CoinDetailsScreen extends StatelessWidget {
                                 isPositive: coinDetailsData.isPositive,
                               ),
                               SizedBox(height: 20.h),
-                              ChartSectionWidget(
-                                selectedPeriod: '1D',
-                                onPeriodSelected: (period) {
-                                  // setState(() {
-                                  //   selectedTimePeriod = period;
-                                  // });
-                                },
-                              ),
+                              ChartSectionWidget(id: id),
                               SizedBox(height: 24.h),
                               StatisticsSection(
                                 currentPrice: coinDetailsData.currentPrice,
