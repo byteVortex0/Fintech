@@ -7,8 +7,11 @@ part 'market_coin_response.g.dart';
 abstract class MarketCoinResponse with _$MarketCoinResponse {
   const factory MarketCoinResponse({
     required String id,
+    // ignore: invalid_annotation_target
     @JsonKey(name: 'name') required String name,
+    // ignore: invalid_annotation_target
     @JsonKey(name: 'market_cap_rank', defaultValue: 0) int? rank,
+    // ignore: invalid_annotation_target
     @JsonKey(
       name: 'current_price',
       fromJson: _doubleFromJson,
@@ -16,6 +19,7 @@ abstract class MarketCoinResponse with _$MarketCoinResponse {
       defaultValue: 0.0,
     )
     double? price,
+    // ignore: invalid_annotation_target
     @JsonKey(
       name: 'price_change_percentage_24h',
       fromJson: _doubleFromJson,
@@ -23,6 +27,7 @@ abstract class MarketCoinResponse with _$MarketCoinResponse {
       defaultValue: 0.0,
     )
     double? changePercent,
+    // ignore: invalid_annotation_target
     @JsonKey(name: 'image', defaultValue: '') required String image,
   }) = _MarketCoinResponse;
 

@@ -6,10 +6,7 @@ import 'package:fintech/features/settings/data/models/user_profile_model.dart';
 class ProfileSection extends StatelessWidget {
   final UserProfileModel userProfile;
 
-  const ProfileSection({
-    super.key,
-    required this.userProfile,
-  });
+  const ProfileSection({super.key, required this.userProfile});
 
   @override
   Widget build(BuildContext context) {

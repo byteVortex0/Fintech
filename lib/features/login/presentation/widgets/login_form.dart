@@ -42,6 +42,12 @@ class _LoginFormState extends State<LoginForm> {
     super.dispose();
   }
 
+  /// Get current email from form
+  String get currentEmail => _emailController.text;
+
+  /// Get current password from form
+  String get currentPassword => _passwordController.text;
+
   @override
   Widget build(BuildContext context) {
     return Column(

@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fintech/core/di/injection.dart';
@@ -6,27 +8,237 @@ import 'package:fintech/core/navigation/navigation_service.dart';
 import 'package:fintech/core/routes/app_routes.dart';
 import 'package:fintech/features/login/presentation/cubit/login_cubit.dart';
 import 'package:fintech/features/login/presentation/cubit/login_state.dart';
+import 'package:fintech/features/login/presentation/pages/touch_id_scanning_page.dart';
+import 'package:fintech/features/login/presentation/pages/face_id_scanning_page.dart';
+import 'package:fintech/features/login/data/services/biometric_enrollment_service.dart';
+import 'package:fintech/core/utils/user_preferences.dart' show UserPreferences;
 import '../widgets/curved_background.dart';
 import '../widgets/login_form.dart';
 import '../widgets/social_login_section.dart';
+import '../widgets/biometric_enrollment_dialog.dart';
 
 /// Main login screen - Authentication entry point for existing users
 /// Integrates BLoC for Firebase authentication
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
-  void _navigateToFaceId(BuildContext context) =>
-      NavigationService.navigateTo(context, '/face_id_scanning');
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
 
-  void _navigateToFingerprint(BuildContext context) =>
-      NavigationService.navigateTo(context, '/touch_id_scanning');
+class _LoginPageState extends State<LoginPage> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  String _lastLoginEmail = '';
+  String _lastLoginPassword = '';
+
+  void _navigateToFaceId(BuildContext context) async {
+    if (kDebugMode) {
+      debugPrint('[LoginPage] _navigateToFaceId START');
+    }
+    // Capture context references before async operations
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    final navigator = Navigator.of(context);
+
+    // Try to load stored biometric credentials first
+    var email = await UserPreferences.getBiometricEmail() ?? '';
+    var password = await UserPreferences.getBiometricPassword() ?? '';
+
+    if (kDebugMode) {
+      debugPrint(
+        '[LoginPage] _navigateToFaceId - Loaded credentials - email: $email, password: ${password.isNotEmpty}',
+      );
+    }
+
+    // If no stored credentials, try form fields
+    if (email.isEmpty) {
+      final formState = _formKey.currentState as dynamic;
+      email = formState?.currentEmail ?? '';
+      password = formState?.currentPassword ?? '';
+      if (kDebugMode) {
+        debugPrint(
+          '[LoginPage] _navigateToFaceId - Using form credentials - email: $email, password: ${password.isNotEmpty}',
+        );
+      }
+    }
+
+    if (email.isEmpty) {
+      if (kDebugMode) {
+        debugPrint(
+          '[LoginPage] _navigateToFaceId - NO CREDENTIALS FOUND - showing error',
+        );
+      }
+      if (mounted) {
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text(
+              '📱 No stored credentials found.\n\nSteps to enable:\n1. Login with email & password\n2. Tap "Enable" (not Skip)\n3. Logout\n4. Try Face ID again',
+            ),
+            duration: Duration(seconds: 5),
+          ),
+        );
+      }
+      return;
+    }
+
+    if (kDebugMode) {
+      debugPrint(
+        '[LoginPage] _navigateToFaceId - Navigating to FaceIdScanningPage',
+      );
+    }
+    if (mounted) {
+      navigator.push(
+        MaterialPageRoute(
+          builder: (context) =>
+              FaceIdScanningPage(email: email, password: password),
+        ),
+      );
+    }
+  }
+
+  void _navigateToFingerprint(BuildContext context) async {
+    if (kDebugMode) {
+      debugPrint('[LoginPage] _navigateToFingerprint START');
+    }
+    // Capture context references before async operations
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    final navigator = Navigator.of(context);
+
+    // Try to load stored biometric credentials first
+    var email = await UserPreferences.getBiometricEmail() ?? '';
+    var password = await UserPreferences.getBiometricPassword() ?? '';
+
+    if (kDebugMode) {
+      debugPrint(
+        '[LoginPage] _navigateToFingerprint - Loaded credentials - email: $email, password: ${password.isNotEmpty}',
+      );
+    }
+
+    // If no stored credentials, try form fields
+    if (email.isEmpty) {
+      final formState = _formKey.currentState as dynamic;
+      email = formState?.currentEmail ?? '';
+      password = formState?.currentPassword ?? '';
+      if (kDebugMode) {
+        debugPrint(
+          '[LoginPage] _navigateToFingerprint - Using form credentials - email: $email, password: ${password.isNotEmpty}',
+        );
+      }
+    }
+
+    if (email.isEmpty) {
+      if (kDebugMode) {
+        debugPrint(
+          '[LoginPage] _navigateToFingerprint - NO CREDENTIALS FOUND - showing error',
+        );
+      }
+      if (mounted) {
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text(
+              '📱 No stored credentials found.\n\nSteps to enable:\n1. Login with email & password\n2. Tap "Enable" (not Skip)\n3. Logout\n4. Try Face ID again',
+            ),
+          ),
+        );
+      }
+      return;
+    }
+
+    if (kDebugMode) {
+      debugPrint(
+        '[LoginPage] _navigateToFingerprint - Navigating to TouchIdScanningPage',
+      );
+    }
+    if (mounted) {
+      navigator.push(
+        MaterialPageRoute(
+          builder: (context) =>
+              TouchIdScanningPage(email: email, password: password),
+        ),
+      );
+    }
+  }
 
   void _handleForgotPassword(BuildContext context) {
     // TODO: Navigate to forgot password page
   }
 
   void _navigateToRegister(BuildContext context) =>
-      NavigationService.navigateTo(context, '/register');
+      NavigationService.navigateTo(context, AppRoutes.register);
+
+  void _showBiometricEnrollmentDialog(
+    BuildContext context,
+    String email,
+    String password,
+  ) {
+    if (kDebugMode) {
+      debugPrint(
+        '[LoginPage] _showBiometricEnrollmentDialog called - email: $email, password: ${password.isNotEmpty}',
+      );
+    }
+    final navigatorContext = context;
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) => BiometricEnrollmentDialog(
+        onEnroll: () async {
+          if (kDebugMode) {
+            debugPrint(
+              '[LoginPage] BiometricEnrollmentDialog onEnroll called - email: $email, password: ${password.isNotEmpty}',
+            );
+          }
+          if (!mounted) return;
+          Navigator.pop(dialogContext);
+          final enrollmentService = BiometricEnrollmentService();
+          await enrollmentService.enrollBiometric(
+            email: email,
+            password: password,
+          );
+          if (mounted) {
+            // ignore: use_build_context_synchronously
+            ScaffoldMessenger.of(navigatorContext).showSnackBar(
+              const SnackBar(
+                content: Text('Biometric login enabled successfully'),
+              ),
+            );
+          }
+          if (mounted) {
+            // ignore: use_build_context_synchronously
+            unawaited(
+              Future.microtask(() {
+                // ignore: use_build_context_synchronously
+                NavigationService.navigateToAndRemoveUntil(
+                  // ignore: use_build_context_synchronously
+                  navigatorContext,
+                  AppRoutes.home,
+                );
+                return null;
+              }),
+            );
+          }
+        },
+        onSkip: () {
+          if (kDebugMode) {
+            debugPrint('[LoginPage] BiometricEnrollmentDialog onSkip called');
+          }
+          Navigator.pop(dialogContext);
+          if (mounted) {
+            // ignore: use_build_context_synchronously
+            unawaited(
+              Future.microtask(() {
+                // ignore: use_build_context_synchronously
+                NavigationService.navigateToAndRemoveUntil(
+                  // ignore: use_build_context_synchronously
+                  navigatorContext,
+                  AppRoutes.home,
+                );
+                return null;
+              }),
+            );
+          }
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +248,23 @@ class LoginPage extends StatelessWidget {
         listener: (context, state) {
           state.maybeWhen(
             authenticated: (_) {
-              // Navigate to home on successful login
-              NavigationService.navigateToAndRemoveUntil(context, AppRoutes.home);
+              if (kDebugMode) {
+                debugPrint(
+                  '[LoginPage] authenticated state - using stored credentials - email: $_lastLoginEmail, password: ${_lastLoginPassword.isNotEmpty}',
+                );
+              }
+              // Show biometric enrollment dialog after successful login
+              _showBiometricEnrollmentDialog(
+                context,
+                _lastLoginEmail,
+                _lastLoginPassword,
+              );
             },
             error: (message) {
               // Show error message
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(message)),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(message)));
             },
             orElse: () {},
           );
@@ -65,7 +286,16 @@ class LoginPage extends StatelessWidget {
                             _buildHeader(),
                             SizedBox(height: 48.h),
                             LoginForm(
+                              key: _formKey,
                               onLoginPressed: (email, password) {
+                                // Store credentials for biometric enrollment
+                                _lastLoginEmail = email;
+                                _lastLoginPassword = password;
+                                if (kDebugMode) {
+                                  debugPrint(
+                                    '[LoginPage] onLoginPressed - storing credentials - email: $email, password: ${password.isNotEmpty}',
+                                  );
+                                }
                                 context.read<LoginCubit>().login(
                                   email: email,
                                   password: password,

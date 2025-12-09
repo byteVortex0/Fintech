@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:fintech/core/di/injection.dart';
 import 'package:fintech/features/market/data/mapper/coin_mapper.dart';

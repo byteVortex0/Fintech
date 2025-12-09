@@ -8,11 +8,9 @@ class SettingsRepository {
   final FirebaseFirestore _firestore;
   final FirebaseAuth _auth;
 
-  SettingsRepository({
-    FirebaseFirestore? firestore,
-    FirebaseAuth? auth,
-  })  : _firestore = firestore ?? FirebaseFirestore.instance,
-        _auth = auth ?? FirebaseAuth.instance;
+  SettingsRepository({FirebaseFirestore? firestore, FirebaseAuth? auth})
+    : _firestore = firestore ?? FirebaseFirestore.instance,
+      _auth = auth ?? FirebaseAuth.instance;
 
   /// Get current user profile from Firestore
   /// Fetches data from users collection using current user's UID
@@ -23,8 +21,10 @@ class SettingsRepository {
         throw Exception('User not authenticated');
       }
 
-      final userDoc =
-          await _firestore.collection('users').doc(currentUser.uid).get();
+      final userDoc = await _firestore
+          .collection('users')
+          .doc(currentUser.uid)
+          .get();
 
       if (!userDoc.exists) {
         // Return default profile if document doesn't exist
@@ -40,12 +40,14 @@ class SettingsRepository {
 
       // Map Firestore document to UserProfileModel
       final data = userDoc.data();
-      final displayName = data?['firstName'] ?? currentUser.displayName ?? 'User';
+      final displayName =
+          data?['firstName'] ?? currentUser.displayName ?? 'User';
       final lastName = data?['lastName'] ?? '';
       return UserProfileModel(
         firstName: displayName,
         lastName: lastName,
-        profileImagePath: data?['profileImagePath'] ?? currentUser.photoURL ?? '',
+        profileImagePath:
+            data?['profileImagePath'] ?? currentUser.photoURL ?? '',
         email: data?['email'] ?? currentUser.email ?? '',
       );
     } catch (e) {
