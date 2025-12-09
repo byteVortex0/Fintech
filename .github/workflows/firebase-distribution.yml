@@ -1,0 +1,50 @@
+name: Build & Deploy to Firebase Distribution
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout code
+      - uses: actions/checkout@v4
+
+      # Setup Flutter
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.27.0'
+          cache: true
+
+      # Install dependencies
+      - name: Install Flutter dependencies
+        run: |
+          flutter clean
+          flutter pub get
+
+      # Build APK
+      - name: Build APK
+        run: flutter build apk --release --split-per-abi
+
+      # Upload to Firebase App Distribution
+      - name: Upload to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          file: build/app/outputs/apk/release/app-arm64-v8a-release.apk
+          releaseNotes: |
+            New build from develop branch
+            Commit: ${{ github.sha }}
+            Author: ${{ github.actor }}
+          groups: testers
+
+      # Create summary
+      - name: Build Summary
+        run: |
+          echo "✅ APK built successfully!"
+          echo "📦 APK: build/app/outputs/apk/release/app-arm64-v8a-release.apk"
+          echo "📤 Uploaded to Firebase Distribution"
+          echo "👥 Testers will receive notification"
