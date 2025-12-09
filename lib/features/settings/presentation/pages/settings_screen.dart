@@ -47,10 +47,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               // Trigger logout logic in Cubit
               context.read<SettingsCubit>().logout();
             },
-            child: const Text(
-              'Logout',
-              style: TextStyle(color: Colors.red),
-            ),
+            child: const Text('Logout', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),
@@ -58,9 +55,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Widget _buildLoadingState() {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
+    return Center(child: CircularProgressIndicator());
   }
 
   Widget _buildErrorState(String message) {
@@ -114,7 +109,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           state.maybeWhen(
             logoutSuccess: () {
               // Navigate to login on successful logout
-              NavigationService.navigateToAndRemoveUntil(context, AppRoutes.login);
+              NavigationService.navigateToAndRemoveUntil(
+                context,
+                AppRoutes.login,
+              );
             },
             logoutError: (message) {
               // Show error message on logout failure
@@ -132,18 +130,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
               loading: () => _buildLoadingState(),
               logoutLoading: () => _buildLoadingState(),
               loaded: (userProfile) => RefreshIndicator(
-                onRefresh: () => context.read<SettingsCubit>().refreshUserProfile(),
+                onRefresh: () =>
+                    context.read<SettingsCubit>().refreshUserProfile(),
                 child: SafeArea(
                   child: SingleChildScrollView(
                     padding: EdgeInsets.all(24.w),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Center(
-                          child: ProfileSection(
-                            userProfile: userProfile,
-                          ),
-                        ),
+                        Center(child: ProfileSection(userProfile: userProfile)),
                         SizedBox(height: 16.h),
                         Center(
                           child: Text(

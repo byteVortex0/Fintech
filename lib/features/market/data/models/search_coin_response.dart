@@ -17,8 +17,10 @@ sealed class SearchCoin with _$SearchCoin {
   const factory SearchCoin({
     required String id,
     required String name,
+    // ignore: invalid_annotation_target
     @JsonKey(name: 'api_symbol') required String apiSymbol,
     required String symbol,
+    // ignore: invalid_annotation_target
     @JsonKey(name: 'market_cap_rank') int? marketCapRank,
     required String thumb,
     required String large,

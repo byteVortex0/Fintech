@@ -7,4 +7,5 @@ sealed class ApiEndpoints {
   static const String searchTrending = "search/trending";
   static const String holdingsPrices = "simple/price";
   static const String search = "search";
+  static const String chart = "coins/{id}/market_chart";
 }

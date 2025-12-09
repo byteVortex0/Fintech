@@ -1,9 +1,12 @@
 {
-    "cSpell.words": [
-        "fintech"
-    ],
-    "flutterTools.displayGetxContextMenu": false,
-    "flutterTools.displayMobxContextMenu": false,
-    "flutterTools.displayRiverpodContextMenu": false,
-    "flutterTools.displayModularContextMenu": false
+  "cSpell.words": [
+    "fintech",
+    "pubspec",
+    "subosito",
+    "wzieba"
+],
+  "flutterTools.displayGetxContextMenu": false,
+  "flutterTools.displayMobxContextMenu": false,
+  "flutterTools.displayRiverpodContextMenu": false,
+  "flutterTools.displayModularContextMenu": false
 }

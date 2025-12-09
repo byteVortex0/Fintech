@@ -50,6 +50,8 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
   }
 
   Future<void> _authenticateFingerprint(BuildContext context) async {
+    // Capture navigator before async operations
+    final navigator = Navigator.of(context);
     String localError = '';
     bool navigate = false;
 
@@ -77,7 +79,7 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
 
     if (mounted) {
       if (navigate) {
-        Navigator.of(context).push(
+        navigator.push(
           AppRoutes.onGenerateRoute(
             RouteSettings(name: AppRoutes.setFingerprintVerified),
           )!,
@@ -182,7 +184,7 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.blue.withOpacity(0.3),
+                          color: Colors.blue.withValues(alpha: 0.3),
                           blurRadius: 30,
                           spreadRadius: 4,
                         ),
@@ -197,14 +199,14 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
                 ),
               );
             },
-       //   onTap: () => _handleFingerprintSet(context),
-          child: Icon(
-            Icons.fingerprint,
-            size: 180.sp,
-            color: Theme.of(context).iconTheme.color,
+            child: Icon(
+              Icons.fingerprint,
+              size: 180.sp,
+              color: Theme.of(context).iconTheme.color,
+            ),
           ),
         ),
-          ),  SizedBox(height: 48.h),
+        SizedBox(height: 48.h),
         SizedBox(
           width: double.infinity,
           child: Text(

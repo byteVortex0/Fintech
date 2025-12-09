@@ -9,5 +9,8 @@ class RegisterUserRequestBody {
 
   RegisterUserRequestBody({required this.email, required this.password});
 
+  factory RegisterUserRequestBody.fromJson(Map<String, dynamic> json) =>
+      _$RegisterUserRequestBodyFromJson(json);
+
   Map<String, dynamic> toJson() => _$RegisterUserRequestBodyToJson(this);
 }
