@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fintech/core/utils/color_manager.dart';
+
+import '../color_manager.dart';
 
 ThemeData get lightTheme => ThemeData(
   brightness: Brightness.light,

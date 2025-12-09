@@ -1,13 +1,13 @@
-import 'package:fintech/core/service/api/error/api_result.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../../../core/service/api/error/api_result.dart';
 import '../../../data/models/coins_chart_request.dart';
 import '../../../data/models/coins_chart_respose.dart';
 import '../../../data/repos/coin_details_repo.dart';
 
-part 'chart_state.dart';
 part 'chart_cubit.freezed.dart';
+part 'chart_state.dart';
 
 class ChartCubit extends Cubit<ChartState> {
   final CoinDetailsRepo coinDetailsRepo;

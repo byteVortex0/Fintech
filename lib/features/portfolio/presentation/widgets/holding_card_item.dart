@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fintech/features/portfolio/data/models/holding_model.dart';
+import '../../data/models/holding_model.dart';
 
 /// Individual cryptocurrency holding card showing value, percentage, and change
 class HoldingCardItem extends StatelessWidget {

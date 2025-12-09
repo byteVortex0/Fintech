@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fintech/core/utils/constants.dart';
-import 'package:fintech/core/utils/user_preferences.dart';
-import 'package:fintech/features/login/data/repository/login_repository.dart';
-import 'package:fintech/features/login/presentation/cubit/login_state.dart';
+import '../../../../core/utils/constants.dart';
+import '../../../../core/utils/user_preferences.dart';
+import '../../data/repository/login_repository.dart';
+import 'login_state.dart';
 
 /// LoginCubit handles user authentication via Firebase
 /// Manages login state and emits appropriate states

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/core/navigation/navigation_service.dart';
-import 'package:fintech/core/routing/app_routes.dart';
-import 'package:fintech/core/enums/coin.dart';
-import 'package:fintech/core/app/widgets/app_back_button.dart';
+import '../../../../core/navigation/navigation_service.dart';
+import '../../../../core/routing/app_routes.dart';
+import '../../../../core/enums/coin.dart';
+import '../../../../core/app/widgets/app_back_button.dart';
 import '../widgets/currency_input_section.dart';
 import '../widgets/exchange_rate_indicator.dart';
 import '../widgets/exchange_fee_card.dart';

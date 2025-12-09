@@ -1,5 +1,5 @@
-import 'package:fintech/core/utils/image_manager.dart';
-import 'package:fintech/core/navigation/navigation_service.dart';
+import '../../../../core/utils/image_manager.dart';
+import '../../../../core/navigation/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:fintech/core/di/injection.dart';
-import 'package:fintech/core/routing/app_routes.dart';
-import 'package:fintech/features/login/presentation/cubit/auto_login_cubit.dart';
-import 'package:fintech/features/login/presentation/cubit/auto_login_state.dart';
 import 'package:local_auth/local_auth.dart';
+
+import '../../../../core/di/injection.dart';
+import '../../../../core/routing/app_routes.dart';
+import '../cubit/auto_login_cubit.dart';
+import '../cubit/auto_login_state.dart';
 
 /// Splash screen that checks auto-login eligibility on app startup
 /// Navigates to appropriate screen based on auto-login status
@@ -21,7 +22,9 @@ class AutoLoginSplashPage extends StatelessWidget {
           state.maybeWhen(
             biometricRequired: (type) {
               // Navigate to biometric scanning without email/password
-              if (type == BiometricType.face) {
+              if (type == null) {
+                context.go(AppRoutes.login);
+              } else if (type == BiometricType.face) {
                 context.go(AppRoutes.faceIdScanning);
               } else {
                 context.go(AppRoutes.touchIdScanning);

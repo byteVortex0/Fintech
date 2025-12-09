@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:fintech/features/settings/data/models/user_profile_model.dart';
+import '../../data/models/user_profile_model.dart';
 
 part 'settings_state.freezed.dart';
 

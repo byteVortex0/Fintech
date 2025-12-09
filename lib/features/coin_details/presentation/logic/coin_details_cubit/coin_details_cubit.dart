@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:fintech/core/service/api/error/api_result.dart';
-import 'package:fintech/features/coin_details/data/repos/coin_details_repo.dart';
+import '../../../../../core/service/api/error/api_result.dart';
+import '../../../data/repos/coin_details_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

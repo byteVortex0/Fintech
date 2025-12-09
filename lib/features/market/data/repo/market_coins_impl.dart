@@ -1,8 +1,8 @@
-import 'package:fintech/core/service/api/error/api_result.dart';
-import 'package:fintech/features/market/data/models/market_coin_request.dart';
-import 'package:fintech/features/market/data/models/market_coin_response.dart';
-import 'package:fintech/features/market/data/models/search_coin_response.dart';
-import 'package:fintech/features/market/data/repo/market_coins_repo.dart';
+import '../../../../core/service/api/error/api_result.dart';
+import '../models/market_coin_request.dart';
+import '../models/market_coin_response.dart';
+import '../models/search_coin_response.dart';
+import 'market_coins_repo.dart';
 
 import '../../../../core/service/api/api_service.dart';
 import '../../../../core/service/api/error/error_model.dart';

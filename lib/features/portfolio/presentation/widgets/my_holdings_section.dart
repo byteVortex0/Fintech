@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/features/portfolio/data/models/holding_model.dart';
-import 'package:fintech/features/portfolio/presentation/widgets/holding_card_item.dart';
+import '../../data/models/holding_model.dart';
+import 'holding_card_item.dart';
 
 /// My Holdings section with title and list of cryptocurrency holdings
 class MyHoldingsSection extends StatelessWidget {

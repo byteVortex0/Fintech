@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/features/market/data/models/market_coin_response.dart';
+import '../../../market/data/models/market_coin_response.dart';
 import '../../data/models/coin_model.dart';
 import 'top_gainer_item.dart';
 

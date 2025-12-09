@@ -1,8 +1,8 @@
-import 'package:fintech/core/navigation/navigation_service.dart';
-import 'package:fintech/core/routing/app_routes.dart';
-import 'package:fintech/core/utils/color_manager.dart';
-import 'package:fintech/features/register/logic/register_cubit.dart';
-import 'package:fintech/features/register/logic/register_state.dart';
+import '../../../../core/navigation/navigation_service.dart';
+import '../../../../core/routing/app_routes.dart';
+import '../../../../core/utils/color_manager.dart';
+import '../../logic/register_cubit.dart';
+import '../../logic/register_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -1,8 +1,8 @@
-import 'package:fintech/core/utils/app_regex.dart';
+import '../../../../core/utils/app_regex.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/core/app/widgets/app_text_field.dart';
+import '../../../../core/app/widgets/app_text_field.dart';
 
 import '../../../../core/navigation/navigation_service.dart';
 import '../../../../core/routing/app_routes.dart';

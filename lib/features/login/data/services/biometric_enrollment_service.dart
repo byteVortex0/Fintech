@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:fintech/core/utils/user_preferences.dart';
+
+import '../../../../core/utils/user_preferences.dart';
 
 /// Service to manage biometric enrollment status for users
 /// Handles checking and updating whether user has enrolled for biometric login

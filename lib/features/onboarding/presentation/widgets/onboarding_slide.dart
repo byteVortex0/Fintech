@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../data/models/onboarding_item.dart';
-import 'package:fintech/core/utils/fonts/font_weight_helper.dart';
+import '../../../../core/utils/fonts/font_weight_helper.dart';
 
 /// OnboardingSlide - Individual slide widget for PageView carousel
 ///

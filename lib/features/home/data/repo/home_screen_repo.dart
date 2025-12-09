@@ -1,10 +1,10 @@
-import 'package:fintech/core/service/api/api_service.dart';
-import 'package:fintech/core/service/api/error/api_result.dart';
-import 'package:fintech/core/service/api/error/error_model.dart';
-import 'package:fintech/features/home/data/models/home_screen_response.dart';
-import 'package:fintech/features/home/data/models/global_response.dart';
-import 'package:fintech/features/home/data/models/trending_response.dart';
-import 'package:fintech/features/market/data/models/market_coin_response.dart';
+import '../../../../core/service/api/api_service.dart';
+import '../../../../core/service/api/error/api_result.dart';
+import '../../../../core/service/api/error/error_model.dart';
+import '../models/home_screen_response.dart';
+import '../models/global_response.dart';
+import '../models/trending_response.dart';
+import '../../../market/data/models/market_coin_response.dart';
 
 class HomeScreenRepo {
   final ApiService apiService;

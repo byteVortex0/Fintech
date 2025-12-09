@@ -1,7 +1,7 @@
-import 'package:fintech/features/login/presentation/widgets/curved_background.dart';
-import 'package:fintech/features/register/presentation/widgets/register_bloc_listener.dart';
-import 'package:fintech/features/register/presentation/widgets/register_form.dart';
-import 'package:fintech/features/register/presentation/widgets/register_header.dart';
+import '../../../login/presentation/widgets/curved_background.dart';
+import '../widgets/register_bloc_listener.dart';
+import '../widgets/register_form.dart';
+import '../widgets/register_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

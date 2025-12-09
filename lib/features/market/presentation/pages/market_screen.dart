@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:fintech/core/di/injection.dart';
-import 'package:fintech/features/market/data/mapper/coin_mapper.dart';
+import '../../../../core/di/injection.dart';
+import '../../data/mapper/coin_mapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

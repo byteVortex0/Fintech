@@ -1,6 +1,6 @@
-import 'package:fintech/core/service/api/error/api_result.dart';
-import 'package:fintech/features/home/data/models/home_screen_response.dart';
-import 'package:fintech/features/home/data/repo/home_screen_repo.dart';
+import '../../../../../core/service/api/error/api_result.dart';
+import '../../../data/models/home_screen_response.dart';
+import '../../../data/repo/home_screen_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/core/navigation/navigation_service.dart';
+import '../../../../core/navigation/navigation_service.dart';
 import '../../../login/presentation/widgets/curved_background.dart';
 
 class SetFingerprintVerifiedPage extends StatelessWidget {

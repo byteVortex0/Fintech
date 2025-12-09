@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/features/settings/data/models/user_profile_model.dart';
+import '../../data/models/user_profile_model.dart';
 
 /// Profile section with circular avatar and user name display
 class ProfileSection extends StatelessWidget {

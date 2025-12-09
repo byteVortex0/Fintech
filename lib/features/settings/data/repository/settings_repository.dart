@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fintech/features/settings/data/models/user_profile_model.dart';
+import '../models/user_profile_model.dart';
 
 /// Settings Repository for Firestore operations
 /// Handles fetching user profile data from Firestore

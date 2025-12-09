@@ -1,6 +1,6 @@
-import 'package:fintech/features/home/data/models/global_response.dart';
-import 'package:fintech/features/home/data/models/trending_response.dart';
-import 'package:fintech/features/market/data/models/market_coin_response.dart';
+import 'global_response.dart';
+import 'trending_response.dart';
+import '../../../market/data/models/market_coin_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'home_screen_response.freezed.dart';

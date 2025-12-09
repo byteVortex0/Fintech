@@ -1,14 +1,14 @@
-import 'package:fintech/core/di/injection.dart';
-import 'package:fintech/features/home/presentation/logic/cubit/home_cubit.dart';
-import 'package:fintech/features/home/presentation/widgets/current_balance_card.dart';
-import 'package:fintech/features/home/presentation/widgets/home_header.dart';
-import 'package:fintech/features/home/presentation/widgets/market_overview_grid.dart';
-import 'package:fintech/features/home/presentation/widgets/top_gainers_section.dart';
-import 'package:fintech/features/home/presentation/widgets/trending_coins_section.dart';
+import '../../../core/di/injection.dart';
+import 'logic/cubit/home_cubit.dart';
+import 'widgets/current_balance_card.dart';
+import 'widgets/home_header.dart';
+import 'widgets/market_overview_grid.dart';
+import 'widgets/top_gainers_section.dart';
+import 'widgets/trending_coins_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/core/navigation/navigation_service.dart';
+import '../../../core/navigation/navigation_service.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

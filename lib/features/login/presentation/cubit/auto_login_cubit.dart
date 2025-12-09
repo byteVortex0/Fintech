@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/foundation.dart';
-import 'package:fintech/core/utils/user_preferences.dart';
-import 'package:fintech/features/login/data/services/biometric_enrollment_service.dart';
+import '../../../../core/utils/user_preferences.dart';
+import '../../data/services/biometric_enrollment_service.dart';
 import 'package:local_auth/local_auth.dart';
 import 'auto_login_state.dart';
 
