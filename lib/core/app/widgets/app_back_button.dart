@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fintech/core/navigation/navigation_service.dart';
+import '../../navigation/navigation_service.dart';
 
 /// Shared back button widget for consistent navigation across the app
 class AppBackButton extends StatelessWidget {

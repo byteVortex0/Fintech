@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/features/home/data/models/global_response.dart';
+import '../../data/models/global_response.dart';
 
 class MarketOverviewGrid extends StatelessWidget {
   final GlobalData globalData;

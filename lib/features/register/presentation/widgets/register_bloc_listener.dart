@@ -1,9 +1,8 @@
-import 'package:fintech/core/extensions/context_extension.dart';
-import 'package:fintech/core/navigation/navigation_service.dart';
-import 'package:fintech/core/routes/app_routes.dart';
-import 'package:fintech/core/utils/color_manager.dart';
-import 'package:fintech/features/register/logic/register_cubit.dart';
-import 'package:fintech/features/register/logic/register_state.dart';
+import '../../../../core/navigation/navigation_service.dart';
+import '../../../../core/routing/app_routes.dart';
+import '../../../../core/utils/color_manager.dart';
+import '../../logic/register_cubit.dart';
+import '../../logic/register_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,7 +28,7 @@ class RegisterBlocListener extends StatelessWidget {
             );
           },
           success: (data) {
-            context.pop();
+            NavigationService.goBack(context);
             showSuccessDialog(context);
           },
           error: (error) {
@@ -76,7 +75,7 @@ class RegisterBlocListener extends StatelessWidget {
   }
 
   void setupErrorState(BuildContext context, String error) {
-    context.pop();
+    NavigationService.goBack(context);
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -92,7 +91,7 @@ class RegisterBlocListener extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              context.pop();
+              NavigationService.goBack(context);
             },
             child: Text(
               'Got it',

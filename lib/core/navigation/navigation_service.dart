@@ -8,7 +8,9 @@ import 'package:go_router/go_router.dart';
 /// - NEVER use hardcoded route strings - use AppRoutes constants
 /// - Ensures consistent navigation behavior across the entire app
 /// - Handles GoRouter context-based navigation methods
-class NavigationService {
+sealed class NavigationService {
+  NavigationService._();
+
   /// Push route to navigation stack (allows back navigation)
   static void navigateTo(BuildContext context, String path) =>
       context.push(path);

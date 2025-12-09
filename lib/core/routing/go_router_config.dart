@@ -1,32 +1,34 @@
-import 'package:fintech/core/di/injection.dart';
-import 'package:fintech/core/service/shared_pref/shared_pref.dart';
-import 'package:fintech/core/service/shared_pref/pref_keys.dart';
-import 'package:fintech/features/buy_crypto/presentation/pages/buy_crypto_screen.dart';
-import 'package:fintech/features/coin_details/presentation/pages/coin_details_screen.dart';
-import 'package:fintech/features/home/presentation/home_screen.dart';
-import 'package:fintech/features/login/presentation/pages/auto_login_splash_page.dart';
-import 'package:fintech/features/login/presentation/pages/face_id_scanning_page.dart';
-import 'package:fintech/features/login/presentation/pages/face_id_verified_page.dart';
-import 'package:fintech/features/login/presentation/pages/login_page.dart';
-import 'package:fintech/features/login/presentation/pages/touch_id_scanning_page.dart';
-import 'package:fintech/features/login/presentation/pages/touch_id_verified_page.dart';
-import 'package:fintech/features/market/presentation/pages/market_screen.dart';
-import 'package:fintech/features/onboarding/presentation/pages/onboarding_page.dart';
-import 'package:fintech/features/payment_method/presentation/pages/payment_method_screen.dart';
-import 'package:fintech/features/portfolio/presentation/pages/portfolio_screen.dart';
-import 'package:fintech/features/register/logic/register_cubit.dart';
-import 'package:fintech/features/register/presentation/pages/register_page.dart';
-import 'package:fintech/features/register/presentation/pages/set_face_id_page.dart';
-import 'package:fintech/features/register/presentation/pages/set_face_id_verified_page.dart';
-import 'package:fintech/features/register/presentation/pages/set_fingerprint_page.dart';
-import 'package:fintech/features/register/presentation/pages/set_fingerprint_verified_page.dart';
-import 'package:fintech/features/settings/presentation/pages/settings_screen.dart';
-import 'package:fintech/features/settings/presentation/cubit/settings_cubit.dart';
-import 'package:fintech/shared/widgets/app_bottom_navigation.dart';
+import '../di/injection.dart';
+import '../service/shared_pref/shared_pref.dart';
+import '../service/shared_pref/pref_keys.dart';
+import '../../features/buy_crypto/presentation/pages/buy_crypto_screen.dart';
+import '../../features/coin_details/presentation/pages/coin_details_screen.dart';
+import '../../features/home/presentation/home_screen.dart';
+import '../../features/login/presentation/pages/auto_login_splash_page.dart';
+import '../../features/login/presentation/pages/face_id_scanning_page.dart';
+import '../../features/login/presentation/pages/face_id_verified_page.dart';
+import '../../features/login/presentation/pages/login_page.dart';
+import '../../features/login/presentation/pages/touch_id_scanning_page.dart';
+import '../../features/login/presentation/pages/touch_id_verified_page.dart';
+import '../../features/market/presentation/pages/market_screen.dart';
+import '../../features/onboarding/presentation/pages/onboarding_page.dart';
+import '../../features/payment_method/presentation/pages/payment_method_screen.dart';
+import '../../features/portfolio/presentation/pages/portfolio_screen.dart';
+import '../../features/register/logic/register_cubit.dart';
+import '../../features/register/presentation/pages/register_page.dart';
+import '../../features/register/presentation/pages/set_face_id_page.dart';
+import '../../features/register/presentation/pages/set_face_id_verified_page.dart';
+import '../../features/register/presentation/pages/set_fingerprint_page.dart';
+import '../../features/register/presentation/pages/set_fingerprint_verified_page.dart';
+import '../../features/settings/presentation/pages/settings_screen.dart';
+import '../../features/settings/presentation/cubit/settings_cubit.dart';
+import '../app/widgets/app_bottom_navigation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
+import '../utils/constants.dart';
 
 /// GoRouter configuration with two route groups:
 /// 1. Auth routes: /onboarding, /login, /register, biometric flows (no navbar)
@@ -36,7 +38,15 @@ final GoRouter goRouter = createGoRouter();
 
 GoRouter createGoRouter() {
   // Always start with auto-login splash to check biometric eligibility
-  final initialLocation = '/auto_login_splash';
+  final onboardingCompleted =
+      SharedPref.getValue(PrefKeys.onboardingCompleted) ?? false;
+
+  final initialLocation = isLoggedInUser
+      ? '/auto_login_splash'
+      : onboardingCompleted
+      ? '/login'
+      : '/onboarding';
+
   if (kDebugMode) {
     debugPrint(
       '[GoRouter] Creating router with initialLocation: $initialLocation',

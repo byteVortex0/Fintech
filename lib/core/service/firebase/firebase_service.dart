@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fintech/core/service/firebase/firebase_constants.dart';
-import 'package:fintech/features/register/data/models/create_user_request_body.dart';
-import 'package:fintech/features/register/data/models/register_request_body.dart';
+import 'firebase_constants.dart';
+import '../../../features/register/data/models/create_user_request_body.dart';
+import '../../../features/register/data/models/register_request_body.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseService {

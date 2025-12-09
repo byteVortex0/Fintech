@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:fintech/core/service/shared_pref/pref_keys.dart';
-import 'package:fintech/core/service/shared_pref/shared_pref.dart';
+import '../service/shared_pref/pref_keys.dart';
+import '../service/shared_pref/shared_pref.dart';
 
 class UserPreferences {
   /// Initialize SharedPreferences (must be called before any other methods)

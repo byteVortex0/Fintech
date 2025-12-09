@@ -1,10 +1,10 @@
-import 'package:fintech/core/service/firebase/firebase_result.dart';
-import 'package:fintech/core/utils/constants.dart';
-import 'package:fintech/core/utils/user_preferences.dart';
-import 'package:fintech/features/register/data/models/create_user_request_body.dart';
-import 'package:fintech/features/register/data/models/register_request_body.dart';
-import 'package:fintech/features/register/data/repos/register_repo.dart';
-import 'package:fintech/features/register/logic/register_state.dart';
+import '../../../core/service/firebase/firebase_result.dart';
+import '../../../core/utils/constants.dart';
+import '../../../core/utils/user_preferences.dart';
+import '../data/models/create_user_request_body.dart';
+import '../data/models/register_request_body.dart';
+import '../data/repos/register_repo.dart';
+import 'register_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

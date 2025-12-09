@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/foundation.dart';
-import 'package:fintech/features/login/data/repository/biometric_repository.dart';
+import '../../data/repository/biometric_repository.dart';
 import 'biometric_state.dart';
 
 /// BiometricCubit for managing biometric authentication state

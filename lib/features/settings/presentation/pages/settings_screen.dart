@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fintech/core/routes/app_routes.dart';
-import 'package:fintech/core/theme/theme_cubit.dart';
-import 'package:fintech/core/navigation/navigation_service.dart';
-import 'package:fintech/features/settings/presentation/widgets/profile_section.dart';
-import 'package:fintech/features/settings/presentation/widgets/settings_section_header.dart';
-import 'package:fintech/features/settings/presentation/widgets/settings_item.dart';
-import 'package:fintech/features/settings/presentation/widgets/dark_mode_toggle.dart';
-import 'package:fintech/features/settings/presentation/cubit/settings_cubit.dart';
-import 'package:fintech/features/settings/presentation/cubit/settings_state.dart';
+import '../../../../core/routing/app_routes.dart';
+import '../../../../core/theme/theme_cubit.dart';
+import '../../../../core/navigation/navigation_service.dart';
+import '../widgets/profile_section.dart';
+import '../widgets/settings_section_header.dart';
+import '../widgets/settings_item.dart';
+import '../widgets/dark_mode_toggle.dart';
+import '../cubit/settings_cubit.dart';
+import '../cubit/settings_state.dart';
 
 /// Settings screen with profile, general settings, and preferences
 /// Displays user data from Firebase and manages theme/preferences

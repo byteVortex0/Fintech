@@ -1,4 +1,4 @@
-import 'package:fintech/features/coin_details/presentation/logic/chart_cubit/chart_cubit.dart';
+import '../logic/chart_cubit/chart_cubit.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

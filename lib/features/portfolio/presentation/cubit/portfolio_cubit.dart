@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fintech/features/portfolio/data/models/holding_model.dart';
-import 'package:fintech/features/portfolio/data/models/portfolio_model.dart';
-import 'package:fintech/features/portfolio/data/repository/portfolio_repository.dart';
+import '../../data/models/holding_model.dart';
+import '../../data/models/portfolio_model.dart';
+import '../../data/repository/portfolio_repository.dart';
 import 'portfolio_state.dart';
 
 /// Cubit managing portfolio data and state

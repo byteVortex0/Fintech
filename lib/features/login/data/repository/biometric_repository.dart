@@ -1,6 +1,6 @@
 import 'package:local_auth/local_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fintech/core/utils/user_preferences.dart';
+import '../../../../core/utils/user_preferences.dart';
 import 'package:flutter/foundation.dart';
 
 /// Repository for handling biometric authentication (fingerprint and face ID)

@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fintech/core/utils/constants.dart';
-import 'package:fintech/core/service/shared_pref/pref_keys.dart';
-import 'package:fintech/core/service/shared_pref/shared_pref.dart';
-import 'package:fintech/features/settings/presentation/cubit/settings_state.dart';
-import 'package:fintech/features/settings/data/repository/settings_repository.dart';
+import '../../../../core/utils/constants.dart';
+import '../../../../core/service/shared_pref/pref_keys.dart';
+import '../../../../core/service/shared_pref/shared_pref.dart';
+import 'settings_state.dart';
+import '../../data/repository/settings_repository.dart';
 
 /// Settings Cubit for managing user profile data and authentication
 /// Handles fetching, refreshing user profile from Firestore, and logout operations

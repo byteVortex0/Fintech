@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fintech/core/di/injection.dart';
-import 'package:fintech/core/navigation/navigation_service.dart';
-import 'package:fintech/core/routes/app_routes.dart';
-import 'package:fintech/core/utils/image_manager.dart';
-import 'package:fintech/features/login/presentation/cubit/biometric_cubit.dart';
-import 'package:fintech/features/login/presentation/cubit/biometric_state.dart';
-import 'package:fintech/features/login/presentation/widgets/curved_background.dart';
+import '../../../../core/di/injection.dart';
+import '../../../../core/navigation/navigation_service.dart';
+import '../../../../core/routing/app_routes.dart';
+import '../../../../core/utils/image_manager.dart';
+import '../cubit/biometric_cubit.dart';
+import '../cubit/biometric_state.dart';
+import '../widgets/curved_background.dart';
 
 /// Wrapper for TouchID scanning page - provides BiometricCubit
 /// Receives email and password as route extras from LoginPage

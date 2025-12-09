@@ -1,8 +1,8 @@
-import 'package:fintech/core/service/firebase/firebase_error_handler.dart';
-import 'package:fintech/core/service/firebase/firebase_result.dart';
-import 'package:fintech/core/service/firebase/firebase_service.dart';
-import 'package:fintech/features/register/data/models/create_user_request_body.dart';
-import 'package:fintech/features/register/data/models/register_request_body.dart';
+import '../../../../core/service/firebase/firebase_error_handler.dart';
+import '../../../../core/service/firebase/firebase_result.dart';
+import '../../../../core/service/firebase/firebase_service.dart';
+import '../models/create_user_request_body.dart';
+import '../models/register_request_body.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 

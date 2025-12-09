@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/features/portfolio/data/models/holding_model.dart';
+import '../../data/models/holding_model.dart';
 
 /// Portfolio distribution display with simple circular indicators
 class PortfolioDonutChart extends StatelessWidget {

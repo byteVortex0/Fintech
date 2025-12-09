@@ -1,14 +1,14 @@
-import 'package:fintech/core/di/injection.dart';
-import 'package:fintech/features/home/presentation/logic/cubit/home_screen_cubit.dart';
-import 'package:fintech/features/home/presentation/widgets/current_balance_card.dart';
-import 'package:fintech/features/home/presentation/widgets/home_header.dart';
-import 'package:fintech/features/home/presentation/widgets/market_overview_grid.dart';
-import 'package:fintech/features/home/presentation/widgets/top_gainers_section.dart';
-import 'package:fintech/features/home/presentation/widgets/trending_coins_section.dart';
+import '../../../core/di/injection.dart';
+import 'logic/cubit/home_cubit.dart';
+import 'widgets/current_balance_card.dart';
+import 'widgets/home_header.dart';
+import 'widgets/market_overview_grid.dart';
+import 'widgets/top_gainers_section.dart';
+import 'widgets/trending_coins_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/core/navigation/navigation_service.dart';
+import '../../../core/navigation/navigation_service.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -16,17 +16,17 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<HomeScreenCubit>()..getHomeScreen(),
+      create: (context) => sl<HomeCubit>()..getHomeScreen(),
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: SafeArea(
-          child: BlocBuilder<HomeScreenCubit, HomeScreenState>(
+          child: BlocBuilder<HomeCubit, HomeState>(
             builder: (context, state) {
               return state.when(
                 loading: () {
                   return const Center(child: CircularProgressIndicator());
                 },
-                loaded: (data) {
+                loaded: (data, userProfile) {
                   return ListView(
                     shrinkWrap: false,
                     children: [
@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                         onNotificationPressed: () {
                           // TODO: Navigate to notifications screen
                         },
-                        firstName: 'User',
+                        firstName: userProfile.firstName,
                         lastName: '',
                       ),
                       CurrentBalanceCard(),
@@ -72,7 +72,7 @@ class HomeScreen extends StatelessWidget {
                         SizedBox(height: 16.h),
                         ElevatedButton(
                           onPressed: () {
-                            context.read<HomeScreenCubit>().getHomeScreen();
+                            context.read<HomeCubit>().getHomeScreen();
                           },
                           child: const Text('Retry'),
                         ),

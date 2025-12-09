@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/features/portfolio/data/models/portfolio_model.dart';
+import '../../data/models/portfolio_model.dart';
 
 /// Blue gradient card displaying total portfolio value and today's performance
 class TotalValueCard extends StatelessWidget {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart' as svg;
+
 import '../../data/models/coin_model.dart';
 
 /// Trending coin card widget

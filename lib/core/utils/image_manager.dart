@@ -6,7 +6,7 @@ sealed class ImageManager {
   static const String cat = 'assets/images/cat.png';
 
   // Login assets
-  static const String faceIdBg = 'assets/images/login_face_id_bg.png';
+  static const String faceIdBg = 'assets/images/login_face_id_bg.jpg';
   static const String faceId = 'assets/images/login_face_id.png';
   static const String faceIdRight = 'assets/images/login_face_id_right.png';
   static const String faceIdWithText =

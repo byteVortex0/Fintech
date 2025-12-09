@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/core/utils/image_manager.dart';
-import 'package:fintech/features/payment_method/presentation/widgets/gradient_card_display.dart';
+import '../../../../core/utils/image_manager.dart';
+import 'gradient_card_display.dart';
 
 class CreditCardSection extends StatefulWidget {
   const CreditCardSection({super.key});

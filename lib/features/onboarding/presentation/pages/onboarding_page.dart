@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:fintech/core/navigation/navigation_service.dart';
+import '../../../../core/navigation/navigation_service.dart';
+import '../../../../core/service/shared_pref/pref_keys.dart';
 import '../../data/models/onboarding_item.dart';
 import '../widgets/onboarding_slide.dart';
 import '../widgets/onboarding_indicators.dart';
@@ -86,7 +87,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   Future<void> _saveOnboardingComplete() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('onboarding_completed', true);
+    await prefs.setBool(PrefKeys.onboardingCompleted, true);
   }
 
   @override

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/shared/widgets/primary_button.dart';
-import 'package:fintech/shared/widgets/app_back_button.dart';
-import 'package:fintech/features/payment_method/presentation/widgets/credit_card_section.dart';
-import 'package:fintech/features/payment_method/presentation/widgets/payment_option_row.dart';
-import 'package:fintech/features/payment_method/presentation/widgets/email_receipt_toggle.dart';
+import '../../../../core/app/widgets/primary_button.dart';
+import '../../../../core/app/widgets/app_back_button.dart';
+import '../widgets/credit_card_section.dart';
+import '../widgets/payment_option_row.dart';
+import '../widgets/email_receipt_toggle.dart';
 
 /// Payment Method Screen - Payment selection and confirmation
 class PaymentMethodScreen extends StatefulWidget {

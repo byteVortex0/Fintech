@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/core/di/injection.dart';
-import 'package:fintech/core/utils/svg_icon_manager.dart';
-import 'package:fintech/features/portfolio/data/models/transaction_model.dart';
-import 'package:fintech/features/portfolio/presentation/cubit/portfolio_cubit.dart';
-import 'package:fintech/features/portfolio/presentation/cubit/portfolio_state.dart';
-import 'package:fintech/features/portfolio/presentation/widgets/total_value_card.dart';
-import 'package:fintech/features/portfolio/presentation/widgets/time_period_selector.dart';
-import 'package:fintech/features/portfolio/presentation/widgets/portfolio_donut_chart.dart';
-import 'package:fintech/features/portfolio/presentation/widgets/my_holdings_section.dart';
-import 'package:fintech/features/portfolio/presentation/widgets/recent_transactions_section.dart';
+import '../../../../core/di/injection.dart';
+import '../../../../core/utils/svg_icon_manager.dart';
+import '../../data/models/transaction_model.dart';
+import '../cubit/portfolio_cubit.dart';
+import '../cubit/portfolio_state.dart';
+import '../widgets/total_value_card.dart';
+import '../widgets/time_period_selector.dart';
+import '../widgets/portfolio_donut_chart.dart';
+import '../widgets/my_holdings_section.dart';
+import '../widgets/recent_transactions_section.dart';
 
 /// Portfolio screen showing total value, holdings distribution, and transactions
 /// Uses BLoC pattern to manage portfolio data fetching from API

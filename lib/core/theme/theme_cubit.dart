@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fintech/core/service/local_storage/theme_storage_service.dart';
+import '../service/local_storage/theme_storage_service.dart';
 
 /// Simple Cubit for managing theme state (light/dark mode)
 class ThemeCubit extends Cubit<bool> {

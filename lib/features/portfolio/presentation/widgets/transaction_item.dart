@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/features/portfolio/data/models/transaction_model.dart';
+import '../../data/models/transaction_model.dart';
 
 /// Individual transaction item showing buy/sell activity with coin and time
 class TransactionItem extends StatelessWidget {

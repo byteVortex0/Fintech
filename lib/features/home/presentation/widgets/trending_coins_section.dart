@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/features/home/data/models/trending_response.dart';
+import '../../data/models/trending_response.dart';
 import '../../data/models/coin_model.dart';
 import 'trending_coin_card.dart';
 

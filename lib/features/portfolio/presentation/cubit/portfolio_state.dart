@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:fintech/features/portfolio/data/models/holding_model.dart';
-import 'package:fintech/features/portfolio/data/models/portfolio_model.dart';
+import '../../data/models/holding_model.dart';
+import '../../data/models/portfolio_model.dart';
 
 part 'portfolio_state.freezed.dart';
 

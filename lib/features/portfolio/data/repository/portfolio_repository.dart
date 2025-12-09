@@ -1,7 +1,7 @@
-import 'package:fintech/core/config/api_config.dart';
-import 'package:fintech/core/service/api/api_service.dart';
-import 'package:fintech/features/portfolio/data/models/holding_model.dart';
-import 'package:fintech/features/portfolio/data/models/portfolio_model.dart';
+import '../../../../core/configs/api_config.dart';
+import '../../../../core/service/api/api_service.dart';
+import '../models/holding_model.dart';
+import '../models/portfolio_model.dart';
 
 /// Repository handling portfolio data operations
 /// Manages API calls, data transformation, and calculations
