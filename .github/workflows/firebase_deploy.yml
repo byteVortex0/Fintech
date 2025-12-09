@@ -26,6 +26,10 @@ jobs:
       - name: Generate code
         run: flutter pub run build_runner build --delete-conflicting-outputs
 
+      - name: Decode keystore
+        run: echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > android/app/release-test.jks
+        shell: bash
+
       - name: Install Ruby and Bundler
         uses: ruby/setup-ruby@v1
         with:
