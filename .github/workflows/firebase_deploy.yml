@@ -1,9 +1,13 @@
 name: Deploy APK to Firebase App Distribution
 
 on:
+  # pull_request:
+  #   branches:
+  #     - develop
+  #   types: [closed]
   push:
     branches:
-      - Fix/bugs # Edit this to your main branch name
+      - Fix/bugs
 
 jobs:
   build-deploy:
@@ -21,6 +25,9 @@ jobs:
 
       - name: Install dependencies
         run: flutter pub get
+
+      - name: Generate code
+        run: flutter pub run build_runner build --delete-conflicting-outputs
 
       - name: Build APK
         run: |
