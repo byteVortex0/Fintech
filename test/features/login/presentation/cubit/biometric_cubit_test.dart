@@ -36,21 +36,21 @@ void main() {
       blocTest<BiometricCubit, BiometricState>(
         'emits [notSupported] when device does not support biometrics',
         setUp: () {
-          when(() => mockBiometricRepository.canUseBiometrics())
-              .thenAnswer((_) async => false);
+          when(
+            () => mockBiometricRepository.canUseBiometrics(),
+          ).thenAnswer((_) async => false);
         },
         build: () => biometricCubit,
         act: (cubit) => cubit.checkBiometricSupport(),
-        expect: () => [
-          const BiometricState.notSupported(),
-        ],
+        expect: () => [const BiometricState.notSupported()],
       );
 
       blocTest<BiometricCubit, BiometricState>(
         'emits nothing when device supports biometrics',
         setUp: () {
-          when(() => mockBiometricRepository.canUseBiometrics())
-              .thenAnswer((_) async => true);
+          when(
+            () => mockBiometricRepository.canUseBiometrics(),
+          ).thenAnswer((_) async => true);
         },
         build: () => biometricCubit,
         act: (cubit) => cubit.checkBiometricSupport(),
@@ -60,8 +60,9 @@ void main() {
       blocTest<BiometricCubit, BiometricState>(
         'emits [error] when repository throws exception',
         setUp: () {
-          when(() => mockBiometricRepository.canUseBiometrics())
-              .thenThrow(Exception('Biometric check failed'));
+          when(
+            () => mockBiometricRepository.canUseBiometrics(),
+          ).thenThrow(Exception('Biometric check failed'));
         },
         build: () => biometricCubit,
         act: (cubit) => cubit.checkBiometricSupport(),
