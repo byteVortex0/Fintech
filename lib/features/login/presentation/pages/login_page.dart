@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -202,9 +203,16 @@ class _LoginPageState extends State<LoginPage> {
           }
           if (mounted) {
             // ignore: use_build_context_synchronously
-            NavigationService.navigateToAndRemoveUntil(
-              navigatorContext,
-              AppRoutes.home,
+            unawaited(
+              Future.microtask(() {
+                // ignore: use_build_context_synchronously
+                NavigationService.navigateToAndRemoveUntil(
+                  // ignore: use_build_context_synchronously
+                  navigatorContext,
+                  AppRoutes.home,
+                );
+                return null;
+              }),
             );
           }
         },
@@ -215,9 +223,16 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.pop(dialogContext);
           if (mounted) {
             // ignore: use_build_context_synchronously
-            NavigationService.navigateToAndRemoveUntil(
-              navigatorContext,
-              AppRoutes.home,
+            unawaited(
+              Future.microtask(() {
+                // ignore: use_build_context_synchronously
+                NavigationService.navigateToAndRemoveUntil(
+                  // ignore: use_build_context_synchronously
+                  navigatorContext,
+                  AppRoutes.home,
+                );
+                return null;
+              }),
             );
           }
         },
