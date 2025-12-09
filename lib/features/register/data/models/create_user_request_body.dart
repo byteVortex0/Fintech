@@ -18,5 +18,8 @@ class CreateUserRequestBody {
     required this.email,
   });
 
+  factory CreateUserRequestBody.fromJson(Map<String, dynamic> json) =>
+      _$CreateUserRequestBodyFromJson(json);
+
   Map<String, dynamic> toJson() => _$CreateUserRequestBodyToJson(this);
 }

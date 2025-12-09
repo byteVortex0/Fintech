@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
 import 'package:fintech/core/routes/app_routes.dart';
 import 'package:fintech/shared/widgets/app_back_button.dart';
-import '../logic/cubit/get_coin_details_cubit.dart';
 import '../logic/chart_cubit/chart_cubit.dart';
 import '../logic/coin_details_cubit/coin_details_cubit.dart';
 import '../widgets/coin_header_section.dart';
