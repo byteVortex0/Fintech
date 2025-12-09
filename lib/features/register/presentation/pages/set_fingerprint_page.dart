@@ -50,6 +50,8 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
   }
 
   Future<void> _authenticateFingerprint(BuildContext context) async {
+    // Capture navigator before async operations
+    final navigator = Navigator.of(context);
     String localError = '';
     bool navigate = false;
 
@@ -77,7 +79,7 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
 
     if (mounted) {
       if (navigate) {
-        Navigator.of(context).push(
+        navigator.push(
           AppRoutes.onGenerateRoute(
             RouteSettings(name: AppRoutes.setFingerprintVerified),
           )!,

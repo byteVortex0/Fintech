@@ -34,6 +34,10 @@ class _LoginPageState extends State<LoginPage> {
     if (kDebugMode) {
       debugPrint('[LoginPage] _navigateToFaceId START');
     }
+    // Capture context references before async operations
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    final navigator = Navigator.of(context);
+
     // Try to load stored biometric credentials first
     var email = await UserPreferences.getBiometricEmail() ?? '';
     var password = await UserPreferences.getBiometricPassword() ?? '';
@@ -57,8 +61,7 @@ class _LoginPageState extends State<LoginPage> {
         debugPrint('[LoginPage] _navigateToFaceId - NO CREDENTIALS FOUND - showing error');
       }
       if (mounted) {
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(
+        scaffoldMessenger.showSnackBar(
           const SnackBar(
             content: Text('📱 No stored credentials found.\n\nSteps to enable:\n1. Login with email & password\n2. Tap "Enable" (not Skip)\n3. Logout\n4. Try Face ID again'),
             duration: Duration(seconds: 5),
@@ -72,9 +75,7 @@ class _LoginPageState extends State<LoginPage> {
       debugPrint('[LoginPage] _navigateToFaceId - Navigating to FaceIdScanningPage');
     }
     if (mounted) {
-      // ignore: use_build_context_synchronously
-      Navigator.push(
-        context,
+      navigator.push(
         MaterialPageRoute(
           builder: (context) => FaceIdScanningPage(
             email: email,
@@ -89,6 +90,10 @@ class _LoginPageState extends State<LoginPage> {
     if (kDebugMode) {
       debugPrint('[LoginPage] _navigateToFingerprint START');
     }
+    // Capture context references before async operations
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    final navigator = Navigator.of(context);
+
     // Try to load stored biometric credentials first
     var email = await UserPreferences.getBiometricEmail() ?? '';
     var password = await UserPreferences.getBiometricPassword() ?? '';
@@ -112,8 +117,7 @@ class _LoginPageState extends State<LoginPage> {
         debugPrint('[LoginPage] _navigateToFingerprint - NO CREDENTIALS FOUND - showing error');
       }
       if (mounted) {
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(
+        scaffoldMessenger.showSnackBar(
           const SnackBar(content: Text('📱 No stored credentials found.\n\nSteps to enable:\n1. Login with email & password\n2. Tap "Enable" (not Skip)\n3. Logout\n4. Try Face ID again')),
         );
       }
@@ -124,9 +128,7 @@ class _LoginPageState extends State<LoginPage> {
       debugPrint('[LoginPage] _navigateToFingerprint - Navigating to TouchIdScanningPage');
     }
     if (mounted) {
-      // ignore: use_build_context_synchronously
-      Navigator.push(
-        context,
+      navigator.push(
         MaterialPageRoute(
           builder: (context) => TouchIdScanningPage(
             email: email,
