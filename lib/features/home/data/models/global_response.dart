@@ -14,11 +14,15 @@ abstract class GlobalResponse with _$GlobalResponse {
 @freezed
 abstract class GlobalData with _$GlobalData {
   const factory GlobalData({
+    // ignore: invalid_annotation_target
     @JsonKey(name: 'total_market_cap')
     required Map<String, double> totalMarketCap,
+    // ignore: invalid_annotation_target
     @JsonKey(name: 'total_volume') required Map<String, double> totalVolume,
+    // ignore: invalid_annotation_target
     @JsonKey(name: 'market_cap_percentage')
     required Map<String, double> marketCapPercentage,
+    // ignore: invalid_annotation_target
     @JsonKey(name: 'active_cryptocurrencies')
     required int activeCryptocurrencies,
   }) = _GlobalData;

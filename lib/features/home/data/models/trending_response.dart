@@ -26,7 +26,9 @@ abstract class TrendingCoinItem with _$TrendingCoinItem {
     required String id,
     required String name,
     required String symbol,
+    // ignore: invalid_annotation_target
     @JsonKey(name: 'small') required String image,
+    // ignore: invalid_annotation_target
     @JsonKey(name: 'price_btc') required double priceBtc,
   }) = _TrendingCoinItem;
 
