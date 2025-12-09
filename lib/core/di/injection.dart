@@ -25,6 +25,9 @@ import 'package:fintech/features/portfolio/presentation/cubit/portfolio_cubit.da
 import 'package:fintech/features/settings/data/repository/settings_repository.dart';
 import 'package:fintech/features/settings/presentation/cubit/settings_cubit.dart';
 
+import '../../features/home/data/repo/home_screen_repo.dart';
+import '../../features/home/presentation/logic/cubit/home_screen_cubit.dart';
+
 GetIt sl = GetIt.instance;
 
 void setupInjection() {
@@ -32,6 +35,7 @@ void setupInjection() {
   marketCoins();
   coinsDetails();
   registerFeature();
+  homeScreen();
 }
 
 void _initCore() {
@@ -112,4 +116,10 @@ void registerFeature() {
   sl.registerFactory<RegisterCubit>(() => RegisterCubit(sl<RegisterRepo>()));
 
   // sl.registerLazySingleton<ApiService>(() => ApiService(dio));
+}
+
+void homeScreen() {
+  sl
+    ..registerLazySingleton(() => HomeScreenRepo(sl()))
+    ..registerFactory(() => HomeScreenCubit(sl()));
 }

@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fintech/features/home/data/models/global_response.dart';
 
-/// Market overview grid widget
-/// Displays 2x2 grid with market statistics
 class MarketOverviewGrid extends StatelessWidget {
-  const MarketOverviewGrid({super.key});
+  final GlobalData globalData;
+
+  const MarketOverviewGrid({super.key, required this.globalData});
 
   @override
   Widget build(BuildContext context) {
+    final marketCapUsd = globalData.totalMarketCap['usd'] ?? 0;
+    final volumeUsd = globalData.totalVolume['usd'] ?? 0;
+    final btcDominance = globalData.marketCapPercentage['btc'] ?? 0;
+    final activeCoins = globalData.activeCryptocurrencies;
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
       child: Column(
@@ -30,15 +36,42 @@ class MarketOverviewGrid extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             childAspectRatio: 1.2,
             children: [
-              _buildStatCard(context, 'Market Cap', '\$2.1T', '2.35%'),
-              _buildStatCard(context, '24h Volume', '\$85.5B', '2.35%'),
-              _buildStatCard(context, 'BTC Dominance', '48.5%', '2.35%'),
-              _buildStatCard(context, 'Active Coins', '19,417', ''),
+              _buildStatCard(
+                context,
+                'Market Cap',
+                '\$${_formatNumber(marketCapUsd)}',
+                '',
+              ),
+              _buildStatCard(
+                context,
+                '24h Volume',
+                '\$${_formatNumber(volumeUsd)}',
+                '',
+              ),
+              _buildStatCard(
+                context,
+                'BTC Dominance',
+                '${btcDominance.toStringAsFixed(1)}%',
+                '',
+              ),
+              _buildStatCard(context, 'Active Coins', '$activeCoins', ''),
             ],
           ),
         ],
       ),
     );
+  }
+
+  String _formatNumber(double number) {
+    if (number >= 1e12) {
+      return '${(number / 1e12).toStringAsFixed(1)}T';
+    } else if (number >= 1e9) {
+      return '${(number / 1e9).toStringAsFixed(1)}B';
+    } else if (number >= 1e6) {
+      return '${(number / 1e6).toStringAsFixed(1)}M';
+    } else {
+      return number.toStringAsFixed(0);
+    }
   }
 
   Widget _buildStatCard(

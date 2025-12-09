@@ -48,7 +48,11 @@ app.*.map.json
 # Code generation
 *.g.dart
 *.freezed.dart
-*.freezed.dart
+
+# Ignore auto-generated plugin registrant files
+macos/Flutter/GeneratedPluginRegistrant.swift
+windows/flutter/generated_plugin_registrant.cc
+windows/flutter/generated_plugins.cmake
 
 # Local environment variables
 .env

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fintech/core/utils/svg_icon_manager.dart';
+import 'package:fintech/features/home/data/models/trending_response.dart';
 import '../../data/models/coin_model.dart';
 import 'trending_coin_card.dart';
 
-/// Trending coins section widget
-/// Displays "Trending Now" header with horizontal scrollable coins
-///
-/// Architecture: Uses callback pattern so parent (HomeScreen) controls navigation via NavigationService
 class TrendingCoinsSection extends StatelessWidget {
+  final List<TrendingCoin> trendingCoins;
   final VoidCallback onViewAllPressed;
 
-  const TrendingCoinsSection({super.key, required this.onViewAllPressed});
+  const TrendingCoinsSection({
+    super.key,
+    required this.trendingCoins,
+    required this.onViewAllPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,50 +47,26 @@ class TrendingCoinsSection extends StatelessWidget {
         ),
         SizedBox(
           height: 180.h,
-          child: ListView(
+          child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            children: [
-              TrendingCoinCard(
+            itemCount: trendingCoins.length,
+            separatorBuilder: (context, index) => SizedBox(width: 8.w),
+            itemBuilder: (context, index) {
+              final coin = trendingCoins[index].item;
+
+              return TrendingCoinCard(
                 coin: CoinModel(
-                  coinName: 'Bitcoin',
-                  ticker: 'BTC',
-                  price: '1,132,151',
-                  change: '2.35%',
-                  svgIconPath: SvgIconManager.bitcoinIcon,
+                  coinName: coin.name,
+                  ticker: coin.symbol.toUpperCase(),
+                  price: coin.priceBtc.toStringAsFixed(8),
+                  change: '0%',
+                  svgIconPath: null,
+                  icon: Icons.currency_bitcoin,
+                  iconColor: Colors.orange,
                 ),
-              ),
-              SizedBox(width: 12.w),
-              TrendingCoinCard(
-                coin: CoinModel(
-                  coinName: 'Ethereum',
-                  ticker: 'ETH',
-                  price: '1,132,151',
-                  change: '2.35%',
-                  svgIconPath: SvgIconManager.ethereumIcon,
-                ),
-              ),
-              SizedBox(width: 12.w),
-              TrendingCoinCard(
-                coin: CoinModel(
-                  coinName: 'Bitcoin',
-                  ticker: 'BTC',
-                  price: '1,132,151',
-                  change: '2.35%',
-                  svgIconPath: SvgIconManager.bitcoinIcon,
-                ),
-              ),
-              SizedBox(width: 12.w),
-              TrendingCoinCard(
-                coin: CoinModel(
-                  coinName: 'Ethereum',
-                  ticker: 'ETH',
-                  price: '1,132,151',
-                  change: '2.35%',
-                  svgIconPath: SvgIconManager.ethereumIcon,
-                ),
-              ),
-            ],
+              );
+            },
           ),
         ),
       ],
