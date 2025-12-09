@@ -21,29 +21,26 @@ class AutoLoginCubit extends Cubit<AutoLoginState> {
 
       // Check if user was previously logged in
       final isLoggedIn = await UserPreferences.checkIfLoggedInUser();
+      if (isClosed) return;
 
       if (!isLoggedIn) {
         if (kDebugMode) {
           debugPrint('[AutoLoginCubit] No previous login found, showing login page');
         }
-        if (!isClosed) {
-          emit(const AutoLoginState.loginRequired());
-        }
+        emit(const AutoLoginState.loginRequired());
         return;
       }
 
       // Check if user has biometric enrollment
       final hasBiometricEnrollment = await _enrollmentService.isBiometricEnrolled();
+      if (isClosed) return;
 
       if (!hasBiometricEnrollment) {
         if (kDebugMode) {
           debugPrint('[AutoLoginCubit] User logged in but no biometric enrollment, going to home');
         }
         // User is logged in but hasn't enrolled for biometric
-        // In a real app, you might want to navigate to home directly
-        if (!isClosed) {
-          emit(const AutoLoginState.alreadyLoggedIn());
-        }
+        emit(const AutoLoginState.alreadyLoggedIn());
         return;
       }
 
@@ -52,16 +49,13 @@ class AutoLoginCubit extends Cubit<AutoLoginState> {
       }
 
       // User is logged in and has biometric enrollment
-      if (!isClosed) {
-        emit(const AutoLoginState.biometricRequired());
-      }
+      emit(const AutoLoginState.biometricRequired());
     } catch (e) {
       if (kDebugMode) {
         debugPrint('[AutoLoginCubit] Error checking auto-login: $e');
       }
-      if (!isClosed) {
-        emit(AutoLoginState.error(e.toString()));
-      }
+      if (isClosed) return;
+      emit(AutoLoginState.error(e.toString()));
     }
   }
 }

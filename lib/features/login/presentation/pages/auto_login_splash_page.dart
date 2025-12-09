@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:fintech/core/di/injection.dart';
+import 'package:fintech/core/routes/app_routes.dart';
 import 'package:fintech/features/login/presentation/cubit/auto_login_cubit.dart';
 import 'package:fintech/features/login/presentation/cubit/auto_login_state.dart';
 
@@ -19,19 +20,19 @@ class AutoLoginSplashPage extends StatelessWidget {
           state.maybeWhen(
             biometricRequired: () {
               // Navigate to biometric scanning without email/password
-              context.go('/face_id_scanning');
+              context.go(AppRoutes.faceIdScanning);
             },
             alreadyLoggedIn: () {
               // User is logged in but no biometric enrollment, go to home
-              context.go('/home');
+              context.go(AppRoutes.home);
             },
             loginRequired: () {
               // User needs to log in
-              context.go('/login');
+              context.go(AppRoutes.login);
             },
             error: (message) {
               // On error, go to login page
-              context.go('/login');
+              context.go(AppRoutes.login);
             },
             orElse: () {},
           );
