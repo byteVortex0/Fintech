@@ -182,7 +182,7 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.blue.withOpacity(0.3),
+                          color: Colors.blue.withValues(alpha: 0.3),
                           blurRadius: 30,
                           spreadRadius: 4,
                         ),
@@ -197,14 +197,14 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
                 ),
               );
             },
-       //   onTap: () => _handleFingerprintSet(context),
-          child: Icon(
-            Icons.fingerprint,
-            size: 180.sp,
-            color: Theme.of(context).iconTheme.color,
+            child: Icon(
+              Icons.fingerprint,
+              size: 180.sp,
+              color: Theme.of(context).iconTheme.color,
+            ),
           ),
         ),
-          ),  SizedBox(height: 48.h),
+        SizedBox(height: 48.h),
         SizedBox(
           width: double.infinity,
           child: Text(

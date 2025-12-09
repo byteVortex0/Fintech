@@ -162,7 +162,7 @@ class _TouchIdScanningContentState extends State<_TouchIdScanningContent>
         child: Icon(
           Icons.arrow_back_ios,
           color: _isAuthenticationSuccessful
-              ? Theme.of(context).iconTheme.color?.withOpacity(0.3)
+              ? Theme.of(context).iconTheme.color?.withValues(alpha: 0.3)
               : Theme.of(context).iconTheme.color,
           size: 24.sp,
         ),
@@ -207,7 +207,7 @@ class _TouchIdScanningContentState extends State<_TouchIdScanningContent>
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.blue.withOpacity(0.3),
+                      color: Colors.blue.withValues(alpha: 0.3),
                       blurRadius: 30,
                       spreadRadius: 4,
                     ),

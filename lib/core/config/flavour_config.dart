@@ -51,5 +51,5 @@ class FlavourConfig {
 
   /// Get environment description
   static String getEnvironmentDescription() =>
-    'Running in ${getDisplayName()} mode (${appName})';
+    'Running in ${getDisplayName()} mode ($appName)';
 }

@@ -1,5 +1,4 @@
 import 'package:fintech/core/di/injection.dart';
-import 'package:fintech/core/utils/constants.dart';
 import 'package:fintech/core/service/shared_pref/shared_pref.dart';
 import 'package:fintech/core/service/shared_pref/pref_keys.dart';
 import 'package:fintech/features/buy_crypto/presentation/pages/buy_crypto_screen.dart';
