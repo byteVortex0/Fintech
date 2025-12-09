@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:local_auth/local_auth.dart';
 
 part 'auto_login_state.freezed.dart';
 
@@ -9,7 +10,8 @@ class AutoLoginState with _$AutoLoginState {
   const factory AutoLoginState.checking() = _Checking;
 
   /// User should be auto-logged in with biometric
-  const factory AutoLoginState.biometricRequired() = _BiometricRequired;
+  const factory AutoLoginState.biometricRequired(BiometricType? type) =
+      _BiometricRequired;
 
   /// User is already logged in, go to home
   const factory AutoLoginState.alreadyLoggedIn() = _AlreadyLoggedIn;

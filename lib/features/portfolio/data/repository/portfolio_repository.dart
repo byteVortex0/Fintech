@@ -1,4 +1,4 @@
-import 'package:fintech/core/config/api_config.dart';
+import 'package:fintech/core/configs/api_config.dart';
 import 'package:fintech/core/service/api/api_service.dart';
 import 'package:fintech/features/portfolio/data/models/holding_model.dart';
 import 'package:fintech/features/portfolio/data/models/portfolio_model.dart';

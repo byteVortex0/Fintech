@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fintech/core/di/injection.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
-import 'package:fintech/core/routes/app_routes.dart';
+import 'package:fintech/core/routing/app_routes.dart';
 import 'package:fintech/core/utils/image_manager.dart';
 import 'package:fintech/features/login/presentation/cubit/biometric_cubit.dart';
 import 'package:fintech/features/login/presentation/cubit/biometric_state.dart';

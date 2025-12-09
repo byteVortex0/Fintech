@@ -1,6 +1,7 @@
-import 'package:fintech/core/routes/app_routes.dart';
+import 'package:fintech/core/routing/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
 import '../../../login/presentation/widgets/curved_background.dart';
 
@@ -51,7 +52,7 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
 
   Future<void> _authenticateFingerprint(BuildContext context) async {
     // Capture navigator before async operations
-    final navigator = Navigator.of(context);
+    // final navigator = Navigator.of(context);
     String localError = '';
     bool navigate = false;
 
@@ -77,24 +78,32 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
       localError = 'Error: ${e.toString()}';
     }
 
-    if (mounted) {
-      if (navigate) {
-        navigator.push(
-          AppRoutes.onGenerateRoute(
-            RouteSettings(name: AppRoutes.setFingerprintVerified),
-          )!,
-        );
-      } else {
-        setState(() => errorMessage = localError);
-      }
-    }
+    // if (mounted) {
+    //   if (navigate) {
+    //     navigator.push(
+    //       AppRoutes.onGenerateRoute(
+    //         RouteSettings(name: AppRoutes.setFingerprintVerified),
+    //       )!,
+    //     );
+    //   } else {
+    //     setState(() => errorMessage = localError);
+    //   }
+    // }
+
+    if (!context.mounted) return;
+
+    navigate
+        ? context.pushNamed(AppRoutes.setFingerprintVerified)
+        : setState(() => errorMessage = localError);
   }
 
   void _handleSkip(BuildContext context) =>
-      Navigator.of(context).pushAndRemoveUntil(
-        AppRoutes.onGenerateRoute(RouteSettings(name: AppRoutes.login))!,
-        (route) => false,
-      );
+      context.pushReplacementNamed(AppRoutes.login);
+
+  // Navigator.of(context).pushAndRemoveUntil(
+  //   AppRoutes.onGenerateRoute(RouteSettings(name: AppRoutes.login))!,
+  //   (route) => false,
+  // );
 
   @override
   Widget build(BuildContext context) {

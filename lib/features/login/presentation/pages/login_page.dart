@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fintech/core/di/injection.dart';
 import 'package:fintech/core/navigation/navigation_service.dart';
-import 'package:fintech/core/routes/app_routes.dart';
+import 'package:fintech/core/routing/app_routes.dart';
 import 'package:fintech/features/login/presentation/cubit/login_cubit.dart';
 import 'package:fintech/features/login/presentation/cubit/login_state.dart';
 import 'package:fintech/features/login/presentation/pages/touch_id_scanning_page.dart';

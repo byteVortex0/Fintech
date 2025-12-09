@@ -1,4 +1,6 @@
-class AppRegex {
+sealed class AppRegex {
+  AppRegex._();
+
   static bool isEmailValid(String email) {
     return RegExp(
       r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$',
@@ -12,7 +14,7 @@ class AppRegex {
   }
 
   static bool isPhoneNumberValid(String phoneNumber) {
-    return RegExp(r'^(010|011|012|015)[0-9]{8}$').hasMatch(phoneNumber);
+    return RegExp(r'^(\+?\d{7,15}|00\d{7,15})$').hasMatch(phoneNumber);
   }
 
   static bool hasLowerCase(String password) {

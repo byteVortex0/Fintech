@@ -1,0 +1,40 @@
+name: Deploy APK to Firebase App Distribution
+
+on:
+  push:
+    branches:
+      - Fix/bugs # Edit this to your main branch name
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.35.7"
+          channel: "stable"
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build APK
+        run: |
+          flutter build apk --flavor prod --target lib/main_prod.dart
+
+      - name: Install Firebase CLI
+        run: curl -sL https://firebase.tools | bash
+
+      - name: Upload to Firebase App Distribution
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_CLI_TOKEN }}
+        run: |
+          firebase appdistribution:distribute \
+            build/app/outputs/flutter-apk/app-dev-release.apk \
+            --app ${{ secrets.FIREBASE_APP_ID_DEV }} \
+            --groups tester \
+            --release-notes "Automated deploy from GitHub Actions"

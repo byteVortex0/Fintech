@@ -19,14 +19,13 @@ import '../service/api/api_service.dart';
 import '../service/api/dio_factory.dart';
 import '../service/local_storage/theme_storage_service.dart';
 import '../theme/theme_cubit.dart';
-import 'package:fintech/features/home/presentation/cubit/home_cubit.dart';
 import 'package:fintech/features/portfolio/data/repository/portfolio_repository.dart';
 import 'package:fintech/features/portfolio/presentation/cubit/portfolio_cubit.dart';
 import 'package:fintech/features/settings/data/repository/settings_repository.dart';
 import 'package:fintech/features/settings/presentation/cubit/settings_cubit.dart';
 
 import '../../features/home/data/repo/home_screen_repo.dart';
-import '../../features/home/presentation/logic/cubit/home_screen_cubit.dart';
+import '../../features/home/presentation/logic/cubit/home_cubit.dart';
 
 GetIt sl = GetIt.instance;
 
@@ -90,9 +89,6 @@ void _initCore() {
   sl.registerFactory<SettingsCubit>(
     () => SettingsCubit(sl<SettingsRepository>()),
   );
-
-  // Home Cubit
-  sl.registerFactory<HomeCubit>(() => HomeCubit(sl<SettingsRepository>()));
 }
 
 void marketCoins() {
@@ -121,5 +117,7 @@ void registerFeature() {
 void homeScreen() {
   sl
     ..registerLazySingleton(() => HomeScreenRepo(sl()))
-    ..registerFactory(() => HomeScreenCubit(sl()));
+    ..registerFactory<HomeCubit>(
+      () => HomeCubit(sl<HomeScreenRepo>(), sl<SettingsRepository>()),
+    );
 }

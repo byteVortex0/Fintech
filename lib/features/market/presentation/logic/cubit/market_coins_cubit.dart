@@ -18,47 +18,27 @@ class MarketCoinsCubit extends Cubit<MarketCoinsState> {
 
   final MarketCoinsRepo marketCoinsRepo;
 
-  int _currentPage = 1;
-  bool hasMore = true;
-  bool isLoadingMore = false;
-  List<MarketCoinResponse> _coins = [];
-
-  Future<void> getAllCoinsMarkets({bool loadMore = false}) async {
-    if (isLoadingMore) return;
-
-    if (loadMore) {
-      if (!hasMore) return;
-      isLoadingMore = true;
-      _currentPage++;
-    } else {
-      emit(MarketCoinsState.loading());
-      _currentPage = 1;
-      _coins = [];
-      hasMore = true;
-    }
+  Future<void> getAllCoinsMarkets() async {
+    emit(MarketCoinsState.loading());
 
     final request = MarketCoinRequest(
       vsCurrency: 'usd',
       order: 'market_cap_desc',
       perPage: 50,
-      page: _currentPage,
+      page: 1,
     );
 
     final result = await marketCoinsRepo.getAllCoinsMarkets(request);
 
     result.when(
       success: (coinsMarkets) {
-        if (coinsMarkets.length < 50) hasMore = false;
-        _coins.addAll(coinsMarkets);
-        emit(MarketCoinsState.loaded(coinsMarkets: _coins));
+        emit(MarketCoinsState.loaded(coinsMarkets: coinsMarkets));
       },
       failure: (error) {
         log(error.message);
         emit(MarketCoinsState.error(message: error.message));
       },
     );
-
-    isLoadingMore = false;
   }
 
   Future<void> searchCoins(String query) async {

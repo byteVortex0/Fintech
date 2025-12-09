@@ -22,11 +22,13 @@ import 'package:fintech/features/register/presentation/pages/set_fingerprint_pag
 import 'package:fintech/features/register/presentation/pages/set_fingerprint_verified_page.dart';
 import 'package:fintech/features/settings/presentation/pages/settings_screen.dart';
 import 'package:fintech/features/settings/presentation/cubit/settings_cubit.dart';
-import 'package:fintech/shared/widgets/app_bottom_navigation.dart';
+import 'package:fintech/core/app/widgets/app_bottom_navigation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
+import '../utils/constants.dart';
 
 /// GoRouter configuration with two route groups:
 /// 1. Auth routes: /onboarding, /login, /register, biometric flows (no navbar)
@@ -36,7 +38,11 @@ final GoRouter goRouter = createGoRouter();
 
 GoRouter createGoRouter() {
   // Always start with auto-login splash to check biometric eligibility
-  final initialLocation = '/auto_login_splash';
+  final initialLocation = isLoggedInUser
+      ? '/auto_login_splash'
+      : SharedPref.getValue(PrefKeys.onboardingCompleted)
+      ? '/login'
+      : '/onboarding';
   if (kDebugMode) {
     debugPrint(
       '[GoRouter] Creating router with initialLocation: $initialLocation',

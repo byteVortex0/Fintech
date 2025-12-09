@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/navigation/navigation_service.dart';
-import '../../../../core/routes/app_routes.dart';
+import '../../../../core/routing/app_routes.dart';
 import '../logic/cubit/market_coins_cubit.dart';
 import '../widgets/market_search_bar.dart';
 import '../widgets/category_filter.dart';
@@ -136,51 +136,21 @@ class _MarketScreenState extends State<MarketScreen> {
                           ),
 
                           loaded: (coinsMarkets) {
-                            return NotificationListener<ScrollNotification>(
-                              onNotification: (scrollNotification) {
-                                if (scrollNotification.metrics.pixels ==
-                                        scrollNotification
-                                            .metrics
-                                            .maxScrollExtent &&
-                                    !context
-                                        .read<MarketCoinsCubit>()
-                                        .isLoadingMore) {
-                                  context
-                                      .read<MarketCoinsCubit>()
-                                      .getAllCoinsMarkets(loadMore: true);
-                                }
-                                return false;
-                              },
-                              child: ListView.builder(
-                                itemCount: coinsMarkets.length + 1,
-                                itemBuilder: (context, index) {
-                                  if (index < coinsMarkets.length) {
-                                    final coin = coinsMarkets[index];
-                                    return CoinListItem(
-                                      coinUIModel: CoinMapper.fromCoin(coin),
-                                      changePercent: coin.changePercent,
-                                      onTap: () {
-                                        NavigationService.navigateTo(
-                                          context,
-                                          '${AppRoutes.coinDetails}?id=${coin.id}',
-                                        );
-                                      },
+                            return ListView.builder(
+                              itemCount: coinsMarkets.length,
+                              itemBuilder: (context, index) {
+                                final coin = coinsMarkets[index];
+                                return CoinListItem(
+                                  coinUIModel: CoinMapper.fromCoin(coin),
+                                  changePercent: coin.changePercent,
+                                  onTap: () {
+                                    NavigationService.navigateTo(
+                                      context,
+                                      '${AppRoutes.coinDetails}?id=${coin.id}',
                                     );
-                                  } else {
-                                    return context
-                                            .read<MarketCoinsCubit>()
-                                            .hasMore
-                                        ? const Padding(
-                                            padding: EdgeInsets.all(16),
-                                            child: Center(
-                                              child:
-                                                  CircularProgressIndicator(),
-                                            ),
-                                          )
-                                        : const SizedBox.shrink();
-                                  }
-                                },
-                              ),
+                                  },
+                                );
+                              },
                             );
                           },
 
