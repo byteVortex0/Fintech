@@ -1,13 +1,10 @@
 name: Android Deploy to Firebase App Distribution via Fastlane
 
 on:
-  # pull_request:
-  #   branches:
-  #     - develop
-  #   types: [closed]
-  push:
+  pull_request:
     branches:
-      - Fix/bugs
+      - develop
+    types: [closed]
 
 jobs:
   build-deploy:
