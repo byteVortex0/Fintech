@@ -51,7 +51,7 @@ class TrendingCoinsSection extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             itemCount: trendingCoins.length,
-            separatorBuilder: (context, index) => SizedBox(width: 12.w),
+            separatorBuilder: (context, index) => SizedBox(width: 8.w),
             itemBuilder: (context, index) {
               final coin = trendingCoins[index].item;
 
