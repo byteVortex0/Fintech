@@ -121,14 +121,18 @@ GoRouter createGoRouter() {
         path: '/buy_crypto',
         builder: (context, state) {
           final coinName = state.uri.queryParameters['coinName'];
-          return BuyCryptoScreen(coinName: coinName);
+          final price = state.uri.queryParameters['price'];
+          return BuyCryptoScreen(coinName: coinName, price: price ?? "100");
         },
       ),
 
       // Payment method route (no navbar)
       GoRoute(
         path: '/payment_method',
-        builder: (context, state) => const PaymentMethodScreen(),
+        builder: (context, state) {
+          final price = state.uri.queryParameters['price'];
+          return PaymentMethodScreen(price: price!);
+        },
       ),
 
       // Main app routes with persistent bottom navbar

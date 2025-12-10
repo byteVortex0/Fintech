@@ -11,8 +11,9 @@ import '../widgets/exchange_fee_card.dart';
 /// Buy Crypto Screen - Currency exchange interface
 class BuyCryptoScreen extends StatefulWidget {
   final String? coinName;
+  final String price;
 
-  const BuyCryptoScreen({super.key, this.coinName});
+  const BuyCryptoScreen({super.key, this.coinName, required this.price});
 
   @override
   State<BuyCryptoScreen> createState() => _BuyCryptoScreenState();
@@ -33,7 +34,10 @@ class _BuyCryptoScreenState extends State<BuyCryptoScreen> {
   }
 
   void _handleContinue() {
-    NavigationService.navigateTo(context, AppRoutes.paymentMethod);
+    NavigationService.navigateTo(
+      context,
+      '${AppRoutes.paymentMethod}?price=${widget.price}',
+    );
   }
 
   @override
