@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+/// RegisterCubit handles user registration with friendly error messages
 class RegisterCubit extends Cubit<RegisterState> {
   final RegisterRepo _registerRepo;
   RegisterCubit(this._registerRepo) : super(RegisterState.initial());

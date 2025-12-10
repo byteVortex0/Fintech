@@ -1,6 +1,5 @@
-import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/di/injection.dart';
@@ -200,19 +199,10 @@ class _LoginPageState extends State<LoginPage> {
                 content: Text('Biometric login enabled successfully'),
               ),
             );
-          }
-          if (mounted) {
-            // ignore: use_build_context_synchronously
-            unawaited(
-              Future.microtask(() {
-                // ignore: use_build_context_synchronously
-                NavigationService.navigateToAndRemoveUntil(
-                  // ignore: use_build_context_synchronously
-                  navigatorContext,
-                  AppRoutes.home,
-                );
-                return null;
-              }),
+            NavigationService.navigateToAndRemoveUntil(
+              // ignore: use_build_context_synchronously
+              navigatorContext,
+              AppRoutes.home,
             );
           }
         },
@@ -222,17 +212,10 @@ class _LoginPageState extends State<LoginPage> {
           }
           Navigator.pop(dialogContext);
           if (mounted) {
-            // ignore: use_build_context_synchronously
-            unawaited(
-              Future.microtask(() {
-                // ignore: use_build_context_synchronously
-                NavigationService.navigateToAndRemoveUntil(
-                  // ignore: use_build_context_synchronously
-                  navigatorContext,
-                  AppRoutes.home,
-                );
-                return null;
-              }),
+            NavigationService.navigateToAndRemoveUntil(
+              // ignore: use_build_context_synchronously
+              navigatorContext,
+              AppRoutes.home,
             );
           }
         },

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import '../../../../../core/service/api/error/api_result.dart';
+import '../../../../../core/service/api/error/error_handler.dart';
 import '../../../data/repos/coin_details_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -12,6 +13,7 @@ import '../../../data/models/coins_chart_respose.dart';
 part 'coin_details_state.dart';
 part 'coin_details_cubit.freezed.dart';
 
+/// CoinDetailsCubit manages coin details and chart data with friendly error messages
 class CoinDetailsCubit extends Cubit<CoinDetailsState> {
   CoinDetailsCubit(this.coinDetailsRepo) : super(CoinDetailsState.loading());
 
@@ -47,19 +49,20 @@ class CoinDetailsCubit extends Cubit<CoinDetailsState> {
               );
             },
             failure: (chartError) {
-              log('Chart Error: ${chartError.message}');
-              emit(CoinDetailsState.error(message: chartError.message));
+              log('Chart Error: ${chartError.userMessage}');
+              emit(CoinDetailsState.error(message: chartError.userMessage));
             },
           );
         },
         failure: (coinError) {
-          log('Coin Error: ${coinError.message}');
-          emit(CoinDetailsState.error(message: coinError.message));
+          log('Coin Error: ${coinError.userMessage}');
+          emit(CoinDetailsState.error(message: coinError.userMessage));
         },
       );
     } catch (e) {
       log('Error: $e');
-      emit(CoinDetailsState.error(message: e.toString()));
+      final failure = await ErrorHandler.handle(e);
+      emit(CoinDetailsState.error(message: failure.errorModel.userMessage));
     }
   }
 }

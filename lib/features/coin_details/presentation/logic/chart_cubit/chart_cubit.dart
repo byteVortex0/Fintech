@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../../core/service/api/error/api_result.dart';
+import '../../../../../core/service/api/error/error_handler.dart';
 import '../../../data/models/coins_chart_request.dart';
 import '../../../data/models/coins_chart_respose.dart';
 import '../../../data/repos/coin_details_repo.dart';
@@ -9,6 +10,7 @@ import '../../../data/repos/coin_details_repo.dart';
 part 'chart_cubit.freezed.dart';
 part 'chart_state.dart';
 
+/// ChartCubit manages chart data with friendly error messages
 class ChartCubit extends Cubit<ChartState> {
   final CoinDetailsRepo coinDetailsRepo;
 
@@ -35,11 +37,15 @@ class ChartCubit extends Cubit<ChartState> {
           emit(ChartState.loaded(chart, period));
         },
         failure: (error) {
-          emit(ChartState.error(error.message));
+          final failure = ErrorHandler.handle(error);
+          failure.then((f) {
+            emit(ChartState.error(f.errorModel.userMessage));
+          });
         },
       );
     } catch (e) {
-      emit(ChartState.error(e.toString()));
+      final failure = await ErrorHandler.handle(e);
+      emit(ChartState.error(failure.errorModel.userMessage));
     }
   }
 }

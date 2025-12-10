@@ -1,11 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/service/api/error/error_handler.dart';
 import '../../data/models/holding_model.dart';
 import '../../data/models/portfolio_model.dart';
 import '../../data/repository/portfolio_repository.dart';
 import 'portfolio_state.dart';
 
 /// Cubit managing portfolio data and state
-/// Handles fetching, loading, and error states for portfolio data
+/// Handles fetching, loading, and error states for portfolio data with friendly error messages
 class PortfolioCubit extends Cubit<PortfolioState> {
   final PortfolioRepository repository;
 
@@ -33,7 +34,8 @@ class PortfolioCubit extends Cubit<PortfolioState> {
 
       emit(PortfolioState.loaded(portfolio: portfolio, holdings: holdings));
     } catch (e) {
-      emit(PortfolioState.error('Failed to load portfolio: $e'));
+      final failure = await ErrorHandler.handle(e);
+      emit(PortfolioState.error(failure.errorModel.userMessage));
     }
   }
 
@@ -50,7 +52,8 @@ class PortfolioCubit extends Cubit<PortfolioState> {
 
       emit(PortfolioState.loaded(portfolio: portfolio, holdings: holdings));
     } catch (e) {
-      emit(PortfolioState.error('Failed to refresh portfolio: $e'));
+      final failure = await ErrorHandler.handle(e);
+      emit(PortfolioState.error(failure.errorModel.userMessage));
     }
   }
 }
