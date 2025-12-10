@@ -19,21 +19,34 @@ class CoinDetailsCubit extends Cubit<CoinDetailsState> {
 
   final CoinDetailsRepo coinDetailsRepo;
 
-  Future<void> getCoinDetails({required String coinId, String? vsCurrency, String? days}) async {
+  Future<void> getCoinDetails({
+    required String coinId,
+    String? vsCurrency,
+    String? days,
+  }) async {
     emit(CoinDetailsState.loading());
 
     try {
       final coinDetailsResult = await coinDetailsRepo.getCoinDetails(coinId);
 
       final chartResult = await coinDetailsRepo.getChartCoin(
-        CoinsChartRequest(id: coinId, vsCurrency: vsCurrency ?? 'usd', days: days ?? '7'),
+        CoinsChartRequest(
+          id: coinId,
+          vsCurrency: vsCurrency ?? 'usd',
+          days: days ?? '7',
+        ),
       );
 
       coinDetailsResult.when(
         success: (coinDetails) {
           chartResult.when(
             success: (chart) {
-              emit(CoinDetailsState.loaded(coinDetails: coinDetails, chartPrices: chart));
+              emit(
+                CoinDetailsState.loaded(
+                  coinDetails: coinDetails,
+                  chartPrices: chart,
+                ),
+              );
             },
             failure: (chartError) {
               log('Chart Error: ${chartError.userMessage}');

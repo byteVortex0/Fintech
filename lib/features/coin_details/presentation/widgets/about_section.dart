@@ -5,7 +5,11 @@ class AboutSection extends StatelessWidget {
   final String coinName;
   final String description;
 
-  const AboutSection({super.key, required this.coinName, required this.description});
+  const AboutSection({
+    super.key,
+    required this.coinName,
+    required this.description,
+  });
 
   @override
   Widget build(BuildContext context) {

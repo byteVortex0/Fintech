@@ -7,7 +7,11 @@ class MarketSearchBar extends StatefulWidget {
   final Function(String) onSearchChanged;
   final VoidCallback onFilterPressed;
 
-  const MarketSearchBar({super.key, required this.onSearchChanged, required this.onFilterPressed});
+  const MarketSearchBar({
+    super.key,
+    required this.onSearchChanged,
+    required this.onFilterPressed,
+  });
 
   @override
   State<MarketSearchBar> createState() => _MarketSearchBarState();
@@ -48,7 +52,11 @@ class _MarketSearchBarState extends State<MarketSearchBar> {
         ),
         child: Row(
           children: [
-            Icon(Icons.search, color: Theme.of(context).iconTheme.color, size: 20.sp),
+            Icon(
+              Icons.search,
+              color: Theme.of(context).iconTheme.color,
+              size: 20.sp,
+            ),
             SizedBox(width: 8.w),
             Expanded(
               child: TextField(
@@ -74,7 +82,11 @@ class _MarketSearchBarState extends State<MarketSearchBar> {
             ),
             GestureDetector(
               onTap: widget.onFilterPressed,
-              child: Icon(Icons.tune, color: Theme.of(context).iconTheme.color, size: 20.sp),
+              child: Icon(
+                Icons.tune,
+                color: Theme.of(context).iconTheme.color,
+                size: 20.sp,
+              ),
             ),
           ],
         ),

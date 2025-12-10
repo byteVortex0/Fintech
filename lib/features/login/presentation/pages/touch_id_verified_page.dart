@@ -87,7 +87,11 @@ class TouchIdVerifiedPage extends StatelessWidget {
       child: SafeArea(
         child: GestureDetector(
           onTap: () => NavigationService.goBack(context),
-          child: Icon(Icons.arrow_back_ios, color: Theme.of(context).iconTheme.color, size: 24.sp),
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: Theme.of(context).iconTheme.color,
+            size: 24.sp,
+          ),
         ),
       ),
     );
@@ -101,12 +105,18 @@ class TouchIdVerifiedPage extends StatelessWidget {
         onPressed: () => _handleContinue(context),
         style: ElevatedButton.styleFrom(
           backgroundColor: Theme.of(context).colorScheme.secondary,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.r),
+          ),
           elevation: 0,
         ),
         child: Text(
           'Continue To Home',
-          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.white),
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
         ),
       ),
     );

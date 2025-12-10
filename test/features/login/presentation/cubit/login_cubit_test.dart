@@ -38,7 +38,10 @@ void main() {
         return LoginCubit(mockLoginRepository);
       },
       act: (cubit) => cubit.login(email: testEmail, password: testPassword),
-      expect: () => [const LoginState.loading(), const LoginState.authenticated(testEmail)],
+      expect: () => [
+        const LoginState.loading(),
+        const LoginState.authenticated(testEmail),
+      ],
     );
 
     blocTest<LoginCubit, LoginState>(

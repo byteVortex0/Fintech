@@ -1,6 +1,5 @@
-import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/di/injection.dart';
@@ -63,7 +62,9 @@ class _LoginPageState extends State<LoginPage> {
 
     if (email.isEmpty) {
       if (kDebugMode) {
-        debugPrint('[LoginPage] _navigateToFaceId - NO CREDENTIALS FOUND - showing error');
+        debugPrint(
+          '[LoginPage] _navigateToFaceId - NO CREDENTIALS FOUND - showing error',
+        );
       }
       if (mounted) {
         scaffoldMessenger.showSnackBar(
@@ -79,12 +80,15 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     if (kDebugMode) {
-      debugPrint('[LoginPage] _navigateToFaceId - Navigating to FaceIdScanningPage');
+      debugPrint(
+        '[LoginPage] _navigateToFaceId - Navigating to FaceIdScanningPage',
+      );
     }
     if (mounted) {
       navigator.push(
         MaterialPageRoute(
-          builder: (context) => FaceIdScanningPage(email: email, password: password),
+          builder: (context) =>
+              FaceIdScanningPage(email: email, password: password),
         ),
       );
     }
@@ -122,7 +126,9 @@ class _LoginPageState extends State<LoginPage> {
 
     if (email.isEmpty) {
       if (kDebugMode) {
-        debugPrint('[LoginPage] _navigateToFingerprint - NO CREDENTIALS FOUND - showing error');
+        debugPrint(
+          '[LoginPage] _navigateToFingerprint - NO CREDENTIALS FOUND - showing error',
+        );
       }
       if (mounted) {
         scaffoldMessenger.showSnackBar(
@@ -137,12 +143,15 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     if (kDebugMode) {
-      debugPrint('[LoginPage] _navigateToFingerprint - Navigating to TouchIdScanningPage');
+      debugPrint(
+        '[LoginPage] _navigateToFingerprint - Navigating to TouchIdScanningPage',
+      );
     }
     if (mounted) {
       navigator.push(
         MaterialPageRoute(
-          builder: (context) => TouchIdScanningPage(email: email, password: password),
+          builder: (context) =>
+              TouchIdScanningPage(email: email, password: password),
         ),
       );
     }
@@ -155,7 +164,11 @@ class _LoginPageState extends State<LoginPage> {
   void _navigateToRegister(BuildContext context) =>
       NavigationService.navigateTo(context, AppRoutes.register);
 
-  void _showBiometricEnrollmentDialog(BuildContext context, String email, String password) {
+  void _showBiometricEnrollmentDialog(
+    BuildContext context,
+    String email,
+    String password,
+  ) {
     if (kDebugMode) {
       debugPrint(
         '[LoginPage] _showBiometricEnrollmentDialog called - email: $email, password: ${password.isNotEmpty}',
@@ -175,25 +188,21 @@ class _LoginPageState extends State<LoginPage> {
           if (!mounted) return;
           Navigator.pop(dialogContext);
           final enrollmentService = BiometricEnrollmentService();
-          await enrollmentService.enrollBiometric(email: email, password: password);
+          await enrollmentService.enrollBiometric(
+            email: email,
+            password: password,
+          );
           if (mounted) {
             // ignore: use_build_context_synchronously
-            ScaffoldMessenger.of(
+            ScaffoldMessenger.of(navigatorContext).showSnackBar(
+              const SnackBar(
+                content: Text('Biometric login enabled successfully'),
+              ),
+            );
+            NavigationService.navigateToAndRemoveUntil(
+              // ignore: use_build_context_synchronously
               navigatorContext,
-            ).showSnackBar(const SnackBar(content: Text('Biometric login enabled successfully')));
-          }
-          if (mounted) {
-            // ignore: use_build_context_synchronously
-            unawaited(
-              Future.microtask(() {
-                // ignore: use_build_context_synchronously
-                NavigationService.navigateToAndRemoveUntil(
-                  // ignore: use_build_context_synchronously
-                  navigatorContext,
-                  AppRoutes.home,
-                );
-                return null;
-              }),
+              AppRoutes.home,
             );
           }
         },
@@ -203,17 +212,10 @@ class _LoginPageState extends State<LoginPage> {
           }
           Navigator.pop(dialogContext);
           if (mounted) {
-            // ignore: use_build_context_synchronously
-            unawaited(
-              Future.microtask(() {
-                // ignore: use_build_context_synchronously
-                NavigationService.navigateToAndRemoveUntil(
-                  // ignore: use_build_context_synchronously
-                  navigatorContext,
-                  AppRoutes.home,
-                );
-                return null;
-              }),
+            NavigationService.navigateToAndRemoveUntil(
+              // ignore: use_build_context_synchronously
+              navigatorContext,
+              AppRoutes.home,
             );
           }
         },
@@ -235,11 +237,17 @@ class _LoginPageState extends State<LoginPage> {
                 );
               }
               // Show biometric enrollment dialog after successful login
-              _showBiometricEnrollmentDialog(context, _lastLoginEmail, _lastLoginPassword);
+              _showBiometricEnrollmentDialog(
+                context,
+                _lastLoginEmail,
+                _lastLoginPassword,
+              );
             },
             error: (message) {
               // Show error message
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(message)));
             },
             orElse: () {},
           );
@@ -271,17 +279,25 @@ class _LoginPageState extends State<LoginPage> {
                                     '[LoginPage] onLoginPressed - storing credentials - email: $email, password: ${password.isNotEmpty}',
                                   );
                                 }
-                                context.read<LoginCubit>().login(email: email, password: password);
+                                context.read<LoginCubit>().login(
+                                  email: email,
+                                  password: password,
+                                );
                               },
-                              onForgotPasswordPressed: () => _handleForgotPassword(context),
+                              onForgotPasswordPressed: () =>
+                                  _handleForgotPassword(context),
                             ),
-                            if (state.maybeWhen(loading: () => true, orElse: () => false))
+                            if (state.maybeWhen(
+                              loading: () => true,
+                              orElse: () => false,
+                            ))
                               Padding(
                                 padding: EdgeInsets.only(top: 16.h),
                                 child: const CircularProgressIndicator(),
                               ),
                             SocialLoginSection(
-                              onFingerprintPressed: () => _navigateToFingerprint(context),
+                              onFingerprintPressed: () =>
+                                  _navigateToFingerprint(context),
                               onFaceIdPressed: () => _navigateToFaceId(context),
                             ),
                             SizedBox(height: 32.h),
@@ -336,7 +352,10 @@ class _LoginPageState extends State<LoginPage> {
       children: [
         Text(
           "Don't have an account? ",
-          style: TextStyle(fontSize: 14.sp, color: Theme.of(context).textTheme.bodyMedium?.color),
+          style: TextStyle(
+            fontSize: 14.sp,
+            color: Theme.of(context).textTheme.bodyMedium?.color,
+          ),
         ),
         GestureDetector(
           onTap: () => _navigateToRegister(context),

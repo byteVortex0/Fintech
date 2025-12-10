@@ -21,7 +21,10 @@ class ExchangeRateIndicator extends StatelessWidget {
         Container(
           width: 8.w,
           height: 8.w,
-          decoration: const BoxDecoration(color: Color(0xFFFF6B2C), shape: BoxShape.circle),
+          decoration: const BoxDecoration(
+            color: Color(0xFFFF6B2C),
+            shape: BoxShape.circle,
+          ),
         ),
         SizedBox(width: 8.w),
         Text(

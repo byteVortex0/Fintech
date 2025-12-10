@@ -9,7 +9,11 @@ class GradientCardDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20.r),
-      child: Image.asset(ImageManager.card, width: double.infinity, fit: BoxFit.cover),
+      child: Image.asset(
+        ImageManager.card,
+        width: double.infinity,
+        fit: BoxFit.cover,
+      ),
     );
   }
 }

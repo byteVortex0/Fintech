@@ -24,11 +24,14 @@ void main() {
     });
 
     group('isPasswordValid', () {
-      test('returns true for valid password (8+ chars, upper, lower, digit, special)', () {
-        expect(AppRegex.isPasswordValid('Password123@'), isTrue);
-        expect(AppRegex.isPasswordValid('SecurePass\$456'), isTrue);
-        expect(AppRegex.isPasswordValid('Abc123!%'), isTrue);
-      });
+      test(
+        'returns true for valid password (8+ chars, upper, lower, digit, special)',
+        () {
+          expect(AppRegex.isPasswordValid('Password123@'), isTrue);
+          expect(AppRegex.isPasswordValid('SecurePass\$456'), isTrue);
+          expect(AppRegex.isPasswordValid('Abc123!%'), isTrue);
+        },
+      );
 
       test('returns false for password without uppercase', () {
         expect(AppRegex.isPasswordValid('password123!'), isFalse);

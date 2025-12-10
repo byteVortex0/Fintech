@@ -36,7 +36,8 @@ class HomeScreenRepo {
 
       final global = (globalResult as Success<GlobalResponse>).data;
       final trending = (trendingResult as Success<TrendingResponse>).data;
-      final topGainers = (topGainersResult as Success<List<MarketCoinResponse>>).data;
+      final topGainers =
+          (topGainersResult as Success<List<MarketCoinResponse>>).data;
 
       final response = HomeScreenResponse(
         global: global,
@@ -82,7 +83,12 @@ class HomeScreenRepo {
   Future<ApiResult<List<MarketCoinResponse>>> _getTopGainers() async {
     try {
       log('[HomeScreenRepo] _getTopGainers called');
-      final response = await apiService.getAllCoinsMarkets('usd', 'market_cap_desc', 10, 1);
+      final response = await apiService.getAllCoinsMarkets(
+        'usd',
+        'market_cap_desc',
+        10,
+        1,
+      );
       log('[HomeScreenRepo] _getTopGainers SUCCESS');
       return ApiResult.success(response);
     } catch (error) {

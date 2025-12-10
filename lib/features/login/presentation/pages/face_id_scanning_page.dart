@@ -77,12 +77,16 @@ class _FaceIdScanningContentState extends State<_FaceIdScanningContent> {
     return BlocListener<BiometricCubit, BiometricState>(
       listener: (context, state) {
         if (kDebugMode) {
-          debugPrint('[FaceIdScanningPage] BlocListener triggered - state: $state');
+          debugPrint(
+            '[FaceIdScanningPage] BlocListener triggered - state: $state',
+          );
         }
         state.maybeWhen(
           authenticated: (uid) {
             if (kDebugMode) {
-              debugPrint('[FaceIdScanningPage] authenticated state received - uid: $uid');
+              debugPrint(
+                '[FaceIdScanningPage] authenticated state received - uid: $uid',
+              );
               debugPrint('[FaceIdScanningPage] Navigating to home...');
             }
             // Mark authentication as successful to disable back button
@@ -92,30 +96,40 @@ class _FaceIdScanningContentState extends State<_FaceIdScanningContent> {
           },
           error: (message) {
             if (kDebugMode) {
-              debugPrint('[FaceIdScanningPage] error state received - message: $message');
+              debugPrint(
+                '[FaceIdScanningPage] error state received - message: $message',
+              );
             }
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text('Authentication failed: $message')));
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Authentication failed: $message')),
+            );
           },
           notSupported: () {
             if (kDebugMode) {
               debugPrint('[FaceIdScanningPage] notSupported state received');
             }
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(const SnackBar(content: Text('Face ID not supported on this device')));
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Face ID not supported on this device'),
+              ),
+            );
           },
           orElse: () {
             if (kDebugMode) {
-              debugPrint('[FaceIdScanningPage] Other state received (likely loading or initial)');
+              debugPrint(
+                '[FaceIdScanningPage] Other state received (likely loading or initial)',
+              );
             }
           },
         );
       },
       child: Scaffold(
         body: Stack(
-          children: [_buildBackgroundImage(), _buildContent(context), _buildBackButton(context)],
+          children: [
+            _buildBackgroundImage(),
+            _buildContent(context),
+            _buildBackButton(context),
+          ],
         ),
       ),
     );
@@ -123,7 +137,11 @@ class _FaceIdScanningContentState extends State<_FaceIdScanningContent> {
 
   Widget _buildBackgroundImage() {
     return SizedBox.expand(
-      child: Image.asset(ImageManager.faceIdBg, fit: BoxFit.cover, alignment: Alignment.center),
+      child: Image.asset(
+        ImageManager.faceIdBg,
+        fit: BoxFit.cover,
+        alignment: Alignment.center,
+      ),
     );
   }
 
@@ -152,7 +170,10 @@ class _FaceIdScanningContentState extends State<_FaceIdScanningContent> {
     return GestureDetector(
       onTap: () {
         // Allow retry on tap if error occurred
-        state.maybeWhen(error: (_) => _startBiometricAuthentication(), orElse: () {});
+        state.maybeWhen(
+          error: (_) => _startBiometricAuthentication(),
+          orElse: () {},
+        );
       },
       child: Container(
         padding: EdgeInsets.all(20.w),
@@ -163,7 +184,11 @@ class _FaceIdScanningContentState extends State<_FaceIdScanningContent> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.asset(ImageManager.faceIdWithText, width: 155.w, height: 158.w),
+            Image.asset(
+              ImageManager.faceIdWithText,
+              width: 155.w,
+              height: 158.w,
+            ),
             SizedBox(height: 8.h),
             if (state.maybeWhen(loading: () => true, orElse: () => false))
               Padding(
@@ -201,7 +226,9 @@ class _FaceIdScanningContentState extends State<_FaceIdScanningContent> {
       child: SafeArea(
         child: GestureDetector(
           // Disable back button after successful authentication to prevent navigation crashes
-          onTap: _isAuthenticationSuccessful ? null : () => NavigationService.goBack(context),
+          onTap: _isAuthenticationSuccessful
+              ? null
+              : () => NavigationService.goBack(context),
           child: Icon(
             Icons.arrow_back_ios,
             color: _isAuthenticationSuccessful ? Colors.white30 : Colors.white,

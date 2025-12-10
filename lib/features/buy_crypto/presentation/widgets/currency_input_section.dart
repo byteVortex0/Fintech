@@ -60,7 +60,11 @@ class CurrencyInputSection extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.attach_money, size: 20.sp, color: Theme.of(context).iconTheme.color),
+            Icon(
+              Icons.attach_money,
+              size: 20.sp,
+              color: Theme.of(context).iconTheme.color,
+            ),
             SizedBox(width: 8.w),
             Text(
               currency,
@@ -71,7 +75,11 @@ class CurrencyInputSection extends StatelessWidget {
               ),
             ),
             SizedBox(width: 8.w),
-            Icon(Icons.keyboard_arrow_down, size: 20.sp, color: Theme.of(context).iconTheme.color),
+            Icon(
+              Icons.keyboard_arrow_down,
+              size: 20.sp,
+              color: Theme.of(context).iconTheme.color,
+            ),
           ],
         ),
       ),

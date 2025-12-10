@@ -37,7 +37,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
         title: const Text('Logout'),
         content: const Text('Are you sure you want to logout?'),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(dialogContext), child: const Text('Cancel')),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
+          ),
           TextButton(
             onPressed: () {
               Navigator.pop(dialogContext);
@@ -106,13 +109,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
           state.maybeWhen(
             logoutSuccess: () {
               // Navigate to login on successful logout
-              NavigationService.navigateToAndRemoveUntil(context, AppRoutes.login);
+              NavigationService.navigateToAndRemoveUntil(
+                context,
+                AppRoutes.login,
+              );
             },
             logoutError: (message) {
               // Show error message on logout failure
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text('Logout failed: $message')));
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Logout failed: $message')),
+              );
             },
             orElse: () {},
           );
@@ -124,7 +130,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               loading: () => _buildLoadingState(),
               logoutLoading: () => _buildLoadingState(),
               loaded: (userProfile) => RefreshIndicator(
-                onRefresh: () => context.read<SettingsCubit>().refreshUserProfile(),
+                onRefresh: () =>
+                    context.read<SettingsCubit>().refreshUserProfile(),
                 child: SafeArea(
                   child: SingleChildScrollView(
                     padding: EdgeInsets.all(24.w),
@@ -136,12 +143,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Center(
                           child: Text(
                             userProfile.email,
-                            style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              color: Colors.grey,
+                            ),
                           ),
                         ),
                         SizedBox(height: 32.h),
                         const SettingsSectionHeader(title: 'General'),
-                        SettingsItem(icon: Icons.person, title: 'My Account', onTap: () {}),
+                        SettingsItem(
+                          icon: Icons.person,
+                          title: 'My Account',
+                          onTap: () {},
+                        ),
                         SettingsItem(
                           icon: Icons.account_balance_wallet,
                           title: 'Billing/Payment',
@@ -155,7 +169,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                         SizedBox(height: 32.h),
                         const SettingsSectionHeader(title: 'Settings'),
-                        SettingsItem(icon: Icons.language, title: 'Language', onTap: () {}),
+                        SettingsItem(
+                          icon: Icons.language,
+                          title: 'Language',
+                          onTap: () {},
+                        ),
                         BlocBuilder<ThemeCubit, bool>(
                           builder: (context, isDarkMode) {
                             return DarkModeToggle(

@@ -5,7 +5,11 @@ class ActionButtonsSection extends StatelessWidget {
   final VoidCallback onSellPressed;
   final VoidCallback onBuyPressed;
 
-  const ActionButtonsSection({super.key, required this.onSellPressed, required this.onBuyPressed});
+  const ActionButtonsSection({
+    super.key,
+    required this.onSellPressed,
+    required this.onBuyPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,9 @@ class ActionButtonsSection extends StatelessWidget {
               foregroundColor: const Color(0xFFEF4444),
               elevation: 0,
               padding: EdgeInsets.symmetric(vertical: 16.h),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.r),
+              ),
             ),
             child: Text(
               'Sell',
@@ -36,7 +42,9 @@ class ActionButtonsSection extends StatelessWidget {
               foregroundColor: Colors.white,
               elevation: 0,
               padding: EdgeInsets.symmetric(vertical: 16.h),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.r),
+              ),
             ),
             child: Text(
               'Buy',

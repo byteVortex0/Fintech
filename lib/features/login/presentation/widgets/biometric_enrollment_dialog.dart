@@ -6,7 +6,11 @@ class BiometricEnrollmentDialog extends StatelessWidget {
   final VoidCallback onEnroll;
   final VoidCallback onSkip;
 
-  const BiometricEnrollmentDialog({super.key, required this.onEnroll, required this.onSkip});
+  const BiometricEnrollmentDialog({
+    super.key,
+    required this.onEnroll,
+    required this.onSkip,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +33,11 @@ class BiometricEnrollmentDialog extends StatelessWidget {
           onPressed: onSkip,
           child: Text(
             'Skip',
-            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.grey),
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey,
+            ),
           ),
         ),
         ElevatedButton(

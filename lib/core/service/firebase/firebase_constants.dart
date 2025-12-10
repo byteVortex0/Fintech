@@ -2,7 +2,8 @@ class FirebaseConstants {
   // Notifications
   static const String userNotifications = "Notification/nots-user";
   static const String deleteUserNotification = "Notification/delete-user-nots";
-  static const String notificationUserBeforBidEnd = "Notification/nots-item-befor";
+  static const String notificationUserBeforBidEnd =
+      "Notification/nots-item-befor";
 
   static const String conditions = 'conditions';
   static const String categories = 'categories';
@@ -30,7 +31,9 @@ class FirebaseConstants {
 
 class FirebaseErrors {
   static const String noUserFoundForThatEmail = "No user found for that email.";
-  static const String wrongPasswordProvidedForThatUser = "Wrong password provided for that user.";
-  static const String checkYourInternetConnection = "Check your internet connection";
+  static const String wrongPasswordProvidedForThatUser =
+      "Wrong password provided for that user.";
+  static const String checkYourInternetConnection =
+      "Check your internet connection";
   static const String youAreNotUser = "You are not user";
 }

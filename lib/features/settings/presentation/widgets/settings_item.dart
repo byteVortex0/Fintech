@@ -56,7 +56,11 @@ class SettingsItem extends StatelessWidget {
                 ),
               ),
             ),
-            Icon(Icons.chevron_right, color: Theme.of(context).iconTheme.color, size: 24.sp),
+            Icon(
+              Icons.chevron_right,
+              color: Theme.of(context).iconTheme.color,
+              size: 24.sp,
+            ),
           ],
         ),
       ),

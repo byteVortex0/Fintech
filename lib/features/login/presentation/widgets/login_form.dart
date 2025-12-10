@@ -13,7 +13,11 @@ class LoginForm extends StatefulWidget {
   final Function(String email, String password) onLoginPressed;
   final VoidCallback onForgotPasswordPressed;
 
-  const LoginForm({super.key, required this.onLoginPressed, required this.onForgotPasswordPressed});
+  const LoginForm({
+    super.key,
+    required this.onLoginPressed,
+    required this.onForgotPasswordPressed,
+  });
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -81,7 +85,8 @@ class _LoginFormState extends State<LoginForm> {
                 height: 24.w,
                 child: Checkbox(
                   value: _rememberMe,
-                  onChanged: (value) => setState(() => _rememberMe = value ?? false),
+                  onChanged: (value) =>
+                      setState(() => _rememberMe = value ?? false),
                   activeColor: Theme.of(context).colorScheme.secondary,
                   side: BorderSide(
                     color: Theme.of(context).brightness == Brightness.dark
@@ -124,15 +129,24 @@ class _LoginFormState extends State<LoginForm> {
         width: double.infinity,
         height: 52.h,
         child: ElevatedButton(
-          onPressed: () => widget.onLoginPressed(_emailController.text, _passwordController.text),
+          onPressed: () => widget.onLoginPressed(
+            _emailController.text,
+            _passwordController.text,
+          ),
           style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.secondary,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.r),
+            ),
             elevation: 0,
           ),
           child: Text(
             'Login',
-            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.white),
+            style: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
           ),
         ),
       ),
