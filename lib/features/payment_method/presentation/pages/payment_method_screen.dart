@@ -1,3 +1,4 @@
+import 'package:fintech/core/service/payment/payment_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/app/widgets/primary_button.dart';
@@ -8,7 +9,9 @@ import '../widgets/email_receipt_toggle.dart';
 
 /// Payment Method Screen - Payment selection and confirmation
 class PaymentMethodScreen extends StatefulWidget {
-  const PaymentMethodScreen({super.key});
+  const PaymentMethodScreen({super.key, required this.price});
+
+  final String price;
 
   @override
   State<PaymentMethodScreen> createState() => _PaymentMethodScreenState();
@@ -77,8 +80,22 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               child: PrimaryButton(
                 text: 'Buy',
                 backgroundColor: Theme.of(context).colorScheme.secondary,
-                onPressed: () {
-                  // TODO: Implement payment confirmation
+                onPressed: () async {
+                  final paymentSuccess = await PaymentService.makePayment(
+                    amount: widget.price,
+                    currency: 'USD',
+                  );
+
+                  if (!context.mounted) return;
+                  if (paymentSuccess) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Payment successful')),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text('Payment failed')));
+                  }
                 },
               ),
             ),
