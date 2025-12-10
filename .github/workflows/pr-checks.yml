@@ -1,7 +1,7 @@
 name: Pull Request CI
 on:
   pull_request:
-    branches: [ develop ]
+    branches: [develop]
 jobs:
   analyze:
     name: Analyze & Format checks
@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: "stable"
           cache: true
           cache-key: "flutter-${{ runner.os }}-${{ hashFiles('**/pubspec.lock') }}"
           cache-path: "${{ runner.tool_cache }}/flutter"
@@ -18,6 +18,11 @@ jobs:
         run: flutter pub get
       - name: Generate necessary code
         run: flutter pub run build_runner build --delete-conflicting-outputs
+      - name: Create .env file
+        run: |
+          echo "COINGECKO_API_KEY=${{ secrets.COINGECKO_API_KEY }}" >> .env
+          echo "PUBLISHABLE_KEY=${{ secrets.PUBLISHABLE_KEY }}" >> .env
+          echo "STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}" >> .env
       - name: Analyze code
         run: flutter analyze
       - name: Check code format
