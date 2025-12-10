@@ -22,6 +22,12 @@ jobs:
           flutter-version: "3.35.7"
           channel: "stable"
 
+      - name: Create .env file
+        run: |
+          echo "COINGECKO_API_KEY=${{ secrets.COINGECKO_API_KEY }}" >> .env
+          echo "PUBLISHABLE_KEY=${{ secrets.PUBLISHABLE_KEY }}" >> .env
+          echo "STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}" >> .env
+
       - name: Install dependencies
         run: flutter pub get
 
