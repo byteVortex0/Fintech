@@ -5,8 +5,7 @@ part 'search_coin_response.g.dart';
 
 @freezed
 sealed class SearchCoinResponse with _$SearchCoinResponse {
-  const factory SearchCoinResponse({required List<SearchCoin> coins}) =
-      _SearchCoinResponse;
+  const factory SearchCoinResponse({required List<SearchCoin> coins}) = _SearchCoinResponse;
 
   factory SearchCoinResponse.fromJson(Map<String, dynamic> json) =>
       _$SearchCoinResponseFromJson(json);
@@ -26,6 +25,5 @@ sealed class SearchCoin with _$SearchCoin {
     required String large,
   }) = _SearchCoin;
 
-  factory SearchCoin.fromJson(Map<String, dynamic> json) =>
-      _$SearchCoinFromJson(json);
+  factory SearchCoin.fromJson(Map<String, dynamic> json) => _$SearchCoinFromJson(json);
 }

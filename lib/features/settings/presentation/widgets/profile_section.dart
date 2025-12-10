@@ -22,11 +22,7 @@ class ProfileSection extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.secondary,
           child: Text(
             firstInitial,
-            style: TextStyle(
-              fontSize: 40.sp,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-            ),
+            style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600, color: Colors.white),
           ),
         ),
         SizedBox(height: 20.h),

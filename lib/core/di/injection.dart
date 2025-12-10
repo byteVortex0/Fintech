@@ -58,37 +58,25 @@ void _initCore() {
   sl.registerLazySingleton<BiometricRepository>(() => BiometricRepository());
 
   // Biometric Cubit
-  sl.registerFactory<BiometricCubit>(
-    () => BiometricCubit(sl<BiometricRepository>()),
-  );
+  sl.registerFactory<BiometricCubit>(() => BiometricCubit(sl<BiometricRepository>()));
 
   // Biometric Enrollment Service
-  sl.registerLazySingleton<BiometricEnrollmentService>(
-    () => BiometricEnrollmentService(),
-  );
+  sl.registerLazySingleton<BiometricEnrollmentService>(() => BiometricEnrollmentService());
 
   // Auto Login Cubit
-  sl.registerFactory<AutoLoginCubit>(
-    () => AutoLoginCubit(sl<BiometricEnrollmentService>()),
-  );
+  sl.registerFactory<AutoLoginCubit>(() => AutoLoginCubit(sl<BiometricEnrollmentService>()));
 
   // Portfolio Repository
-  sl.registerLazySingleton<PortfolioRepository>(
-    () => PortfolioRepository(sl<ApiService>()),
-  );
+  sl.registerLazySingleton<PortfolioRepository>(() => PortfolioRepository(sl<ApiService>()));
 
   // Portfolio Cubit
-  sl.registerFactory<PortfolioCubit>(
-    () => PortfolioCubit(sl<PortfolioRepository>()),
-  );
+  sl.registerFactory<PortfolioCubit>(() => PortfolioCubit(sl<PortfolioRepository>()));
 
   // Settings Repository
   sl.registerLazySingleton<SettingsRepository>(() => SettingsRepository());
 
   // Settings Cubit
-  sl.registerFactory<SettingsCubit>(
-    () => SettingsCubit(sl<SettingsRepository>()),
-  );
+  sl.registerFactory<SettingsCubit>(() => SettingsCubit(sl<SettingsRepository>()));
 }
 
 void marketCoins() {
@@ -106,9 +94,7 @@ void coinsDetails() {
 
 void registerFeature() {
   // Register Feature
-  sl.registerLazySingleton<RegisterRepo>(
-    () => RegisterRepo(sl<FirebaseService>()),
-  );
+  sl.registerLazySingleton<RegisterRepo>(() => RegisterRepo(sl<FirebaseService>()));
   sl.registerFactory<RegisterCubit>(() => RegisterCubit(sl<RegisterRepo>()));
 
   // sl.registerLazySingleton<ApiService>(() => ApiService(dio));
@@ -117,7 +103,5 @@ void registerFeature() {
 void homeScreen() {
   sl
     ..registerLazySingleton(() => HomeScreenRepo(sl()))
-    ..registerFactory<HomeCubit>(
-      () => HomeCubit(sl<HomeScreenRepo>(), sl<SettingsRepository>()),
-    );
+    ..registerFactory<HomeCubit>(() => HomeCubit(sl<HomeScreenRepo>(), sl<SettingsRepository>()));
 }

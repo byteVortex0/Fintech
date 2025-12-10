@@ -47,15 +47,9 @@ class _ChartSectionWidgetState extends State<ChartSectionWidget> {
                               gridData: FlGridData(show: false),
                               borderData: FlBorderData(show: false),
                               titlesData: FlTitlesData(
-                                topTitles: AxisTitles(
-                                  sideTitles: SideTitles(showTitles: false),
-                                ),
-                                rightTitles: AxisTitles(
-                                  sideTitles: SideTitles(showTitles: false),
-                                ),
-                                leftTitles: AxisTitles(
-                                  sideTitles: SideTitles(showTitles: false),
-                                ),
+                                topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                                rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                                leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
                                 bottomTitles: AxisTitles(
                                   sideTitles: SideTitles(
                                     showTitles: true,
@@ -70,10 +64,7 @@ class _ChartSectionWidgetState extends State<ChartSectionWidget> {
 
                                     getTitlesWidget: (value, _) {
                                       final timestamp = value.toInt();
-                                      final date =
-                                          DateTime.fromMillisecondsSinceEpoch(
-                                            timestamp,
-                                          );
+                                      final date = DateTime.fromMillisecondsSinceEpoch(timestamp);
 
                                       String label = '';
 
@@ -105,9 +96,7 @@ class _ChartSectionWidgetState extends State<ChartSectionWidget> {
                                         child: Text(
                                           label,
                                           style: TextStyle(
-                                            color: Theme.of(
-                                              context,
-                                            ).textTheme.bodyMedium?.color,
+                                            color: Theme.of(context).textTheme.bodyMedium?.color,
                                             fontSize: 10.sp,
                                           ),
                                         ),
@@ -127,10 +116,8 @@ class _ChartSectionWidgetState extends State<ChartSectionWidget> {
                                     show: true,
                                     gradient: LinearGradient(
                                       colors: [
-                                        LightColorManager.chartsColor
-                                            .withValues(alpha: 0.3),
-                                        LightColorManager.chartsColor
-                                            .withValues(alpha: 0.05),
+                                        LightColorManager.chartsColor.withValues(alpha: 0.3),
+                                        LightColorManager.chartsColor.withValues(alpha: 0.05),
                                       ],
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
@@ -181,10 +168,7 @@ class _ChartSectionWidgetState extends State<ChartSectionWidget> {
           selectedPeriod = period;
         });
 
-        context.read<ChartCubit>().fetchChart(
-          coinId: widget.id,
-          period: period,
-        );
+        context.read<ChartCubit>().fetchChart(coinId: widget.id, period: period);
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),

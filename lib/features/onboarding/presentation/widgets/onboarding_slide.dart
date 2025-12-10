@@ -32,11 +32,7 @@ class OnboardingSlide extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Center(
-                  child: Image.asset(
-                    item.image,
-                    height: 300.h,
-                    fit: BoxFit.contain,
-                  ),
+                  child: Image.asset(item.image, height: 300.h, fit: BoxFit.contain),
                 ),
               ),
 

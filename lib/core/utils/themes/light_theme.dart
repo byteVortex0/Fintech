@@ -15,19 +15,12 @@ ThemeData get lightTheme => ThemeData(
     backgroundColor: LightColorManager.scaffoldBackground,
     elevation: 0,
     iconTheme: IconThemeData(color: Color(0xFF1E3A5F)),
-    titleTextStyle: TextStyle(
-      color: Color(0xFF1E3A5F),
-      fontSize: 18,
-      fontWeight: FontWeight.w600,
-    ),
+    titleTextStyle: TextStyle(color: Color(0xFF1E3A5F), fontSize: 18, fontWeight: FontWeight.w600),
   ),
   textTheme: const TextTheme(
     bodyLarge: TextStyle(color: Color(0xFF1E3A5F)),
     bodyMedium: TextStyle(color: Color(0xFF757575)),
-    titleLarge: TextStyle(
-      color: Color(0xFF1E3A5F),
-      fontWeight: FontWeight.bold,
-    ),
+    titleLarge: TextStyle(color: Color(0xFF1E3A5F), fontWeight: FontWeight.bold),
   ),
   iconTheme: const IconThemeData(color: Color(0xFF1E3A5F)),
   cardTheme: const CardThemeData(color: Colors.white, elevation: 2),

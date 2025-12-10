@@ -6,11 +6,7 @@ class ExchangeFeeCard extends StatelessWidget {
   final String feePercentage;
   final String feeAmount;
 
-  const ExchangeFeeCard({
-    super.key,
-    required this.feePercentage,
-    required this.feeAmount,
-  });
+  const ExchangeFeeCard({super.key, required this.feePercentage, required this.feeAmount});
 
   @override
   Widget build(BuildContext context) {

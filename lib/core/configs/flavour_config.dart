@@ -2,10 +2,7 @@
 /// Provides centralized configuration based on build flavour
 class FlavourConfig {
   /// Current flavour (dev or prod)
-  static final String flavour = const String.fromEnvironment(
-    'FLAVOUR',
-    defaultValue: 'prod',
-  );
+  static final String flavour = const String.fromEnvironment('FLAVOUR', defaultValue: 'prod');
 
   /// Is development flavour
   static bool get isDev => flavour == 'dev';
@@ -20,8 +17,7 @@ class FlavourConfig {
   static String get bundleId => isDev ? 'com.fintech.dev' : 'com.fintech';
 
   /// Firebase project ID based on flavour
-  static String get firebaseProjectId =>
-      isDev ? 'fintech-dev-project' : 'fintech-prod-project';
+  static String get firebaseProjectId => isDev ? 'fintech-dev-project' : 'fintech-prod-project';
 
   /// API base URL based on flavour
   static String get apiBaseUrl =>
@@ -46,6 +42,5 @@ class FlavourConfig {
   }
 
   /// Get environment description
-  static String getEnvironmentDescription() =>
-      'Running in ${getDisplayName()} mode ($appName)';
+  static String getEnvironmentDescription() => 'Running in ${getDisplayName()} mode ($appName)';
 }

@@ -7,11 +7,7 @@ class PortfolioDonutChart extends StatelessWidget {
   final double totalValue;
   final List<HoldingModel> holdings;
 
-  const PortfolioDonutChart({
-    super.key,
-    required this.totalValue,
-    required this.holdings,
-  });
+  const PortfolioDonutChart({super.key, required this.totalValue, required this.holdings});
 
   @override
   Widget build(BuildContext context) {
@@ -44,14 +40,7 @@ class PortfolioDonutChart extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: SweepGradient(
-                    colors: [
-                      colors[0],
-                      colors[0],
-                      colors[1],
-                      colors[1],
-                      colors[2],
-                      colors[2],
-                    ],
+                    colors: [colors[0], colors[0], colors[1], colors[1], colors[2], colors[2]],
                     stops: const [0.0, 0.5, 0.5, 0.8, 0.8, 1.0],
                   ),
                 ),

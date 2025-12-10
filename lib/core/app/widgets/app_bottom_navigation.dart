@@ -22,15 +22,9 @@ class AppBottomNavigation extends StatelessWidget {
     return BottomNavigationBar(
       currentIndex: selectedIndex,
       type: BottomNavigationBarType.fixed,
-      backgroundColor: Theme.of(
-        context,
-      ).bottomNavigationBarTheme.backgroundColor,
-      selectedItemColor: Theme.of(
-        context,
-      ).bottomNavigationBarTheme.selectedItemColor,
-      unselectedItemColor: Theme.of(
-        context,
-      ).bottomNavigationBarTheme.unselectedItemColor,
+      backgroundColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+      selectedItemColor: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+      unselectedItemColor: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
       elevation: 8,
       items: [
         BottomNavigationBarItem(

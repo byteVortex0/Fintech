@@ -1,10 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/foundation.dart';
+import '../../../../core/service/api/error/error_handler.dart';
 import '../../data/repository/biometric_repository.dart';
 import 'biometric_state.dart';
 
 /// BiometricCubit for managing biometric authentication state
-/// Handles fingerprint and face ID authentication
+/// Handles fingerprint and face ID authentication with friendly error messages
 class BiometricCubit extends Cubit<BiometricState> {
   final BiometricRepository _repository;
 
@@ -25,7 +26,8 @@ class BiometricCubit extends Cubit<BiometricState> {
         debugPrint('[BiometricCubit] Error checking biometric support: $e');
       }
       if (!isClosed) {
-        emit(BiometricState.error('Failed to check biometric support'));
+        final failure = await ErrorHandler.handle(e);
+        emit(BiometricState.error(failure.errorModel.userMessage));
       }
     }
   }
@@ -54,9 +56,7 @@ class BiometricCubit extends Cubit<BiometricState> {
 
       if (user != null && !isClosed) {
         if (kDebugMode) {
-          debugPrint(
-            '[BiometricCubit] Authentication successful for user: ${user.email}',
-          );
+          debugPrint('[BiometricCubit] Authentication successful for user: ${user.email}');
         }
         emit(BiometricState.authenticated(user.uid));
       } else if (!isClosed) {
@@ -67,7 +67,8 @@ class BiometricCubit extends Cubit<BiometricState> {
         debugPrint('[BiometricCubit] Authentication error: $e');
       }
       if (!isClosed) {
-        emit(BiometricState.error(e.toString()));
+        final failure = await ErrorHandler.handle(e);
+        emit(BiometricState.error(failure.errorModel.userMessage));
       }
     }
   }

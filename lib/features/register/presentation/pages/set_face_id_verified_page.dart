@@ -14,22 +14,14 @@ class SetFaceIdVerifiedPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: [
-          _buildBackgroundImage(),
-          _buildContent(context),
-          _buildBackButton(context),
-        ],
+        children: [_buildBackgroundImage(), _buildContent(context), _buildBackButton(context)],
       ),
     );
   }
 
   Widget _buildBackgroundImage() {
     return SizedBox.expand(
-      child: Image.asset(
-        ImageManager.faceIdBg,
-        fit: BoxFit.cover,
-        alignment: Alignment.center,
-      ),
+      child: Image.asset(ImageManager.faceIdBg, fit: BoxFit.cover, alignment: Alignment.center),
     );
   }
 
@@ -85,16 +77,9 @@ class SetFaceIdVerifiedPage extends StatelessWidget {
       height: 70.w,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(
-          color: Theme.of(context).colorScheme.secondary,
-          width: 2.5,
-        ),
+        border: Border.all(color: Theme.of(context).colorScheme.secondary, width: 2.5),
       ),
-      child: Icon(
-        Icons.check,
-        color: Theme.of(context).colorScheme.secondary,
-        size: 40.sp,
-      ),
+      child: Icon(Icons.check, color: Theme.of(context).colorScheme.secondary, size: 40.sp),
     );
   }
 
@@ -103,11 +88,7 @@ class SetFaceIdVerifiedPage extends StatelessWidget {
       children: [
         Text(
           "You're Ready!",
-          style: TextStyle(
-            fontSize: 28.sp,
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
-          ),
+          style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.w700, color: Colors.white),
         ),
         SizedBox(height: 12.h),
         Padding(
@@ -138,17 +119,11 @@ class SetFaceIdVerifiedPage extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.secondary,
             elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(26.r),
-            ),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26.r)),
           ),
           child: Text(
             'Continue',
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-            ),
+            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.white),
           ),
         ),
       ),

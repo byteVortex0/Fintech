@@ -35,11 +35,7 @@ class _CreditCardSectionState extends State<CreditCardSection> {
                   color: Theme.of(context).textTheme.bodyLarge?.color,
                 ),
               ),
-              Icon(
-                Icons.keyboard_arrow_up,
-                color: Theme.of(context).iconTheme.color,
-                size: 28.sp,
-              ),
+              Icon(Icons.keyboard_arrow_up, color: Theme.of(context).iconTheme.color, size: 28.sp),
             ],
           ),
           SizedBox(height: 20.h),

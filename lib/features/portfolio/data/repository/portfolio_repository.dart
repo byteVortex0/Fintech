@@ -63,18 +63,14 @@ class PortfolioRepository {
           .map(
             (holding) => holding.copyWith(
               percentage: totalValue > 0
-                  ? ((double.parse(holding.dollarValue) / totalValue) * 100)
-                        .toInt()
+                  ? ((double.parse(holding.dollarValue) / totalValue) * 100).toInt()
                   : 0,
             ),
           )
           .toList();
 
       // Create portfolio summary
-      final portfolio = _calculatePortfolioSummary(
-        totalValue,
-        holdingsWithPercentage,
-      );
+      final portfolio = _calculatePortfolioSummary(totalValue, holdingsWithPercentage);
 
       return {'portfolio': portfolio, 'holdings': holdingsWithPercentage};
     } catch (e) {
@@ -83,10 +79,7 @@ class PortfolioRepository {
   }
 
   /// Calculate portfolio summary with total value and today's change
-  PortfolioModel _calculatePortfolioSummary(
-    double totalValue,
-    List<HoldingModel> holdings,
-  ) {
+  PortfolioModel _calculatePortfolioSummary(double totalValue, List<HoldingModel> holdings) {
     // Calculate average 24h change weighted by holdings
     double weightedChange = 0;
     for (final holding in holdings) {
@@ -107,11 +100,7 @@ class PortfolioRepository {
 
   /// Get coin name from coin ID
   String _getCoinName(String coinId) {
-    const names = {
-      'bitcoin': 'Bitcoin',
-      'ethereum': 'Ethereum',
-      'cardano': 'Cardano',
-    };
+    const names = {'bitcoin': 'Bitcoin', 'ethereum': 'Ethereum', 'cardano': 'Cardano'};
     return names[coinId] ?? coinId;
   }
 

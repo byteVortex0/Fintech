@@ -20,15 +20,12 @@ void main() {
     });
 
     group('checkIfLoggedInUser', () {
-      test(
-        'checkIfLoggedInUser method exists and returns Future<bool>',
-        () async {
-          // In a real test environment:
-          // final isLoggedIn = await UserPreferences.checkIfLoggedInUser();
-          // expect(isLoggedIn, isFalse); // When no UID is saved
-          expect(UserPreferences.checkIfLoggedInUser, isNotNull);
-        },
-      );
+      test('checkIfLoggedInUser method exists and returns Future<bool>', () async {
+        // In a real test environment:
+        // final isLoggedIn = await UserPreferences.checkIfLoggedInUser();
+        // expect(isLoggedIn, isFalse); // When no UID is saved
+        expect(UserPreferences.checkIfLoggedInUser, isNotNull);
+      });
     });
 
     group('setBiometricEnrolled', () {
@@ -38,15 +35,12 @@ void main() {
     });
 
     group('isBiometricEnrolled', () {
-      test(
-        'isBiometricEnrolled method exists and returns Future<bool>',
-        () async {
-          // In a real test environment:
-          // final enrolled = await UserPreferences.isBiometricEnrolled();
-          // expect(enrolled, isFalse); // Default when not set
-          expect(UserPreferences.isBiometricEnrolled, isNotNull);
-        },
-      );
+      test('isBiometricEnrolled method exists and returns Future<bool>', () async {
+        // In a real test environment:
+        // final enrolled = await UserPreferences.isBiometricEnrolled();
+        // expect(enrolled, isFalse); // Default when not set
+        expect(UserPreferences.isBiometricEnrolled, isNotNull);
+      });
     });
 
     group('clearBiometricEnrollment', () {
@@ -62,15 +56,12 @@ void main() {
     });
 
     group('getBiometricEmail', () {
-      test(
-        'getBiometricEmail method exists and returns Future<String?>',
-        () async {
-          // In a real test environment:
-          // final email = await UserPreferences.getBiometricEmail();
-          // expect(email, isNull); // When not set
-          expect(UserPreferences.getBiometricEmail, isNotNull);
-        },
-      );
+      test('getBiometricEmail method exists and returns Future<String?>', () async {
+        // In a real test environment:
+        // final email = await UserPreferences.getBiometricEmail();
+        // expect(email, isNull); // When not set
+        expect(UserPreferences.getBiometricEmail, isNotNull);
+      });
     });
 
     group('saveBiometricPassword', () {
@@ -80,27 +71,21 @@ void main() {
     });
 
     group('getBiometricPassword', () {
-      test(
-        'getBiometricPassword method exists and returns Future<String?>',
-        () async {
-          // In a real test environment:
-          // final password = await UserPreferences.getBiometricPassword();
-          // expect(password, isNull); // When not set
-          expect(UserPreferences.getBiometricPassword, isNotNull);
-        },
-      );
+      test('getBiometricPassword method exists and returns Future<String?>', () async {
+        // In a real test environment:
+        // final password = await UserPreferences.getBiometricPassword();
+        // expect(password, isNull); // When not set
+        expect(UserPreferences.getBiometricPassword, isNotNull);
+      });
     });
 
     group('hasBiometricCredentials', () {
-      test(
-        'hasBiometricCredentials method exists and returns Future<bool>',
-        () async {
-          // In a real test environment:
-          // final hasCredentials = await UserPreferences.hasBiometricCredentials();
-          // expect(hasCredentials, isFalse); // When credentials not set
-          expect(UserPreferences.hasBiometricCredentials, isNotNull);
-        },
-      );
+      test('hasBiometricCredentials method exists and returns Future<bool>', () async {
+        // In a real test environment:
+        // final hasCredentials = await UserPreferences.hasBiometricCredentials();
+        // expect(hasCredentials, isFalse); // When credentials not set
+        expect(UserPreferences.hasBiometricCredentials, isNotNull);
+      });
 
       test('returns false when email or password is empty', () async {
         // This tests the logic:

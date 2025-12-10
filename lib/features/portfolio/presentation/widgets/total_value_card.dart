@@ -35,11 +35,7 @@ class TotalValueCard extends StatelessWidget {
           SizedBox(height: 8.h),
           Text(
             '\$${portfolio.totalValue.toStringAsFixed(2)}',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 32.sp,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 32.sp, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 12.h),
           Row(

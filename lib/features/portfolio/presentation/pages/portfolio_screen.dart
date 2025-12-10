@@ -101,8 +101,7 @@ class _PortfolioScreenContent extends StatelessWidget {
                 ),
               ),
               loaded: (portfolio, holdings) => RefreshIndicator(
-                onRefresh: () =>
-                    context.read<PortfolioCubit>().refreshPortfolio(),
+                onRefresh: () => context.read<PortfolioCubit>().refreshPortfolio(),
                 child: SingleChildScrollView(
                   padding: EdgeInsets.all(24.w),
                   child: Column(
@@ -112,10 +111,7 @@ class _PortfolioScreenContent extends StatelessWidget {
                       SizedBox(height: 24.h),
                       const TimePeriodSelector(),
                       SizedBox(height: 24.h),
-                      PortfolioDonutChart(
-                        totalValue: portfolio.totalValue,
-                        holdings: holdings,
-                      ),
+                      PortfolioDonutChart(totalValue: portfolio.totalValue, holdings: holdings),
                       SizedBox(height: 24.h),
                       MyHoldingsSection(holdings: holdings),
                       SizedBox(height: 24.h),

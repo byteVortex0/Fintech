@@ -87,10 +87,7 @@ class _BuyCryptoScreenState extends State<BuyCryptoScreen> {
                       ),
                     ),
                     SizedBox(height: 16.h),
-                    const ExchangeFeeCard(
-                      feePercentage: '0.05%',
-                      feeAmount: '\$26',
-                    ),
+                    const ExchangeFeeCard(feePercentage: '0.05%', feeAmount: '\$26'),
                     SizedBox(height: 32.h),
                   ],
                 ),
@@ -164,17 +161,11 @@ class _BuyCryptoScreenState extends State<BuyCryptoScreen> {
           style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.secondary,
             elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.r),
-            ),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
           ),
           child: Text(
             'Continue',
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-            ),
+            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.white),
           ),
         ),
       ),
