@@ -1,7 +1,7 @@
+import '../../../../core/navigation/navigation_service.dart';
 import '../../../../core/routing/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
 import '../../../login/presentation/widgets/curved_background.dart';
 
@@ -91,14 +91,16 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
     // }
 
     if (!context.mounted) return;
-
     navigate
-        ? context.pushNamed(AppRoutes.setFingerprintVerified)
+        ? NavigationService.navigateTo(
+            context,
+            AppRoutes.setFingerprintVerified,
+          )
         : setState(() => errorMessage = localError);
   }
 
   void _handleSkip(BuildContext context) =>
-      context.pushReplacementNamed(AppRoutes.login);
+      NavigationService.navigateToAndRemoveUntil(context, AppRoutes.login);
 
   // Navigator.of(context).pushAndRemoveUntil(
   //   AppRoutes.onGenerateRoute(RouteSettings(name: AppRoutes.login))!,

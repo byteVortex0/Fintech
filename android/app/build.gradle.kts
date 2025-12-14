@@ -55,13 +55,36 @@ android {
     }
 
     signingConfigs {
+
+        getByName("debug") {
+            storeFile = file("${System.getProperty("user.home")}/.android/debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+
         create("release") {
-            storeFile = file("release-test.jks")
-            storePassword = storePasswordValue
-            keyAlias = keyAliasValue
-            keyPassword = keyPasswordValue
+
+            if (
+                storePasswordValue != null &&
+                keyAliasValue != null &&
+                keyPasswordValue != null
+            ) {
+                // CI / GitHub Actions
+                storeFile = file("release-test.jks")
+                storePassword = storePasswordValue
+                keyAlias = keyAliasValue
+                keyPassword = keyPasswordValue
+            } else {
+                // Local fallback
+                storeFile = file("${System.getProperty("user.home")}/.android/debug.keystore")
+                storePassword = "android"
+                keyAlias = "androiddebugkey"
+                keyPassword = "android"
+            }
         }
     }
+
 
     buildTypes {
         getByName("release") {
@@ -69,6 +92,8 @@ android {
             isMinifyEnabled = false
             isShrinkResources = false
         }
+
+        
     }
 }
 

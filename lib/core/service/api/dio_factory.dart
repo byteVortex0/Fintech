@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
+import '../../app/env_variables.dart';
+
 class DioFactory {
   DioFactory._();
 
@@ -15,7 +17,11 @@ class DioFactory {
       dio = Dio();
       dio!
         ..options.connectTimeout = timeOut
-        ..options.receiveTimeout = timeOut;
+        ..options.receiveTimeout = timeOut
+        ..options.headers = {
+          'x-cg-demo-api-key': EnvVariables.instance.coingeckoApiKey,
+          'Accept': 'application/json',
+        };
 
       addDioInterceptor();
       return dio!;
