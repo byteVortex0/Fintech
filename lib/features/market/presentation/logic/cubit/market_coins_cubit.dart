@@ -27,10 +27,8 @@ class MarketCoinsCubit extends Cubit<MarketCoinsState> {
     bool loadMore = false,
     bool forceRefresh = false,
   }) async {
-    // 🛑 منع الطلبات المتكررة
     if (_isLoading) return;
 
-    // 🔄 Refresh
     if (forceRefresh) {
       _currentPage = 1;
       _hasMore = true;
