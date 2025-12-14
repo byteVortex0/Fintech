@@ -87,144 +87,166 @@ class _MarketScreenState extends State<MarketScreen> {
                   SizedBox(height: 12.h),
 
                   Expanded(
-                    child: BlocBuilder<MarketCoinsCubit, MarketCoinsState>(
-                      builder: (context, state) {
-                        return state.when(
-                          loading: () =>
-                              Center(child: CircularProgressIndicator()),
+                    child: RefreshIndicator.adaptive(
+                      onRefresh: () async {
+                        context.read<MarketCoinsCubit>().getAllCoinsMarkets(
+                          forceRefresh: true,
+                        );
+                      },
+                      child: BlocBuilder<MarketCoinsCubit, MarketCoinsState>(
+                        builder: (context, state) {
+                          return state.when(
+                            loading: () =>
+                                Center(child: CircularProgressIndicator()),
 
-                          searching: () =>
-                              Center(child: CircularProgressIndicator()),
+                            searching: () =>
+                                Center(child: CircularProgressIndicator()),
 
-                          error: (message) => Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.error_outline,
-                                  size: 64.sp,
-                                  color: Colors.red,
-                                ),
-                                SizedBox(height: 16.h),
-                                Text(
-                                  'Error: $message',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 16.sp,
-                                    color: Theme.of(
-                                      context,
-                                    ).textTheme.bodyLarge?.color,
-                                    fontWeight: FontWeight.w500,
+                            error: (message) => Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.error_outline,
+                                    size: 64.sp,
+                                    color: Colors.red,
                                   ),
-                                ),
-                                SizedBox(height: 24.h),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    context
-                                        .read<MarketCoinsCubit>()
-                                        .getAllCoinsMarkets();
-                                  },
-                                  child: const Text('Retry'),
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          searchError: (message) => Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.error_outline,
-                                  size: 64.sp,
-                                  color: Colors.red,
-                                ),
-                                SizedBox(height: 16.h),
-                                Text(
-                                  'Search Error: $message',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 16.sp,
-                                    color: Theme.of(
-                                      context,
-                                    ).textTheme.bodyLarge?.color,
-                                    fontWeight: FontWeight.w500,
+                                  SizedBox(height: 16.h),
+                                  Text(
+                                    'Error: $message',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 16.sp,
+                                      color: Theme.of(
+                                        context,
+                                      ).textTheme.bodyLarge?.color,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(height: 24.h),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    context
-                                        .read<MarketCoinsCubit>()
-                                        .getAllCoinsMarkets();
-                                  },
-                                  child: const Text('Retry'),
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          empty: () => Center(
-                            child: Text(
-                              'No results found',
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                color: Theme.of(
-                                  context,
-                                ).textTheme.bodyLarge?.color,
-                                fontWeight: FontWeight.w500,
+                                  SizedBox(height: 24.h),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      context
+                                          .read<MarketCoinsCubit>()
+                                          .getAllCoinsMarkets();
+                                    },
+                                    child: const Text('Retry'),
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
 
-                          loaded: (coinsMarkets) {
-                            return RefreshIndicator(
+                            searchError: (message) => Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.error_outline,
+                                    size: 64.sp,
+                                    color: Colors.red,
+                                  ),
+                                  SizedBox(height: 16.h),
+                                  Text(
+                                    'Search Error: $message',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 16.sp,
+                                      color: Theme.of(
+                                        context,
+                                      ).textTheme.bodyLarge?.color,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  SizedBox(height: 24.h),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      context
+                                          .read<MarketCoinsCubit>()
+                                          .getAllCoinsMarkets();
+                                    },
+                                    child: const Text('Retry'),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            empty: () => Center(
+                              child: Text(
+                                'No results found',
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  color: Theme.of(
+                                    context,
+                                  ).textTheme.bodyLarge?.color,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+
+                            loaded: (coinsMarkets, hasMore, isLoadingMore) {
+                              return NotificationListener<ScrollNotification>(
+                                onNotification: (scroll) {
+                                  if (scroll.metrics.pixels >=
+                                      scroll.metrics.maxScrollExtent - 200) {
+                                    context
+                                        .read<MarketCoinsCubit>()
+                                        .getAllCoinsMarkets(loadMore: true);
+                                  }
+                                  return false;
+                                },
+                                child: ListView.builder(
+                                  itemCount:
+                                      coinsMarkets.length + (hasMore ? 1 : 0),
+                                  itemBuilder: (context, index) {
+                                    if (index < coinsMarkets.length) {
+                                      final coin = coinsMarkets[index];
+                                      return CoinListItem(
+                                        coinUIModel: CoinMapper.fromCoin(coin),
+                                        changePercent: coin.changePercent,
+                                        onTap: () {
+                                          NavigationService.navigateTo(
+                                            context,
+                                            '${AppRoutes.coinDetails}?id=${coin.id}',
+                                          );
+                                        },
+                                      );
+                                    } else {
+                                      return const Padding(
+                                        padding: EdgeInsets.all(16),
+                                        child: Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                ),
+                              );
+                            },
+
+                            searchLoaded: (searchResults) => RefreshIndicator(
                               onRefresh: () => context
                                   .read<MarketCoinsCubit>()
                                   .refreshMarketCoins(),
                               child: ListView.builder(
-                                itemCount: coinsMarkets.length,
+                                itemCount: searchResults.length,
                                 itemBuilder: (context, index) {
-                                  final coin = coinsMarkets[index];
+                                  final result = searchResults[index];
                                   return CoinListItem(
-                                    coinUIModel: CoinMapper.fromCoin(coin),
-                                    changePercent: coin.changePercent,
+                                    coinUIModel:
+                                        CoinMapper.fromSearchCoinResult(result),
                                     onTap: () {
                                       NavigationService.navigateTo(
                                         context,
-                                        '${AppRoutes.coinDetails}?id=${coin.id}',
+                                        '${AppRoutes.coinDetails}?id=${result.id}',
                                       );
                                     },
                                   );
                                 },
                               ),
-                            );
-                          },
-
-                          searchLoaded: (searchResults) => RefreshIndicator(
-                            onRefresh: () => context
-                                .read<MarketCoinsCubit>()
-                                .refreshMarketCoins(),
-                            child: ListView.builder(
-                              itemCount: searchResults.length,
-                              itemBuilder: (context, index) {
-                                final result = searchResults[index];
-                                return CoinListItem(
-                                  coinUIModel: CoinMapper.fromSearchCoinResult(
-                                    result,
-                                  ),
-                                  onTap: () {
-                                    NavigationService.navigateTo(
-                                      context,
-                                      '${AppRoutes.coinDetails}?id=${result.id}',
-                                    );
-                                  },
-                                );
-                              },
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ],

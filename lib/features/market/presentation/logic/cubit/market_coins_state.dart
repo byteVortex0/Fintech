@@ -5,6 +5,8 @@ sealed class MarketCoinsState with _$MarketCoinsState {
   const factory MarketCoinsState.loading() = _Loading;
   const factory MarketCoinsState.loaded({
     required List<MarketCoinResponse> coinsMarkets,
+    required bool isLoadingMore,
+    required bool hasMore,
   }) = _Loaded;
   const factory MarketCoinsState.error({required String message}) = _Error;
 

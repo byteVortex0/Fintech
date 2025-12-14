@@ -53,4 +53,4 @@ jobs:
 
       - name: Upload to Google Drive
         run: |
-          rclone copy build\app\outputs\flutter-apk\app-dev-release.apk myDrive:/Apps/Fintech/ --progress
+          rclone copy build/app/outputs/flutter-apk/app-dev-release.apk myDrive:/Apps/Fintech/ --progress

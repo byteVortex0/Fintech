@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../../app/env_variables.dart';
 
@@ -32,21 +33,7 @@ class DioFactory {
 
   static void addDioInterceptor() {
     if (kDebugMode) {
-      // dio?.interceptors.add(PrettyDioLogger(request: false, compact: false));
+      dio?.interceptors.add(PrettyDioLogger(request: false, compact: false));
     }
-
-    // dio?.interceptors.add(
-    //   InterceptorsWrapper(
-    //     onRequest: (options, handler) {
-    //       final token = EnvVariables.instance.envToken;
-    //       options.headers['Authorization'] = 'Bearer $token';
-
-    //       return handler.next(options);
-    //     },
-    //     onError: (error, handler) async {
-    //       return handler.next(error);
-    //     },
-    //   ),
-    // );
   }
 }

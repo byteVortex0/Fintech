@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../data/models/market_coin_request.dart';
-
 import '../../../data/models/market_coin_response.dart';
 import '../../../data/models/search_coin_response.dart';
 import '../../../data/repo/market_coins_repo.dart';
@@ -18,41 +17,72 @@ class MarketCoinsCubit extends Cubit<MarketCoinsState> {
   MarketCoinsCubit(this.marketCoinsRepo) : super(MarketCoinsState.loading());
 
   final MarketCoinsRepo marketCoinsRepo;
+  int _currentPage = 1;
+  bool _isLoading = false;
+  bool _hasMore = true;
 
-  Future<void> getAllCoinsMarkets() async {
-    emit(MarketCoinsState.loading());
+  List<MarketCoinResponse> _coins = [];
 
-    try {
-      final request = MarketCoinRequest(
-        vsCurrency: 'usd',
-        order: 'market_cap_desc',
-        perPage: 50,
-        page: 1,
-      );
+  Future<void> getAllCoinsMarkets({
+    bool loadMore = false,
+    bool forceRefresh = false,
+  }) async {
+    // 🛑 منع الطلبات المتكررة
+    if (_isLoading) return;
 
-      final result = await marketCoinsRepo.getAllCoinsMarkets(request);
-
-      result.when(
-        success: (coinsMarkets) {
-          log(
-            '[MarketCoinsCubit] getAllCoinsMarkets SUCCESS: ${coinsMarkets.length} coins loaded',
-          );
-          emit(MarketCoinsState.loaded(coinsMarkets: coinsMarkets));
-        },
-        failure: (errorModel) {
-          log('[MarketCoinsCubit] getAllCoinsMarkets FAILURE');
-          log('[MarketCoinsCubit] errorModel type: ${errorModel.runtimeType}');
-          log('[MarketCoinsCubit] userMessage: "${errorModel.userMessage}"');
-          log('[MarketCoinsCubit] category: ${errorModel.category}');
-          log('[MarketCoinsCubit] statusCode: ${errorModel.statusCode}');
-          emit(MarketCoinsState.error(message: errorModel.userMessage));
-        },
-      );
-    } catch (e) {
-      log('[MarketCoinsCubit] getAllCoinsMarkets UNEXPECTED ERROR: $e');
-      log('[MarketCoinsCubit] Error type: ${e.runtimeType}');
-      emit(MarketCoinsState.error(message: 'Failed to load market data'));
+    // 🔄 Refresh
+    if (forceRefresh) {
+      _currentPage = 1;
+      _hasMore = true;
+      _coins.clear();
     }
+
+    if (loadMore && !_hasMore) return;
+
+    _isLoading = true;
+
+    if (!loadMore) {
+      emit(const MarketCoinsState.loading());
+    } else {
+      emit(
+        MarketCoinsState.loaded(
+          coinsMarkets: _coins,
+          hasMore: _hasMore,
+          isLoadingMore: true,
+        ),
+      );
+    }
+
+    final request = MarketCoinRequest(
+      vsCurrency: 'usd',
+      order: 'market_cap_desc',
+      perPage: 50,
+      page: _currentPage,
+    );
+
+    final result = await marketCoinsRepo.getAllCoinsMarkets(request);
+
+    result.when(
+      success: (coinsMarkets) {
+        _coins.addAll(coinsMarkets);
+
+        _hasMore = coinsMarkets.length == request.perPage;
+        _currentPage++;
+
+        emit(
+          MarketCoinsState.loaded(
+            coinsMarkets: _coins,
+            hasMore: _hasMore,
+            isLoadingMore: false,
+          ),
+        );
+      },
+      failure: (error) {
+        emit(MarketCoinsState.error(message: error.userMessage));
+      },
+    );
+
+    _isLoading = false;
   }
 
   Future<void> searchCoins(String query) async {
@@ -94,8 +124,6 @@ class MarketCoinsCubit extends Cubit<MarketCoinsState> {
     }
   }
 
-  /// Refresh market coins without showing loading indicator
-  /// Used for pull-to-refresh gesture
   Future<void> refreshMarketCoins() async {
     log('[MarketCoinsCubit] refreshMarketCoins called');
 
@@ -114,7 +142,17 @@ class MarketCoinsCubit extends Cubit<MarketCoinsState> {
           log(
             '[MarketCoinsCubit] refreshMarketCoins SUCCESS: ${coinsMarkets.length} coins refreshed',
           );
-          emit(MarketCoinsState.loaded(coinsMarkets: coinsMarkets));
+          _coins = coinsMarkets;
+
+          bool hasMore = coinsMarkets.length == 50;
+
+          emit(
+            MarketCoinsState.loaded(
+              coinsMarkets: coinsMarkets,
+              hasMore: hasMore,
+              isLoadingMore: false,
+            ),
+          );
         },
         failure: (errorModel) {
           log('[MarketCoinsCubit] refreshMarketCoins FAILURE');
