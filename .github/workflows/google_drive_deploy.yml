@@ -41,13 +41,16 @@ jobs:
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
-        run: flutter build apk --flavor prod --target lib/main_prod.dart
+        run: flutter build apk --flavor dev --target lib/main_dev.dart
 
       - name: Install rclone
         run: sudo apt-get install -y rclone
 
-      - name: Upload to Google Drive
-        env:
-          RCLONE_CONFIG: ${{ secrets.RCLONE_CONFIG }}
+      - name: Create rclone config
         run: |
-          rclone copy build/app/outputs/bundle/release/app-release.apk myDrive:/Apps/Fintech/ --progress
+          mkdir -p ~/.config/rclone
+          echo "${{ secrets.RCLONE_CONFIG }}" > ~/.config/rclone/rclone.conf
+
+      - name: Upload to Google Drive
+        run: |
+          rclone copy build\app\outputs\flutter-apk\app-dev-release.apk myDrive:/Apps/Fintech/ --progress
