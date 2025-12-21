@@ -12,8 +12,7 @@ import 'auto_login_state.dart';
 class AutoLoginCubit extends Cubit<AutoLoginState> {
   final BiometricEnrollmentService _enrollmentService;
 
-  AutoLoginCubit(this._enrollmentService)
-    : super(const AutoLoginState.checking());
+  AutoLoginCubit(this._enrollmentService) : super(const AutoLoginState.checking());
 
   Future<void> checkAutoLogin() async {
     try {
@@ -32,8 +31,7 @@ class AutoLoginCubit extends Cubit<AutoLoginState> {
       }
 
       // 2) Check if user enrolled biometrics inside app
-      final hasBiometricEnrollment = await _enrollmentService
-          .isBiometricEnrolled();
+      final hasBiometricEnrollment = await _enrollmentService.isBiometricEnrolled();
       if (isClosed) return;
       log('hasBiometricEnrollment: $hasBiometricEnrollment');
 

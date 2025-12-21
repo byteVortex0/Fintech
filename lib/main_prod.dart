@@ -32,6 +32,7 @@ void main() async {
   await UserPreferences.init();
 
   setupInjection();
+
   isLoggedInUser = await UserPreferences.checkIfLoggedInUser();
 
   Bloc.observer = AppBlocObserver();

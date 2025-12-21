@@ -7,10 +7,7 @@ class LoginRepository {
 
   /// Sign in with email and password
   /// Throws exception if authentication fails
-  Future<User> signInWithEmailAndPassword({
-    required String email,
-    required String password,
-  }) async {
+  Future<User> signInWithEmailAndPassword({required String email, required String password}) async {
     try {
       final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
@@ -33,14 +30,12 @@ class LoginRepository {
   /// Handle Firebase auth exceptions and return user-friendly messages
   String _handleAuthException(FirebaseAuthException e) {
     return switch (e.code) {
-      'user-not-found' =>
-        'No account found with this email. Please register first.',
+      'user-not-found' => 'No account found with this email. Please register first.',
       'wrong-password' => 'Incorrect password. Please try again.',
       'invalid-email' => 'Please enter a valid email address.',
       'user-disabled' => 'This account has been disabled.',
       'too-many-requests' => 'Too many login attempts. Please try again later.',
-      'network-request-failed' =>
-        'Network error. Please check your connection.',
+      'network-request-failed' => 'Network error. Please check your connection.',
       _ => 'Login failed: ${e.message ?? e.code}',
     };
   }

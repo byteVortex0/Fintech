@@ -48,9 +48,7 @@ class ErrorHandler {
         );
 
       case DioExceptionType.cancel:
-        return Failure(
-          ErrorModel.simple(UserFriendlyMessages.requestCancelled),
-        );
+        return Failure(ErrorModel.simple(UserFriendlyMessages.requestCancelled));
 
       case DioExceptionType.badResponse:
         return _handleBadResponse(error);
@@ -67,9 +65,7 @@ class ErrorHandler {
 
     // Log the error with full context
     final dataStr = data?.toString() ?? '';
-    final truncatedData = dataStr.length > 500
-        ? dataStr.substring(0, 500)
-        : dataStr;
+    final truncatedData = dataStr.length > 500 ? dataStr.substring(0, 500) : dataStr;
 
     ErrorLogger.logError(
       message: 'Bad response from server',
@@ -94,8 +90,7 @@ class ErrorHandler {
         return Failure(
           ErrorModel(
             userMessage: userMessage,
-            technicalMessage:
-                serverMessage ?? 'HTTP $statusCode - ${error.message}',
+            technicalMessage: serverMessage ?? 'HTTP $statusCode - ${error.message}',
             statusCode: statusCode,
             errorCode: errorCode,
             category: category,

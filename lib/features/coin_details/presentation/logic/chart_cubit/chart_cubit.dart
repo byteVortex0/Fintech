@@ -14,8 +14,7 @@ part 'chart_state.dart';
 class ChartCubit extends Cubit<ChartState> {
   final CoinDetailsRepo coinDetailsRepo;
 
-  ChartCubit({required this.coinDetailsRepo})
-    : super(const ChartState.loading());
+  ChartCubit({required this.coinDetailsRepo}) : super(const ChartState.loading());
 
   Future<void> fetchChart({
     String period = '7d',

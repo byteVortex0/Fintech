@@ -45,11 +45,7 @@ class ErrorLogger {
   }
 
   /// Logs error details to console
-  static void _logToConsole(
-    String message,
-    Map<String, dynamic> context,
-    StackTrace? stackTrace,
-  ) {
+  static void _logToConsole(String message, Map<String, dynamic> context, StackTrace? stackTrace) {
     final buffer = StringBuffer();
     buffer.writeln('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     buffer.writeln('⚠️  ERROR: $message');

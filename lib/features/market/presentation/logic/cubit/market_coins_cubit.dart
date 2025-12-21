@@ -34,9 +34,7 @@ class MarketCoinsCubit extends Cubit<MarketCoinsState> {
 
       result.when(
         success: (coinsMarkets) {
-          log(
-            '[MarketCoinsCubit] getAllCoinsMarkets SUCCESS: ${coinsMarkets.length} coins loaded',
-          );
+          log('[MarketCoinsCubit] getAllCoinsMarkets SUCCESS: ${coinsMarkets.length} coins loaded');
           emit(MarketCoinsState.loaded(coinsMarkets: coinsMarkets));
         },
         failure: (errorModel) {
@@ -68,9 +66,7 @@ class MarketCoinsCubit extends Cubit<MarketCoinsState> {
 
       result.when(
         success: (searchResults) {
-          log(
-            '[MarketCoinsCubit] searchCoins SUCCESS: ${searchResults.length} results found',
-          );
+          log('[MarketCoinsCubit] searchCoins SUCCESS: ${searchResults.length} results found');
           if (searchResults.isEmpty) {
             emit(const MarketCoinsState.empty());
           } else {
@@ -86,11 +82,7 @@ class MarketCoinsCubit extends Cubit<MarketCoinsState> {
     } catch (e) {
       log('[MarketCoinsCubit] searchCoins UNEXPECTED ERROR: $e');
       log('[MarketCoinsCubit] Error type: ${e.runtimeType}');
-      emit(
-        MarketCoinsState.searchError(
-          message: 'Search failed. Please try again.',
-        ),
-      );
+      emit(MarketCoinsState.searchError(message: 'Search failed. Please try again.'));
     }
   }
 

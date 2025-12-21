@@ -36,24 +36,9 @@ class MarketOverviewGrid extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             childAspectRatio: 1.2,
             children: [
-              _buildStatCard(
-                context,
-                'Market Cap',
-                '\$${_formatNumber(marketCapUsd)}',
-                '',
-              ),
-              _buildStatCard(
-                context,
-                '24h Volume',
-                '\$${_formatNumber(volumeUsd)}',
-                '',
-              ),
-              _buildStatCard(
-                context,
-                'BTC Dominance',
-                '${btcDominance.toStringAsFixed(1)}%',
-                '',
-              ),
+              _buildStatCard(context, 'Market Cap', '\$${_formatNumber(marketCapUsd)}', ''),
+              _buildStatCard(context, '24h Volume', '\$${_formatNumber(volumeUsd)}', ''),
+              _buildStatCard(context, 'BTC Dominance', '${btcDominance.toStringAsFixed(1)}%', ''),
               _buildStatCard(context, 'Active Coins', '$activeCoins', ''),
             ],
           ),
@@ -74,12 +59,7 @@ class MarketOverviewGrid extends StatelessWidget {
     }
   }
 
-  Widget _buildStatCard(
-    BuildContext context,
-    String title,
-    String value,
-    String change,
-  ) {
+  Widget _buildStatCard(BuildContext context, String title, String value, String change) {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(

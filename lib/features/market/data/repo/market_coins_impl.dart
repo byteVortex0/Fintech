@@ -26,9 +26,7 @@ class MarketCoinsImpl implements MarketCoinsRepo {
         marketCoinRequest.page,
       );
 
-      log(
-        '[MarketCoinsImpl] getAllCoinsMarkets SUCCESS: ${response.length} coins',
-      );
+      log('[MarketCoinsImpl] getAllCoinsMarkets SUCCESS: ${response.length} coins');
       return Success(response);
     } catch (e) {
       log('[MarketCoinsImpl] getAllCoinsMarkets ERROR: $e');
@@ -46,9 +44,7 @@ class MarketCoinsImpl implements MarketCoinsRepo {
     try {
       log('[MarketCoinsImpl] searchCoins called with query: $query');
       final response = await apiService.searchCoin(query);
-      log(
-        '[MarketCoinsImpl] searchCoins SUCCESS: ${response.coins.length} results',
-      );
+      log('[MarketCoinsImpl] searchCoins SUCCESS: ${response.coins.length} results');
       return Success(response.coins);
     } catch (e) {
       log('[MarketCoinsImpl] searchCoins ERROR: $e');

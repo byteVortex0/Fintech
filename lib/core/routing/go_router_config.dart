@@ -1,3 +1,6 @@
+// ✅ CHANGED: removed HomeSecureWrapper import (secure is now global)
+// import 'package:fintech/features/home/presentation/home_secure_wrapper.dart';
+
 import '../di/injection.dart';
 import '../service/shared_pref/shared_pref.dart';
 import '../service/shared_pref/pref_keys.dart';
@@ -34,12 +37,16 @@ import '../utils/constants.dart';
 /// 1. Auth routes: /onboarding, /login, /register, biometric flows (no navbar)
 /// 2. Main routes: /home, /market, /portfolio, /settings (with persistent navbar via ShellRoute)
 /// All navigation must use NavigationService (Rule #16)
+final GlobalKey<NavigatorState> goRouterNavigatorKey = GlobalKey<NavigatorState>();
+
+// ✅ ADDED: safest context for dialogs/snackbars with GoRouter/ShellRoute
+BuildContext? get appOverlayContext => goRouterNavigatorKey.currentState?.overlay?.context;
+
 final GoRouter goRouter = createGoRouter();
 
 GoRouter createGoRouter() {
   // Always start with auto-login splash to check biometric eligibility
-  final onboardingCompleted =
-      SharedPref.getValue(PrefKeys.onboardingCompleted) ?? false;
+  final onboardingCompleted = SharedPref.getValue(PrefKeys.onboardingCompleted) ?? false;
 
   final initialLocation = isLoggedInUser
       ? '/auto_login_splash'
@@ -48,60 +55,34 @@ GoRouter createGoRouter() {
       : '/onboarding';
 
   if (kDebugMode) {
-    debugPrint(
-      '[GoRouter] Creating router with initialLocation: $initialLocation',
-    );
+    debugPrint('[GoRouter] Creating router with initialLocation: $initialLocation');
   }
+
   return GoRouter(
+    navigatorKey: goRouterNavigatorKey,
     initialLocation: initialLocation,
     routes: [
       // Auto-login splash screen - determines initial navigation
-      GoRoute(
-        path: '/auto_login_splash',
-        builder: (context, state) => const AutoLoginSplashPage(),
-      ),
+      GoRoute(path: '/auto_login_splash', builder: (context, state) => const AutoLoginSplashPage()),
 
       // Auth routes (no navbar)
-      GoRoute(
-        path: '/onboarding',
-        builder: (context, state) => const OnboardingPage(),
-      ),
+      GoRoute(path: '/onboarding', builder: (context, state) => const OnboardingPage()),
       GoRoute(path: '/login', builder: (context, state) => const LoginPage()),
       GoRoute(
         path: '/register',
-        builder: (context, state) => BlocProvider(
-          create: (context) => sl<RegisterCubit>(),
-          child: const RegisterPage(),
-        ),
+        builder: (context, state) =>
+            BlocProvider(create: (context) => sl<RegisterCubit>(), child: const RegisterPage()),
       ),
-      GoRoute(
-        path: '/face_id_scanning',
-        builder: (context, state) => const FaceIdScanningPage(),
-      ),
-      GoRoute(
-        path: '/face_id_verified',
-        builder: (context, state) => const FaceIdVerifiedPage(),
-      ),
-      GoRoute(
-        path: '/touch_id_scanning',
-        builder: (context, state) => const TouchIdScanningPage(),
-      ),
-      GoRoute(
-        path: '/touch_id_verified',
-        builder: (context, state) => const TouchIdVerifiedPage(),
-      ),
-      GoRoute(
-        path: '/set_fingerprint',
-        builder: (context, state) => const SetFingerprintPage(),
-      ),
+      GoRoute(path: '/face_id_scanning', builder: (context, state) => const FaceIdScanningPage()),
+      GoRoute(path: '/face_id_verified', builder: (context, state) => const FaceIdVerifiedPage()),
+      GoRoute(path: '/touch_id_scanning', builder: (context, state) => const TouchIdScanningPage()),
+      GoRoute(path: '/touch_id_verified', builder: (context, state) => const TouchIdVerifiedPage()),
+      GoRoute(path: '/set_fingerprint', builder: (context, state) => const SetFingerprintPage()),
       GoRoute(
         path: '/set_fingerprint_verified',
         builder: (context, state) => const SetFingerprintVerifiedPage(),
       ),
-      GoRoute(
-        path: '/set_face_id',
-        builder: (context, state) => const SetFaceIdPage(),
-      ),
+      GoRoute(path: '/set_face_id', builder: (context, state) => const SetFaceIdPage()),
       GoRoute(
         path: '/set_face_id_verified',
         builder: (context, state) => const SetFaceIdVerifiedPage(),
@@ -128,38 +109,34 @@ GoRouter createGoRouter() {
       // Payment method route (no navbar)
       GoRoute(
         path: '/payment_method',
-        builder: (context, state) => const PaymentMethodScreen(),
+        builder: (context, state) {
+          final amount = state.uri.queryParameters['amount'] ?? '0';
+          final currency = state.uri.queryParameters['currency'] ?? 'USD';
+          return PaymentMethodScreen(
+            amountInCents: double.tryParse(amount) ?? 0.0,
+            currency: currency,
+          );
+        },
       ),
 
       // Main app routes with persistent bottom navbar
-      // Authentication guard: Redirects to login if user is not authenticated
       ShellRoute(
         builder: (context, state, child) {
-          // Check if user is logged in dynamically (not cached)
-          // This allows biometric authentication to properly update login status
           final uid = SharedPref.getValue(PrefKeys.uid);
           final isUserLoggedIn = uid != null;
           if (!isUserLoggedIn) {
             return const LoginPage();
           }
-          return Scaffold(
-            body: child,
-            bottomNavigationBar: AppBottomNavigation(),
-          );
+          return Scaffold(body: child, bottomNavigationBar: AppBottomNavigation());
         },
         routes: [
           GoRoute(
             path: '/home',
+            // ✅ CHANGED: HomeScreen directly (secure is global in FinTechApp)
             builder: (context, state) => const HomeScreen(),
           ),
-          GoRoute(
-            path: '/market',
-            builder: (context, state) => const MarketScreen(),
-          ),
-          GoRoute(
-            path: '/portfolio',
-            builder: (context, state) => const PortfolioScreen(),
-          ),
+          GoRoute(path: '/market', builder: (context, state) => const MarketScreen()),
+          GoRoute(path: '/portfolio', builder: (context, state) => const PortfolioScreen()),
           GoRoute(
             path: '/settings',
             builder: (context, state) => BlocProvider(

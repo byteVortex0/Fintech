@@ -190,9 +190,9 @@ Navigator.push(...)                         // NEVER use this
 ## Security Features
 
 ### 1. Biometric Authentication
-- [ ] Fingerprint authentication
-- [ ] Face ID support
-- [ ] Fallback to PIN/Password
+- [x] Fingerprint authentication (Phase 19) ✅
+- [x] Face ID support (Phase 19) ✅
+- [x] Fallback to PIN/Password (Phase 19) ✅
 
 ### 2. Encrypted Storage
 - [ ] Transaction history encrypted
@@ -202,12 +202,16 @@ Navigator.push(...)                         // NEVER use this
 ### 3. App Security
 - [ ] Background app blur (sensitive screens)
 - [ ] Root detection (optional)
-- [ ] Screenshot prevention (portfolio, transactions)
+- [x] Screenshot prevention (Phase 22) ✅ - iOS-level protection with ForwardingSecureTextField
+- [x] Security Gate widget (Phase 22) ✅ - Wraps entire app for lifecycle management
+- [x] Screenshot detection with friendly message (Phase 22) ✅ - Shows message on phone screen
+- [x] Method Channel communication (Phase 22) ✅ - iOS ↔ Flutter security bridge
+- [x] Comprehensive debug logging (Phase 22) ✅ - Full security event tracking
 - [ ] Auto-lock after inactivity
 
 ### 4. Session Management
 - [ ] Automatic logout on timeout
-- [ ] Secure token management
+- [x] Secure token management (Phase 18) ✅ - SharedPreferences with encryption
 - [ ] Refresh token handling
 - [ ] Token encryption
 

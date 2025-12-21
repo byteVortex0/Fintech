@@ -10,11 +10,7 @@ class OnboardingIndicators extends StatelessWidget {
   final int count;
   final int activeIndex;
 
-  const OnboardingIndicators({
-    super.key,
-    required this.count,
-    required this.activeIndex,
-  });
+  const OnboardingIndicators({super.key, required this.count, required this.activeIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +26,7 @@ class OnboardingIndicators extends StatelessWidget {
             dotWidth: 8,
             spacing: 6,
             activeDotColor: Theme.of(context).colorScheme.primary,
-            dotColor: isDark
-                ? const Color(0xFF666D80)
-                : const Color(0xFFD0D0D0),
+            dotColor: isDark ? const Color(0xFF666D80) : const Color(0xFFD0D0D0),
           ),
           onDotClicked: (index) {},
         );

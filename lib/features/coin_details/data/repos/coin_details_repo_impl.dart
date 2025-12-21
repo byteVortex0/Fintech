@@ -27,21 +27,15 @@ class CoinDetailsRepoImpl implements CoinDetailsRepo {
     } catch (e) {
       log('[CoinDetailsRepoImpl] getCoinDetails ERROR: $e');
       final failure = await ErrorHandler.handle(e);
-      log(
-        '[CoinDetailsRepoImpl] ErrorHandler returned: ${failure.errorModel.userMessage}',
-      );
+      log('[CoinDetailsRepoImpl] ErrorHandler returned: ${failure.errorModel.userMessage}');
       return Failure(failure.errorModel);
     }
   }
 
   @override
-  Future<ApiResult<CoinsChartResponse>> getChartCoin(
-    CoinsChartRequest request,
-  ) async {
+  Future<ApiResult<CoinsChartResponse>> getChartCoin(CoinsChartRequest request) async {
     try {
-      log(
-        '[CoinDetailsRepoImpl] getChartCoin called for ${request.id}, days: ${request.days}',
-      );
+      log('[CoinDetailsRepoImpl] getChartCoin called for ${request.id}, days: ${request.days}');
       final chartResponse = await apiService.chartCoin(
         request.id,
         request.vsCurrency,
@@ -53,9 +47,7 @@ class CoinDetailsRepoImpl implements CoinDetailsRepo {
     } catch (e) {
       log('[CoinDetailsRepoImpl] getChartCoin ERROR: $e');
       final failure = await ErrorHandler.handle(e);
-      log(
-        '[CoinDetailsRepoImpl] ErrorHandler returned: ${failure.errorModel.userMessage}',
-      );
+      log('[CoinDetailsRepoImpl] ErrorHandler returned: ${failure.errorModel.userMessage}');
       return Failure(failure.errorModel);
     }
   }

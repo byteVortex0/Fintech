@@ -13,8 +13,7 @@ part 'home_cubit.freezed.dart';
 
 /// HomeCubit manages home screen state with friendly error messages
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit(this.homeScreenRepo, this._repository)
-    : super(const HomeState.loading());
+  HomeCubit(this.homeScreenRepo, this._repository) : super(const HomeState.loading());
 
   final HomeScreenRepo homeScreenRepo;
   final SettingsRepository _repository;

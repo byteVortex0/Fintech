@@ -24,13 +24,8 @@ class CoinDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => sl<ChartCubit>()..fetchChart(coinId: id),
-        ),
-        BlocProvider(
-          create: (context) =>
-              sl<CoinDetailsCubit>()..getCoinDetails(coinId: id),
-        ),
+        BlocProvider(create: (context) => sl<ChartCubit>()..fetchChart(coinId: id)),
+        BlocProvider(create: (context) => sl<CoinDetailsCubit>()..getCoinDetails(coinId: id)),
       ],
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -42,9 +37,7 @@ class CoinDetailsScreen extends StatelessWidget {
                 builder: (context, state) {
                   return state.when(
                     loading: () {
-                      return Expanded(
-                        child: const Center(child: CircularProgressIndicator()),
-                      );
+                      return Expanded(child: const Center(child: CircularProgressIndicator()));
                     },
                     error: (message) {
                       return Expanded(
@@ -55,9 +48,7 @@ class CoinDetailsScreen extends StatelessWidget {
                             'Error: $message',
                             style: TextStyle(
                               fontSize: 16.sp,
-                              color: Theme.of(
-                                context,
-                              ).textTheme.bodyLarge?.color,
+                              color: Theme.of(context).textTheme.bodyLarge?.color,
                             ),
                           ),
                         ),
@@ -89,8 +80,7 @@ class CoinDetailsScreen extends StatelessWidget {
                                 currentPrice: coinDetailsData.currentPrice,
                                 marketCap: coinDetailsData.marketCap,
                                 volume24h: coinDetailsData.volume24h,
-                                availableSupply:
-                                    coinDetailsData.availableSupply,
+                                availableSupply: coinDetailsData.availableSupply,
                                 maxSupply: coinDetailsData.maxSupply,
                               ),
                               SizedBox(height: 24.h),

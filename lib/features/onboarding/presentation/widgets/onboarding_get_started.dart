@@ -12,11 +12,7 @@ class OnboardingGetStarted extends StatelessWidget {
   final VoidCallback onLogin;
   final VoidCallback onRegister;
 
-  const OnboardingGetStarted({
-    super.key,
-    required this.onLogin,
-    required this.onRegister,
-  });
+  const OnboardingGetStarted({super.key, required this.onLogin, required this.onRegister});
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +28,7 @@ class OnboardingGetStarted extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.secondary,
             minimumSize: Size(double.infinity, 56.h),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.r),
-            ),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
           ),
           child: Text(
             'Login',
@@ -55,14 +49,9 @@ class OnboardingGetStarted extends StatelessWidget {
         OutlinedButton(
           onPressed: onRegister,
           style: OutlinedButton.styleFrom(
-            side: BorderSide(
-              color: Theme.of(context).colorScheme.secondary,
-              width: 2,
-            ),
+            side: BorderSide(color: Theme.of(context).colorScheme.secondary, width: 2),
             minimumSize: Size(double.infinity, 56.h),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.r),
-            ),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
           ),
           child: Text(
             'Register',

@@ -1,0 +1,25 @@
+# Node modules
+node_modules/
+
+# TypeScript compiled output
+lib/
+*.js
+*.js.map
+*.d.ts
+
+# Environment variables
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+
+# Logs
+npm-debug.log
+yarn-error.log

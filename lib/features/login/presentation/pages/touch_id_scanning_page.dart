@@ -34,8 +34,7 @@ class _TouchIdScanningContent extends StatefulWidget {
   const _TouchIdScanningContent({required this.email, required this.password});
 
   @override
-  State<_TouchIdScanningContent> createState() =>
-      _TouchIdScanningContentState();
+  State<_TouchIdScanningContent> createState() => _TouchIdScanningContentState();
 }
 
 class _TouchIdScanningContentState extends State<_TouchIdScanningContent>
@@ -49,14 +48,13 @@ class _TouchIdScanningContentState extends State<_TouchIdScanningContent>
   void initState() {
     super.initState();
 
-    _pulseController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    )..repeat(reverse: true);
+    _pulseController = AnimationController(vsync: this, duration: const Duration(seconds: 1))
+      ..repeat(reverse: true);
 
-    _pulseAnimation = Tween<double>(begin: 0.9, end: 1.1).animate(
-      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
-    );
+    _pulseAnimation = Tween<double>(
+      begin: 0.9,
+      end: 1.1,
+    ).animate(CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut));
 
     // Auto-start biometric authentication when page loads
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -102,11 +100,9 @@ class _TouchIdScanningContentState extends State<_TouchIdScanningContent>
             await _runShake();
           },
           notSupported: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Biometric not supported on this device'),
-              ),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(const SnackBar(content: Text('Biometric not supported on this device')));
           },
           orElse: () {},
         );
@@ -154,9 +150,7 @@ class _TouchIdScanningContentState extends State<_TouchIdScanningContent>
       alignment: Alignment.centerLeft,
       child: GestureDetector(
         // Disable back button after successful authentication to prevent navigation crashes
-        onTap: _isAuthenticationSuccessful
-            ? null
-            : () => NavigationService.goBack(context),
+        onTap: _isAuthenticationSuccessful ? null : () => NavigationService.goBack(context),
         child: Icon(
           Icons.arrow_back_ios,
           color: _isAuthenticationSuccessful
@@ -187,10 +181,7 @@ class _TouchIdScanningContentState extends State<_TouchIdScanningContent>
     return GestureDetector(
       onTap: () {
         // Allow retry on tap
-        state.maybeWhen(
-          error: (_) => _startBiometricAuthentication(),
-          orElse: () {},
-        );
+        state.maybeWhen(error: (_) => _startBiometricAuthentication(), orElse: () {});
       },
       child: AnimatedBuilder(
         animation: _pulseController,
@@ -238,18 +229,11 @@ class _TouchIdScanningContentState extends State<_TouchIdScanningContent>
         children: [
           Text(
             message,
-            style: TextStyle(
-              fontSize: 14.sp,
-              color: Colors.red,
-              fontWeight: FontWeight.w500,
-            ),
+            style: TextStyle(fontSize: 14.sp, color: Colors.red, fontWeight: FontWeight.w500),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 16.h),
-          ElevatedButton(
-            onPressed: _startBiometricAuthentication,
-            child: const Text('Retry'),
-          ),
+          ElevatedButton(onPressed: _startBiometricAuthentication, child: const Text('Retry')),
         ],
       ),
       orElse: () => const SizedBox.shrink(),

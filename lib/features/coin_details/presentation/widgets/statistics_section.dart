@@ -62,11 +62,7 @@ class StatisticsSection extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 8.w),
-                Icon(
-                  Icons.info,
-                  size: 16.sp,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+                Icon(Icons.info, size: 16.sp, color: Theme.of(context).colorScheme.primary),
               ],
             ),
             Text(

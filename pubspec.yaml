@@ -34,6 +34,8 @@ dependencies:
   firebase_auth: ^6.1.2
   flutter_dotenv: ^6.0.0
   fl_chart: ^1.1.1
+  flutter_stripe: ^12.1.1
+  screen_protector: ^1.4.10
 
 dev_dependencies:
   flutter_test:
@@ -55,6 +57,7 @@ flutter:
   assets:
     - assets/images/
     - assets/svg/
+    - .env
 
   # fonts:
   #   - family: Schyler

@@ -8,9 +8,7 @@ class FirebaseService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<UserCredential> createUser(
-    RegisterUserRequestBody registerUserRequestBody,
-  ) async {
+  Future<UserCredential> createUser(RegisterUserRequestBody registerUserRequestBody) async {
     UserCredential credential = await _auth.createUserWithEmailAndPassword(
       email: registerUserRequestBody.email,
       password: registerUserRequestBody.password,

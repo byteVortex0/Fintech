@@ -52,10 +52,7 @@ class AutoLoginSplashPage extends StatelessWidget {
               children: [
                 const CircularProgressIndicator(),
                 const SizedBox(height: 20),
-                Text(
-                  'Loading...',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
+                Text('Loading...', style: Theme.of(context).textTheme.bodyMedium),
               ],
             ),
           ),

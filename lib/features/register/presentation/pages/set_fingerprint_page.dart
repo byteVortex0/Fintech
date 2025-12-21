@@ -1,7 +1,7 @@
 import '../../../../core/routing/app_routes.dart';
+import '../../../../core/navigation/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
 import '../../../login/presentation/widgets/curved_background.dart';
 
@@ -26,14 +26,13 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
   void initState() {
     super.initState();
 
-    _pulseController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    )..repeat(reverse: true);
+    _pulseController = AnimationController(vsync: this, duration: const Duration(seconds: 1))
+      ..repeat(reverse: true);
 
-    _pulseAnimation = Tween<double>(begin: 0.9, end: 1.1).animate(
-      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
-    );
+    _pulseAnimation = Tween<double>(
+      begin: 0.9,
+      end: 1.1,
+    ).animate(CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut));
   }
 
   @override
@@ -92,13 +91,15 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
 
     if (!context.mounted) return;
 
-    navigate
-        ? context.pushNamed(AppRoutes.setFingerprintVerified)
-        : setState(() => errorMessage = localError);
+    if (navigate) {
+      NavigationService.navigateTo(context, AppRoutes.setFingerprintVerified);
+    } else {
+      setState(() => errorMessage = localError);
+    }
   }
 
   void _handleSkip(BuildContext context) =>
-      context.pushReplacementNamed(AppRoutes.login);
+      NavigationService.navigateToAndReplace(context, AppRoutes.login);
 
   // Navigator.of(context).pushAndRemoveUntil(
   //   AppRoutes.onGenerateRoute(RouteSettings(name: AppRoutes.login))!,
@@ -199,20 +200,12 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
                         ),
                       ],
                     ),
-                    child: Icon(
-                      Icons.fingerprint,
-                      size: 120.sp,
-                      color: const Color(0xFF6B7280),
-                    ),
+                    child: Icon(Icons.fingerprint, size: 120.sp, color: const Color(0xFF6B7280)),
                   ),
                 ),
               );
             },
-            child: Icon(
-              Icons.fingerprint,
-              size: 180.sp,
-              color: Theme.of(context).iconTheme.color,
-            ),
+            child: Icon(Icons.fingerprint, size: 180.sp, color: Theme.of(context).iconTheme.color),
           ),
         ),
         SizedBox(height: 48.h),
@@ -241,13 +234,8 @@ class _SetFingerprintPageState extends State<SetFingerprintPage>
         child: OutlinedButton(
           onPressed: () => _handleSkip(context),
           style: OutlinedButton.styleFrom(
-            side: BorderSide(
-              color: Theme.of(context).colorScheme.secondary,
-              width: 2,
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(26.r),
-            ),
+            side: BorderSide(color: Theme.of(context).colorScheme.secondary, width: 2),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26.r)),
           ),
           child: Text(
             'Skip',

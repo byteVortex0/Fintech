@@ -37,10 +37,7 @@ class _CategoryFilterState extends State<CategoryFilter> {
                   widget.onCategorySelected(category);
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 16.w,
-                    vertical: 8.h,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                   decoration: BoxDecoration(
                     color: isSelected
                         ? Theme.of(context).colorScheme.secondary

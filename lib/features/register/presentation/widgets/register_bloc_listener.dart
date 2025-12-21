@@ -21,9 +21,7 @@ class RegisterBlocListener extends StatelessWidget {
             showDialog(
               context: context,
               builder: (context) => const Center(
-                child: CircularProgressIndicator(
-                  color: LightColorManager.screenBackground,
-                ),
+                child: CircularProgressIndicator(color: LightColorManager.screenBackground),
               ),
             );
           },
@@ -48,9 +46,7 @@ class RegisterBlocListener extends StatelessWidget {
           title: const Text('Register Successful'),
           content: const SingleChildScrollView(
             child: ListBody(
-              children: <Widget>[
-                Text('Congratulations, you have signed up successfully!'),
-              ],
+              children: <Widget>[Text('Congratulations, you have signed up successfully!')],
             ),
           ),
           actions: <Widget>[
@@ -61,10 +57,7 @@ class RegisterBlocListener extends StatelessWidget {
                 disabledForegroundColor: Colors.grey.withValues(alpha: 0.38),
               ),
               onPressed: () {
-                NavigationService.navigateToAndRemoveUntil(
-                  context,
-                  AppRoutes.setFingerprint,
-                );
+                NavigationService.navigateToAndRemoveUntil(context, AppRoutes.setFingerprint);
               },
               child: const Text('Continue'),
             ),
@@ -95,11 +88,7 @@ class RegisterBlocListener extends StatelessWidget {
             },
             child: Text(
               'Got it',
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600,
-                color: Colors.blue,
-              ),
+              style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: Colors.blue),
             ),
           ),
         ],

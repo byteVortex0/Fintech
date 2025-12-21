@@ -90,39 +90,29 @@ class _MarketScreenState extends State<MarketScreen> {
                     child: BlocBuilder<MarketCoinsCubit, MarketCoinsState>(
                       builder: (context, state) {
                         return state.when(
-                          loading: () =>
-                              Center(child: CircularProgressIndicator()),
+                          loading: () => Center(child: CircularProgressIndicator()),
 
-                          searching: () =>
-                              Center(child: CircularProgressIndicator()),
+                          searching: () => Center(child: CircularProgressIndicator()),
 
                           error: (message) => Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.error_outline,
-                                  size: 64.sp,
-                                  color: Colors.red,
-                                ),
+                                Icon(Icons.error_outline, size: 64.sp, color: Colors.red),
                                 SizedBox(height: 16.h),
                                 Text(
                                   'Error: $message',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 16.sp,
-                                    color: Theme.of(
-                                      context,
-                                    ).textTheme.bodyLarge?.color,
+                                    color: Theme.of(context).textTheme.bodyLarge?.color,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
                                 SizedBox(height: 24.h),
                                 ElevatedButton(
                                   onPressed: () {
-                                    context
-                                        .read<MarketCoinsCubit>()
-                                        .getAllCoinsMarkets();
+                                    context.read<MarketCoinsCubit>().getAllCoinsMarkets();
                                   },
                                   child: const Text('Retry'),
                                 ),
@@ -134,29 +124,21 @@ class _MarketScreenState extends State<MarketScreen> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.error_outline,
-                                  size: 64.sp,
-                                  color: Colors.red,
-                                ),
+                                Icon(Icons.error_outline, size: 64.sp, color: Colors.red),
                                 SizedBox(height: 16.h),
                                 Text(
                                   'Search Error: $message',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 16.sp,
-                                    color: Theme.of(
-                                      context,
-                                    ).textTheme.bodyLarge?.color,
+                                    color: Theme.of(context).textTheme.bodyLarge?.color,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
                                 SizedBox(height: 24.h),
                                 ElevatedButton(
                                   onPressed: () {
-                                    context
-                                        .read<MarketCoinsCubit>()
-                                        .getAllCoinsMarkets();
+                                    context.read<MarketCoinsCubit>().getAllCoinsMarkets();
                                   },
                                   child: const Text('Retry'),
                                 ),
@@ -169,9 +151,7 @@ class _MarketScreenState extends State<MarketScreen> {
                               'No results found',
                               style: TextStyle(
                                 fontSize: 16.sp,
-                                color: Theme.of(
-                                  context,
-                                ).textTheme.bodyLarge?.color,
+                                color: Theme.of(context).textTheme.bodyLarge?.color,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -179,9 +159,8 @@ class _MarketScreenState extends State<MarketScreen> {
 
                           loaded: (coinsMarkets) {
                             return RefreshIndicator(
-                              onRefresh: () => context
-                                  .read<MarketCoinsCubit>()
-                                  .refreshMarketCoins(),
+                              onRefresh: () =>
+                                  context.read<MarketCoinsCubit>().refreshMarketCoins(),
                               child: ListView.builder(
                                 itemCount: coinsMarkets.length,
                                 itemBuilder: (context, index) {
@@ -202,17 +181,13 @@ class _MarketScreenState extends State<MarketScreen> {
                           },
 
                           searchLoaded: (searchResults) => RefreshIndicator(
-                            onRefresh: () => context
-                                .read<MarketCoinsCubit>()
-                                .refreshMarketCoins(),
+                            onRefresh: () => context.read<MarketCoinsCubit>().refreshMarketCoins(),
                             child: ListView.builder(
                               itemCount: searchResults.length,
                               itemBuilder: (context, index) {
                                 final result = searchResults[index];
                                 return CoinListItem(
-                                  coinUIModel: CoinMapper.fromSearchCoinResult(
-                                    result,
-                                  ),
+                                  coinUIModel: CoinMapper.fromSearchCoinResult(result),
                                   onTap: () {
                                     NavigationService.navigateTo(
                                       context,

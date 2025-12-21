@@ -31,9 +31,7 @@ class _LoginInputFieldState extends State<LoginInputField> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final borderColor = isDark
-        ? const Color(0xFF3E3E3E)
-        : const Color(0xFF3B5998);
+    final borderColor = isDark ? const Color(0xFF3E3E3E) : const Color(0xFF3B5998);
 
     return TextField(
       controller: widget.controller,
@@ -51,11 +49,7 @@ class _LoginInputFieldState extends State<LoginInputField> {
           fontWeight: FontWeight.w400,
         ),
         prefixIcon: widget.prefixIcon != null
-            ? Icon(
-                widget.prefixIcon,
-                color: Theme.of(context).iconTheme.color,
-                size: 20.sp,
-              )
+            ? Icon(widget.prefixIcon, color: Theme.of(context).iconTheme.color, size: 20.sp)
             : null,
         suffixIcon: widget.obscureText
             ? GestureDetector(
@@ -79,10 +73,7 @@ class _LoginInputFieldState extends State<LoginInputField> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.secondary,
-            width: 2,
-          ),
+          borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary, width: 2),
         ),
         contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
       ),

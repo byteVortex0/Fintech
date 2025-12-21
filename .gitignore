@@ -34,6 +34,16 @@ migrate_working_dir/
 /build/
 /coverage/
 
+# iOS/macOS build artifacts
+ios/build/
+macos/build/
+**/build/
+
+# Cloud Functions build artifacts
+functions/build/
+functions/node_modules/
+functions/.firebase/
+
 # Symbolication related
 app.*.symbols
 

@@ -5,11 +5,7 @@ class CoinHeaderSection extends StatelessWidget {
   final String name;
   final String svgIconPath;
 
-  const CoinHeaderSection({
-    super.key,
-    required this.name,
-    required this.svgIconPath,
-  });
+  const CoinHeaderSection({super.key, required this.name, required this.svgIconPath});
 
   @override
   Widget build(BuildContext context) {

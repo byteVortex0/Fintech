@@ -4,8 +4,7 @@ part 'coins_chart_respose.freezed.dart';
 
 @freezed
 abstract class CoinsChartResponse with _$CoinsChartResponse {
-  const factory CoinsChartResponse({required List<List<double>> prices}) =
-      _CoinsChartResponse;
+  const factory CoinsChartResponse({required List<List<double>> prices}) = _CoinsChartResponse;
 
   factory CoinsChartResponse.fromJson(Map<String, dynamic> json) {
     final pricesJson = json['prices'] as List<dynamic>?;
