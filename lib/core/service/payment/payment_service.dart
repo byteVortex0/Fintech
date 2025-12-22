@@ -1,72 +1,118 @@
-import 'dart:developer';
-
-import 'package:dio/dio.dart';
-import 'package:fintech/core/app/env_variables.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
+import '../../../features/payment_method/presentation/widgets/mock_payment_sheet_dialog.dart';
+import 'payment_api_service.dart';
 
+/// Payment Service - Manages payment processing
+/// For DEMO: Uses mock payment sheet dialog
+/// In production: Would integrate with Stripe's payment sheet
 class PaymentService {
-  PaymentService._privateConstructor();
-  static final PaymentService instance = PaymentService._privateConstructor();
-
-  static Map<String, dynamic>? _paymentIntent;
-
-  static final String _stripeSecret = EnvVariables.instance.stripeSecretKey;
-
-  static String _calculateAmount(String amount) {
-    final a = (double.parse(amount) * 100).toInt();
-    return a.toString();
-  }
-
-  static Future<bool> makePayment({
-    required String amount,
+  /// Process payment using mock payment sheet dialog
+  ///
+  /// Flow:
+  /// 1. Call backend to create mock PaymentIntent
+  /// 2. Show mock payment sheet dialog to user
+  /// 3. User enters card details: 4242 4242 4242 4242
+  /// 4. Dialog processes payment and shows success
+  /// 5. Return result to caller
+  ///
+  /// Parameters:
+  ///   - context: BuildContext for showing dialog
+  ///   - amount: Payment amount in cents (e.g., $10.00 = 1000)
+  ///   - currency: Currency code (e.g., 'USD')
+  ///   - email: Customer email for receipt
+  static Future<PaymentResult> processPayment({
+    required BuildContext context,
+    required double amount,
     required String currency,
+    required String email,
   }) async {
     try {
-      _paymentIntent = await _createPaymentIntent(amount, currency);
-
-      await Stripe.instance.initPaymentSheet(
-        paymentSheetParameters: SetupPaymentSheetParameters(
-          paymentIntentClientSecret: _paymentIntent!['client_secret'],
-          style: ThemeMode.system,
-          merchantDisplayName: 'Fintech',
-        ),
+      debugPrint(
+        '[PaymentService] Starting payment flow for \$${amount / 100} $currency',
       );
 
-      await Stripe.instance.presentPaymentSheet();
+      // Step 1: Call backend to create payment intent (mock)
+      final clientSecret = await PaymentApiService.createPaymentIntent(
+        amount: amount,
+        currency: currency,
+        email: email,
+      );
 
-      return true;
+      // Step 2: Show mock payment sheet dialog
+      bool paymentSucceeded = false;
+
+      if (!context.mounted) {
+        return PaymentResult.error('Context not available');
+      }
+
+      await showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext dialogContext) {
+          return MockPaymentSheetDialog(
+            amount: amount / 100,
+            currency: currency,
+            onSuccess: () {
+              paymentSucceeded = true;
+              debugPrint(
+                '[PaymentService] Payment successful for \$${amount / 100}',
+              );
+            },
+            onError: (error) {
+              paymentSucceeded = false;
+              debugPrint('[PaymentService] Payment error: $error');
+            },
+          );
+        },
+      );
+
+      // Step 3: Return result based on dialog outcome
+      if (paymentSucceeded) {
+        return PaymentResult.success(
+          transactionId: clientSecret,
+          amount: amount,
+          currency: currency,
+        );
+      } else {
+        return PaymentResult.error('Payment was cancelled');
+      }
     } catch (e) {
-      log("Error in makePayment: $e");
-      return false;
+      debugPrint('[PaymentService] Payment processing ERROR: $e');
+      return PaymentResult.error('Payment processing failed: $e');
     }
   }
+}
 
-  static Future<Map<String, dynamic>> _createPaymentIntent(
-    String amount,
-    String currency,
-  ) async {
-    try {
-      Map<String, dynamic> body = {
-        'amount': _calculateAmount(amount),
-        'currency': currency,
-      };
+/// Payment result model
+class PaymentResult {
+  final bool success;
+  final String? transactionId;
+  final double? amount;
+  final String? currency;
+  final String? errorMessage;
 
-      var dio = Dio();
-      var response = await dio.post(
-        'https://api.stripe.com/v1/payment_intents',
-        data: body,
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $_stripeSecret',
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-        ),
-      );
+  PaymentResult({
+    required this.success,
+    this.transactionId,
+    this.amount,
+    this.currency,
+    this.errorMessage,
+  });
 
-      return response.data;
-    } catch (err) {
-      throw Exception('Payment Intent Error: $err');
-    }
+  factory PaymentResult.success({
+    required String transactionId,
+    required double amount,
+    required String currency,
+  }) {
+    return PaymentResult(
+      success: true,
+      transactionId: transactionId,
+      amount: amount,
+      currency: currency,
+    );
+  }
+
+  factory PaymentResult.error(String message) {
+    return PaymentResult(success: false, errorMessage: message);
   }
 }

@@ -34,9 +34,11 @@ class _BuyCryptoScreenState extends State<BuyCryptoScreen> {
   }
 
   void _handleContinue() {
+    // Convert payAmount to cents (e.g., $1800.00 = 180000 cents)
+    final amountInCents = (payAmount * 100).toString();
     NavigationService.navigateTo(
       context,
-      '${AppRoutes.paymentMethod}?price=${widget.price}',
+      '${AppRoutes.paymentMethod}?amount=$amountInCents&currency=$payCurrency',
     );
   }
 

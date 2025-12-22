@@ -13,19 +13,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/di/injection.dart';
 import 'firebase_options.dart';
 
-/// Development flavour entry point
-/// Runs the app in debug mode with extended logging
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
 
-  // Load environment variables from .env file
   try {
     await EnvVariables.instance.init();
   } catch (e) {
-    // .env file not found - will use fallback values from ApiConfig
-    // ignore: avoid_print
-    print('Warning: .env file not found, using fallback API key');
+    debugPrint('Warning: .env file not found, using fallback API key');
   }
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -37,9 +32,9 @@ void main() async {
   await UserPreferences.init();
 
   setupInjection();
+
   isLoggedInUser = await UserPreferences.checkIfLoggedInUser();
-  // ignore: avoid_print
-  print('[main_dev] isLoggedInUser: $isLoggedInUser');
+  debugPrint('[main_dev] isLoggedInUser: $isLoggedInUser');
 
   Bloc.observer = AppBlocObserver();
 

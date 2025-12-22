@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import '../../navigation/navigation_service.dart';
 
 /// Bottom navigation bar with GoRouter state awareness
 ///
@@ -69,16 +70,16 @@ class AppBottomNavigation extends StatelessWidget {
   void _handleNavigation(BuildContext context, int index) {
     switch (index) {
       case 0:
-        context.go('/home');
+        NavigationService.goToHome(context);
         break;
       case 1:
-        context.go('/market');
+        NavigationService.goToMarket(context);
         break;
       case 2:
-        context.go('/portfolio');
+        NavigationService.goToPortfolio(context);
         break;
       case 3:
-        context.go('/settings');
+        NavigationService.goToSettings(context);
         break;
     }
   }

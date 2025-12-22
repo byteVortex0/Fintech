@@ -32,12 +32,14 @@ class CurrencyInputSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              '\$$amount',
-              style: TextStyle(
-                fontSize: 32.sp,
-                fontWeight: FontWeight.w700,
-                color: Theme.of(context).textTheme.bodyLarge?.color,
+            Expanded(
+              child: Text(
+                '\$$amount',
+                style: TextStyle(
+                  fontSize: 32.sp,
+                  fontWeight: FontWeight.w700,
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
+                ),
               ),
             ),
             _buildCurrencyDropdown(),

@@ -26,6 +26,7 @@ import '../../features/settings/presentation/cubit/settings_cubit.dart';
 
 import '../../features/home/data/repo/home_screen_repo.dart';
 import '../../features/home/presentation/logic/cubit/home_cubit.dart';
+import '../../features/payment_method/presentation/cubit/payment_cubit.dart';
 
 GetIt sl = GetIt.instance;
 
@@ -89,6 +90,9 @@ void _initCore() {
   sl.registerFactory<SettingsCubit>(
     () => SettingsCubit(sl<SettingsRepository>()),
   );
+
+  // Payment Cubit
+  sl.registerFactory<PaymentCubit>(() => PaymentCubit());
 }
 
 void marketCoins() {

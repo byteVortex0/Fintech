@@ -1,3 +1,6 @@
+// ✅ CHANGED: removed HomeSecureWrapper import (secure is now global)
+// import 'package:fintech/features/home/presentation/home_secure_wrapper.dart';
+
 import '../di/injection.dart';
 import '../service/shared_pref/shared_pref.dart';
 import '../service/shared_pref/pref_keys.dart';
@@ -34,6 +37,13 @@ import '../utils/constants.dart';
 /// 1. Auth routes: /onboarding, /login, /register, biometric flows (no navbar)
 /// 2. Main routes: /home, /market, /portfolio, /settings (with persistent navbar via ShellRoute)
 /// All navigation must use NavigationService (Rule #16)
+final GlobalKey<NavigatorState> goRouterNavigatorKey =
+    GlobalKey<NavigatorState>();
+
+// ✅ ADDED: safest context for dialogs/snackbars with GoRouter/ShellRoute
+BuildContext? get appOverlayContext =>
+    goRouterNavigatorKey.currentState?.overlay?.context;
+
 final GoRouter goRouter = createGoRouter();
 
 GoRouter createGoRouter() {
@@ -52,7 +62,9 @@ GoRouter createGoRouter() {
       '[GoRouter] Creating router with initialLocation: $initialLocation',
     );
   }
+
   return GoRouter(
+    navigatorKey: goRouterNavigatorKey,
     initialLocation: initialLocation,
     routes: [
       // Auto-login splash screen - determines initial navigation
@@ -130,17 +142,18 @@ GoRouter createGoRouter() {
       GoRoute(
         path: '/payment_method',
         builder: (context, state) {
-          final price = state.uri.queryParameters['price'];
-          return PaymentMethodScreen(price: price!);
+          final amount = state.uri.queryParameters['amount'] ?? '0';
+          final currency = state.uri.queryParameters['currency'] ?? 'USD';
+          return PaymentMethodScreen(
+            amountInCents: double.tryParse(amount) ?? 0.0,
+            currency: currency,
+          );
         },
       ),
 
       // Main app routes with persistent bottom navbar
-      // Authentication guard: Redirects to login if user is not authenticated
       ShellRoute(
         builder: (context, state, child) {
-          // Check if user is logged in dynamically (not cached)
-          // This allows biometric authentication to properly update login status
           final uid = SharedPref.getValue(PrefKeys.uid);
           final isUserLoggedIn = uid != null;
           if (!isUserLoggedIn) {
@@ -154,6 +167,7 @@ GoRouter createGoRouter() {
         routes: [
           GoRoute(
             path: '/home',
+            // ✅ CHANGED: HomeScreen directly (secure is global in FinTechApp)
             builder: (context, state) => const HomeScreen(),
           ),
           GoRoute(

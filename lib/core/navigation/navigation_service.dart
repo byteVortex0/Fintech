@@ -50,4 +50,12 @@ sealed class NavigationService {
       navigateTo(context, '/set_fingerprint');
   static void goToSetFingerprintVerified(BuildContext context) =>
       navigateTo(context, '/set_fingerprint_verified');
+
+  // Bottom navigation routes
+  static void goToMarket(BuildContext context) =>
+      navigateToAndReplace(context, '/market');
+  static void goToPortfolio(BuildContext context) =>
+      navigateToAndReplace(context, '/portfolio');
+  static void goToSettings(BuildContext context) =>
+      navigateToAndReplace(context, '/settings');
 }
