@@ -1,11 +1,13 @@
+import 'package:flutter_stripe/flutter_stripe.dart';
+
 import 'core/app/bloc_observer.dart';
+import 'core/app/env_variables.dart';
 import 'core/utils/constants.dart';
 import 'core/utils/user_preferences.dart';
 import 'fintech_app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/di/injection.dart';
@@ -19,7 +21,7 @@ void main() async {
 
   // Load environment variables from .env file
   try {
-    await dotenv.load(fileName: ".env");
+    await EnvVariables.instance.init();
   } catch (e) {
     // .env file not found - will use fallback values from ApiConfig
     // ignore: avoid_print
@@ -28,6 +30,8 @@ void main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
+  Stripe.publishableKey = EnvVariables.instance.publishableKey;
+  Stripe.instance.applySettings();
   // Initialize SharedPreferences before checking login state
   await UserPreferences.init();
 

@@ -102,7 +102,8 @@ GoRouter createGoRouter() {
         path: '/buy_crypto',
         builder: (context, state) {
           final coinName = state.uri.queryParameters['coinName'];
-          return BuyCryptoScreen(coinName: coinName);
+          final price = state.uri.queryParameters['price'];
+          return BuyCryptoScreen(coinName: coinName, price: price ?? "100");
         },
       ),
 

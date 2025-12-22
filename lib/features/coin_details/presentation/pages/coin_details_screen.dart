@@ -96,7 +96,7 @@ class CoinDetailsScreen extends StatelessWidget {
                                 onBuyPressed: () {
                                   NavigationService.navigateTo(
                                     context,
-                                    '${AppRoutes.buyCrypto}?coinName=${coinDetailsData.name}',
+                                    '${AppRoutes.buyCrypto}?coinName=${coinDetailsData.name}&price=${coinDetailsData.price}',
                                   );
                                 },
                               ),
