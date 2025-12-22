@@ -48,10 +48,8 @@
 	<key>NSFaceIDUsageDescription</key>
 	<string>We use Face ID or Touch ID to authenticate your access</string>
 	<key>UIStatusBarHidden</key>
+	<false/>
 	<key>NSCameraUsageDescription</key>
 	<string>Scan your card to add it automatically</string>
-	<key>NSCameraUsageDescription</key>
-	<string>To scan cards</string>
-	<false/>
 </dict>
 </plist>

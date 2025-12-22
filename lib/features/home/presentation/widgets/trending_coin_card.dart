@@ -60,7 +60,11 @@ class TrendingCoinCard extends StatelessWidget {
               SizedBox(width: 2.w),
               Text(
                 coin.change,
-                style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.w500, color: Colors.green),
+                style: TextStyle(
+                  fontSize: 11.sp,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.green,
+                ),
               ),
             ],
           ),

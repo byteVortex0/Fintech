@@ -20,7 +20,7 @@ void main() async {
   try {
     await EnvVariables.instance.init();
   } catch (e) {
-    print('Warning: .env file not found, using fallback API key');
+    debugPrint('Warning: .env file not found, using fallback API key');
   }
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -34,7 +34,7 @@ void main() async {
   setupInjection();
 
   isLoggedInUser = await UserPreferences.checkIfLoggedInUser();
-  print('[main_dev] isLoggedInUser: $isLoggedInUser');
+  debugPrint('[main_dev] isLoggedInUser: $isLoggedInUser');
 
   Bloc.observer = AppBlocObserver();
 

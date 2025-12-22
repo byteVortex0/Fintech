@@ -10,12 +10,12 @@ class PaymentSuccessDialog extends StatefulWidget {
   final VoidCallback onContinue;
 
   const PaymentSuccessDialog({
-    Key? key,
+    super.key,
     required this.transactionId,
     required this.amount,
     required this.currency,
     required this.onContinue,
-  }) : super(key: key);
+  });
 
   @override
   State<PaymentSuccessDialog> createState() => _PaymentSuccessDialogState();
@@ -35,15 +35,13 @@ class _PaymentSuccessDialogState extends State<PaymentSuccessDialog>
       vsync: this,
     );
 
-    _scaleAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _animationController, curve: Curves.elasticOut));
+    _scaleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.elasticOut),
+    );
 
-    _fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeIn));
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeIn),
+    );
 
     _animationController.forward();
   }
@@ -104,7 +102,11 @@ class _PaymentSuccessDialogState extends State<PaymentSuccessDialog>
                       ),
                     ],
                   ),
-                  child: Icon(Icons.check_rounded, color: Colors.white, size: 40.sp),
+                  child: Icon(
+                    Icons.check_rounded,
+                    color: Colors.white,
+                    size: 40.sp,
+                  ),
                 ),
                 SizedBox(height: 24.h),
 
@@ -202,7 +204,9 @@ class _PaymentSuccessDialogState extends State<PaymentSuccessDialog>
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).colorScheme.secondary,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
                       elevation: 0,
                     ),
                     onPressed: () {

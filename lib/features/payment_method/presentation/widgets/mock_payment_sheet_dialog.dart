@@ -11,12 +11,12 @@ class MockPaymentSheetDialog extends StatefulWidget {
   final Function(String) onError;
 
   const MockPaymentSheetDialog({
-    Key? key,
+    super.key,
     required this.amount,
     required this.currency,
     required this.onSuccess,
     required this.onError,
-  }) : super(key: key);
+  });
 
   @override
   State<MockPaymentSheetDialog> createState() => _MockPaymentSheetDialogState();

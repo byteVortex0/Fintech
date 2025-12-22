@@ -71,7 +71,10 @@ class ErrorSnackbar {
   }) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message, style: textStyle ?? const TextStyle(color: Colors.white)),
+        content: Text(
+          message,
+          style: textStyle ?? const TextStyle(color: Colors.white),
+        ),
         backgroundColor: backgroundColor,
         duration: duration,
         action: onRetry != null

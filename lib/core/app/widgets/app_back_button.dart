@@ -10,7 +10,10 @@ class AppBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_back, color: iconColor ?? Theme.of(context).iconTheme.color),
+      icon: Icon(
+        Icons.arrow_back,
+        color: iconColor ?? Theme.of(context).iconTheme.color,
+      ),
       onPressed: () => NavigationService.goBack(context),
     );
   }

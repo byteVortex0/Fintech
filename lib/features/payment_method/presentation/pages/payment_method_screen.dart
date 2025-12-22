@@ -22,7 +22,11 @@ class PaymentMethodScreen extends StatefulWidget {
   final double amountInCents;
   final String currency;
 
-  const PaymentMethodScreen({super.key, this.amountInCents = 0.0, this.currency = 'USD'});
+  const PaymentMethodScreen({
+    super.key,
+    this.amountInCents = 0.0,
+    this.currency = 'USD',
+  });
 
   @override
   State<PaymentMethodScreen> createState() => _PaymentMethodScreenState();
@@ -83,7 +87,9 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                 // Show success snackbar
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text('Payment successful! ID: ${transactionId.substring(0, 8)}...'),
+                    content: Text(
+                      'Payment successful! ID: ${transactionId.substring(0, 8)}...',
+                    ),
                     backgroundColor: Colors.green,
                     duration: const Duration(seconds: 2),
                   ),
@@ -120,7 +126,10 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               children: [
                 Expanded(
                   child: SingleChildScrollView(
-                    padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 24.w,
+                      vertical: 16.h,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -139,7 +148,9 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w500,
-                                  color: Theme.of(context).textTheme.bodyMedium?.color,
+                                  color: Theme.of(
+                                    context,
+                                  ).textTheme.bodyMedium?.color,
                                 ),
                               ),
                               Text(
@@ -147,7 +158,9 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                 style: TextStyle(
                                   fontSize: 16.sp,
                                   fontWeight: FontWeight.w700,
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.secondary,
                                 ),
                               ),
                             ],
@@ -156,7 +169,8 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                         SizedBox(height: 24.h),
                         // Credit card is selected by default
                         CreditCardSection(
-                          isSelected: selectedMethod == PaymentMethodType.creditCard,
+                          isSelected:
+                              selectedMethod == PaymentMethodType.creditCard,
                         ),
                         SizedBox(height: 16.h),
                         const PaymentOptionRow(title: 'Google Pay'),
@@ -173,7 +187,10 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                         ),
                         SizedBox(height: 16.h),
                         // Show email input only if receipt is enabled
-                        EmailInputField(controller: emailController, visible: sendEmailReceipt),
+                        EmailInputField(
+                          controller: emailController,
+                          visible: sendEmailReceipt,
+                        ),
                       ],
                     ),
                   ),
@@ -192,11 +209,16 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                   ),
                   child: BlocBuilder<PaymentCubit, PaymentState>(
                     builder: (context, state) {
-                      final isLoading = state.maybeWhen(loading: () => true, orElse: () => false);
+                      final isLoading = state.maybeWhen(
+                        loading: () => true,
+                        orElse: () => false,
+                      );
 
                       return PrimaryButton(
                         text: isLoading ? 'Processing...' : 'Pay Now',
-                        backgroundColor: Theme.of(context).colorScheme.secondary,
+                        backgroundColor: Theme.of(
+                          context,
+                        ).colorScheme.secondary,
                         onPressed: isLoading
                             ? () {}
                             : () {
@@ -204,7 +226,9 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                 if (!_isEmailValid()) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                      content: Text('Please enter a valid email'),
+                                      content: Text(
+                                        'Please enter a valid email',
+                                      ),
                                       backgroundColor: Colors.orange,
                                     ),
                                   );
@@ -212,7 +236,9 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                 }
 
                                 // Get email (empty string if not required)
-                                final email = sendEmailReceipt ? emailController.text.trim() : '';
+                                final email = sendEmailReceipt
+                                    ? emailController.text.trim()
+                                    : '';
 
                                 // Process payment with selected method and email
                                 context.read<PaymentCubit>().processPayment(

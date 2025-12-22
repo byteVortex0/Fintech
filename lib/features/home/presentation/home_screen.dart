@@ -41,7 +41,8 @@ class HomeScreen extends StatelessWidget {
                       MarketOverviewGrid(globalData: data.global.data),
                       TrendingCoinsSection(
                         trendingCoins: data.trending.coins,
-                        onViewAllPressed: () => NavigationService.navigateTo(context, '/market'),
+                        onViewAllPressed: () =>
+                            NavigationService.navigateTo(context, '/market'),
                       ),
                       SizedBox(height: 12.h),
                       TopGainersSection(topGainers: data.topGainers),
@@ -54,7 +55,11 @@ class HomeScreen extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.error_outline, size: 64.sp, color: Colors.red),
+                        Icon(
+                          Icons.error_outline,
+                          size: 64.sp,
+                          color: Colors.red,
+                        ),
                         SizedBox(height: 16.h),
                         Text(
                           'Error: $message',

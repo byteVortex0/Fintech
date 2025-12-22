@@ -28,12 +28,20 @@ class CurrentBalanceCard extends StatelessWidget {
           children: [
             Text(
               'Current Balance',
-              style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: Colors.white70),
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+                color: Colors.white70,
+              ),
             ),
             SizedBox(height: 8.h),
             Text(
               '\$143,421.20',
-              style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.w700, color: Colors.white),
+              style: TextStyle(
+                fontSize: 28.sp,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              ),
             ),
             SizedBox(height: 12.h),
             Row(

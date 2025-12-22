@@ -13,7 +13,10 @@ enum Coin {
 
   /// Get coin by name, returns Bitcoin as default
   static Coin fromName(String name) {
-    return Coin.values.firstWhere((coin) => coin.name == name, orElse: () => Coin.bitcoin);
+    return Coin.values.firstWhere(
+      (coin) => coin.name == name,
+      orElse: () => Coin.bitcoin,
+    );
   }
 
   /// Get coin symbol by name, returns BTC as default

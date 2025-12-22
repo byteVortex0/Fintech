@@ -114,8 +114,13 @@ class SetFaceIdPage extends StatelessWidget {
             child: OutlinedButton(
               onPressed: () => _handleSkip(context),
               style: OutlinedButton.styleFrom(
-                side: BorderSide(color: Theme.of(context).colorScheme.secondary, width: 2),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26.r)),
+                side: BorderSide(
+                  color: Theme.of(context).colorScheme.secondary,
+                  width: 2,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(26.r),
+                ),
               ),
               child: Text(
                 'Skip',
@@ -137,11 +142,17 @@ class SetFaceIdPage extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 elevation: 0,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26.r)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(26.r),
+                ),
               ),
               child: Text(
                 'continue',
-                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.white),
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),

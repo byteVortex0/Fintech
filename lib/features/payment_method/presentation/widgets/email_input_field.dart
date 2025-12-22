@@ -7,7 +7,11 @@ class EmailInputField extends StatelessWidget {
   final TextEditingController controller;
   final bool visible;
 
-  const EmailInputField({super.key, required this.controller, this.visible = false});
+  const EmailInputField({
+    super.key,
+    required this.controller,
+    this.visible = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,10 @@ class EmailInputField extends StatelessWidget {
           border: InputBorder.none,
           contentPadding: EdgeInsets.zero,
         ),
-        style: TextStyle(fontSize: 14.sp, color: Theme.of(context).textTheme.bodyLarge?.color),
+        style: TextStyle(
+          fontSize: 14.sp,
+          color: Theme.of(context).textTheme.bodyLarge?.color,
+        ),
       ),
     );
   }

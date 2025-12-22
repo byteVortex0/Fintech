@@ -93,11 +93,17 @@ class SetFingerprintVerifiedPage extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.secondary,
             elevation: 0,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.r)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(28.r),
+            ),
           ),
           child: Text(
             'Continue',
-            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.white),
+            style: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
           ),
         ),
       ),

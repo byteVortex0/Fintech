@@ -15,7 +15,11 @@ ThemeData get darkTheme => ThemeData(
     backgroundColor: DarkColorManager.scaffoldBackground,
     elevation: 0,
     iconTheme: IconThemeData(color: Colors.white),
-    titleTextStyle: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
+    titleTextStyle: TextStyle(
+      color: Colors.white,
+      fontSize: 18,
+      fontWeight: FontWeight.w600,
+    ),
   ),
   textTheme: const TextTheme(
     bodyLarge: TextStyle(color: Colors.white),
@@ -23,7 +27,10 @@ ThemeData get darkTheme => ThemeData(
     titleLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
   ),
   iconTheme: const IconThemeData(color: Colors.white),
-  cardTheme: const CardThemeData(color: DarkColorManager.cardColor, elevation: 2),
+  cardTheme: const CardThemeData(
+    color: DarkColorManager.cardColor,
+    elevation: 2,
+  ),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: Color(0xFF1D1B20),
     selectedItemColor: Color(0xFF0063F7),

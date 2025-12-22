@@ -9,11 +9,18 @@ class CoinListItem extends StatelessWidget {
   final double? changePercent;
   final VoidCallback? onTap;
 
-  const CoinListItem({super.key, required this.coinUIModel, this.changePercent, this.onTap});
+  const CoinListItem({
+    super.key,
+    required this.coinUIModel,
+    this.changePercent,
+    this.onTap,
+  });
 
   Color? _getChangeColor() {
     if (changePercent == null) return null;
-    return changePercent! >= 0 ? const Color(0xFF10B981) : const Color(0xFFEF4444);
+    return changePercent! >= 0
+        ? const Color(0xFF10B981)
+        : const Color(0xFFEF4444);
   }
 
   @override
@@ -50,7 +57,11 @@ class CoinListItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 child: Center(
-                  child: Image.network(coinUIModel.image, width: 28.w, height: 28.h),
+                  child: Image.network(
+                    coinUIModel.image,
+                    width: 28.w,
+                    height: 28.h,
+                  ),
                 ),
               ),
               SizedBox(width: 12.w),
@@ -107,7 +118,10 @@ class CoinListItem extends StatelessWidget {
                     ),
                     SizedBox(height: 4.h),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 8.w,
+                        vertical: 4.h,
+                      ),
                       decoration: BoxDecoration(
                         color: changeColor!.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(6.r),

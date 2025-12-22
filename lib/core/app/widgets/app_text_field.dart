@@ -64,7 +64,11 @@ class _AppTextFieldState extends State<AppTextField> {
           fontWeight: FontWeight.w400,
         ),
         prefixIcon: widget.prefixIcon != null
-            ? Icon(widget.prefixIcon, color: Theme.of(context).iconTheme.color, size: 20.sp)
+            ? Icon(
+                widget.prefixIcon,
+                color: Theme.of(context).iconTheme.color,
+                size: 20.sp,
+              )
             : null,
         suffixIcon: widget.obscureText
             ? GestureDetector(
@@ -80,15 +84,24 @@ class _AppTextFieldState extends State<AppTextField> {
         fillColor: Theme.of(context).cardTheme.color,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),
-          borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary, width: 1.5),
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.secondary,
+            width: 1.5,
+          ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),
-          borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary, width: 1.5),
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.secondary,
+            width: 1.5,
+          ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),
-          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 2),
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.primary,
+            width: 2,
+          ),
         ),
         contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
       ),

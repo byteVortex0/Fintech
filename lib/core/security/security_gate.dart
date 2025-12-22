@@ -10,7 +10,8 @@ class SecurityGate extends StatefulWidget {
   State<SecurityGate> createState() => _SecurityGateState();
 }
 
-class _SecurityGateState extends State<SecurityGate> with WidgetsBindingObserver {
+class _SecurityGateState extends State<SecurityGate>
+    with WidgetsBindingObserver {
   static const MethodChannel _channel = MethodChannel('security_channel');
   final LocalAuthentication _auth = LocalAuthentication();
 
@@ -91,24 +92,32 @@ class _SecurityGateState extends State<SecurityGate> with WidgetsBindingObserver
           final now = DateTime.now();
           if (_lastScreenshotEventAt != null &&
               now.difference(_lastScreenshotEventAt!) < _screenshotDebounce) {
-            debugPrint('[SecurityGate] ⏱️ Screenshot debounce active, ignoring...');
+            debugPrint(
+              '[SecurityGate] ⏱️ Screenshot debounce active, ignoring...',
+            );
             return;
           }
           _lastScreenshotEventAt = now;
           _lastScreenshotAt = now;
-          debugPrint('[SecurityGate] ✅ Screenshot event accepted - showing friendly message');
+          debugPrint(
+            '[SecurityGate] ✅ Screenshot event accepted - showing friendly message',
+          );
 
           if (!mounted) return;
 
           setState(() {
             _isScreenshotDetected = true;
-            debugPrint('[SecurityGate] 📺 setState called - _isScreenshotDetected is NOW TRUE');
+            debugPrint(
+              '[SecurityGate] 📺 setState called - _isScreenshotDetected is NOW TRUE',
+            );
           });
 
           // Show friendly message for 2 seconds
           Future.delayed(const Duration(milliseconds: 2000), () {
             if (!mounted) return;
-            debugPrint('[SecurityGate] ⏰ 2 second delay finished - hiding screenshot message');
+            debugPrint(
+              '[SecurityGate] ⏰ 2 second delay finished - hiding screenshot message',
+            );
             setState(() => _isScreenshotDetected = false);
           });
           return;
@@ -200,7 +209,9 @@ class _SecurityGateState extends State<SecurityGate> with WidgetsBindingObserver
         return;
       }
 
-      final ok = await _auth.authenticate(localizedReason: 'Authenticate to continue');
+      final ok = await _auth.authenticate(
+        localizedReason: 'Authenticate to continue',
+      );
 
       if (!mounted) return;
 
@@ -244,7 +255,11 @@ class _SecurityGateState extends State<SecurityGate> with WidgetsBindingObserver
                 Text(
                   _isCaptured ? 'Screen recording detected' : 'App is locked',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: fg),
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w800,
+                    color: fg,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -259,9 +274,13 @@ class _SecurityGateState extends State<SecurityGate> with WidgetsBindingObserver
                   SizedBox(
                     height: 44,
                     child: ElevatedButton.icon(
-                      onPressed: _isAuthenticating ? null : _authenticateAndUnlock,
+                      onPressed: _isAuthenticating
+                          ? null
+                          : _authenticateAndUnlock,
                       icon: const Icon(Icons.face),
-                      label: Text(_isAuthenticating ? 'Authenticating...' : 'Unlock'),
+                      label: Text(
+                        _isAuthenticating ? 'Authenticating...' : 'Unlock',
+                      ),
                     ),
                   ),
               ],
@@ -295,7 +314,11 @@ class _SecurityGateState extends State<SecurityGate> with WidgetsBindingObserver
                 Text(
                   'Screenshots Blocked',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: fg),
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w800,
+                    color: fg,
+                  ),
                 ),
                 const SizedBox(height: 12),
                 Text(
@@ -322,7 +345,9 @@ class _SecurityGateState extends State<SecurityGate> with WidgetsBindingObserver
     );
 
     if (_isScreenshotDetected) {
-      debugPrint('[SecurityGate] 🎨 RENDERING screenshot warning screen (Positioned.fill)');
+      debugPrint(
+        '[SecurityGate] 🎨 RENDERING screenshot warning screen (Positioned.fill)',
+      );
     }
     if (_locked) {
       debugPrint('[SecurityGate] 🔒 RENDERING lock screen (Positioned.fill)');
@@ -333,7 +358,8 @@ class _SecurityGateState extends State<SecurityGate> with WidgetsBindingObserver
         widget.child,
 
         // Screenshot detected: show full-screen friendly warning
-        if (_isScreenshotDetected) Positioned.fill(child: _screenshotWarningScreen()),
+        if (_isScreenshotDetected)
+          Positioned.fill(child: _screenshotWarningScreen()),
 
         // Lock screen for authentication
         if (_locked) Positioned.fill(child: _lockScreen()),

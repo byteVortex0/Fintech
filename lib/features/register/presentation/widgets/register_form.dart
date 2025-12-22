@@ -140,11 +140,17 @@ class RegisterForm extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.secondary,
             elevation: 0,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.r)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(28.r),
+            ),
           ),
           child: Text(
             'Register',
-            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.white),
+            style: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
           ),
         ),
       ),
@@ -158,7 +164,10 @@ class RegisterForm extends StatelessWidget {
         children: [
           Text(
             'Already have an account? ',
-            style: TextStyle(fontSize: 14.sp, color: Theme.of(context).textTheme.bodyMedium?.color),
+            style: TextStyle(
+              fontSize: 14.sp,
+              color: Theme.of(context).textTheme.bodyMedium?.color,
+            ),
           ),
           GestureDetector(
             onTap: () => _navigateToLogin(context),

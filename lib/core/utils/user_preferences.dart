@@ -67,7 +67,9 @@ class UserPreferences {
 
   static Future<String?> getBiometricEmail() async {
     if (kDebugMode) {
-      debugPrint('[UserPreferences] getBiometricEmail START - key: ${PrefKeys.biometricEmail}');
+      debugPrint(
+        '[UserPreferences] getBiometricEmail START - key: ${PrefKeys.biometricEmail}',
+      );
     }
     final email = SharedPref.getValue(PrefKeys.biometricEmail);
     if (kDebugMode) {
@@ -110,7 +112,10 @@ class UserPreferences {
     final email = await getBiometricEmail();
     final password = await getBiometricPassword();
     final hasCredentials =
-        email != null && email.isNotEmpty && password != null && password.isNotEmpty;
+        email != null &&
+        email.isNotEmpty &&
+        password != null &&
+        password.isNotEmpty;
     if (kDebugMode) {
       debugPrint(
         '[UserPreferences] hasBiometricCredentials: $hasCredentials (email: ${email?.isNotEmpty ?? false}, password: ${password?.isNotEmpty ?? false})',

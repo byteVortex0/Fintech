@@ -20,5 +20,6 @@ abstract class CoinDetailsModel with _$CoinDetailsModel {
     required String description,
   }) = _CoinDetailsModel;
 
-  factory CoinDetailsModel.fromJson(Map<String, dynamic> json) => _$CoinDetailsModelFromJson(json);
+  factory CoinDetailsModel.fromJson(Map<String, dynamic> json) =>
+      _$CoinDetailsModelFromJson(json);
 }

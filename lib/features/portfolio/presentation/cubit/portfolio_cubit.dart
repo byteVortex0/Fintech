@@ -11,7 +11,11 @@ class PortfolioCubit extends Cubit<PortfolioState> {
   final PortfolioRepository repository;
 
   // Mock data: coin holdings (amount of each coin held by user)
-  final Map<String, double> coinAmounts = {'bitcoin': 0.05, 'ethereum': 1.5, 'cardano': 26.3};
+  final Map<String, double> coinAmounts = {
+    'bitcoin': 0.05,
+    'ethereum': 1.5,
+    'cardano': 26.3,
+  };
 
   PortfolioCubit(this.repository) : super(const PortfolioState.initial());
 

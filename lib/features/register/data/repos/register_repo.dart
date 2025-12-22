@@ -10,7 +10,9 @@ class RegisterRepo {
   final FirebaseService _firebaseService;
   RegisterRepo(this._firebaseService);
 
-  Future<FirebaseResult<UserCredential>> createUser(RegisterUserRequestBody user) async {
+  Future<FirebaseResult<UserCredential>> createUser(
+    RegisterUserRequestBody user,
+  ) async {
     try {
       UserCredential credential = await _firebaseService.createUser(user);
       return FirebaseResult.success(credential);
@@ -26,7 +28,10 @@ class RegisterRepo {
     required CreateUserRequestBody createUserRequestBody,
   }) async {
     try {
-      await _firebaseService.storeUser(user: user, createUserRequestBody: createUserRequestBody);
+      await _firebaseService.storeUser(
+        user: user,
+        createUserRequestBody: createUserRequestBody,
+      );
       return const FirebaseResult.success('Store User Successfully');
     } on firebase_core.FirebaseException catch (e) {
       return FirebaseResult.failure(e.message ?? 'User Not Stored');

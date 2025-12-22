@@ -25,7 +25,10 @@ class _CreditCardSectionState extends State<CreditCardSection> {
         borderRadius: BorderRadius.circular(16.r),
         // Show colored border when selected
         border: widget.isSelected
-            ? Border.all(color: Theme.of(context).colorScheme.secondary, width: 2)
+            ? Border.all(
+                color: Theme.of(context).colorScheme.secondary,
+                width: 2,
+              )
             : null,
       ),
       child: Column(

@@ -25,7 +25,10 @@ class RegisterCubit extends Cubit<RegisterState> {
   void createUser() async {
     emit(RegisterState.loading());
     final response = await _registerRepo.createUser(
-      RegisterUserRequestBody(email: emailController.text, password: passwordController.text),
+      RegisterUserRequestBody(
+        email: emailController.text,
+        password: passwordController.text,
+      ),
     );
     response.when(
       success: (user) async {

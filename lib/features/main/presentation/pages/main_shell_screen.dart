@@ -6,6 +6,8 @@ class MainShellScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text('MainShellScreen - deprecated')));
+    return const Scaffold(
+      body: Center(child: Text('MainShellScreen - deprecated')),
+    );
   }
 }

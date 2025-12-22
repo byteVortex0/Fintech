@@ -27,7 +27,9 @@ class PaymentService {
     required String email,
   }) async {
     try {
-      debugPrint('[PaymentService] Starting payment flow for \$${amount / 100} $currency');
+      debugPrint(
+        '[PaymentService] Starting payment flow for \$${amount / 100} $currency',
+      );
 
       // Step 1: Call backend to create payment intent (mock)
       final clientSecret = await PaymentApiService.createPaymentIntent(
@@ -52,7 +54,9 @@ class PaymentService {
             currency: currency,
             onSuccess: () {
               paymentSucceeded = true;
-              debugPrint('[PaymentService] Payment successful for \$${amount / 100}');
+              debugPrint(
+                '[PaymentService] Payment successful for \$${amount / 100}',
+              );
             },
             onError: (error) {
               paymentSucceeded = false;

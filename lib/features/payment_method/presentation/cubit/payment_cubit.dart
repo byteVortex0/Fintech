@@ -23,7 +23,9 @@ class PaymentCubit extends Cubit<PaymentState> {
       emit(const PaymentState.loading());
 
       if (kDebugMode) {
-        debugPrint('[PaymentCubit] Processing payment for \$${amount / 100} $currency to $email');
+        debugPrint(
+          '[PaymentCubit] Processing payment for \$${amount / 100} $currency to $email',
+        );
       }
 
       // Process payment with mock payment sheet dialog
@@ -36,7 +38,9 @@ class PaymentCubit extends Cubit<PaymentState> {
 
       if (result.success) {
         if (kDebugMode) {
-          debugPrint('[PaymentCubit] Payment successful: ${result.transactionId}');
+          debugPrint(
+            '[PaymentCubit] Payment successful: ${result.transactionId}',
+          );
         }
         emit(PaymentState.success(result.transactionId ?? ''));
       } else {

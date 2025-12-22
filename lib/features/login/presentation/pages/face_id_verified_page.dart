@@ -72,9 +72,16 @@ class FaceIdVerifiedPage extends StatelessWidget {
         height: 70.w,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          border: Border.all(color: Theme.of(context).colorScheme.secondary, width: 2.5),
+          border: Border.all(
+            color: Theme.of(context).colorScheme.secondary,
+            width: 2.5,
+          ),
         ),
-        child: Icon(Icons.check, color: Theme.of(context).colorScheme.secondary, size: 40.sp),
+        child: Icon(
+          Icons.check,
+          color: Theme.of(context).colorScheme.secondary,
+          size: 40.sp,
+        ),
       ),
     );
   }
@@ -114,7 +121,11 @@ class FaceIdVerifiedPage extends StatelessWidget {
       child: SafeArea(
         child: GestureDetector(
           onTap: () => NavigationService.goBack(context),
-          child: Icon(Icons.arrow_back_ios, color: Theme.of(context).iconTheme.color, size: 24.sp),
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: Theme.of(context).iconTheme.color,
+            size: 24.sp,
+          ),
         ),
       ),
     );
@@ -128,12 +139,18 @@ class FaceIdVerifiedPage extends StatelessWidget {
         onPressed: () => _handleContinue(context),
         style: ElevatedButton.styleFrom(
           backgroundColor: Theme.of(context).colorScheme.secondary,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.r),
+          ),
           elevation: 0,
         ),
         child: Text(
           'Continue To Home',
-          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.white),
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
         ),
       ),
     );
